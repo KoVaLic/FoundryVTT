@@ -1,0 +1,89 @@
+{
+  "title": "Deep Dark Heresy",
+  "id": "deep-dark-heresy",
+  "system": "dark-heresy",
+  "background": "DHPict.jpg",
+  "description": "<p>Идёт 41-е тысячелетие. Вот уже более ста веков Император неподвижно восседает на Золотом Троне Земли. По воле богов он является Повелителем Человечества и правит миллионом миров благодаря мощи своих неисчислимых армий. Он - гниющий труп, чьи незримые муки продлеваются загадочными устройствами Тёмной эры технологий. Он - Разлагающийся Властелин Империума, которому каждый день приносят в жертву тысячу душ, что не дает ему умереть в полном смысле слова.</p><div><p>Быть человеком в такие времена - значит быть одним из бесчисленных миллиардов. Жить при самом жестоком и кровавом режиме, какой только можно вообразить. И это как раз истории о тех временах. Забудьте о силах технологии и науки, ибо это все уже забыто и вряд ли будет переучено. Забудьте о напророченном прогрессе и общем взаимопонимании, ибо во мраке далекого будущего есть только война. Нет мира среди звезд, а есть лишь вечность резни и бойни под хохот кровожадных богов.</p></div>",
+  "coreVersion": "10.291",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10.291"
+  },
+  "systemVersion": "4.0.0",
+  "packs": [
+    {
+      "label": "Генерация перса",
+      "type": "Macro",
+      "name": "generaciya-persa",
+      "path": "packs/generaciya-persa.db",
+      "system": "dark-heresy",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "name": "oruzhie",
+      "label": "Оружие",
+      "path": "packs/oruzhie.db",
+      "private": false,
+      "type": "Item",
+      "system": "dark-heresy",
+      "flags": {}
+    },
+    {
+      "label": "Таблицы",
+      "type": "RollTable",
+      "name": "tablicy",
+      "path": "packs/tablicy.db",
+      "system": "dark-heresy",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "label": "Взрывчатка",
+      "type": "Item",
+      "name": "vzryvchatka",
+      "path": "packs/vzryvchatka.db",
+      "system": "dark-heresy",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "label": "Таланты",
+      "type": "Item",
+      "name": "talanty",
+      "path": "packs/talanty.db",
+      "system": "dark-heresy",
+      "private": false,
+      "flags": {},
+      "package": "world",
+      "id": "world.talanty",
+      "packageType": "world",
+      "packageName": "deep-dark-heresy",
+      "index": []
+    },
+    {
+      "label": "Черты",
+      "type": "Item",
+      "name": "cherty",
+      "path": "packs/cherty.db",
+      "system": "dark-heresy",
+      "private": false,
+      "flags": {},
+      "package": "world",
+      "id": "world.cherty",
+      "packageType": "world",
+      "packageName": "deep-dark-heresy",
+      "index": []
+    },
+    {
+      "label": "Броня",
+      "type": "Item",
+      "name": "bronya",
+      "path": "packs/bronya.db",
+      "system": "dark-heresy",
+      "private": false,
+      "flags": {},
+      "package": "world"
+    }
+  ]
+}

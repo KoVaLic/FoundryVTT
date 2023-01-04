@@ -1,0 +1,14 @@
+.dark-heresy.force-field .notes-editor {
+    height: 165px;
+    max-height: 165px;
+}
+
+.dark-heresy.force-field .stats {
+    height: 165px;
+    align-content: baseline;
+}
+
+.dark-heresy.force-field .stats .stats-row .stat.weight input {
+    width: 4em;
+    text-align: center;
+}

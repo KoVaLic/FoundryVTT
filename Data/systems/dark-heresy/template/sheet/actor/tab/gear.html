@@ -1,0 +1,275 @@
+<div class="flex wrap gear">
+    <div class="encumbrance border">
+        <h1>{{localize "TITLE.ENCUMBRANCE"}}</h1>
+        <div class="information">
+            <div class="current">
+                <label>{{localize "ENCUMBRANCE.CURRENT"}}</label>
+                <input type="number" value="{{system.encumbrance.value}}" data-dtype="Number" disabled />
+            </div>
+            <div class="max">
+                <label>{{localize "ENCUMBRANCE.MAX"}}</label>
+                <input type="number" value="{{system.encumbrance.max}}" data-dtype="Number" disabled />
+            </div>
+        </div>
+    </div>
+    <div class="all-gear border">
+        <h1>{{localize "TITLE.EQUIPMENT"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name" style="flex-basis: 35%">{{localize "WEAPON.HEADER"}}</b>
+                <b class="class" style="flex-basis: 18%">{{localize "WEAPON.CLASS"}}</b>
+                <b class="class" style="flex-basis: 18%">{{localize "WEAPON.TYPE"}}</b>
+                <b class="damage" style="flex-basis: 15%">{{localize "WEAPON.DAMAGE"}}</b>
+                <b class="type" style="flex-basis: 10%">{{localize "WEAPON.DAMAGE_TYPE"}}</b>
+                <b class="clip" style="flex-basis: 10%">{{localize "WEAPON.CLIP"}}</b>
+                <b class="weight" style="flex-basis: 10%">{{localize "WEAPON.WEIGHT"}}</b>
+                <a class="button item-create" style="flex-basis: 5%" title="Add Weapon" data-type="weapon"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isWeapon}}
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
+                            <div class="flex name item-edit"  style="flex-basis: 35%">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="class" style="flex-basis: 18%">{{item.WeaponClass}}</div>
+                            <div class="class" style="flex-basis: 18%">{{item.WeaponType}}</div>
+                            <div class="damage" style="flex-basis: 15%">{{item.damage}}</div>
+                            <div class="type" style="flex-basis: 10%">{{item.DamageTypeShort}}</div>
+                            <div class="clip" style="flex-basis: 10%">{{item.Clip}}</div>
+                            <div class="weight"style="flex-basis: 10%">{{item.weight}}</div>
+                            <div class="button" style="flex-basis: 5%">
+                                <a class="item-control item-delete" title="Delete Weapon"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "WEAPON_MODIFICATION.HEADER"}}</b>
+                <b class="installed">{{localize "WEAPON_MODIFICATION.INSTALLED"}}</b>
+                <b class="upgrade">{{localize "WEAPON_MODIFICATION.UPGRADES"}}</b>
+                <b class="weight">{{localize "WEAPON_MODIFICATION.WEIGHT"}}</b>
+                <a class="button item-create" title="Add Weapon Modification" data-type="weaponModification"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isWeaponModification}}
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="installed">{{item.isInstalled}}</div>
+                            <div class="upgrade">{{item.upgrades}}</div>
+                            <div class="weight">{{item.weight}}</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Weapon Modification"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "AMMUNITION.HEADER"}}</b>
+                <b class="weapon" style="flex-basis: 50%">{{localize "AMMUNITION.WEAPON"}}</b>
+                <b class="quantity">{{localize "AMMUNITION.QUANTITY"}}</b>
+                <b class="weight">{{localize "AMMUNITION.WEIGHT"}}</b>
+                <a class="button item-create" title="Add Ammunition" data-type="ammunition"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isAmmunition}}
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
+                        <div class="flex name item-edit">
+                            <div class="image-container">
+                                <div class="image" style="background-image: url('{{item.img}}')"></div>
+                            </div>
+                            <div>{{item.name}}</div>
+                        </div>
+                        <div class="weapon"  style="flex-basis: 50%">{{item.weapon}}</div>
+                        <div class="quantity">{{item.quantity}}</div>
+                        <div class="weight">{{item.weight}}</div>
+                        <div class="button">
+                            <a class="item-control item-delete" title="Delete Ammunition"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "ARMOUR.HEADER"}}</b>
+                <b class="part">{{localize "ARMOUR.PART"}}</b>
+                <b class="weight">{{localize "ARMOUR.WEIGHT"}}</b>
+                <a class="button item-create" title="Add Armour" data-type="armour"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isArmour}}
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="part">{{item.Part}}</div>
+                            <div class="weight">{{item.weight}}</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Armour"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "FORCE_FIELD.HEADER"}}</b>
+                <b class="craftsmanship">{{localize "FORCE_FIELD.CRAFTSMANSHIP"}}</b>
+                <b class="weight">{{localize "FORCE_FIELD.WEIGHT"}}</b>
+                <a class="button item-create" title="Add Force Field" data-type="forceField"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isForceField}}
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
+                        <div class="flex name item-edit">
+                            <div class="image-container">
+                                <div class="image" style="background-image: url('{{item.img}}')"></div>
+                            </div>
+                            <div>{{item.name}}</div>
+                        </div>
+                        <div class="craftsmanship">{{item.Craftsmanship}}</div>
+                        <div class="weight">{{item.weight}}</div>
+                        <div class="button">
+                            <a class="item-control item-delete" title="Delete Force Field"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "GEAR.HEADER"}}</b>
+                <b class="short-description">{{localize "GEAR.SHORT_DESCRIPTION"}}</b>
+                <b class="weight">{{localize "GEAR.WEIGHT"}}</b>
+                <a class="button item-create" title="Add Gear" data-type="gear"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isGear}}
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="short-description">{{item.shortDescription}}</div>
+                            <div class="weight">{{item.weight}}</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Gear"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "DRUG.HEADER"}}</b>
+                <b class="short-description">{{localize "DRUG.SHORT_DESCRIPTION"}}</b>
+                <b class="weight">{{localize "DRUG.WEIGHT"}}</b>
+                <a class="button item-create" title="Add Drug" data-type="drug"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isDrug}}
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="short-description">{{item.shortDescription}}</div>
+                            <div class="weight">{{item.weight}}</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Drug"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "TOOL.HEADER"}}</b>
+                <b class="short-description">{{localize "TOOL.SHORT_DESCRIPTION"}}</b>
+                <b class="weight">{{localize "TOOL.WEIGHT"}}</b>
+                <a class="button item-create" title="Add Tool" data-type="tool"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isTool}}
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="short-description">{{item.shortDescription}}</div>
+                            <div class="weight">{{item.weight}}</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Tool"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "CYBERNETIC.HEADER"}}</b>
+                <b class="installed">{{localize "CYBERNETIC.INSTALLED"}}</b>
+                <b class="cybernetic-craftsmanship">{{localize "CYBERNETIC.CRAFTSMANSHIP"}}</b>
+                <b class="weight">{{localize "CYBERNETIC.WEIGHT"}}</b>
+                <a class="button item-create" title="Add Cybernetic" data-type="cybernetic"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isCybernetic}}
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="installed">{{item.isInstalled}}</div>
+                            <div class="cybernetic-craftsmanship">{{item.Craftsmanship}}</div>
+                            <div class="weight">{{item.weight}}</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Cybernetic"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

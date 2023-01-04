@@ -1,0 +1,65 @@
+{
+    "id": "tokenvisibility",
+    "title": "Alternative Token Visibility",
+    "version": "0.3.7",
+    "library": false,
+    "socket": true,
+    "manifestPlusVersion": "1.0.0",
+    "compatibility": {
+        "minimum": "10.286",
+        "verified": "10.291"
+    },
+    "authors": [
+        {
+            "name": "caewok",
+            "url": "https://github.com/caewok",
+            "discord": "caewok#9192"
+        }
+    ],
+    "relationships": {
+        "requires": [
+            {
+                "id": "lib-wrapper",
+                "type": "module",
+                "manifest": "https://raw.githubusercontent.com/ruipin/fvtt-lib-wrapper/master/module.json",
+                "compatibility": {
+                    "verified": "1.12.8"
+                }
+            },
+            {
+                "id": "socketlib",
+                "type": "module",
+                "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/master/module.json",
+                "compatibility": {
+                    "verified": "1.0.12"
+                }
+            }
+        ]
+    },
+    "esmodules": [
+        "scripts/module.js"
+    ],
+    "packs": [
+        {
+            "name": "tokenvisionmacros",
+            "label": "Alternative Token Vision Macros",
+            "path": "packs/macros.db",
+            "type": "Macro",
+            "private": false
+        }
+    ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "languages/en.json",
+            "title": "Alternative Token Visibility",
+            "description": "Alternative token visibility rules"
+        }
+    ],
+    "url": "https://github.com/caewok/fvtt-token-visibility",
+    "manifest": "https://github.com/caewok/fvtt-token-visibility/releases/latest/download/module.json",
+    "download": "https://github.com/caewok/fvtt-token-visibility/releases/download/0.3.7/module.zip",
+    "license": "LICENSE",
+    "readme": "README.md"
+}

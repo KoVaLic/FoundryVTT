@@ -1,5 +1,5 @@
 {
-  "dataPath": "D:/Programs/FoundryVTT/WorldData",
+  "dataPath": "C:/Games/Foundry VTT/WorldData",
   "compressStatic": true,
   "fullscreen": false,
   "hostname": null,
@@ -17,6 +17,6 @@
   "passwordSalt": null,
   "sslCert": null,
   "sslKey": null,
-  "world": "deep-dark-heresy",
+  "world": null,
   "serviceConfig": null
 }

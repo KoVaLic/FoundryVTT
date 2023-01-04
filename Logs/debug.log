@@ -10372,3 +10372,23 @@
 {"level":"info","message":"Dark Heresy 2E update 4.1.1 is now available!","timestamp":"2023-01-04 15:52:30"}
 {"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1498ms","timestamp":"2023-01-04 15:52:30"}
 {"level":"info","message":"Administrator authentication successful for session caf89edce99b32045541dabf","timestamp":"2023-01-04 15:54:04"}
+{"level":"info","message":"Created client session c5a8a3cb976681e48a3df02b","timestamp":"2023-01-04 17:03:13"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-01-04 17:13:42"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-01-04 17:13:42"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-01-04 17:13:46"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 291","timestamp":"2023-01-04 17:13:46"}
+{"level":"info","message":"User Data Directory - \"D:/Programs/FoundryVTT/WorldData\"","timestamp":"2023-01-04 17:13:46"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-01-04 17:13:46"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-01-04 17:13:46"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-01-04 17:13:46"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-01-04 17:13:46"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-01-04 17:13:49"}
+{"level":"info","message":"Created client session f947a5123f2dc7caf1b9c6bd","timestamp":"2023-01-04 17:13:50"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"f947a5123f2dc7caf1b9c6bd","timestamp":"2023-01-04 17:28:01"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-01-04 17:28:02"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-01-04 17:28:02"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.1 is now available!","timestamp":"2023-01-04 17:28:02"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1512ms","timestamp":"2023-01-04 17:28:03"}
+{"level":"info","message":"FoundryVTT | Created Item with id [W63MhLnYh1oZqGAc] in parent Actor [SuxfOuwEGPluNaPG]","timestamp":"2023-01-04 17:28:28"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-01-04 17:29:11"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-01-04 17:29:11"}

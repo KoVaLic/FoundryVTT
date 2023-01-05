@@ -12,15 +12,6 @@
   "systemVersion": "4.0.0",
   "packs": [
     {
-      "label": "Генерация перса",
-      "type": "Macro",
-      "name": "generaciya-persa",
-      "path": "packs/generaciya-persa.db",
-      "system": "dark-heresy",
-      "private": false,
-      "flags": {}
-    },
-    {
       "name": "oruzhie",
       "label": "Оружие",
       "path": "packs/oruzhie.db",
@@ -73,6 +64,20 @@
       "system": "dark-heresy",
       "private": false,
       "flags": {}
+    },
+    {
+      "label": "Макросы",
+      "type": "Macro",
+      "name": "makrosy",
+      "path": "packs/makrosy.db",
+      "system": "dark-heresy",
+      "private": false,
+      "flags": {},
+      "package": "world",
+      "id": "world.makrosy",
+      "packageType": "world",
+      "packageName": "deep-dark-heresy",
+      "index": []
     }
   ]
 }

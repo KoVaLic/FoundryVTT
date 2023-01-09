@@ -11918,3 +11918,32 @@
 {"level":"warn","message":"Application configuration settings updated, server restart required!","timestamp":"2023-01-09 10:43:51"}
 {"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-01-09 10:43:51"}
 {"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-01-09 10:43:51"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-01-09 10:45:04"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 291","timestamp":"2023-01-09 10:45:04"}
+{"level":"info","message":"User Data Directory - \"D:/Programs/FoundryVTT/WorldData\"","timestamp":"2023-01-09 10:45:04"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-01-09 10:45:04"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-01-09 10:45:04"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-01-09 10:45:04"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-01-09 10:45:04"}
+{"level":"warn","message":"The module \"simple-name-generator\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-01-09 10:45:04"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-01-09 10:45:04"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using the old flat core compatibility fields which are deprecated in favor of the new \"compatibility\" object\nDeprecated since Version 10\nBackwards-compatible support will be removed in Version 13","timestamp":"2023-01-09 10:45:04"}
+{"level":"warn","message":"The module \"simple-name-generator\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-01-09 10:45:04"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-01-09 10:45:04"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using the old flat core compatibility fields which are deprecated in favor of the new \"compatibility\" object\nDeprecated since Version 10\nBackwards-compatible support will be removed in Version 13","timestamp":"2023-01-09 10:45:04"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-01-09 10:45:05"}
+{"level":"info","message":"Created client session e48d50ffcdef68439dcfea85","timestamp":"2023-01-09 10:45:07"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"e48d50ffcdef68439dcfea85","timestamp":"2023-01-09 10:45:10"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-01-09 10:45:12"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-01-09 10:45:12"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-01-09 10:45:12"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1494ms","timestamp":"2023-01-09 10:45:13"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [bkmlFshAaOjjDjwN] in parent Scene [YO3E78kdiQ1HZo2r]","timestamp":"2023-01-09 10:47:49"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [JfEpXtlspt34E4ua] in parent Scene [YO3E78kdiQ1HZo2r]","timestamp":"2023-01-09 10:47:50"}
+{"level":"info","message":"Activating scene Main [UxtHGHmlxJCsMJHX]","timestamp":"2023-01-09 10:59:54"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [4MVSe6CO5Mb03u2l] in parent Scene [UxtHGHmlxJCsMJHX]","timestamp":"2023-01-09 10:59:55"}
+{"level":"info","message":"Activating scene Десолеум [aiAv6m7PlEtp3QWs]","timestamp":"2023-01-09 11:00:08"}
+{"level":"info","message":"FoundryVTT | Created Folder with id [K1hzFi5DdN1hBfBV]","timestamp":"2023-01-09 11:01:04"}
+{"level":"info","message":"FoundryVTT | Created Folder with id [bzcWHCvb1blokAbW]","timestamp":"2023-01-09 11:01:14"}
+{"level":"info","message":"FoundryVTT | Created Folder with id [NasASmObmDog8zVw]","timestamp":"2023-01-09 11:01:38"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-01-09 11:04:15"}

@@ -11972,3 +11972,24 @@
 {"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [ZPslPFYCgz47f4lW]","timestamp":"2023-01-12 11:50:18"}
 {"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-01-12 13:33:18"}
 {"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-01-12 13:33:18"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-01-13 17:20:39"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-01-13 17:20:39"}
+{"level":"info","message":"User Data Directory - \"C:/Games/Foundry VTT/WorldData\"","timestamp":"2023-01-13 17:20:39"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-01-13 17:20:39"}
+{"level":"error","message":"Software license verification failed. Please confirm your Foundry Virtual Tabletop software license","timestamp":"2023-01-13 17:20:39"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-01-13 17:20:39"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-01-13 17:20:39"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-01-13 17:20:40"}
+{"level":"info","message":"Created client session 5bcc86188be889ff5b45bb04","timestamp":"2023-01-13 17:20:42"}
+{"level":"warn","message":"The module \"simple-name-generator\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-01-13 17:20:42"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-01-13 17:20:42"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using the old flat core compatibility fields which are deprecated in favor of the new \"compatibility\" object\nDeprecated since Version 10\nBackwards-compatible support will be removed in Version 13","timestamp":"2023-01-13 17:20:42"}
+{"level":"info","message":"License signature successfully created. Thank you and please enjoy Foundry Virtual Tabletop.","timestamp":"2023-01-13 17:20:47"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-01-13 17:20:47"}
+{"level":"info","message":"Administrator authentication successful for session 5bcc86188be889ff5b45bb04","timestamp":"2023-01-13 17:20:53"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-01-13 17:20:54"}
+{"level":"warn","message":"The module \"simple-name-generator\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-01-13 17:21:02"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-01-13 17:21:02"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using the old flat core compatibility fields which are deprecated in favor of the new \"compatibility\" object\nDeprecated since Version 10\nBackwards-compatible support will be removed in Version 13","timestamp":"2023-01-13 17:21:02"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-01-13 17:38:42"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-01-13 17:38:42"}

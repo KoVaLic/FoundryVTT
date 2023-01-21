@@ -3,7 +3,9 @@ foundry,
 PIXI,
 objectsEqual,
 Token,
-CONFIG
+CONFIG,
+LimitedAnglePolygon,
+canvas
 */
 "use strict";
 
@@ -13,6 +15,7 @@ import { SETTINGS, getSetting } from "./settings.js";
 import { Area3d} from "./Area3d.js";
 import { CWSweepInfiniteWallsOnly } from "./CWSweepInfiniteWallsOnly.js";
 import { ConstrainedTokenBorder } from "./ConstrainedTokenBorder.js";
+import { TokenPoints3d } from "./PlaceablesPoints/TokenPoints3d.js";
 
 import { Shadow } from "./geometry/Shadow.js";
 import { ClipperPaths } from "./geometry/ClipperPaths.js";
@@ -189,8 +192,7 @@ export class Area2d {
   percentAreaVisible(shadowLOS) {
     shadowLOS ??= this._buildShadowLOS();
 
-    const constrained = ConstrainedTokenBorder.get(this.target, this.config.type).constrainedBorder();
-
+    const constrained = this.target.constrainedTokenBorder;
     const targetPercentAreaBottom = shadowLOS.bottom ? this._calculatePercentSeen(shadowLOS.bottom, constrained) : 0;
     const targetPercentAreaTop = shadowLOS.top ? this._calculatePercentSeen(shadowLOS.top, constrained) : 0;
 
@@ -304,6 +306,7 @@ export class Area2d {
     return tiles;
   }
 
+
   /**
    * Determine the percent area visible of a token shape given a los polygon.
    * @param {PIXI.Polygon} los
@@ -312,16 +315,41 @@ export class Area2d {
    */
   _calculatePercentSeen(los, tokenShape) {
     let visibleTokenShape = this._intersectShapeWithLOS(tokenShape, los);
+    if ( !visibleTokenShape.length ) return 0;
 
-    if ( !visibleTokenShape ) return 0;
+    // The denominator is the token area before considering blocking objects.
+    const tokenArea = tokenShape.scaledArea({scalingFactor: Area2d.SCALING_FACTOR});
+    if ( !tokenArea || tokenArea.almostEqual(0) ) return 0;
 
-    if ( !(visibleTokenShape instanceof PIXI.Polygon) ) {
-      console.warn("_calculatePercentSeen: visibleTokenShape is not a polygon.");
+    let seenArea = 0;
+    for ( const poly of visibleTokenShape ) {
+      if ( poly.isHole ) seenArea -= this._calculateSeenAreaForPolygon(poly) ?? 0;
+      else seenArea += this._calculateSeenAreaForPolygon(poly) ?? 0;
     }
 
-    // If Levels is enabled, consider tiles and drawings; obscure the visibile token shape.
+    if ( !seenArea || seenArea < 0 || seenArea.almostEqual(0)  ) return 0;
+
+    const percentSeen = seenArea / tokenArea;
+
+    if ( this.debug ) {
+      const percentArea = getSetting(SETTINGS.LOS.PERCENT_AREA);
+      const hasLOS = (percentSeen > percentArea) || percentSeen.almostEqual(percentArea);
+      this._drawLOS(los);
+      visibleTokenShape.forEach(poly => this._drawTokenShape(poly, los, hasLOS));
+    }
+
+    return percentSeen;
+  }
+
+  /**
+   * Determine the seen portions of a polygon (which represents part of a token shape)
+   * @param {PIXI.Polygon} visiblePolygon
+   * @returns {number} Amount of polygon that is seen
+   */
+  _calculateSeenAreaForPolygon(visiblePolygon) {
+    // If Levels is enabled, consider tiles and drawings; obscure the visible token shape.
     if ( MODULES_ACTIVE.LEVELS ) {
-      let tiles = Area3d.filterTilesByVisionTriangle(visibleTokenShape);
+      let tiles = Area3d.filterTilesByVisionPolygon(visiblePolygon);
 
       // Limit to tiles between viewer and target.
       const minEZ = Math.min(this.visionSource.elevationZ, this.target.bottomZ);
@@ -332,54 +360,46 @@ export class Area2d {
       });
 
       if ( tiles.size ) {
-        const drawings = Area3d.filterDrawingsByVisionTriangle(visibleTokenShape);
+        const drawings = Area3d.filterDrawingsByVisionPolygon(visiblePolygon);
         const combinedTiles = this._combineTilesWithDrawingHoles(tiles, drawings);
-        visibleTokenShape = visibleTokenShape instanceof PIXI.Polygon
-          ? combinedTiles.diffPolygon(visibleTokenShape)
-          : combinedTiles.diffPaths(visibleTokenShape);
-      }
-    }
-    const seenArea = visibleTokenShape.scaledArea({scalingFactor: Area2d.SCALING_FACTOR});
-    if ( !seenArea || seenArea.almostEqual(0) ) return 0;
-
-    const tokenArea = tokenShape.scaledArea({scalingFactor: Area2d.SCALING_FACTOR});
-    if ( !tokenArea || tokenArea.almostEqual(0) ) return 0;
-
-    const percentSeen = seenArea / tokenArea;
-
-    if ( this.debug ) {
-      // Figure out if this percentage would result in a visible token
-      const percentArea = getSetting(SETTINGS.LOS.PERCENT_AREA);
-      const hasLOS = (percentSeen > percentArea) || percentSeen.almostEqual(percentArea);
-      if ( los instanceof ClipperPaths ) los = los.simplify();
-      if ( visibleTokenShape instanceof ClipperPaths ) visibleTokenShape = visibleTokenShape.simplify();
-
-      if ( los instanceof ClipperPaths ) {
-        const polys = los.toPolygons();
-        for ( const poly of polys ) {
-          Draw.shape(poly, { color: Draw.COLORS.blue, width: poly.isHole ? 1 : 2 });
-        }
-      } else {
-        Draw.shape(los, { color: Draw.COLORS.blue, width: 2 });
-      }
-
-      if ( visibleTokenShape instanceof ClipperPaths ) {
-        const polys = visibleTokenShape.toPolygons();
-        for ( const poly of polys ) {
-          Draw.shape(poly, { color: hasLOS ? Draw.COLORS.green : Draw.COLORS.red });
-        }
-      } else {
-        Draw.shape(visibleTokenShape, { color: hasLOS ? Draw.COLORS.green : Draw.COLORS.red });
+        visiblePolygon = combinedTiles.diffPolygon(visiblePolygon);
       }
     }
 
-    return percentSeen;
+    return visiblePolygon.scaledArea({scalingFactor: Area2d.SCALING_FACTOR});
+  }
+
+  /**
+   * Draw the token shape, or portion of token shape, for debugging.
+   * @param {PIXI.Polygon} polygon
+   * @param {boolean} hasLOS
+   */
+  _drawTokenShape(polygon, hasLOS) {
+    Draw.shape(polygon, { color: hasLOS ? Draw.COLORS.green : Draw.COLORS.red });
+  }
+
+  /**
+   * Draw the LOS shape, for debugging.
+   * @param {PIXI.Polygon|ClipperPaths} los
+   */
+  _drawLOS(los) {
+    if ( los instanceof ClipperPaths ) los = los.simplify();
+    if ( los instanceof ClipperPaths ) {
+      const polys = los.toPolygons();
+      for ( const poly of polys ) {
+        Draw.shape(poly, { color: Draw.COLORS.blue, width: poly.isHole ? 1 : 2 });
+      }
+    } else {
+      Draw.shape(los, { color: Draw.COLORS.blue, width: 2 });
+    }
   }
 
   /**
    * Intersect a shape with the line-of-sight polygon.
    * @param {PIXI.Polygon|PIXI.Rectangle} constrained
    * @param {PIXI.Polygon|null} los
+   * @returns {PIXI.Polygon[]} Array of polygons representing the intersected shape.
+   *   May have multiple polygons and may have holes (although the latter is very unlikely).
    */
   _intersectShapeWithLOS(constrained, los) {
     // TODO: Use Weiler-Atherton
@@ -387,16 +407,18 @@ export class Area2d {
     //       // Weiler-Atherton is faster for intersecting regular shapes
     //       // Use Clipper for now
     //     }
+    // It is possible that a target shape will be split into 2+ pieces by the los.
+    // For example, a wall blocking the middle of a target only.
+    // For this reason, W-A is not currently appropriate, unless/until it is modified to handle
+    // holes and multiple pieces.
 
+    // Use ClipperPaths to ensure all polygons are returned.
+    los = los instanceof ClipperPaths ? los : ClipperPaths.fromPolygons([los], { scalingFactor: Area2d.SCALING_FACTOR });
     if ( constrained instanceof PIXI.Rectangle ) constrained = constrained.toPolygon();
-    const out = los.intersectPolygon(constrained);
-    if ( out instanceof ClipperPaths ) {
-      if ( !out.paths.length ) return null;
-      return out.simplify();
-    }
 
-    if ( !out.points.length ) return null;
-    return out;
+    const intersect = los.intersectPolygon(constrained);
+    const polys = intersect.toPolygons();
+    return polys.filter(poly => poly.points.length > 5); // Reject points or lines
   }
 
   /**
@@ -419,7 +441,7 @@ export class Area2d {
       viewer: visionSource.object,
       debug: this.debug
     };
-    const viewableObjs = Area3d.filterSceneObjectsByVisionTriangle(origin, this.target, filterConfig);
+    const viewableObjs = Area3d.filterSceneObjectsByVisionPolygon(origin, this.target, filterConfig);
 
     if ( viewableObjs.tokens.size ) {
       // Filter live or dead tokens, depending on config.
@@ -455,10 +477,25 @@ export class Area2d {
       || (elevationZ > bottomZ && targetElevation < bottomZ);
     });
 
-
-    const losConfig = visionSource._getPolygonConfiguration();
-    losConfig.type = this.config.type;
-    if ( !redoLOS ) return visionSource._createPolygon(losConfig);
+    let losConfig;
+    if ( MODULES_ACTIVE.PERFECT_VISION ) {
+      redoLOS ||= this.config.type !== visionSource.los.config.type || isConstrained(visionSource.los);
+      if ( !redoLOS ) {
+        return visionSource.los;
+      }
+      losConfig = {
+        source: visionSource,
+        type: this.config.type,
+        angle: visionSource.data.angle,
+        rotation: visionSource.data.rotation,
+        externalRadius: visionSource.data.externalRadius
+      };
+    } else {
+      losConfig = visionSource._getPolygonConfiguration();
+      if ( !redoLOS ) {
+        return visionSource._createPolygon(losConfig);
+      }
+    }
 
     // Rerun the LOS with infinite walls only
     const los = CWSweepInfiniteWallsOnly.create(origin, losConfig);
@@ -466,10 +503,7 @@ export class Area2d {
     const shadows = [];
     for ( const wall of viewableObjs.walls ) {
       const shadow = Shadow.constructFromWall(wall, origin, targetElevation);
-      if ( shadow ) {
-        shadows.push(shadow);
-        if ( this.debug ) shadow.draw();
-      }
+      if ( shadow ) shadows.push(shadow);
     }
 
     // Add token borders as shadows if tokens block
@@ -480,16 +514,39 @@ export class Area2d {
         halfHeight = (typeof hp === "number") && (hp <= 0);
       }
 
-      const tokenShadows = Shadow.constructfromToken(token, origin, {
-        surfaceElevation: targetElevation,
-        type,
-        halfHeight });
-      if ( tokenShadows && tokenShadows.length ) shadows.push(...tokenShadows);
-      if ( this.debug ) tokenShadows.forEach(s => s.draw());
+      // Use each vertical side of the token to shadow
+      // This allows the back walls to shadow if viewer is above/below.
+      const token3d = new TokenPoints3d(token, { type, halfHeight });
+      const sidePoints = token3d._allSides();
+      sidePoints.forEach(pts => {
+        pts = pts.points; // [topA, bottomA, bottomB, topB]
+        const shadow = Shadow.constructFromPoints3d(
+          pts[0], // TopA
+          pts[3], // TopB
+          pts[1], // BottomA
+          pts[2],  // BottomB
+          origin,
+          targetElevation
+        );
+        if ( shadow ) shadows.push(shadow);
+      });
     }
+
+    if ( this.debug ) shadows.forEach(shadow => shadow.draw());
 
     const combined = Shadow.combinePolygonWithShadows(los, shadows);
     // TODO: Caching visionSource._losShadows.set(targetElevation, combined);
     return combined;
   }
+}
+
+function isConstrained(los) {
+  const boundaryShapes = los.config.boundaryShapes;
+  if ( boundaryShapes.length === 0 ) return false;
+  if ( boundaryShapes.length >= 2 ) return true;
+
+  const boundaryShape = boundaryShapes[0];
+  if ( !(boundaryShape instanceof LimitedAnglePolygon) ) return true;
+
+  return boundaryShape.radius < canvas.dimensions.maxR;
 }

@@ -30,6 +30,8 @@ import { TokenPoints3d } from "./PlaceablesPoints/TokenPoints3d.js";
 import { DrawingPoints3d } from "./PlaceablesPoints/DrawingPoints3d.js";
 import { WallPoints3d } from "./PlaceablesPoints/WallPoints3d.js";
 import { TilePoints3d } from "./PlaceablesPoints/TilePoints3d.js";
+import { VerticalPoints3d } from "./PlaceablesPoints/VerticalPoints3d.js";
+import { HorizontalPoints3d } from "./PlaceablesPoints/HorizontalPoints3d.js";
 
 import { Area3d } from "./Area3d.js";
 import { Area2d } from "./Area2d.js";
@@ -67,6 +69,8 @@ Hooks.once("init", async function() {
     DrawingPoints3d,
     WallPoints3d,
     TilePoints3d,
+    VerticalPoints3d,
+    HorizontalPoints3d,
     IGNORES_COVER_HANDLER,
     setCoverIgnoreHandler,
 
@@ -266,8 +270,8 @@ function renderSettingsConfigHook(application, html, data) {
   const divInputMedium = inputMedium.parent().parent();
   const divInputHigh = inputHigh.parent().parent();
 
-  divInputCenter[0].style.display = displayCenterCoverTrigger;
-  divInputLow[0].style.display = displayCoverTriggers;
-  divInputMedium[0].style.display = displayCoverTriggers;
-  divInputHigh[0].style.display = displayCoverTriggers;
+  if ( divInputCenter.length ) divInputCenter[0].style.display = displayCenterCoverTrigger;
+  if ( divInputLow.length ) divInputLow[0].style.display = displayCoverTriggers;
+  if ( divInputMedium.length ) divInputMedium[0].style.display = displayCoverTriggers;
+  if ( divInputHigh.length ) divInputHigh[0].style.display = displayCoverTriggers;
 }

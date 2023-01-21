@@ -52,6 +52,13 @@ export function registerPIXIPolygonMethods() {
 
   // ----- Methods ----- //
 
+  // For compatibility with other shapes
+  Object.defineProperty(PIXI.Polygon.prototype, "toPolygon", {
+    value: function() { return this; },
+    writable: true,
+    configurable: true
+  });
+
   Object.defineProperty(PIXI.Polygon.prototype, "clipperClip", {
     value: clipperClip,
     writable: true,
@@ -76,6 +83,12 @@ export function registerPIXIPolygonMethods() {
     configurable: true
   });
 
+  Object.defineProperty(PIXI.Polygon.prototype, "lineSegmentIntersects", {
+    value: lineSegmentIntersects,
+    writable: true,
+    configurable: true
+  });
+
   Object.defineProperty(PIXI.Polygon.prototype, "reverseOrientation", {
     value: reverseOrientation,
     writable: true,
@@ -90,6 +103,18 @@ export function registerPIXIPolygonMethods() {
 
   Object.defineProperty(PIXI.Polygon.prototype, "pad", {
     value: pad,
+    writable: true,
+    configurable: true
+  });
+
+  Object.defineProperty(PIXI.Polygon.prototype, "pointsBetween", {
+    value: pointsBetween,
+    writable: true,
+    configurable: true
+  });
+
+  Object.defineProperty(PIXI.Polygon.prototype, "segmentIntersections", {
+    value: segmentIntersections,
     writable: true,
     configurable: true
   });
@@ -333,7 +358,7 @@ function* iterateEdges({close = true} = {}) {
 /**
  * Iterate over the polygon's {x, y} points in order.
  * @param {object} [options]
- * @param {boolean} [close]   If close, include the first point again.
+ * @param {boolean} [options.close]   If close, include the first point again.
  * @returns {x, y} PIXI.Point
  */
 function* iteratePoints({close = true} = {}) {
@@ -365,6 +390,97 @@ function linesCross(lines) {
 }
 
 /**
+ * Test whether line segment AB intersects this polygon.
+ * Equivalent to PIXI.Rectangle.prototype.lineSegmentIntersects.
+ * @param {Point} a                       The first endpoint of segment AB
+ * @param {Point} b                       The second endpoint of segment AB
+ * @param {object} [options]              Options affecting the intersect test.
+ * @param {boolean} [options.inside]      If true, a line contained within the rectangle will
+ *                                        return true.
+ * @returns {boolean} True if intersects.
+ */
+function lineSegmentIntersects(a, b, { inside = false } = {}) {
+  if (this.contains(a.x, a.y) && this.contains(b.x, b.y) ) return inside;
+
+  const edges = this.iterateEdges({ close: true });
+  for ( const edge of edges ) {
+    if ( foundry.utils.lineSegmentIntersects(a, b, edge.A, edge.B) ) return true;
+  }
+
+  return false;
+}
+
+/**
+ * Get all intersection points for a segment A|B
+ * Intersections are sorted from A to B.
+ * @param {Point} a   Endpoint A of the segment
+ * @param {Point} b   Endpoint B of the segment
+ * @param {object} [options]    Optional parameters
+ * @param {object[]} [options.edges]  Array of edges for this polygon, from this.iterateEdges.
+ * @param {boolean} [options.indices] If true, return the indices for the edges instead of intersections
+ * @returns {Point[]} Array of intersections or empty.
+ *   If intersections returned, the t of each intersection is the distance along the a|b segment.
+ */
+function segmentIntersections(a, b, { edges, indices = false } = {}) {
+  edges ??= [...this.iterateEdges({ close: true })];
+  const ixIndices = [];
+  edges.forEach((e, i) => {
+    if ( foundry.utils.lineSegmentIntersects(a, b, e.A, e.B) ) ixIndices.push(i);
+  });
+  if ( indices ) return ixIndices;
+
+  return ixIndices.map(i => {
+    const edge = edges[i];
+    return foundry.utils.lineLineIntersection(a, b, edge.A, edge.B);
+  });
+}
+
+/**
+ * Get all the points for this polygon between two points on the polygon
+ * Points are clockwise from a to b.
+ * @param { Point } a
+ * @param { Point } b
+ * @param {object} [options]    Optional parameters
+ * @param {object[]} [options.edges]  Array of edges for this polygon, from this.iterateEdges.
+ * @return { Point[]}
+ */
+function pointsBetween(a, b, { edges } = {}) {
+  edges ??= [...this.iterateEdges({ close: true })];
+  const ixIndices = this.segmentIntersections(a, b, { edges, indices: true });
+
+  // A is the closest ix
+  // B is the further ix
+  // Anything else can be ignored
+  let ixA = { t: Number.POSITIVE_INFINITY };
+  let ixB = { t: Number.NEGATIVE_INFINITY };
+  ixIndices.forEach(ix => {
+    if ( ix.t < ixA.t ) ixA = ix;
+    if ( ix.t > ixB.t ) ixB = ix;
+  });
+
+  // Start at ixA, and get intersection point at start and end
+  const out = [];
+  const startEdge = edges[ixA];
+  const startIx = foundry.utils.lineLineIntersection(startEdge.A, startEdge.B, a, b);
+  out.push(startIx);
+  if ( !startEdge.B.almostEqual(startIx) ) out.push(startEdge.B);
+
+  const ln = edges.length;
+  for ( let i = startIx + 1; i < ln; i += 1 ) out.push(edges[i].B);
+
+  if ( ixB < ixA ) {
+    // Must circle around to the starting edge
+    for ( let i = 0; i < ixB; i += 1 ) out.push(edges[i].B);
+  }
+
+  const endEdge = edges[ixB];
+  const endIx = foundry.utils.lineLineIntersection(endEdge.A, endEdge.B, a, b);
+  if ( !endEdge.A.almostEqual(endIx) ) out.push(endIx);
+
+  return out;
+}
+
+/**
  * Does this polygon overlap something else?
  * @param {PIXI.Rectangle|PIXI.Circle|PIXI.Polygon|RegularPolygon} other
  * @returns {boolean}
@@ -393,30 +509,22 @@ function overlapsPolygon(other) {
 
   if ( !polyBounds.overlaps(otherBounds) ) return false;
 
-  this.close();
-  other.close();
-  const pts1 = this.points;
-  const pts2 = other.points;
-  const ln1 = pts1.length;
-  const ln2 = pts2.length;
-  let a = { x: pts1[0], y: pts1[1] };
+  const pts1 = this.iteratePoints({ close: true });
+  let a = pts1.next().value;
   if ( other.contains(a.x, a.y) ) return true;
 
-  for ( let i = 2; i < ln1; i += 2 ) {
-    const b = { x: pts1[i], y: pts1[i+1] };
+  for ( const b of pts1 ) {
     if ( other.contains(b.x, b.y) ) return true;
 
-    let c = { x: pts2[0], y: pts2[1] };
-    if ( this.contains(c.x, c.y) ) return true;
-
-    for ( let j = 2; j < ln2; j += 2 ) {
-      const d = { x: pts2[j], y: pts2[j+1] };
+    const pts2 = this.iteratePoints({ close: true });
+    let c = pts2.next().value;
+    for ( const d of pts2 ) {
       if ( foundry.utils.lineSegmentIntersects(a, b, c, d) || this.contains(d.x, d.y) ) return true;
       c = d;
     }
-
     a = b;
   }
+
   return false;
 }
 
@@ -428,17 +536,13 @@ function overlapsPolygon(other) {
  */
 function overlapsCircle(circle) {
   const polyBounds = this.getBounds();
-
   if ( !polyBounds.overlaps(circle) ) return false;
 
-  this.close();
-  const pts = this.points;
-  const ln = pts.length;
-  let a = { x: pts[0], y: pts[1] };
+  const pts = this.iteratePoints({ close: true });
+  let a = pts.next().value;
   if ( circle.contains(a.x, a.y) ) return true;
-  for ( let i = 2; i < ln; i += 2 ) {
-    const b = { x: pts[i], y: pts[i+1] };
 
+  for ( const b of pts ) {
     // Get point on the line closest to a|b (might be a or b)
     const c = foundry.utils.closestPointToSegment(c, a, b);
     if ( circle.contains(c.x, c.y) ) return true;

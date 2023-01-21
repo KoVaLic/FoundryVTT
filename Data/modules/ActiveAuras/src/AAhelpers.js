@@ -74,7 +74,9 @@ class AAhelpers {
                 }
             }
                 break;
-            case "vehicle": return;
+            case "group":
+            case "vehicle":
+                return;
         };
         let humanoidRaces;
         if (game.system.id === "sw5e") {
@@ -142,6 +144,55 @@ class AAhelpers {
                 else return true; // dead
             }
         }
+    }
+
+    static EventHPCheck(event) {
+        // if this is not a hp/wound check then assune not dead
+        if (!hasProperty(event, "system.wounds") && !getProperty(event, "system.attributes.hp")) {
+            return false;
+        }
+        switch (game.system.id) {
+            case "dnd5e": ;
+            case "sw5e": {
+                if (getProperty(event, "system.attributes.hp.max") === 0) return true; // dead
+                if (getProperty(event, "system.attributes.hp.value") > 0) return false; //alive!
+                else return true; // dead
+            }
+            case "swade": {
+                let { max, value, ignored } = event.system.wounds;
+                if (value - ignored >= max) return false;
+                else return true; // dead
+            }
+        }
+    }
+
+    static GetRollData({ actor, item, deterministic=false }={}) {
+        if ( !actor ) return null;
+        const actorRollData = actor.getRollData({ deterministic });
+        const rollData = {
+            ...actorRollData,
+            item: item ? item.toObject().system : undefined,
+        };
+    
+        // Include an ability score modifier if one exists
+        const abl = item?.abilityMod;
+        if ( abl && ("abilities" in rollData) ) {
+            const ability = rollData.abilities[abl];
+            if ( !ability ) {
+            console.warn(`Item ${actor.name} in Actor ${actor.name} has an invalid item ability modifier of ${abl} defined`);
+            }
+            rollData.mod = ability?.mod ?? 0;
+        }
+        return rollData;
+    }
+
+    static EvaluateRollString({ rollString, token, item, deterministic=false}={}) {
+        if (Number.isInteger(Number.parseInt(`${rollString}`.trim()))) return rollString;
+
+        const actor = token.actor ?? token.parent;
+
+        const rollData =  AAhelpers.GetRollData({ actor, item, deterministic });
+        return Roll.replaceFormulaData(rollString, rollData);
     }
 
     static ExtractAuraById(entityId, sceneID) {

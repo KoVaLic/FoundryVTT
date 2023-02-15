@@ -14318,3 +14318,25 @@
 {"level":"info","message":"FoundryVTT | Deleted Item with id [R77IOMl0QVxwWRiA] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-02-13 12:19:37"}
 {"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-02-13 12:35:33"}
 {"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-02-13 12:35:33"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-02-14 19:39:08"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 291","timestamp":"2023-02-14 19:39:08"}
+{"level":"info","message":"User Data Directory - \"D:/Programs/FoundryVTT/WorldData\"","timestamp":"2023-02-14 19:39:08"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-02-14 19:39:09"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-02-14 19:39:09"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-02-14 19:39:09"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-02-14 19:39:09"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-02-14 19:39:18"}
+{"level":"info","message":"Created client session 9610d774db61aa94f82453ea","timestamp":"2023-02-14 19:39:20"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"9610d774db61aa94f82453ea","timestamp":"2023-02-14 19:39:34"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-02-14 19:39:36"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-02-14 19:39:36"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-02-14 19:39:36"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1842ms","timestamp":"2023-02-14 19:39:37"}
+{"level":"info","message":"Created client session 996b05208c5f35815cb6b7b8","timestamp":"2023-02-15 09:33:45"}
+{"ip":"::ffff:172.26.205.225","level":"info","message":"User authentication successful for user Player7","session":"996b05208c5f35815cb6b7b8","timestamp":"2023-02-15 09:33:50"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-02-15 09:33:52"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-02-15 09:33:52"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-02-15 09:33:52"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 461ms","timestamp":"2023-02-15 09:33:52"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-02-15 19:35:42"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-02-15 19:35:42"}

@@ -1,6 +1,16 @@
 .dark-heresy.ammunition .notes-editor {
-    height: 165px;
-    max-height: 165px;
+    position: absolute;
+    height: calc(100% - 207px);
+    width: calc(100% - 16px);
+    text-align: start;
+}
+
+.dark-heresy.ammunition .stats {
+    position: absolute;
+    height: calc(100% - 207px);
+    width: calc(100% - 16px);
+    align-content: start;
+    align-items: center;
 }
 
 .dark-heresy.ammunition .stats .stats-row .stat.weapon input {
@@ -41,5 +51,5 @@
 }
 
 .dark-heresy.ammunition .stats .stats-row .stat.special input {
-    width: 502px;
+    width: 337px; //502px
 }

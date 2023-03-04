@@ -1,6 +1,7 @@
 .dark-heresy .notes-tab .notes-editor {
     margin-top: 2px;
     height: 476px;
+    text-align: start;
 }
 
 .dark-heresy .notes-tab .information {

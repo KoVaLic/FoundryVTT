@@ -5,9 +5,9 @@ export class CriticalInjurySheet extends DarkHeresyItemSheet {
         return mergeObject(super.defaultOptions, {
             classes: ["dark-heresy", "sheet", "critical-injury"],
             template: "systems/dark-heresy/template/sheet/critical-injury.html",
-            width: 500,
+            width: 600,
             height: 369,
-            resizable: false,
+            resizable: true,
             tabs: [
                 {
                     navSelector: ".sheet-tabs",

@@ -5,7 +5,7 @@ export class PsychicPowerSheet extends DarkHeresyItemSheet {
         return mergeObject(super.defaultOptions, {
             classes: ["dark-heresy", "sheet", "psychic-power"],
             template: "systems/dark-heresy/template/sheet/psychic-power.html",
-            width: 500,
+            width: 600,
             height: 397,
             resizable: true,
             tabs: [

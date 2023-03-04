@@ -5,7 +5,7 @@ export class MalignancySheet extends DarkHeresyItemSheet {
         return mergeObject(super.defaultOptions, {
             classes: ["dark-heresy", "sheet", "malignancy"],
             template: "systems/dark-heresy/template/sheet/malignancy.html",
-            width: 500,
+            width: 600,
             height: 369,
             resizable: true,
             tabs: [

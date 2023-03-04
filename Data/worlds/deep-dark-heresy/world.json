@@ -72,12 +72,26 @@
       "path": "packs/makrosy.db",
       "system": "dark-heresy",
       "private": false,
+      "flags": {}
+    },
+    {
+      "label": "Элитные Таланты",
+      "type": "Item",
+      "name": "elitnye-talanty",
+      "path": "packs/elitnye-talanty.db",
+      "system": "dark-heresy",
+      "private": false,
+      "flags": {}
+    },
+    {
+      "label": "Боеприпасы",
+      "type": "Item",
+      "name": "boepripasy",
+      "path": "packs/boepripasy.db",
+      "system": "dark-heresy",
+      "private": false,
       "flags": {},
-      "package": "world",
-      "id": "world.makrosy",
-      "packageType": "world",
-      "packageName": "deep-dark-heresy",
-      "index": []
+      "package": "world"
     }
   ]
 }

@@ -6,7 +6,7 @@ export class AmmunitionSheet extends DarkHeresyItemSheet {
             classes: ["dark-heresy", "sheet", "ammunition"],
             template: "systems/dark-heresy/template/sheet/ammunition.html",
             width: 600,
-            height: 369,
+            height: 369, 
             resizable: true,
             tabs: [
                 {
@@ -28,3 +28,4 @@ export class AmmunitionSheet extends DarkHeresyItemSheet {
         super.activateListeners(html);
     }
 }
+

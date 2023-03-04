@@ -5,7 +5,7 @@ export class AptitudeSheet extends DarkHeresyItemSheet {
         return mergeObject(super.defaultOptions, {
             classes: ["dark-heresy", "sheet", "aptitude"],
             template: "systems/dark-heresy/template/sheet/aptitude.html",
-            width: 500,
+            width: 600,
             height: 369,
             resizable: true,
             tabs: [

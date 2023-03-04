@@ -1,6 +1,15 @@
 .dark-heresy.psychic-power .notes-editor {
-    height: 193px;
-    max-height: 193px;
+    position: absolute;
+    height: calc(100% - 207px);
+    width: calc(100% - 16px);
+}
+
+.dark-heresy.psychic-power .stats {
+    position: absolute;
+    height: calc(100% - 207px);
+    width: calc(100% - 16px);
+    align-content: start;
+    align-items: center;
 }
 
 .dark-heresy.psychic-power .stats .stats-row .stat.prerequisite input {
@@ -67,5 +76,5 @@
 }
 
 .dark-heresy.psychic-power .stats .stats-row .stat.short-description input {
-    width: 372px;
+    width: 337px;
 }

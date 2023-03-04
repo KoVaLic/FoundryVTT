@@ -163,7 +163,7 @@
   "CRAFTSMANSHIP.BEST": "Лучшее",
 
   "CRITICAL_INJURY.NAME": "Название",
-  "CRITICAL_INJURY.PART": "Часть тела",
+  "CRITICAL_INJURY.PART": "Место",
   "CRITICAL_INJURY.TYPE": "Тип",
 
 
@@ -376,7 +376,7 @@
   "TITLE.FORCE_FIELDS": "Силовое поле",
   "TITLE.ENCUMBRANCE": "Переносимый Вес",
   "TITLE.EQUIPMENT": "Экипировка",
-  "TITLE.NOTES": "Заметки",
+  "TITLE.NOTES": "Описание",
   "TITLE.BIO": "Биография",
   "TITLE.STATS": "Статистика",
   "TITLE.EFFECT": "Эффект",
@@ -401,7 +401,7 @@
   "WEAPON.CRAFTSMANSHIP": "Качество",
   "WEAPON.AVAILABILITY": "Доступность",
   "WEAPON.WEIGHT": "Вес",
-  "WEAPON.ATTACK": "Атака",
+  "WEAPON.ATTACK": "Бонус попадания",
   "WEAPON.MELEE": "Рукопашное",
   "WEAPON.THROWN": "Метательное",
   "WEAPON.PISTOL": "Пистолет",

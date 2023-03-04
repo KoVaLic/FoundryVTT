@@ -1,6 +1,15 @@
 .dark-heresy.armour .notes-editor {
-    height: 165px;
-    max-height: 165px;
+    position: absolute;
+    height: calc(100% - 207px);
+    width: calc(100% - 16px);
+}
+
+.dark-heresy.armour .stats {
+    position: absolute;
+    height: calc(100% - 207px);
+    width: calc(100% - 16px);
+    align-content: start;
+    align-items: center;
 }
 
 .dark-heresy.armour .stats .stats-row .stat.type input {

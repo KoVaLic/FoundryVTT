@@ -1,6 +1,7 @@
 .dark-heresy.critical-injury .notes-editor {
-    height: 165px;
-    max-height: 165px;
+    position: absolute;
+    height: calc(100% - 207px);
+    width: calc(100% - 16px);
 }
 
 .dark-heresy.critical-injury .header .part,

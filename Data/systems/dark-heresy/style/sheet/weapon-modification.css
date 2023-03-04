@@ -1,11 +1,15 @@
 .dark-heresy.weapon-modification .notes-editor {
-    height: 165px;
-    max-height: 165px;
+    position: absolute;
+    height: calc(100% - 207px);
+    width: calc(100% - 16px);
 }
 
 .dark-heresy.weapon-modification .stats {
-    height: 165px;
-    align-content: baseline;
+    position: absolute;
+    height: calc(100% - 207px);
+    width: calc(100% - 16px);
+    align-content: start;
+    align-items: center;
 }
 
 .dark-heresy.weapon-modification .stats .stats-row .stat.craftsmanship select {

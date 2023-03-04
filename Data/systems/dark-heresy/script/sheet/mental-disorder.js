@@ -5,7 +5,7 @@ export class MentalDisorderSheet extends DarkHeresyItemSheet {
         return mergeObject(super.defaultOptions, {
             classes: ["dark-heresy", "sheet", "mental-disorder"],
             template: "systems/dark-heresy/template/sheet/mental-disorder.html",
-            width: 500,
+            width: 600,
             height: 369,
             resizable: true,
             tabs: [

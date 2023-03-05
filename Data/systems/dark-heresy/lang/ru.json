@@ -1,5 +1,4 @@
 {
-
   "ACTOR.TypeAcolyte" : "Аколит",
   "ACTOR.TypeNpc" : "NPC",
 
@@ -43,7 +42,7 @@
   "AMMUNITION.CRAFTSMANSHIP": "Качество",
   "AMMUNITION.AVAILABILITY": "Доступность",
   "AMMUNITION.DAMAGE": "Урон",
-  "AMMUNITION.ATTACK": "Атака",
+  "AMMUNITION.ATTACK": "Бонус попадания",
   "AMMUNITION.PENETRATION": "Пробивание",
 
   "ARMOUR.HEAD": "Голова",
@@ -72,7 +71,7 @@
   "ATTACK_TYPE.STANDARD": "Стандарт",
   "ATTACK_TYPE.SWIFT": "Быстрая",
   "ATTACK_TYPE.SEMI_AUTO": "К. Очередь",
-  "ATTACK_TYPE.LIGHTNING": "Молниен",
+  "ATTACK_TYPE.LIGHTNING": "Молниеносная",
   "ATTACK_TYPE.FULL_AUTO": "Д. Очередь",
   "ATTACK_TYPE.CALLED_SHOT": "Меткая",
   "ATTACK_TYPE.CHARGE": "Натиск",
@@ -158,7 +157,7 @@
   "CORRUPTION.MUTATION": "Мутации",
 
   "CRAFTSMANSHIP.POOR": "Низкое",
-  "CRAFTSMANSHIP.COMMON": "Обычное",
+  "CRAFTSMANSHIP.COMMON": "Стандартное",
   "CRAFTSMANSHIP.GOOD": "Хорошее",
   "CRAFTSMANSHIP.BEST": "Лучшее",
 

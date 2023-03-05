@@ -14,7 +14,8 @@
 }
 
 .dark-heresy.ammunition .stats .stats-row .stat.weapon input {
-    width: 351px;
+    margin-left: 22px;
+    width: 337px;
 }
 
 .dark-heresy.ammunition .stats .stats-row .stat.quantity input {
@@ -23,7 +24,7 @@
 }
 
 .dark-heresy.ammunition .stats .stats-row .stat.damage input {
-    width: 5em;
+    width: 46px;
     text-align: center;
 }
 

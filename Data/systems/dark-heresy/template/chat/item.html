@@ -6,61 +6,61 @@
         {{/if}}
 
         {{#if item.isAmmunition}}
-        <p style="font-size: 125%">{{localize "AMMUNITION.WEAPON"}}: {{item.weapon}}</p>
-        <p style="font-size: 125%">{{localize "AMMUNITION.DAMAGE"}}: {{item.effect.damage.modifier}} {{item.DamageType}}</p>
-        <p style="font-size: 125%">{{localize "AMMUNITION.ATTACK"}}: {{item.effect.attack.modifier}}</p>
-        <p style="font-size: 125%">{{localize "AMMUNITION.PENETRATION"}}: {{item.effect.penetration}}</p>
-        <p style="font-size: 125%">{{localize "AMMUNITION.SPECIAL"}}: {{item.effect.special}}</p>
+        <p style="font-size: 125%; text-align: start; text-align: start">{{localize "AMMUNITION.WEAPON"}}: {{item.weapon}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "AMMUNITION.ATTACK"}}: {{item.effect.attack.modifier}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "AMMUNITION.DAMAGE"}}: {{item.effect.damage.modifier}} {{item.DamageType}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "AMMUNITION.PENETRATION"}}: {{item.effect.penetration}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "AMMUNITION.SPECIAL"}}: {{item.effect.special}}</p>
         <p><strong style="font-size: 125%">{{localize "HEADER.DESCRIPTION"}}:</strong>{{{item.description}}}</p>
-        <p style="font-size: 125%">{{localize "AMMUNITION.WEIGHT"}}: {{item.weight}}</p>
-        <p style="font-size: 125%">{{localize "AMMUNITION.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
-        <p style="font-size: 125%">{{localize "AMMUNITION.AVAILABILITY"}}: {{item.Availability}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "AMMUNITION.WEIGHT"}}: {{item.weight}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "AMMUNITION.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "AMMUNITION.AVAILABILITY"}}: {{item.Availability}}</p>
         {{/if}}
 
         {{#if item.isArmour}}
-        <p style="font-size: 125%">{{localize "ARMOUR.TYPE"}}: {{item.ArmourType}}</p>
-        <p style="font-size: 125%">{{localize "ARMOUR.PART"}}: {{item.Part}}</p>
-        <p style="font-size: 125%">{{localize "ARMOUR.MAX_AGILITY"}}: {{item.maxAgility}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "ARMOUR.TYPE"}}: {{item.ArmourType}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "ARMOUR.PART"}}: {{item.Part}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "ARMOUR.MAX_AGILITY"}}: {{item.maxAgility}}</p>
         <p><strong style="font-size: 125%">{{localize "HEADER.DESCRIPTION"}}:</strong> {{{item.description}}}</p>
-        <p style="font-size: 125%">{{localize "ARMOUR.WEIGHT"}}: {{item.weight}}</p>
-        <p style="font-size: 125%">{{localize "ARMOUR.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
-        <p style="font-size: 125%">{{localize "ARMOUR.AVAILABILITY"}}: {{item.Availability}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "ARMOUR.WEIGHT"}}: {{item.weight}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "ARMOUR.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "ARMOUR.AVAILABILITY"}}: {{item.Availability}}</p>
         {{/if}}
 
         {{#if item.isCriticalInjury}}
-        <p style="font-size: 125%">{{localize "CRITICAL_INJURY.TYPE"}}: {{item.DamageType}}</p>
-        <p style="font-size: 125%">{{localize "CRITICAL_INJURY.PART"}}: {{item.PartLocation}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "CRITICAL_INJURY.TYPE"}}: {{item.DamageType}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "CRITICAL_INJURY.PART"}}: {{item.PartLocation}}</p>
         <p><strong style="font-size: 125%">{{localize "HEADER.DESCRIPTION"}}:</strong> {{{item.description}}}</p>
         {{/if}}
 
         {{#if item.isCybernetic}}
         <p><strong style="font-size: 125%">{{localize "HEADER.DESCRIPTION"}}:</strong> {{{item.description}}}</p>
-        <p style="font-size: 125%">{{localize "CYBERNETIC.WEIGHT"}}: {{item.weight}}</p>
-        <p style="font-size: 125%">{{localize "CYBERNETIC.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
-        <p style="font-size: 125%">{{localize "CYBERNETIC.AVAILABILITY"}}: {{item.Availability}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "CYBERNETIC.WEIGHT"}}: {{item.weight}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "CYBERNETIC.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "CYBERNETIC.AVAILABILITY"}}: {{item.Availability}}</p>
         {{/if}}
 
         {{#if item.isDrug}}
         <p><strong style="font-size: 125%">{{localize "HEADER.DESCRIPTION"}}:</strong> {{{item.description}}}</p>
-        <p style="font-size: 125%">{{localize "DRUG.WEIGHT"}}: {{item.weight}}</p>
-        <p style="font-size: 125%">{{localize "DRUG.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
-        <p style="font-size: 125%">{{localize "DRUG.AVAILABILITY"}}: {{item.Availability}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "DRUG.WEIGHT"}}: {{item.weight}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "DRUG.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "DRUG.AVAILABILITY"}}: {{item.Availability}}</p>
         {{/if}}
 
         {{#if item.isForceField}}
-        <p style="font-size: 125%">{{localize "FORCE_FIELD.PROTECTION_RATING"}}: {{item.protectionRating}}</p>
-        <p style="font-size: 125%">{{localize "FORCE_FIELD.OVERLOAD_CHANCE"}}: {{item.overloadChance}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "FORCE_FIELD.PROTECTION_RATING"}}: {{item.protectionRating}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "FORCE_FIELD.OVERLOAD_CHANCE"}}: {{item.overloadChance}}</p>
         <p><strong style="font-size: 125%">{{localize "HEADER.DESCRIPTION"}}:</strong> {{{item.description}}}</p>
-        <p style="font-size: 125%">{{localize "FORCE_FIELD.WEIGHT"}}: {{item.weight}}</p>
-        <p style="font-size: 125%">{{localize "FORCE_FIELD.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
-        <p style="font-size: 125%">{{localize "FORCE_FIELD.AVAILABILITY"}}: {{item.Availability}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "FORCE_FIELD.WEIGHT"}}: {{item.weight}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "FORCE_FIELD.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "FORCE_FIELD.AVAILABILITY"}}: {{item.Availability}}</p>
         {{/if}}
 
         {{#if item.isGear}}
         <p><strong style="font-size: 125%">{{localize "HEADER.DESCRIPTION"}}:</strong> {{{item.description}}}</p>
-        <p style="font-size: 125%">{{localize "GEAR.WEIGHT"}}: {{item.weight}}</p>
-        <p style="font-size: 125%">{{localize "GEAR.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
-        <p style="font-size: 125%">{{localize "GEAR.AVAILABILITY"}}: {{item.Availability}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "GEAR.WEIGHT"}}: {{item.weight}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "GEAR.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "GEAR.AVAILABILITY"}}: {{item.Availability}}</p>
         {{/if}}
 
         {{#if item.isMalignancy}}
@@ -76,17 +76,17 @@
         {{/if}}
 
         {{#if item.isPsychicPower}}
-        <p style="font-size: 125%">{{localize "PSYCHIC_POWER.PREREQUISITE"}}: {{item.prerequisite}}</p>
-        <p style="font-size: 125%">{{localize "PSYCHIC_POWER.ACTION"}}: {{item.action}}</p>
-        <p style="font-size: 125%">{{localize "PSYCHIC_POWER.FOCUS_POWER"}}: {{item.focusPower.test}} ({{item.focusPower.difficulty}})</p>
-        <p style="font-size: 125%">{{localize "PSYCHIC_POWER.RANGE"}}: {{item.range}}</p>
-        <p style="font-size: 125%">{{localize "PSYCHIC_POWER.SUSTAINED"}}: {{item.sustained}}</p>
-        <p style="font-size: 125%">{{localize "PSYCHIC_POWER.SUBTYPE"}}: {{item.psychicType}}</p>
-        <p style="font-size: 125%">{{localize "PSYCHIC_POWER.ZONE"}}: {{item.PsychicPowerZone}}</p>
-        <p style="font-size: 125%">{{localize "PSYCHIC_POWER.DAMAGE_FULL"}}: {{item.damage.formula}} {{item.DamageType}}</p>
-        <p style="font-size: 125%">{{localize "PSYCHIC_POWER.PENETRATION"}}: {{item.damage.penetration}}</p>
-        <p style="font-size: 125%">{{localize "PSYCHIC_POWER.SPECIAL"}}: {{item.damage.special}}</p>
-        <p style="font-size: 125%">{{localize "PSYCHIC_POWER.EFFECT"}}: {{{item.effect}}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "PSYCHIC_POWER.PREREQUISITE"}}: {{item.prerequisite}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "PSYCHIC_POWER.ACTION"}}: {{item.action}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "PSYCHIC_POWER.FOCUS_POWER"}}: {{item.focusPower.test}} ({{item.focusPower.difficulty}})</p>
+        <p style="font-size: 125%; text-align: start">{{localize "PSYCHIC_POWER.RANGE"}}: {{item.range}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "PSYCHIC_POWER.SUSTAINED"}}: {{item.sustained}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "PSYCHIC_POWER.SUBTYPE"}}: {{item.psychicType}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "PSYCHIC_POWER.ZONE"}}: {{item.PsychicPowerZone}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "PSYCHIC_POWER.DAMAGE_FULL"}}: {{item.damage.formula}} {{item.DamageType}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "PSYCHIC_POWER.PENETRATION"}}: {{item.damage.penetration}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "PSYCHIC_POWER.SPECIAL"}}: {{item.damage.special}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "PSYCHIC_POWER.EFFECT"}}: {{{item.effect}}}</p>
         <p><strong style="font-size: 125%">{{localize "HEADER.DESCRIPTION"}}:</strong> {{{item.description}}}</p>
         {{/if}}
 
@@ -95,17 +95,17 @@
         {{/if}}
 
         {{#if item.isTalent}}
-        <p style="font-size: 125%">{{localize "TALENT.PREREQUISITES"}}: {{item.prerequisites}}</p>
-        <p style="font-size: 125%">{{localize "TALENT.APTITUDES"}}: {{item.aptitudes}}</p>
-        <p style="font-size: 125%">{{localize "TALENT.TIER"}}: {{item.tier}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "TALENT.PREREQUISITES"}}: {{item.prerequisites}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "TALENT.APTITUDES"}}: {{item.aptitudes}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "TALENT.TIER"}}: {{item.tier}}</p>
         <p><strong style="font-size: 125%">{{localize "HEADER.DESCRIPTION"}}:</strong> {{{item.description}}}</p>
         {{/if}}
 
         {{#if item.isTool}}
         <p><strong style="font-size: 125%">{{localize "HEADER.DESCRIPTION"}}:</strong> {{{item.description}}}</p>
-        <p style="font-size: 125%">{{localize "TOOL.WEIGHT"}}: {{item.weight}}</p>
-        <p style="font-size: 125%">{{localize "TOOL.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
-        <p style="font-size: 125%">{{localize "TOOL.AVAILABILITY"}}: {{item.Availability}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "TOOL.WEIGHT"}}: {{item.weight}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "TOOL.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "TOOL.AVAILABILITY"}}: {{item.Availability}}</p>
         {{/if}}
 
         {{#if item.isTrait}}
@@ -113,26 +113,26 @@
         {{/if}}
 
         {{#if item.isWeapon}}
-        <p style="font-size: 125%">{{localize "WEAPON.CLASS"}}: {{item.WeaponClass}}</p>
-        <p style="font-size: 125%">{{localize "WEAPON.RANGE"}}: {{item.range}}</p>
-        <p style="font-size: 125%">{{localize "WEAPON.RATE_OF_FIRE_FULL"}}: {{item.RateOfFire}}</p>
-        <p style="font-size: 125%">{{localize "WEAPON.DAMAGE_FULL"}}: {{item.damage}} {{item.DamageType}}</p>
-        <p style="font-size: 125%">{{localize "WEAPON.PENETRATION_FULL"}}: {{item.penetration}}</p>
-        <p style="font-size: 125%">{{localize "WEAPON.CLIP"}}: {{item.Clip}}</p>
-        <p style="font-size: 125%">{{localize "WEAPON.RELOAD_FULL"}}: {{item.reload}}</p>
-        <p style="font-size: 125%">{{localize "WEAPON.SPECIAL"}}: {{item.special}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON.CLASS"}}: {{item.WeaponClass}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON.RANGE"}}: {{item.range}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON.RATE_OF_FIRE_FULL"}}: {{item.RateOfFire}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON.DAMAGE_FULL"}}: {{item.damage}} {{item.DamageType}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON.PENETRATION_FULL"}}: {{item.penetration}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON.CLIP"}}: {{item.Clip}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON.RELOAD_FULL"}}: {{item.reload}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON.SPECIAL"}}: {{item.special}}</p>
         <p><strong style="font-size: 125%">{{localize "HEADER.DESCRIPTION"}}:</strong> {{{item.description}}}</p>
-        <p style="font-size: 125%">{{localize "WEAPON.WEIGHT"}}: {{item.weight}}</p>
-        <p style="font-size: 125%">{{localize "WEAPON.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
-        <p style="font-size: 125%">{{localize "WEAPON.AVAILABILITY"}}: {{item.Availability}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON.WEIGHT"}}: {{item.weight}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON.AVAILABILITY"}}: {{item.Availability}}</p>
         {{/if}}
 
         {{#if item.isWeaponModification}}
-        <p style="font-size: 125%">{{localize "WEAPON_MODIFICATION.UPGRADES"}}: {{item.upgrades}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON_MODIFICATION.UPGRADES"}}: {{item.upgrades}}</p>
         <p><strong style="font-size: 125%">{{localize "HEADER.DESCRIPTION"}}:</strong> {{{item.description}}}</p>
-        <p style="font-size: 125%">{{localize "WEAPON_MODIFICATION.WEIGHT"}}: {{item.weight}}</p>
-        <p style="font-size: 125%">{{localize "WEAPON_MODIFICATION.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
-        <p style="font-size: 125%">{{localize "WEAPON_MODIFICATION.AVAILABILITY"}}: {{item.Availability}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON_MODIFICATION.WEIGHT"}}: {{item.weight}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON_MODIFICATION.CRAFTSMANSHIP"}}: {{item.Craftsmanship}}</p>
+        <p style="font-size: 125%; text-align: start">{{localize "WEAPON_MODIFICATION.AVAILABILITY"}}: {{item.Availability}}</p>
         {{/if}}
 
         {{#if item.isAptitude}}

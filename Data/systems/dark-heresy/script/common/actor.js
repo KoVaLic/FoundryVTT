@@ -83,7 +83,7 @@ export class DarkHeresyActor extends Actor {
                 encumbrance = encumbrance + item.weight;
             }
         }
-        this._computeEncumbrance(encumbrance);
+        this._computeEncumbrance(Math.round(encumbrance * 100) / 100);
     }
 
     _computeExperience() {

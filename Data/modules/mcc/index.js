@@ -1,10 +1,7 @@
-var __defProp = Object.defineProperty;
-var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 function localize(stringId, data) {
-  const result = typeof data !== "object" ? game.i18n.localize(stringId) : game.i18n.format(stringId, data);
+  const result = typeof data !== "object" ? globalThis.game.i18n.localize(stringId) : globalThis.game.i18n.format(stringId, data);
   return result !== void 0 ? result : "";
 }
-__name(localize, "localize");
 const statusData = {
   X: {
     hsl: [0, 100, 60],
@@ -57,11 +54,26 @@ const statusData = {
 };
 const WORKER_URL = "https://mcc2.arcanist.workers.dev";
 class SpreadsheetController {
+  /**
+   * @type {string} The status of the spreadsheet
+   */
   static spreadsheetStatus;
+  /**
+   * @type {string} The ID of the spreadsheet
+   */
   static spreadsheetID;
+  /**
+   * Get the core versions that have spreadsheets
+   * @returns {Promise<string[]>} The versions available
+   */
   static async getVersions() {
     return await fetchJsonWithTimeout(`${WORKER_URL}/api/versions`);
   }
+  /**
+   * Get the rows of the spreadsheet
+   * @param {string} version - The Foundry VTT core version of the spreadsheet to get
+   * @returns {Promise<RowData[]>} The rows of the spreadsheet
+   */
   static async getRows(version2) {
     const spreadsheet = await this.getSpreadsheet(version2);
     this.spreadsheetStatus = spreadsheet.status.trim();
@@ -69,14 +81,30 @@ class SpreadsheetController {
     const rows = modules.map((module) => this.lookupCompatibility(spreadsheet, module, version2));
     return rows;
   }
+  /**
+   * Get the spreadsheet
+   * @param {string} version - The Foundry VTT core version of the spreadsheet to get
+   * @returns {Promise<Spreadsheet>} The spreadsheet
+   */
   static async getSpreadsheet(version2) {
     const response = await fetchWithTimeout(`${WORKER_URL}/?version=${version2}`);
     this.spreadsheetID = response.headers.get("X-Spreadsheet-ID");
     return await response.json();
   }
+  /**
+   * Get the list of modules
+   * @returns {ModuleData[]} The list of installed modules and the current game system
+   */
   static getModuleList() {
     return [game.system, ...game.modules.values()];
   }
+  /**
+   * Lookup the compatibility of a module in the spreadsheet
+   * @param {Spreadsheet} spreadsheet.data - The spreadsheet
+   * @param {ModuleData} module - The module to lookup
+   * @param {string} version - The Foundry VTT core version of the spreadsheet
+   * @returns {RowData} The row of compatibility data
+   */
   static lookupCompatibility(spreadsheet, module, version2) {
     const {
       title,
@@ -121,51 +149,55 @@ class SpreadsheetController {
     }
     return data;
   }
+  /**
+   * Compare if a given version is compatible with another version
+   * @param {string|number} v1 - The target version
+   * @param {string|number} v0 - The current version
+   * @returns {boolean} Whether v1 is compatible with v0
+   */
   static isCompatibleVersion(v1, v0 = game.release.version) {
     const v1Major = String(v1).split(".")[0];
     const v0Major = String(v0).split(".")[0];
     return v1Major === v0Major || isNewerVersion(v1Major, v0Major);
   }
 }
-__name(SpreadsheetController, "SpreadsheetController");
 function noop$1() {
 }
-__name(noop$1, "noop$1");
-const identity = /* @__PURE__ */ __name((x) => x, "identity");
+const identity = (x) => x;
 function assign(tar, src) {
   for (const k in src)
     tar[k] = src[k];
   return tar;
 }
-__name(assign, "assign");
 function is_promise(value) {
-  return value && typeof value === "object" && typeof value.then === "function";
+  return !!value && (typeof value === "object" || typeof value === "function") && typeof value.then === "function";
 }
-__name(is_promise, "is_promise");
 function run(fn) {
   return fn();
 }
-__name(run, "run");
 function blank_object() {
   return /* @__PURE__ */ Object.create(null);
 }
-__name(blank_object, "blank_object");
 function run_all(fns) {
   fns.forEach(run);
 }
-__name(run_all, "run_all");
 function is_function(thing) {
   return typeof thing === "function";
 }
-__name(is_function, "is_function");
 function safe_not_equal(a, b) {
   return a != a ? b == b : a !== b || (a && typeof a === "object" || typeof a === "function");
 }
-__name(safe_not_equal, "safe_not_equal");
+let src_url_equal_anchor;
+function src_url_equal(element_src, url) {
+  if (!src_url_equal_anchor) {
+    src_url_equal_anchor = document.createElement("a");
+  }
+  src_url_equal_anchor.href = url;
+  return element_src === src_url_equal_anchor.href;
+}
 function is_empty(obj) {
   return Object.keys(obj).length === 0;
 }
-__name(is_empty, "is_empty");
 function subscribe(store, ...callbacks) {
   if (store == null) {
     return noop$1;
@@ -173,28 +205,23 @@ function subscribe(store, ...callbacks) {
   const unsub = store.subscribe(...callbacks);
   return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
 }
-__name(subscribe, "subscribe");
 function get_store_value(store) {
   let value;
   subscribe(store, (_) => value = _)();
   return value;
 }
-__name(get_store_value, "get_store_value");
 function component_subscribe(component, store, callback2) {
   component.$$.on_destroy.push(subscribe(store, callback2));
 }
-__name(component_subscribe, "component_subscribe");
 function create_slot(definition, ctx, $$scope, fn) {
   if (definition) {
     const slot_ctx = get_slot_context(definition, ctx, $$scope, fn);
     return definition[0](slot_ctx);
   }
 }
-__name(create_slot, "create_slot");
 function get_slot_context(definition, ctx, $$scope, fn) {
   return definition[1] && fn ? assign($$scope.ctx.slice(), definition[1](fn(ctx))) : $$scope.ctx;
 }
-__name(get_slot_context, "get_slot_context");
 function get_slot_changes(definition, $$scope, dirty, fn) {
   if (definition[2] && fn) {
     const lets = definition[2](fn(dirty));
@@ -213,14 +240,12 @@ function get_slot_changes(definition, $$scope, dirty, fn) {
   }
   return $$scope.dirty;
 }
-__name(get_slot_changes, "get_slot_changes");
 function update_slot_base(slot, slot_definition, ctx, $$scope, slot_changes, get_slot_context_fn) {
   if (slot_changes) {
     const slot_context = get_slot_context(slot_definition, ctx, $$scope, get_slot_context_fn);
     slot.p(slot_context, slot_changes);
   }
 }
-__name(update_slot_base, "update_slot_base");
 function get_all_dirty_from_scope($$scope) {
   if ($$scope.ctx.length > 32) {
     const dirty = [];
@@ -232,20 +257,16 @@ function get_all_dirty_from_scope($$scope) {
   }
   return -1;
 }
-__name(get_all_dirty_from_scope, "get_all_dirty_from_scope");
 function null_to_empty(value) {
   return value == null ? "" : value;
 }
-__name(null_to_empty, "null_to_empty");
 function set_store_value(store, ret, value) {
   store.set(value);
   return ret;
 }
-__name(set_store_value, "set_store_value");
 function action_destroyer(action_result) {
   return action_result && is_function(action_result.destroy) ? action_result.destroy : noop$1;
 }
-__name(action_destroyer, "action_destroyer");
 const is_client = typeof window !== "undefined";
 let now = is_client ? () => window.performance.now() : () => Date.now();
 let raf = is_client ? (cb) => requestAnimationFrame(cb) : noop$1;
@@ -260,7 +281,6 @@ function run_tasks(now2) {
   if (tasks.size !== 0)
     raf(run_tasks);
 }
-__name(run_tasks, "run_tasks");
 function loop(callback2) {
   let task;
   if (tasks.size === 0)
@@ -274,11 +294,9 @@ function loop(callback2) {
     }
   };
 }
-__name(loop, "loop");
 function append(target, node) {
   target.appendChild(node);
 }
-__name(append, "append");
 function get_root_for_style(node) {
   if (!node)
     return document;
@@ -288,79 +306,66 @@ function get_root_for_style(node) {
   }
   return node.ownerDocument;
 }
-__name(get_root_for_style, "get_root_for_style");
 function append_empty_stylesheet(node) {
   const style_element = element("style");
   append_stylesheet(get_root_for_style(node), style_element);
   return style_element.sheet;
 }
-__name(append_empty_stylesheet, "append_empty_stylesheet");
 function append_stylesheet(node, style) {
   append(node.head || node, style);
   return style.sheet;
 }
-__name(append_stylesheet, "append_stylesheet");
 function insert(target, node, anchor) {
   target.insertBefore(node, anchor || null);
 }
-__name(insert, "insert");
 function detach(node) {
-  node.parentNode.removeChild(node);
+  if (node.parentNode) {
+    node.parentNode.removeChild(node);
+  }
 }
-__name(detach, "detach");
 function destroy_each(iterations, detaching) {
   for (let i = 0; i < iterations.length; i += 1) {
     if (iterations[i])
       iterations[i].d(detaching);
   }
 }
-__name(destroy_each, "destroy_each");
 function element(name) {
   return document.createElement(name);
 }
-__name(element, "element");
 function svg_element(name) {
   return document.createElementNS("http://www.w3.org/2000/svg", name);
 }
-__name(svg_element, "svg_element");
 function text(data) {
   return document.createTextNode(data);
 }
-__name(text, "text");
 function space() {
   return text(" ");
 }
-__name(space, "space");
 function empty() {
   return text("");
 }
-__name(empty, "empty");
 function listen(node, event, handler, options) {
   node.addEventListener(event, handler, options);
   return () => node.removeEventListener(event, handler, options);
 }
-__name(listen, "listen");
 function prevent_default(fn) {
   return function(event) {
     event.preventDefault();
     return fn.call(this, event);
   };
 }
-__name(prevent_default, "prevent_default");
 function stop_propagation(fn) {
   return function(event) {
     event.stopPropagation();
     return fn.call(this, event);
   };
 }
-__name(stop_propagation, "stop_propagation");
 function attr(node, attribute, value) {
   if (value == null)
     node.removeAttribute(attribute);
   else if (node.getAttribute(attribute) !== value)
     node.setAttribute(attribute, value);
 }
-__name(attr, "attr");
 function set_attributes(node, attributes) {
   const descriptors2 = Object.getOwnPropertyDescriptors(node.__proto__);
   for (const key in attributes) {
@@ -377,21 +382,17 @@ function set_attributes(node, attributes) {
     }
   }
 }
-__name(set_attributes, "set_attributes");
 function children(element2) {
   return Array.from(element2.childNodes);
 }
-__name(children, "children");
 function set_data(text2, data) {
   data = "" + data;
   if (text2.wholeText !== data)
     text2.data = data;
 }
-__name(set_data, "set_data");
 function set_input_value(input, value) {
   input.value = value == null ? "" : value;
 }
-__name(set_input_value, "set_input_value");
 function set_style(node, key, value, important) {
   if (value === null) {
     node.style.removeProperty(key);
@@ -399,7 +400,6 @@ function set_style(node, key, value, important) {
     node.style.setProperty(key, value, important ? "important" : "");
   }
 }
-__name(set_style, "set_style");
 function select_option(select, value) {
   for (let i = 0; i < select.options.length; i += 1) {
     const option = select.options[i];
@@ -410,22 +410,18 @@ function select_option(select, value) {
   }
   select.selectedIndex = -1;
 }
-__name(select_option, "select_option");
 function select_value(select) {
   const selected_option = select.querySelector(":checked") || select.options[0];
   return selected_option && selected_option.__value;
 }
-__name(select_value, "select_value");
 function toggle_class(element2, name, toggle) {
   element2.classList[toggle ? "add" : "remove"](name);
 }
-__name(toggle_class, "toggle_class");
 function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
   const e = document.createEvent("CustomEvent");
   e.initCustomEvent(type, bubbles, cancelable, detail);
   return e;
 }
-__name(custom_event, "custom_event");
 class HtmlTag {
   constructor(is_svg = false) {
     this.is_svg = false;
@@ -464,11 +460,9 @@ class HtmlTag {
     this.n.forEach(detach);
   }
 }
-__name(HtmlTag, "HtmlTag");
 function construct_svelte_component(component, props) {
   return new component(props);
 }
-__name(construct_svelte_component, "construct_svelte_component");
 const managed_styles = /* @__PURE__ */ new Map();
 let active$1 = 0;
 function hash(str) {
@@ -478,13 +472,11 @@ function hash(str) {
     hash2 = (hash2 << 5) - hash2 ^ str.charCodeAt(i);
   return hash2 >>> 0;
 }
-__name(hash, "hash");
 function create_style_information(doc, node) {
   const info = { stylesheet: append_empty_stylesheet(node), rules: {} };
   managed_styles.set(doc, info);
   return info;
 }
-__name(create_style_information, "create_style_information");
 function create_rule(node, a, b, duration, delay, ease, fn, uid2 = 0) {
   const step = 16.666 / duration;
   let keyframes = "{\n";
@@ -507,11 +499,11 @@ function create_rule(node, a, b, duration, delay, ease, fn, uid2 = 0) {
   active$1 += 1;
   return name;
 }
-__name(create_rule, "create_rule");
 function delete_rule(node, name) {
   const previous = (node.style.animation || "").split(", ");
   const next = previous.filter(
     name ? (anim) => anim.indexOf(name) < 0 : (anim) => anim.indexOf("__svelte") === -1
+    // remove all Svelte animations
   );
   const deleted = previous.length - next.length;
   if (deleted) {
@@ -521,7 +513,6 @@ function delete_rule(node, name) {
       clear_rules();
   }
 }
-__name(delete_rule, "delete_rule");
 function clear_rules() {
   raf(() => {
     if (active$1)
@@ -534,7 +525,6 @@ function clear_rules() {
     managed_styles.clear();
   });
 }
-__name(clear_rules, "clear_rules");
 function create_animation(node, from2, fn, params) {
   if (!from2)
     return noop$1;
@@ -545,7 +535,9 @@ function create_animation(node, from2, fn, params) {
     delay = 0,
     duration = 300,
     easing = identity,
+    // @ts-ignore todo: should this be separated from destructuring? Or start/end added to public api and documentation?
     start: start_time = now() + delay,
+    // @ts-ignore todo:
     end = start_time + duration,
     tick = noop$1,
     css
@@ -561,13 +553,11 @@ function create_animation(node, from2, fn, params) {
       started = true;
     }
   }
-  __name(start, "start");
   function stop() {
     if (css)
       delete_rule(node, name);
     running = false;
   }
-  __name(stop, "stop");
   loop((now2) => {
     if (!started && now2 >= start_time) {
       started = true;
@@ -590,7 +580,6 @@ function create_animation(node, from2, fn, params) {
   tick(0, 1);
   return stop;
 }
-__name(create_animation, "create_animation");
 function fix_position(node) {
   const style = getComputedStyle(node);
   if (style.position !== "absolute" && style.position !== "fixed") {
@@ -602,7 +591,6 @@ function fix_position(node) {
     add_transform(node, a);
   }
 }
-__name(fix_position, "fix_position");
 function add_transform(node, a) {
   const b = node.getBoundingClientRect();
   if (a.left !== b.left || a.top !== b.top) {
@@ -611,26 +599,21 @@ function add_transform(node, a) {
     node.style.transform = `${transform} translate(${a.left - b.left}px, ${a.top - b.top}px)`;
   }
 }
-__name(add_transform, "add_transform");
 let current_component;
 function set_current_component(component) {
   current_component = component;
 }
-__name(set_current_component, "set_current_component");
 function get_current_component() {
   if (!current_component)
     throw new Error("Function called outside component initialization");
   return current_component;
 }
-__name(get_current_component, "get_current_component");
 function onMount(fn) {
   get_current_component().$$.on_mount.push(fn);
 }
-__name(onMount, "onMount");
 function onDestroy(fn) {
   get_current_component().$$.on_destroy.push(fn);
 }
-__name(onDestroy, "onDestroy");
 function createEventDispatcher() {
   const component = get_current_component();
   return (type, detail, { cancelable = false } = {}) => {
@@ -645,23 +628,19 @@ function createEventDispatcher() {
     return true;
   };
 }
-__name(createEventDispatcher, "createEventDispatcher");
 function setContext(key, context) {
   get_current_component().$$.context.set(key, context);
   return context;
 }
-__name(setContext, "setContext");
 function getContext(key) {
   return get_current_component().$$.context.get(key);
 }
-__name(getContext, "getContext");
 function bubble(component, event) {
   const callbacks = component.$$.callbacks[event.type];
   if (callbacks) {
     callbacks.slice().forEach((fn) => fn.call(this, event));
   }
 }
-__name(bubble, "bubble");
 const dirty_components = [];
 const binding_callbacks = [];
 const render_callbacks = [];
@@ -674,25 +653,31 @@ function schedule_update() {
     resolved_promise.then(flush);
   }
 }
-__name(schedule_update, "schedule_update");
 function add_render_callback(fn) {
   render_callbacks.push(fn);
 }
-__name(add_render_callback, "add_render_callback");
 function add_flush_callback(fn) {
   flush_callbacks.push(fn);
 }
-__name(add_flush_callback, "add_flush_callback");
 const seen_callbacks = /* @__PURE__ */ new Set();
 let flushidx = 0;
 function flush() {
+  if (flushidx !== 0) {
+    return;
+  }
   const saved_component = current_component;
   do {
-    while (flushidx < dirty_components.length) {
-      const component = dirty_components[flushidx];
-      flushidx++;
-      set_current_component(component);
-      update(component.$$);
+    try {
+      while (flushidx < dirty_components.length) {
+        const component = dirty_components[flushidx];
+        flushidx++;
+        set_current_component(component);
+        update(component.$$);
+      }
+    } catch (e) {
+      dirty_components.length = 0;
+      flushidx = 0;
+      throw e;
     }
     set_current_component(null);
     dirty_components.length = 0;
@@ -715,7 +700,6 @@ function flush() {
   seen_callbacks.clear();
   set_current_component(saved_component);
 }
-__name(flush, "flush");
 function update($$) {
   if ($$.fragment !== null) {
     $$.update();
@@ -726,7 +710,6 @@ function update($$) {
     $$.after_update.forEach(add_render_callback);
   }
 }
-__name(update, "update");
 let promise;
 function wait() {
   if (!promise) {
@@ -737,11 +720,9 @@ function wait() {
   }
   return promise;
 }
-__name(wait, "wait");
 function dispatch(node, direction, kind) {
   node.dispatchEvent(custom_event(`${direction ? "intro" : "outro"}${kind}`));
 }
-__name(dispatch, "dispatch");
 const outroing = /* @__PURE__ */ new Set();
 let outros;
 function group_outros() {
@@ -749,23 +730,21 @@ function group_outros() {
     r: 0,
     c: [],
     p: outros
+    // parent group
   };
 }
-__name(group_outros, "group_outros");
 function check_outros() {
   if (!outros.r) {
     run_all(outros.c);
   }
   outros = outros.p;
 }
-__name(check_outros, "check_outros");
 function transition_in(block, local) {
   if (block && block.i) {
     outroing.delete(block);
     block.i(local);
   }
 }
-__name(transition_in, "transition_in");
 function transition_out(block, local, detach2, callback2) {
   if (block && block.o) {
     if (outroing.has(block))
@@ -784,10 +763,10 @@ function transition_out(block, local, detach2, callback2) {
     callback2();
   }
 }
-__name(transition_out, "transition_out");
 const null_transition = { duration: 0 };
 function create_in_transition(node, fn, params) {
-  let config = fn(node, params);
+  const options = { direction: "in" };
+  let config = fn(node, params, options);
   let running = false;
   let animation_name;
   let task;
@@ -796,7 +775,6 @@ function create_in_transition(node, fn, params) {
     if (animation_name)
       delete_rule(node, animation_name);
   }
-  __name(cleanup, "cleanup");
   function go() {
     const { delay = 0, duration = 300, easing = identity, tick = noop$1, css } = config || null_transition;
     if (css)
@@ -824,7 +802,6 @@ function create_in_transition(node, fn, params) {
       return running;
     });
   }
-  __name(go, "go");
   let started = false;
   return {
     start() {
@@ -833,7 +810,7 @@ function create_in_transition(node, fn, params) {
       started = true;
       delete_rule(node);
       if (is_function(config)) {
-        config = config();
+        config = config(options);
         wait().then(go);
       } else {
         go();
@@ -850,9 +827,9 @@ function create_in_transition(node, fn, params) {
     }
   };
 }
-__name(create_in_transition, "create_in_transition");
 function create_out_transition(node, fn, params) {
-  let config = fn(node, params);
+  const options = { direction: "out" };
+  let config = fn(node, params, options);
   let running = true;
   let animation_name;
   const group = outros;
@@ -882,10 +859,9 @@ function create_out_transition(node, fn, params) {
       return running;
     });
   }
-  __name(go, "go");
   if (is_function(config)) {
     wait().then(() => {
-      config = config();
+      config = config(options);
       go();
     });
   } else {
@@ -904,9 +880,9 @@ function create_out_transition(node, fn, params) {
     }
   };
 }
-__name(create_out_transition, "create_out_transition");
 function create_bidirectional_transition(node, fn, params, intro) {
-  let config = fn(node, params);
+  const options = { direction: "both" };
+  let config = fn(node, params, options);
   let t = intro ? 0 : 1;
   let running_program = null;
   let pending_program = null;
@@ -915,7 +891,6 @@ function create_bidirectional_transition(node, fn, params, intro) {
     if (animation_name)
       delete_rule(node, animation_name);
   }
-  __name(clear_animation, "clear_animation");
   function init2(program, duration) {
     const d = program.b - t;
     duration *= Math.abs(d);
@@ -929,7 +904,6 @@ function create_bidirectional_transition(node, fn, params, intro) {
       group: program.group
     };
   }
-  __name(init2, "init");
   function go(b) {
     const { delay = 0, duration = 300, easing = identity, tick = noop$1, css } = config || null_transition;
     const program = {
@@ -984,12 +958,11 @@ function create_bidirectional_transition(node, fn, params, intro) {
       });
     }
   }
-  __name(go, "go");
   return {
     run(b) {
       if (is_function(config)) {
         wait().then(() => {
-          config = config();
+          config = config(options);
           go(b);
         });
       } else {
@@ -1002,7 +975,6 @@ function create_bidirectional_transition(node, fn, params, intro) {
     }
   };
 }
-__name(create_bidirectional_transition, "create_bidirectional_transition");
 function handle_promise(promise2, info) {
   const token = info.token = {};
   function update2(type, index2, key, value) {
@@ -1044,7 +1016,6 @@ function handle_promise(promise2, info) {
       flush();
     }
   }
-  __name(update2, "update");
   if (is_promise(promise2)) {
     const current_component2 = get_current_component();
     promise2.then((value) => {
@@ -1071,7 +1042,6 @@ function handle_promise(promise2, info) {
     info.resolved = promise2;
   }
 }
-__name(handle_promise, "handle_promise");
 function update_await_block_branch(info, ctx, dirty) {
   const child_ctx = ctx.slice();
   const { resolved } = info;
@@ -1083,18 +1053,15 @@ function update_await_block_branch(info, ctx, dirty) {
   }
   info.block.p(child_ctx, dirty);
 }
-__name(update_await_block_branch, "update_await_block_branch");
 const globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : global;
 function destroy_block(block, lookup) {
   block.d(1);
   lookup.delete(block.key);
 }
-__name(destroy_block, "destroy_block");
 function fix_and_destroy_block(block, lookup) {
   block.f();
   destroy_block(block, lookup);
 }
-__name(fix_and_destroy_block, "fix_and_destroy_block");
 function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block2, next, get_context) {
   let o = old_blocks.length;
   let n = list.length;
@@ -1129,7 +1096,6 @@ function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, looku
     next = block.first;
     n--;
   }
-  __name(insert2, "insert");
   while (o && n) {
     const new_block = new_blocks[n - 1];
     const old_block = old_blocks[o - 1];
@@ -1163,7 +1129,6 @@ function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, looku
     insert2(new_blocks[n - 1]);
   return new_blocks;
 }
-__name(update_keyed_each, "update_keyed_each");
 function get_spread_update(levels, updates) {
   const update2 = {};
   const to_null_out = {};
@@ -1196,11 +1161,9 @@ function get_spread_update(levels, updates) {
   }
   return update2;
 }
-__name(get_spread_update, "get_spread_update");
 function get_spread_object(spread_props) {
   return typeof spread_props === "object" && spread_props !== null ? spread_props : {};
 }
-__name(get_spread_object, "get_spread_object");
 function bind$1(component, name, callback2) {
   const index2 = component.$$.props[name];
   if (index2 !== void 0) {
@@ -1208,11 +1171,9 @@ function bind$1(component, name, callback2) {
     callback2(component.$$.ctx[index2]);
   }
 }
-__name(bind$1, "bind$1");
 function create_component(block) {
   block && block.c();
 }
-__name(create_component, "create_component");
 function mount_component(component, target, anchor, customElement) {
   const { fragment, after_update } = component.$$;
   fragment && fragment.m(target, anchor);
@@ -1229,7 +1190,6 @@ function mount_component(component, target, anchor, customElement) {
   }
   after_update.forEach(add_render_callback);
 }
-__name(mount_component, "mount_component");
 function destroy_component(component, detaching) {
   const $$ = component.$$;
   if ($$.fragment !== null) {
@@ -1239,7 +1199,6 @@ function destroy_component(component, detaching) {
     $$.ctx = [];
   }
 }
-__name(destroy_component, "destroy_component");
 function make_dirty(component, i) {
   if (component.$$.dirty[0] === -1) {
     dirty_components.push(component);
@@ -1248,23 +1207,25 @@ function make_dirty(component, i) {
   }
   component.$$.dirty[i / 31 | 0] |= 1 << i % 31;
 }
-__name(make_dirty, "make_dirty");
 function init$1(component, options, instance2, create_fragment2, not_equal, props, append_styles, dirty = [-1]) {
   const parent_component = current_component;
   set_current_component(component);
   const $$ = component.$$ = {
     fragment: null,
     ctx: [],
+    // state
     props,
     update: noop$1,
     not_equal,
     bound: blank_object(),
+    // lifecycle
     on_mount: [],
     on_destroy: [],
     on_disconnect: [],
     before_update: [],
     after_update: [],
     context: new Map(options.context || (parent_component ? parent_component.$$.context : [])),
+    // everything else
     callbacks: blank_object(),
     dirty,
     skip_bound: false,
@@ -1301,7 +1262,6 @@ function init$1(component, options, instance2, create_fragment2, not_equal, prop
   }
   set_current_component(parent_component);
 }
-__name(init$1, "init$1");
 class SvelteComponent {
   $destroy() {
     destroy_component(this, 1);
@@ -1327,102 +1287,6 @@ class SvelteComponent {
     }
   }
 }
-__name(SvelteComponent, "SvelteComponent");
-const subscriber_queue = [];
-function readable(value, start) {
-  return {
-    subscribe: writable$1(value, start).subscribe
-  };
-}
-__name(readable, "readable");
-function writable$1(value, start = noop$1) {
-  let stop;
-  const subscribers = /* @__PURE__ */ new Set();
-  function set2(new_value) {
-    if (safe_not_equal(value, new_value)) {
-      value = new_value;
-      if (stop) {
-        const run_queue = !subscriber_queue.length;
-        for (const subscriber of subscribers) {
-          subscriber[1]();
-          subscriber_queue.push(subscriber, value);
-        }
-        if (run_queue) {
-          for (let i = 0; i < subscriber_queue.length; i += 2) {
-            subscriber_queue[i][0](subscriber_queue[i + 1]);
-          }
-          subscriber_queue.length = 0;
-        }
-      }
-    }
-  }
-  __name(set2, "set");
-  function update2(fn) {
-    set2(fn(value));
-  }
-  __name(update2, "update");
-  function subscribe2(run2, invalidate = noop$1) {
-    const subscriber = [run2, invalidate];
-    subscribers.add(subscriber);
-    if (subscribers.size === 1) {
-      stop = start(set2) || noop$1;
-    }
-    run2(value);
-    return () => {
-      subscribers.delete(subscriber);
-      if (subscribers.size === 0) {
-        stop();
-        stop = null;
-      }
-    };
-  }
-  __name(subscribe2, "subscribe");
-  return { set: set2, update: update2, subscribe: subscribe2 };
-}
-__name(writable$1, "writable$1");
-function derived(stores, fn, initial_value) {
-  const single = !Array.isArray(stores);
-  const stores_array = single ? [stores] : stores;
-  const auto = fn.length < 2;
-  return readable(initial_value, (set2) => {
-    let inited = false;
-    const values = [];
-    let pending = 0;
-    let cleanup = noop$1;
-    const sync = /* @__PURE__ */ __name(() => {
-      if (pending) {
-        return;
-      }
-      cleanup();
-      const result = fn(single ? values[0] : values, set2);
-      if (auto) {
-        set2(result);
-      } else {
-        cleanup = is_function(result) ? result : noop$1;
-      }
-    }, "sync");
-    const unsubscribers = stores_array.map((store, i) => subscribe(store, (value) => {
-      values[i] = value;
-      pending &= ~(1 << i);
-      if (inited) {
-        sync();
-      }
-    }, () => {
-      pending |= 1 << i;
-    }));
-    inited = true;
-    sync();
-    return /* @__PURE__ */ __name(function stop() {
-      run_all(unsubscribers);
-      cleanup();
-    }, "stop");
-  });
-}
-__name(derived, "derived");
-function normalizeString(query) {
-  return query.trim().normalize("NFD").replace(/[\x00-\x1F]/gm, "");
-}
-__name(normalizeString, "normalizeString");
 const s_TAG_OBJECT = "[object Object]";
 function deepMerge(target = {}, ...sourceObj) {
   if (Object.prototype.toString.call(target) !== s_TAG_OBJECT) {
@@ -1435,18 +1299,15 @@ function deepMerge(target = {}, ...sourceObj) {
   }
   return _deepMerge(target, ...sourceObj);
 }
-__name(deepMerge, "deepMerge");
 function isIterable(value) {
   if (value === null || value === void 0 || typeof value !== "object") {
     return false;
   }
   return typeof value[Symbol.iterator] === "function";
 }
-__name(isIterable, "isIterable");
 function isObject$1(value) {
   return value !== null && typeof value === "object";
 }
-__name(isObject$1, "isObject$1");
 function isPlainObject(value) {
   if (Object.prototype.toString.call(value) !== s_TAG_OBJECT) {
     return false;
@@ -1454,7 +1315,6 @@ function isPlainObject(value) {
   const prototype = Object.getPrototypeOf(value);
   return prototype === null || prototype === Object.prototype;
 }
-__name(isPlainObject, "isPlainObject");
 function safeAccess(data, accessor, defaultValue = void 0) {
   if (typeof data !== "object") {
     return defaultValue;
@@ -1471,7 +1331,6 @@ function safeAccess(data, accessor, defaultValue = void 0) {
   }
   return data;
 }
-__name(safeAccess, "safeAccess");
 function safeSet(data, accessor, value, operation = "set", createMissing = true) {
   if (typeof data !== "object") {
     throw new TypeError(`safeSet Error: 'data' is not an 'object'.`);
@@ -1522,7 +1381,6 @@ function safeSet(data, accessor, value, operation = "set", createMissing = true)
   }
   return true;
 }
-__name(safeSet, "safeSet");
 function _deepMerge(target = {}, ...sourceObj) {
   for (let cntr = 0; cntr < sourceObj.length; cntr++) {
     const obj = sourceObj[cntr];
@@ -1538,37 +1396,387 @@ function _deepMerge(target = {}, ...sourceObj) {
   }
   return target;
 }
-__name(_deepMerge, "_deepMerge");
-class StyleManager {
-  #docKey;
-  #selector;
-  #styleElement;
-  #cssRule;
-  constructor({ docKey, selector = ":root", document: document2 = globalThis.document } = {}) {
-    if (typeof selector !== "string") {
-      throw new TypeError(`StyleManager error: 'selector' is not a string.`);
+class A11yHelper {
+  /**
+   * Apply focus to the HTMLElement targets in a given A11yFocusSource data object. An iterable list `options.focusEl`
+   * can contain HTMLElements or selector strings. If multiple focus targets are provided in a list then the first
+   * valid target found will be focused. If focus target is a string then a lookup via `document.querySelector` is
+   * performed. In this case you should provide a unique selector for the desired focus target.
+   *
+   * Note: The body of this method is postponed to the next clock tick to allow any changes in the DOM to occur that
+   * might alter focus targets before applying.
+   *
+   * @param {A11yFocusSource|{ focusSource: A11yFocusSource }}   options - The focus options instance to apply.
+   */
+  static applyFocusSource(options) {
+    if (!isObject$1(options)) {
+      return;
     }
+    const focusOpts = isObject$1(options?.focusSource) ? options.focusSource : options;
+    setTimeout(() => {
+      const debug = typeof focusOpts.debug === "boolean" ? focusOpts.debug : false;
+      if (isIterable(focusOpts.focusEl)) {
+        if (debug) {
+          console.debug(`A11yHelper.applyFocusSource debug - Attempting to apply focus target: `, focusOpts.focusEl);
+        }
+        for (const target of focusOpts.focusEl) {
+          if (target instanceof HTMLElement && target.isConnected) {
+            target.focus();
+            if (debug) {
+              console.debug(`A11yHelper.applyFocusSource debug - Applied focus to target: `, target);
+            }
+            break;
+          } else if (typeof target === "string") {
+            const element2 = document.querySelector(target);
+            if (element2 instanceof HTMLElement && element2.isConnected) {
+              element2.focus();
+              if (debug) {
+                console.debug(`A11yHelper.applyFocusSource debug - Applied focus to target: `, element2);
+              }
+              break;
+            } else if (debug) {
+              console.debug(`A11yHelper.applyFocusSource debug - Could not query selector: `, target);
+            }
+          }
+        }
+      } else if (debug) {
+        console.debug(`A11yHelper.applyFocusSource debug - No focus targets defined.`);
+      }
+    }, 0);
+  }
+  /**
+   * Returns first focusable element within a specified element.
+   *
+   * @param {HTMLElement|Document} [element=document] - Optional element to start query.
+   *
+   * @param {object} [options] - Optional parameters.
+   *
+   * @param {Iterable<string>} [options.ignoreClasses] - Iterable list of classes to ignore elements.
+   *
+   * @param {Set<HTMLElement>} [options.ignoreElements] - Set of elements to ignore.
+   *
+   * @returns {HTMLElement} First focusable child element
+   */
+  static getFirstFocusableElement(element2 = document, options) {
+    const focusableElements = this.getFocusableElements(element2, options);
+    return focusableElements.length > 0 ? focusableElements[0] : void 0;
+  }
+  /**
+   * Returns all focusable elements within a specified element.
+   *
+   * @param {HTMLElement|Document} [element=document] Optional element to start query.
+   *
+   * @param {object}            [options] - Optional parameters.
+   *
+   * @param {boolean}           [options.anchorHref=true] - When true anchors must have an HREF.
+   *
+   * @param {Iterable<string>}  [options.ignoreClasses] - Iterable list of classes to ignore elements.
+   *
+   * @param {Set<HTMLElement>}  [options.ignoreElements] - Set of elements to ignore.
+   *
+   * @param {string}            [options.selectors] - Custom list of focusable selectors for `querySelectorAll`.
+   *
+   * @returns {Array<HTMLElement>} Child keyboard focusable
+   */
+  static getFocusableElements(element2 = document, { anchorHref = true, ignoreClasses, ignoreElements, selectors } = {}) {
+    if (!(element2 instanceof HTMLElement) && !(element2 instanceof Document)) {
+      throw new TypeError(`'element' is not a HTMLElement or Document instance.`);
+    }
+    if (typeof anchorHref !== "boolean") {
+      throw new TypeError(`'anchorHref' is not a boolean.`);
+    }
+    if (ignoreClasses !== void 0 && !isIterable(ignoreClasses)) {
+      throw new TypeError(`'ignoreClasses' is not an iterable list.`);
+    }
+    if (ignoreElements !== void 0 && !(ignoreElements instanceof Set)) {
+      throw new TypeError(`'ignoreElements' is not a Set.`);
+    }
+    if (selectors !== void 0 && typeof selectors !== "string") {
+      throw new TypeError(`'selectors' is not a string.`);
+    }
+    const selectorQuery = selectors ?? this.#getFocusableSelectors(anchorHref);
+    const allElements = [...element2.querySelectorAll(selectorQuery)];
+    if (ignoreElements && ignoreClasses) {
+      return allElements.filter((el) => {
+        let hasIgnoreClass = false;
+        for (const ignoreClass of ignoreClasses) {
+          if (el.classList.contains(ignoreClass)) {
+            hasIgnoreClass = true;
+            break;
+          }
+        }
+        return !hasIgnoreClass && !ignoreElements.has(el) && el.style.display !== "none" && el.style.visibility !== "hidden" && !el.hasAttribute("disabled") && !el.hasAttribute("inert") && el.getAttribute("aria-hidden") !== "true";
+      });
+    } else if (ignoreClasses) {
+      return allElements.filter((el) => {
+        let hasIgnoreClass = false;
+        for (const ignoreClass of ignoreClasses) {
+          if (el.classList.contains(ignoreClass)) {
+            hasIgnoreClass = true;
+            break;
+          }
+        }
+        return !hasIgnoreClass && el.style.display !== "none" && el.style.visibility !== "hidden" && !el.hasAttribute("disabled") && !el.hasAttribute("inert") && el.getAttribute("aria-hidden") !== "true";
+      });
+    } else if (ignoreElements) {
+      return allElements.filter((el) => {
+        return !ignoreElements.has(el) && el.style.display !== "none" && el.style.visibility !== "hidden" && !el.hasAttribute("disabled") && !el.hasAttribute("inert") && el.getAttribute("aria-hidden") !== "true";
+      });
+    } else {
+      return allElements.filter((el) => {
+        return el.style.display !== "none" && el.style.visibility !== "hidden" && !el.hasAttribute("disabled") && !el.hasAttribute("inert") && el.getAttribute("aria-hidden") !== "true";
+      });
+    }
+  }
+  /**
+   * Returns the default focusable selectors query.
+   *
+   * @param {boolean}  [anchorHref=true] - When true anchors must have an HREF.
+   *
+   * @returns {string} Focusable selectors for `querySelectorAll`.
+   */
+  static #getFocusableSelectors(anchorHref = true) {
+    return `button, [contenteditable=""], [contenteditable="true"], details summary:not([tabindex="-1"]), embed, a${anchorHref ? "[href]" : ""}, iframe, object, input:not([type=hidden]), select, textarea, [tabindex]:not([tabindex="-1"])`;
+  }
+  /**
+   * Gets a A11yFocusSource object from the given DOM event allowing for optional X / Y screen space overrides.
+   * Browsers (Firefox / Chrome) forwards a mouse event for the context menu keyboard button. Provides detection of
+   * when the context menu event is from the keyboard. Firefox as of (1/23) does not provide the correct screen space
+   * coordinates, so for keyboard context menu presses coordinates are generated from the centroid point of the
+   * element.
+   *
+   * A default fallback element or selector string may be provided to provide the focus target. If the event comes from
+   * the keyboard however the source focused element is inserted as the target with the fallback value appended to the
+   * list of focus targets. When A11yFocusSource is applied by {@link A11yHelper.applyFocusSource} the target focus
+   * list is iterated through until a connected target is found and focus applied.
+   *
+   * @param {object} options - Options
+   *
+   * @param {KeyboardEvent|MouseEvent}   [options.event] - The source DOM event.
+   *
+   * @param {boolean} [options.debug] - When true {@link A11yHelper.applyFocusSource} logs focus target data.
+   *
+   * @param {HTMLElement|string} [options.focusEl] - A specific HTMLElement or selector string as the focus target.
+   *
+   * @param {number}   [options.x] - Used when an event isn't provided; integer of event source in screen space.
+   *
+   * @param {number}   [options.y] - Used when an event isn't provided; integer of event source in screen space.
+   *
+   * @returns {A11yFocusSource} A A11yFocusSource object.
+   *
+   * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1426671
+   * @see https://bugzilla.mozilla.org/show_bug.cgi?id=314314
+   *
+   * TODO: Evaluate / test against touch input devices.
+   */
+  static getFocusSource({ event, x, y, focusEl, debug = false }) {
+    if (focusEl !== void 0 && !(focusEl instanceof HTMLElement) && typeof focusEl !== "string") {
+      throw new TypeError(
+        `A11yHelper.getFocusSource error: 'focusEl' is not a HTMLElement or string.`
+      );
+    }
+    if (debug !== void 0 && typeof debug !== "boolean") {
+      throw new TypeError(`A11yHelper.getFocusSource error: 'debug' is not a boolean.`);
+    }
+    if (event === void 0) {
+      if (typeof x !== "number") {
+        throw new TypeError(`A11yHelper.getFocusSource error: 'event' not defined and 'x' is not a number.`);
+      }
+      if (typeof y !== "number") {
+        throw new TypeError(`A11yHelper.getFocusSource error: 'event' not defined and 'y' is not a number.`);
+      }
+      return {
+        debug,
+        focusEl: focusEl !== void 0 ? [focusEl] : void 0,
+        x,
+        y
+      };
+    }
+    if (!(event instanceof KeyboardEvent) && !(event instanceof MouseEvent)) {
+      throw new TypeError(`A11yHelper.getFocusSource error: 'event' is not a KeyboardEvent or MouseEvent.`);
+    }
+    if (x !== void 0 && !Number.isInteger(x)) {
+      throw new TypeError(`A11yHelper.getFocusSource error: 'x' is not a number.`);
+    }
+    if (y !== void 0 && !Number.isInteger(y)) {
+      throw new TypeError(`A11yHelper.getFocusSource error: 'y' is not a number.`);
+    }
+    const targetEl = event.target;
+    if (!(targetEl instanceof HTMLElement)) {
+      throw new TypeError(`A11yHelper.getFocusSource error: 'event.target' is not an HTMLElement.`);
+    }
+    const result = { debug };
+    if (event instanceof MouseEvent) {
+      if (event?.button !== 2 && event.type === "contextmenu") {
+        const rect = targetEl.getBoundingClientRect();
+        result.x = x ?? rect.left + rect.width / 2;
+        result.y = y ?? rect.top + rect.height / 2;
+        result.focusEl = focusEl !== void 0 ? [targetEl, focusEl] : [targetEl];
+        result.source = "keyboard";
+      } else {
+        result.x = x ?? event.pageX;
+        result.y = y ?? event.pageY;
+        result.focusEl = focusEl !== void 0 ? [focusEl] : void 0;
+      }
+    } else {
+      const rect = targetEl.getBoundingClientRect();
+      result.x = x ?? rect.left + rect.width / 2;
+      result.y = y ?? rect.top + rect.height / 2;
+      result.focusEl = focusEl !== void 0 ? [targetEl, focusEl] : [targetEl];
+      result.source = "keyboard";
+    }
+    return result;
+  }
+  /**
+   * Returns first focusable element within a specified element.
+   *
+   * @param {HTMLElement|Document} [element=document] - Optional element to start query.
+   *
+   * @param {object} [options] - Optional parameters.
+   *
+   * @param {Iterable<string>} [options.ignoreClasses] - Iterable list of classes to ignore elements.
+   *
+   * @param {Set<HTMLElement>} [options.ignoreElements] - Set of elements to ignore.
+   *
+   * @returns {HTMLElement} First focusable child element
+   */
+  static getLastFocusableElement(element2 = document, options) {
+    const focusableElements = this.getFocusableElements(element2, options);
+    return focusableElements.length > 0 ? focusableElements[focusableElements.length - 1] : void 0;
+  }
+  /**
+   * Tests if the given element is focusable.
+   *
+   * @param {HTMLElement} [el] - Element to test.
+   *
+   * @param {object} [options] - Optional parameters.
+   *
+   * @param {boolean} [options.anchorHref=true] - When true anchors must have an HREF.
+   *
+   * @param {Iterable<string>} [options.ignoreClasses] - Iterable list of classes to ignore elements.
+   *
+   * @returns {boolean} Element is focusable.
+   */
+  static isFocusable(el, { anchorHref = true, ignoreClasses } = {}) {
+    if (el === void 0 || el === null || !(el instanceof HTMLElement) || el?.hidden || !el?.isConnected) {
+      return false;
+    }
+    if (typeof anchorHref !== "boolean") {
+      throw new TypeError(`'anchorHref' is not a boolean.`);
+    }
+    if (ignoreClasses !== void 0 && !isIterable(ignoreClasses)) {
+      throw new TypeError(`'ignoreClasses' is not an iterable list.`);
+    }
+    const contenteditableAttr = el.getAttribute("contenteditable");
+    const contenteditableFocusable = typeof contenteditableAttr === "string" && (contenteditableAttr === "" || contenteditableAttr === "true");
+    const tabindexAttr = el.getAttribute("tabindex");
+    const tabindexFocusable = typeof tabindexAttr === "string" && tabindexAttr !== "-1";
+    const isAnchor = el instanceof HTMLAnchorElement;
+    if (contenteditableFocusable || tabindexFocusable || isAnchor || el instanceof HTMLButtonElement || el instanceof HTMLDetailsElement || el instanceof HTMLEmbedElement || el instanceof HTMLIFrameElement || el instanceof HTMLInputElement || el instanceof HTMLObjectElement || el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement) {
+      if (isAnchor && anchorHref && typeof el.getAttribute("href") !== "string") {
+        return false;
+      }
+      return el.style.display !== "none" && el.style.visibility !== "hidden" && !el.hasAttribute("disabled") && !el.hasAttribute("inert") && el.getAttribute("aria-hidden") !== "true";
+    }
+    return false;
+  }
+  /**
+   * Convenience method to check if the given data is a valid focus source.
+   *
+   * @param {HTMLElement|string}   data - Either an HTMLElement or selector string.
+   *
+   * @returns {boolean} Is valid focus source.
+   */
+  static isFocusSource(data) {
+    return data instanceof HTMLElement || typeof data === "string";
+  }
+}
+function normalizeString(query) {
+  return query.trim().normalize("NFD").replace(/[\x00-\x1F]/gm, "");
+}
+class StyleManager {
+  /** @type {CSSStyleRule} */
+  #cssRule;
+  /** @type {string} */
+  #docKey;
+  /** @type {string} */
+  #selector;
+  /** @type {HTMLStyleElement} */
+  #styleElement;
+  /** @type {number} */
+  #version;
+  /**
+   *
+   * @param {object}   opts - Options.
+   *
+   * @param {string}   opts.docKey - Required key providing a link to a specific style sheet element.
+   *
+   * @param {string}   [opts.selector=:root] - Selector element.
+   *
+   * @param {Document} [opts.document] - Target document to load styles into.
+   *
+   * @param {number}   [opts.version] - An integer representing the version / level of styles being managed.
+   *
+   */
+  constructor({ docKey, selector = ":root", document: document2 = globalThis.document, version: version2 } = {}) {
     if (typeof docKey !== "string") {
       throw new TypeError(`StyleManager error: 'docKey' is not a string.`);
     }
+    if (typeof selector !== "string") {
+      throw new TypeError(`StyleManager error: 'selector' is not a string.`);
+    }
+    if (version2 !== void 0 && !Number.isSafeInteger(version2) && version2 < 1) {
+      throw new TypeError(`StyleManager error: 'version' is defined and is not a positive integer >= 1.`);
+    }
     this.#selector = selector;
     this.#docKey = docKey;
+    this.#version = version2;
     if (document2[this.#docKey] === void 0) {
       this.#styleElement = document2.createElement("style");
       document2.head.append(this.#styleElement);
+      this.#styleElement._STYLE_MANAGER_VERSION = version2;
       this.#styleElement.sheet.insertRule(`${selector} {}`, 0);
       this.#cssRule = this.#styleElement.sheet.cssRules[0];
       document2[docKey] = this.#styleElement;
     } else {
       this.#styleElement = document2[docKey];
       this.#cssRule = this.#styleElement.sheet.cssRules[0];
+      if (version2) {
+        const existingVersion = this.#styleElement._STYLE_MANAGER_VERSION ?? 0;
+        if (version2 > existingVersion) {
+          this.#cssRule.style.cssText = "";
+        }
+      }
     }
   }
+  /**
+   * @returns {string} Provides an accessor to get the `cssText` for the style sheet.
+   */
   get cssText() {
     return this.#cssRule.style.cssText;
   }
+  /**
+   * @returns {number} Returns the version of this instance.
+   */
+  get version() {
+    return this.#version;
+  }
+  /**
+   * Provides a copy constructor to duplicate an existing StyleManager instance into a new document.
+   *
+   * Note: This is used to support the `PopOut` module.
+   *
+   * @param {Document} [document] Target browser document to clone into.
+   *
+   * @returns {StyleManager} New style manager instance.
+   */
   clone(document2 = globalThis.document) {
-    const newStyleManager = new StyleManager({ selector: this.#selector, docKey: this.#docKey, document: document2 });
+    const newStyleManager = new StyleManager({
+      selector: this.#selector,
+      docKey: this.#docKey,
+      document: document2,
+      version: this.#version
+    });
     newStyleManager.#cssRule.style.cssText = this.#cssRule.style.cssText;
     return newStyleManager;
   }
@@ -1585,10 +1793,33 @@ class StyleManager {
     }
     return result;
   }
+  /**
+   * Gets a particular CSS variable.
+   *
+   * @param {string}   key - CSS variable property key.
+   *
+   * @returns {string} Returns CSS variable value.
+   */
   getProperty(key) {
+    if (typeof key !== "string") {
+      throw new TypeError(`StyleManager error: 'key' is not a string.`);
+    }
     return this.#cssRule.style.getPropertyValue(key);
   }
+  /**
+   * Set rules by property / value; useful for CSS variables.
+   *
+   * @param {Object<string, string>}  rules - An object with property / value string pairs to load.
+   *
+   * @param {boolean}                 [overwrite=true] - When true overwrites any existing values.
+   */
   setProperties(rules, overwrite = true) {
+    if (!isObject$1(rules)) {
+      throw new TypeError(`StyleManager error: 'rules' is not an object.`);
+    }
+    if (typeof overwrite !== "boolean") {
+      throw new TypeError(`StyleManager error: 'overwrite' is not a boolean.`);
+    }
     if (overwrite) {
       for (const [key, value] of Object.entries(rules)) {
         this.#cssRule.style.setProperty(key, value);
@@ -1601,7 +1832,25 @@ class StyleManager {
       }
     }
   }
+  /**
+   * Sets a particular property.
+   *
+   * @param {string}   key - CSS variable property key.
+   *
+   * @param {string}   value - CSS variable value.
+   *
+   * @param {boolean}  [overwrite=true] - Overwrite any existing value.
+   */
   setProperty(key, value, overwrite = true) {
+    if (typeof key !== "string") {
+      throw new TypeError(`StyleManager error: 'key' is not a string.`);
+    }
+    if (typeof value !== "string") {
+      throw new TypeError(`StyleManager error: 'value' is not a string.`);
+    }
+    if (typeof overwrite !== "boolean") {
+      throw new TypeError(`StyleManager error: 'overwrite' is not a boolean.`);
+    }
     if (overwrite) {
       this.#cssRule.style.setProperty(key, value);
     } else {
@@ -1610,20 +1859,35 @@ class StyleManager {
       }
     }
   }
+  /**
+   * Removes the property keys specified. If `keys` is an iterable list then all property keys in the list are removed.
+   *
+   * @param {Iterable<string>} keys - The property keys to remove.
+   */
   removeProperties(keys) {
-    if (isIterable(keys)) {
-      for (const key of keys) {
-        if (typeof key === "string") {
-          this.#cssRule.style.removeProperty(key);
-        }
+    if (!isIterable(keys)) {
+      throw new TypeError(`StyleManager error: 'keys' is not an iterable list.`);
+    }
+    for (const key of keys) {
+      if (typeof key === "string") {
+        this.#cssRule.style.removeProperty(key);
       }
     }
   }
+  /**
+   * Removes a particular CSS variable.
+   *
+   * @param {string}   key - CSS variable property key.
+   *
+   * @returns {string} CSS variable value when removed.
+   */
   removeProperty(key) {
+    if (typeof key !== "string") {
+      throw new TypeError(`StyleManager error: 'key' is not a string.`);
+    }
     return this.#cssRule.style.removeProperty(key);
   }
 }
-__name(StyleManager, "StyleManager");
 const s_REGEX = /(\d+)\s*px/;
 function styleParsePixels(value) {
   if (typeof value !== "string") {
@@ -1633,7 +1897,6 @@ function styleParsePixels(value) {
   const number = parseInt(value);
   return isPixels && Number.isFinite(number) ? number : void 0;
 }
-__name(styleParsePixels, "styleParsePixels");
 const applicationShellContract = ["elementRoot"];
 Object.freeze(applicationShellContract);
 function isApplicationShell(component) {
@@ -1657,7 +1920,6 @@ function isApplicationShell(component) {
   }
   return compHasContract || protoHasContract;
 }
-__name(isApplicationShell, "isApplicationShell");
 function isHMRProxy(comp) {
   const instanceName = comp?.constructor?.name;
   if (typeof instanceName === "string" && (instanceName.startsWith("Proxy<") || instanceName === "ProxyComponent")) {
@@ -1666,7 +1928,6 @@ function isHMRProxy(comp) {
   const prototypeName = comp?.prototype?.constructor?.name;
   return typeof prototypeName === "string" && (prototypeName.startsWith("Proxy<") || prototypeName === "ProxyComponent");
 }
-__name(isHMRProxy, "isHMRProxy");
 function isSvelteComponent(comp) {
   if (comp === null || comp === void 0 || typeof comp !== "function") {
     return false;
@@ -1675,9 +1936,11 @@ function isSvelteComponent(comp) {
   if (typeof prototypeName === "string" && (prototypeName.startsWith("Proxy<") || prototypeName === "ProxyComponent")) {
     return true;
   }
-  return typeof window !== void 0 ? typeof comp.prototype.$destroy === "function" && typeof comp.prototype.$on === "function" : typeof comp.render === "function";
+  return typeof window !== void 0 ? typeof comp.prototype.$destroy === "function" && typeof comp.prototype.$on === "function" : (
+    // client-side
+    typeof comp.render === "function"
+  );
 }
-__name(isSvelteComponent, "isSvelteComponent");
 async function outroAndDestroy(instance2) {
   return new Promise((resolve2) => {
     if (instance2.$$.fragment && instance2.$$.fragment.o) {
@@ -1693,7 +1956,6 @@ async function outroAndDestroy(instance2) {
     }
   });
 }
-__name(outroAndDestroy, "outroAndDestroy");
 function parseSvelteConfig(config, thisArg = void 0) {
   if (typeof config !== "object") {
     throw new TypeError(`parseSvelteConfig - 'config' is not an object:
@@ -1774,7 +2036,7 @@ ${JSON.stringify(config)}.`
     const contextFunc = svelteConfig.context;
     delete svelteConfig.context;
     const result = contextFunc.call(thisArg);
-    if (typeof result === "object") {
+    if (isObject$1(result)) {
       externalContext = { ...result };
     } else {
       throw new Error(`parseSvelteConfig - 'context' is a function that did not return an object for config:
@@ -1783,7 +2045,7 @@ ${JSON.stringify(config)}`);
   } else if (svelteConfig.context instanceof Map) {
     externalContext = Object.fromEntries(svelteConfig.context);
     delete svelteConfig.context;
-  } else if (typeof svelteConfig.context === "object") {
+  } else if (isObject$1(svelteConfig.context)) {
     externalContext = svelteConfig.context;
     delete svelteConfig.context;
   }
@@ -1803,7 +2065,7 @@ ${JSON.stringify(config)}`);
       externalContext.children = children2;
     }
     delete svelteConfig.children;
-  } else if (typeof svelteConfig.children === "object") {
+  } else if (isObject$1(svelteConfig.children)) {
     if (!isSvelteComponent(svelteConfig.children.class)) {
       throw new Error(`parseSvelteConfig - 'class' is not a Svelte component for children object for config:
 ${JSON.stringify(config)}`);
@@ -1815,20 +2077,19 @@ ${JSON.stringify(config)}`);
   if (!(svelteConfig.context instanceof Map)) {
     svelteConfig.context = /* @__PURE__ */ new Map();
   }
-  svelteConfig.context.set("external", externalContext);
+  svelteConfig.context.set("#external", externalContext);
   return svelteConfig;
 }
-__name(parseSvelteConfig, "parseSvelteConfig");
 function s_PROCESS_PROPS(props, thisArg, config) {
   if (typeof props === "function") {
     const result = props.call(thisArg);
-    if (typeof result === "object") {
+    if (isObject$1(result)) {
       return result;
     } else {
       throw new Error(`parseSvelteConfig - 'props' is a function that did not return an object for config:
 ${JSON.stringify(config)}`);
     }
-  } else if (typeof props === "object") {
+  } else if (isObject$1(props)) {
     return props;
   } else if (props !== void 0) {
     throw new Error(
@@ -1838,7 +2099,6 @@ ${JSON.stringify(config)}`
   }
   return {};
 }
-__name(s_PROCESS_PROPS, "s_PROCESS_PROPS");
 function debounce$1(callback2, delay) {
   let timeoutId;
   return function(...args) {
@@ -1848,7 +2108,6 @@ function debounce$1(callback2, delay) {
     }, delay);
   };
 }
-__name(debounce$1, "debounce$1");
 function hasGetter(object, accessor) {
   if (object === null || object === void 0) {
     return false;
@@ -1865,7 +2124,6 @@ function hasGetter(object, accessor) {
   }
   return false;
 }
-__name(hasGetter, "hasGetter");
 function hasSetter(object, accessor) {
   if (object === null || object === void 0) {
     return false;
@@ -1882,8 +2140,101 @@ function hasSetter(object, accessor) {
   }
   return false;
 }
-__name(hasSetter, "hasSetter");
+const subscriber_queue = [];
+function readable(value, start) {
+  return {
+    subscribe: writable$1(value, start).subscribe
+  };
+}
+function writable$1(value, start = noop$1) {
+  let stop;
+  const subscribers = /* @__PURE__ */ new Set();
+  function set2(new_value) {
+    if (safe_not_equal(value, new_value)) {
+      value = new_value;
+      if (stop) {
+        const run_queue = !subscriber_queue.length;
+        for (const subscriber of subscribers) {
+          subscriber[1]();
+          subscriber_queue.push(subscriber, value);
+        }
+        if (run_queue) {
+          for (let i = 0; i < subscriber_queue.length; i += 2) {
+            subscriber_queue[i][0](subscriber_queue[i + 1]);
+          }
+          subscriber_queue.length = 0;
+        }
+      }
+    }
+  }
+  function update2(fn) {
+    set2(fn(value));
+  }
+  function subscribe2(run2, invalidate = noop$1) {
+    const subscriber = [run2, invalidate];
+    subscribers.add(subscriber);
+    if (subscribers.size === 1) {
+      stop = start(set2) || noop$1;
+    }
+    run2(value);
+    return () => {
+      subscribers.delete(subscriber);
+      if (subscribers.size === 0) {
+        stop();
+        stop = null;
+      }
+    };
+  }
+  return { set: set2, update: update2, subscribe: subscribe2 };
+}
+function derived(stores, fn, initial_value) {
+  const single = !Array.isArray(stores);
+  const stores_array = single ? [stores] : stores;
+  const auto = fn.length < 2;
+  return readable(initial_value, (set2) => {
+    let inited = false;
+    const values = [];
+    let pending = 0;
+    let cleanup = noop$1;
+    const sync = () => {
+      if (pending) {
+        return;
+      }
+      cleanup();
+      const result = fn(single ? values[0] : values, set2);
+      if (auto) {
+        set2(result);
+      } else {
+        cleanup = is_function(result) ? result : noop$1;
+      }
+    };
+    const unsubscribers = stores_array.map((store, i) => subscribe(store, (value) => {
+      values[i] = value;
+      pending &= ~(1 << i);
+      if (inited) {
+        sync();
+      }
+    }, () => {
+      pending |= 1 << i;
+    }));
+    inited = true;
+    sync();
+    return function stop() {
+      run_all(unsubscribers);
+      cleanup();
+    };
+  });
+}
 class DynReducerUtils {
+  /**
+   * Checks for array equality between two arrays of numbers.
+   *
+   * @param a - Array A
+   *
+   * @param b - Array B
+   *
+   * @returns Arrays are equal.
+   */
   static arrayEquals(a, b) {
     if (a === b) {
       return true;
@@ -1901,6 +2252,17 @@ class DynReducerUtils {
     }
     return true;
   }
+  /**
+   * Provides a solid string hashing algorithm.
+   *
+   * Sourced from: https://stackoverflow.com/a/52171480
+   *
+   * @param str - String to hash.
+   *
+   * @param seed - A seed value altering the hash.
+   *
+   * @returns Hash code.
+   */
   static hashString(str, seed = 0) {
     let h12 = 3735928559 ^ seed, h22 = 1103547991 ^ seed;
     for (let ch, i = 0; i < str.length; i++) {
@@ -1912,6 +2274,14 @@ class DynReducerUtils {
     h22 = Math.imul(h22 ^ h22 >>> 16, 2246822507) ^ Math.imul(h12 ^ h12 >>> 13, 3266489909);
     return 4294967296 * (2097151 & h22) + (h12 >>> 0);
   }
+  /**
+   * Converts an unknown value for hashing purposes in {@link AdapterIndexer.calcHashUpdate}.
+   *
+   * Currently objects / Map w/ object keys is not supported. Potentially can include `object-hash` to handle this
+   * case, but it is not common to use objects as keys in Maps.
+   *
+   * @param value - An unknown value to convert to a number.
+   */
   static hashUnknown(value) {
     if (value === null || value === void 0) {
       return 0;
@@ -1941,6 +2311,13 @@ class DynReducerUtils {
     }
     return result;
   }
+  /**
+   * @param target -
+   *
+   * @param Prototype -
+   *
+   * @returns target constructor function has Prototype.
+   */
   static hasPrototype(target, Prototype) {
     if (typeof target !== "function") {
       return false;
@@ -1955,23 +2332,43 @@ class DynReducerUtils {
     }
     return false;
   }
+  /**
+   * Provides a utility method to determine if the given data is iterable / implements iterator protocol.
+   *
+   * @param data - Data to verify as iterable.
+   *
+   * @returns Is data iterable.
+   */
   static isIterable(data) {
     return data !== null && data !== void 0 && typeof data === "object" && typeof data[Symbol.iterator] === "function";
   }
 }
-__name(DynReducerUtils, "DynReducerUtils");
 class AdapterDerived {
   #hostData;
   #DerivedReducerCtor;
   #parentIndex;
   #derived = /* @__PURE__ */ new Map();
   #destroyed = false;
+  /**
+   * @param hostData - Hosted data structure.
+   *
+   * @param parentIndex - Any associated parent index API.
+   *
+   * @param DerivedReducerCtor - The default derived reducer constructor function.
+   */
   constructor(hostData, parentIndex, DerivedReducerCtor) {
     this.#hostData = hostData;
     this.#parentIndex = parentIndex;
     this.#DerivedReducerCtor = DerivedReducerCtor;
     Object.freeze(this);
   }
+  /**
+   * Creates a new derived reducer.
+   *
+   * @param options - Options defining the new derived reducer.
+   *
+   * @returns Newly created derived reducer.
+   */
   create(options) {
     if (this.#destroyed) {
       throw Error(`AdapterDerived.create error: this instance has been destroyed.`);
@@ -2001,6 +2398,9 @@ class AdapterDerived {
     this.#derived.set(name, derivedReducer);
     return derivedReducer;
   }
+  /**
+   * Removes all derived reducers and associated subscriptions.
+   */
   clear() {
     if (this.#destroyed) {
       return;
@@ -2010,6 +2410,11 @@ class AdapterDerived {
     }
     this.#derived.clear();
   }
+  /**
+   * Deletes and destroys a derived reducer by name.
+   *
+   * @param name - Name of the derived reducer.
+   */
   delete(name) {
     if (this.#destroyed) {
       throw Error(`AdapterDerived.delete error: this instance has been destroyed.`);
@@ -2020,6 +2425,9 @@ class AdapterDerived {
     }
     return this.#derived.delete(name);
   }
+  /**
+   * Removes all derived reducers, subscriptions, and cleans up all resources.
+   */
   destroy() {
     if (this.#destroyed) {
       return;
@@ -2029,12 +2437,22 @@ class AdapterDerived {
     this.#parentIndex = null;
     this.#destroyed = true;
   }
+  /**
+   * Returns an existing derived reducer.
+   *
+   * @param name - Name of derived reducer.
+   */
   get(name) {
     if (this.#destroyed) {
       throw Error(`AdapterDerived.get error: this instance has been destroyed.`);
     }
     return this.#derived.get(name);
   }
+  /**
+   * Updates all managed derived reducer indexes.
+   *
+   * @param [force] - Force an update to subscribers.
+   */
   update(force = false) {
     if (this.#destroyed) {
       return;
@@ -2044,19 +2462,32 @@ class AdapterDerived {
     }
   }
 }
-__name(AdapterDerived, "AdapterDerived");
 class AdapterFilters {
   #filtersData;
   #indexUpdate;
   #mapUnsubscribe = /* @__PURE__ */ new Map();
+  /**
+   * @param indexUpdate - update function for the indexer.
+   *
+   * @param filtersAdapter - Stores the filter function data.
+   */
   constructor(indexUpdate, filtersAdapter) {
     this.#indexUpdate = indexUpdate;
     this.#filtersData = filtersAdapter;
     Object.freeze(this);
   }
+  /**
+   * @returns Returns the length of the filter data.
+   */
   get length() {
     return this.#filtersData.filters.length;
   }
+  /**
+   * Provides an iterator for filters.
+   *
+   * @returns Generator / iterator of filters.
+   * @yields {DataFilter<T>}
+   */
   *[Symbol.iterator]() {
     if (this.#filtersData.filters.length === 0) {
       return;
@@ -2065,6 +2496,9 @@ class AdapterFilters {
       yield { ...entry };
     }
   }
+  /**
+   * @param filters -
+   */
   add(...filters) {
     let subscribeCount = 0;
     for (const filter of filters) {
@@ -2123,6 +2557,9 @@ class AdapterFilters {
       this.#indexUpdate();
     }
   }
+  /**
+   * Clears and removes all filters.
+   */
   clear() {
     this.#filtersData.filters.length = 0;
     for (const unsubscribe of this.#mapUnsubscribe.values()) {
@@ -2131,6 +2568,9 @@ class AdapterFilters {
     this.#mapUnsubscribe.clear();
     this.#indexUpdate();
   }
+  /**
+   * @param filters -
+   */
   remove(...filters) {
     const length = this.#filtersData.filters.length;
     if (length === 0) {
@@ -2156,6 +2596,12 @@ class AdapterFilters {
       this.#indexUpdate();
     }
   }
+  /**
+   * Remove filters by the provided callback. The callback takes 3 parameters: `id`, `filter`, and `weight`.
+   * Any truthy value returned will remove that filter.
+   *
+   * @param callback - Callback function to evaluate each filter entry.
+   */
   removeBy(callback2) {
     const length = this.#filtersData.filters.length;
     if (length === 0) {
@@ -2179,6 +2625,9 @@ class AdapterFilters {
       this.#indexUpdate();
     }
   }
+  /**
+   * @param ids - Removes filters by ID.
+   */
   removeById(...ids) {
     const length = this.#filtersData.filters.length;
     if (length === 0) {
@@ -2203,7 +2652,6 @@ class AdapterFilters {
     }
   }
 }
-__name(AdapterFilters, "AdapterFilters");
 class AdapterIndexer {
   derivedAdapter;
   filtersData;
@@ -2213,25 +2661,65 @@ class AdapterIndexer {
   sortData;
   sortFn;
   destroyed = false;
+  /**
+   * @param hostData - Hosted data structure.
+   *
+   * @param hostUpdate - Host update function invoked on index updates.
+   *
+   * @param [parentIndexer] - Any associated parent index API.
+   *
+   * @returns Indexer adapter instance.
+   */
   constructor(hostData, hostUpdate, parentIndexer) {
     this.hostData = hostData;
     this.hostUpdate = hostUpdate;
     this.indexData = { index: null, hash: null, reversed: false, parent: parentIndexer };
   }
+  /**
+   * @returns Returns whether the index is active.
+   */
   get active() {
     return this.filtersData.filters.length > 0 || this.sortData.compareFn !== null || this.indexData.parent?.active === true;
   }
+  /**
+   * @returns Returns length of reduced index.
+   */
   get length() {
     return this.indexData.index ? this.indexData.index.length : 0;
   }
+  /* c8 ignore start */
+  /**
+   * @returns Returns reversed state.
+   */
   get reversed() {
     return this.indexData.reversed;
   }
+  /* c8 ignore end */
+  /**
+   * @param reversed - New reversed state.
+   */
   set reversed(reversed) {
     this.indexData.reversed = reversed;
   }
+  // -------------------------------------------------------------------------------------------------------------------
+  /**
+   * Calculates a new hash value for the new index array if any. If the new index array is null then the hash value
+   * is set to null. Set calculated new hash value to the index adapter hash value.
+   *
+   * After hash generation compare old and new hash values and perform an update if they are different. If they are
+   * equal check for array equality between the old and new index array and perform an update if they are not equal.
+   *
+   * @param oldIndex - Old index array.
+   *
+   * @param oldHash - Old index hash value.
+   *
+   * @param [force=false] - When true forces an update to subscribers.
+   */
   calcHashUpdate(oldIndex, oldHash, force = false) {
-    const actualForce = typeof force === "boolean" ? force : false;
+    const actualForce = typeof force === "boolean" ? force : (
+      /* c8 ignore next */
+      false
+    );
     let newHash = null;
     const newIndex = this.indexData.index;
     if (newIndex) {
@@ -2244,6 +2732,9 @@ class AdapterIndexer {
       this.hostUpdate();
     }
   }
+  /**
+   * Destroys all resources.
+   */
   destroy() {
     if (this.destroyed) {
       return;
@@ -2254,6 +2745,15 @@ class AdapterIndexer {
     this.indexData.parent = null;
     this.destroyed = true;
   }
+  /**
+   * Store associated filter and sort data that are constructed after the indexer.
+   *
+   * @param filtersData - Associated AdapterFilters instance.
+   *
+   * @param sortData - Associated AdapterSort instance.
+   *
+   * @param derivedAdapter - Associated AdapterDerived instance.
+   */
   initAdapters(filtersData, sortData, derivedAdapter) {
     this.filtersData = filtersData;
     this.sortData = sortData;
@@ -2261,16 +2761,23 @@ class AdapterIndexer {
     this.sortFn = this.createSortFn();
   }
 }
-__name(AdapterIndexer, "AdapterIndexer");
 class AdapterSort {
   #sortData;
   #indexUpdate;
   #unsubscribe;
+  /**
+   * @param indexUpdate - Function to update indexer.
+   *
+   * @param sortData - Storage for compare function.
+   */
   constructor(indexUpdate, sortData) {
     this.#indexUpdate = indexUpdate;
     this.#sortData = sortData;
     Object.freeze(this);
   }
+  /**
+   * Clears & removes any assigned sort function and triggers an index update.
+   */
   clear() {
     const oldCompareFn = this.#sortData.compareFn;
     this.#sortData.compareFn = null;
@@ -2282,6 +2789,14 @@ class AdapterSort {
       this.#indexUpdate();
     }
   }
+  /**
+   * @param data - A callback function that compares two values. Return > 0 to sort b before a;
+   * < 0 to sort a before b; or 0 to keep original order of a & b.
+   *
+   * Note: You can set a compare function that also has a subscribe function attached as the `subscribe` attribute.
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#parameters
+   */
   set(data) {
     if (typeof this.#unsubscribe === "function") {
       this.#unsubscribe();
@@ -2325,11 +2840,21 @@ class AdapterSort {
     }
   }
 }
-__name(AdapterSort, "AdapterSort");
 class IndexerAPI {
   #indexData;
+  /**
+   * Provides a getter to determine if the index is active.
+   */
   active;
+  /**
+   * Provides length of reduced / indexed elements.
+   */
   length;
+  /**
+   * Manually invoke an update of the index.
+   *
+   * @param force - Force update to any subscribers.
+   */
   update;
   constructor(adapterIndexer) {
     this.#indexData = adapterIndexer.indexData;
@@ -2340,9 +2865,18 @@ class IndexerAPI {
     });
     Object.freeze(this);
   }
+  /**
+   * - Current hash value of the index.
+   */
   get hash() {
     return this.#indexData.hash;
   }
+  /**
+   * Provides an iterator over the index array.
+   *
+   * @returns Iterator / generator
+   * @yields {K}
+   */
   *[Symbol.iterator]() {
     const indexData = this.#indexData;
     if (!indexData.index) {
@@ -2361,12 +2895,32 @@ class IndexerAPI {
     }
   }
 }
-__name(IndexerAPI, "IndexerAPI");
 class DerivedAPI {
+  /**
+   * Removes all derived reducers and associated subscriptions.
+   */
   clear;
+  /**
+   * @param options - Options for creating a reducer.
+   *
+   * @returns Newly created derived reducer.
+   */
   create;
+  /**
+   * Deletes and destroys a derived reducer.
+   *
+   * @param name - Name of the derived reducer
+   */
   delete;
+  /**
+   * Removes all derived reducers, associated subscriptions, and cleans up all resources.
+   */
   destroy;
+  /**
+   * Returns an existing derived reducer.
+   *
+   * @param name - Name of derived reducer.
+   */
   get;
   constructor(adapterDerived) {
     this.clear = adapterDerived.clear.bind(adapterDerived);
@@ -2377,11 +2931,21 @@ class DerivedAPI {
     Object.freeze(this);
   }
 }
-__name(DerivedAPI, "DerivedAPI");
 class Indexer$1 extends AdapterIndexer {
+  /**
+   * @inheritDoc
+   */
   createSortFn() {
     return (a, b) => this.sortData.compareFn(this.hostData[0][a], this.hostData[0][b]);
   }
+  /**
+   * Provides the custom filter / reduce step that is ~25-40% faster than implementing with `Array.reduce`.
+   *
+   * Note: Other loop unrolling techniques like Duff's Device gave a slight faster lower bound on large data sets,
+   * but the maintenance factor is not worth the extra complication.
+   *
+   * @returns New filtered index array.
+   */
   reduceImpl() {
     const data = [];
     const array = this.hostData[0];
@@ -2421,6 +2985,12 @@ class Indexer$1 extends AdapterIndexer {
     }
     return data;
   }
+  /**
+   * Update the reducer indexes. If there are changes subscribers are notified. If data order is changed externally
+   * pass in true to force an update to subscribers.
+   *
+   * @param [force=false] - When true forces an update to subscribers.
+   */
   update(force = false) {
     if (this.destroyed) {
       return;
@@ -2448,7 +3018,6 @@ class Indexer$1 extends AdapterIndexer {
     this.derivedAdapter?.update(force);
   }
 }
-__name(Indexer$1, "Indexer$1");
 class DerivedArrayReducer {
   #array;
   #derived;
@@ -2462,6 +3031,13 @@ class DerivedArrayReducer {
   #sortData = { compareFn: null };
   #subscriptions = [];
   #destroyed = false;
+  /**
+   * @param array - Data host array.
+   *
+   * @param parentIndex - Parent indexer.
+   *
+   * @param options - Any filters and sort functions to apply.
+   */
   constructor(array, parentIndex, options) {
     this.#array = array;
     this.#index = new Indexer$1(this.#array, this.#updateSubscribers.bind(this), parentIndex);
@@ -2499,31 +3075,68 @@ class DerivedArrayReducer {
     }
     this.initialize();
   }
+  /**
+   * Returns the internal data of this instance. Be careful!
+   *
+   * Note: if an array is set as initial data then that array is used as the internal data. If any changes are
+   * performed to the data externally do invoke {@link IndexerAPI.update} with `true` to recalculate the index and
+   * notify all subscribers.
+   *
+   * @returns The internal data.
+   */
   get data() {
     return this.#array[0];
   }
+  /**
+   * @returns Derived public API.
+   */
   get derived() {
     return this.#derivedPublicAPI;
   }
+  /**
+   * @returns The filters adapter.
+   */
   get filters() {
     return this.#filters;
   }
+  /**
+   * Returns the Indexer public API.
+   *
+   * @returns Indexer API - is also iterable.
+   */
   get index() {
     return this.#indexPublicAPI;
   }
+  /**
+   * Returns whether this derived reducer is destroyed.
+   */
   get destroyed() {
     return this.#destroyed;
   }
+  /**
+   * @returns Main data / items length or indexed length.
+   */
   get length() {
     const array = this.#array[0];
     return this.#index.active ? this.index.length : array ? array.length : 0;
   }
+  /**
+   * @returns Gets current reversed state.
+   */
   get reversed() {
     return this.#reversed;
   }
+  /**
+   * @returns The sort adapter.
+   */
   get sort() {
     return this.#sort;
   }
+  /**
+   * Sets reversed state and notifies subscribers.
+   *
+   * @param reversed - New reversed state.
+   */
   set reversed(reversed) {
     if (typeof reversed !== "boolean") {
       throw new TypeError(`DerivedArrayReducer.reversed error: 'reversed' is not a boolean.`);
@@ -2532,6 +3145,9 @@ class DerivedArrayReducer {
     this.#index.reversed = reversed;
     this.index.update(true);
   }
+  /**
+   * Removes all derived reducers, subscriptions, and cleans up all resources.
+   */
   destroy() {
     this.#destroyed = true;
     this.#array = [null];
@@ -2542,8 +3158,19 @@ class DerivedArrayReducer {
     this.#filters.clear();
     this.#sort.clear();
   }
+  /**
+   * Provides a callback for custom derived reducers to initialize any data / custom configuration. This allows
+   * child classes to avoid implementing the constructor.
+   *
+   * @protected
+   */
   initialize() {
   }
+  /**
+   * Provides an iterator for data stored in DerivedArrayReducer.
+   *
+   * @returns Generator / iterator of all data.
+   */
   *[Symbol.iterator]() {
     const array = this.#array[0];
     if (this.#destroyed || array === null || array?.length === 0) {
@@ -2565,6 +3192,14 @@ class DerivedArrayReducer {
       }
     }
   }
+  // -------------------------------------------------------------------------------------------------------------------
+  /**
+   * Subscribe to this DerivedArrayReducer.
+   *
+   * @param handler - Callback function that is invoked on update / changes. Receives `this` reference.
+   *
+   * @returns Unsubscribe function.
+   */
   subscribe(handler) {
     this.#subscriptions.push(handler);
     handler(this);
@@ -2575,13 +3210,15 @@ class DerivedArrayReducer {
       }
     };
   }
+  /**
+   * Updates subscribers on changes.
+   */
   #updateSubscribers() {
     for (let cntr = 0; cntr < this.#subscriptions.length; cntr++) {
       this.#subscriptions[cntr](this);
     }
   }
 }
-__name(DerivedArrayReducer, "DerivedArrayReducer");
 class DynArrayReducer {
   #array = [null];
   #derived;
@@ -2595,6 +3232,12 @@ class DynArrayReducer {
   #sortData = { compareFn: null };
   #subscriptions = [];
   #destroyed = false;
+  /**
+   * Initializes DynArrayReducer. Any iterable is supported for initial data. Take note that if `data` is an array it
+   * will be used as the host array and not copied. All non-array iterables otherwise create a new array / copy.
+   *
+   * @param [data] - Data iterable to store if array or copy otherwise.
+   */
   constructor(data) {
     let dataIterable = void 0;
     let filters = void 0;
@@ -2647,31 +3290,70 @@ class DynArrayReducer {
     }
     this.initialize();
   }
+  /**
+   * Returns the internal data of this instance. Be careful!
+   *
+   * Note: if an array is set as initial data then that array is used as the internal data. If any changes are
+   * performed to the data externally do invoke {@link AdapterIndexer.index.update} with `true` to recalculate the
+   * index and notify all subscribers.
+   *
+   * @returns The internal data.
+   */
   get data() {
     return this.#array[0];
   }
+  /**
+   * @returns Derived public API.
+   */
   get derived() {
     return this.#derivedPublicAPI;
   }
+  /**
+   * @returns The filters adapter.
+   */
   get filters() {
     return this.#filters;
   }
+  /**
+   * @returns Returns the Indexer public API.
+   */
   get index() {
     return this.#indexPublicAPI;
   }
+  /**
+   * Returns whether this instance is destroyed.
+   */
   get destroyed() {
     return this.#destroyed;
   }
+  /**
+   * Gets the main data / items length.
+   *
+   * @returns {number} Main data / items length.
+   */
   get length() {
     const array = this.#array[0];
     return this.#index.active ? this.#indexPublicAPI.length : array ? array.length : 0;
   }
+  /**
+   * Gets current reversed state.
+   *
+   * @returns {boolean} Reversed state.
+   */
   get reversed() {
     return this.#reversed;
   }
+  /**
+   * @returns The sort adapter.
+   */
   get sort() {
     return this.#sort;
   }
+  /**
+   * Sets reversed state and notifies subscribers.
+   *
+   * @param reversed - New reversed state.
+   */
   set reversed(reversed) {
     if (typeof reversed !== "boolean") {
       throw new TypeError(`DynArrayReducer.reversed error: 'reversed' is not a boolean.`);
@@ -2680,6 +3362,9 @@ class DynArrayReducer {
     this.#index.reversed = reversed;
     this.index.update(true);
   }
+  /**
+   * Removes all derived reducers, subscriptions, and cleans up all resources.
+   */
   destroy() {
     if (this.#destroyed) {
       return;
@@ -2693,8 +3378,22 @@ class DynArrayReducer {
     this.#filters.clear();
     this.#sort.clear();
   }
+  /**
+   * Provides a callback for custom reducers to initialize any data / custom configuration. This allows
+   * child classes to avoid implementing the constructor.
+   *
+   * @protected
+   */
   initialize() {
   }
+  /**
+   * Removes internal data and pushes new data. This does not destroy any initial array set to internal data unless
+   * `replace` is set to true.
+   *
+   * @param data - New data to set to internal data.
+   *
+   * @param replace=false - New data to set to internal data.
+   */
   setData(data, replace = false) {
     if (data !== null && !DynReducerUtils.isIterable(data)) {
       throw new TypeError(`DynArrayReducer.setData error: 'data' is not iterable.`);
@@ -2717,6 +3416,13 @@ class DynArrayReducer {
     }
     this.index.update(true);
   }
+  /**
+   * Add a subscriber to this DynArrayReducer instance.
+   *
+   * @param handler - Callback function that is invoked on update / changes. Receives `this` reference.
+   *
+   * @returns Unsubscribe function.
+   */
   subscribe(handler) {
     this.#subscriptions.push(handler);
     handler(this);
@@ -2727,11 +3433,20 @@ class DynArrayReducer {
       }
     };
   }
+  /**
+   * Updates subscribers on changes.
+   */
   #updateSubscribers() {
     for (let cntr = 0; cntr < this.#subscriptions.length; cntr++) {
       this.#subscriptions[cntr](this);
     }
   }
+  /**
+   * Provides an iterator for data stored in DynArrayReducer.
+   *
+   * @returns Generator / iterator of all data.
+   * @yields {T}
+   */
   *[Symbol.iterator]() {
     const array = this.#array[0];
     if (this.#destroyed || array === null || array?.length === 0) {
@@ -2754,63 +3469,24 @@ class DynArrayReducer {
     }
   }
 }
-__name(DynArrayReducer, "DynArrayReducer");
-function isUpdatableStore(store) {
-  if (store === null || store === void 0) {
-    return false;
-  }
-  switch (typeof store) {
-    case "function":
-    case "object":
-      return typeof store.subscribe === "function" && typeof store.update === "function";
-  }
-  return false;
-}
-__name(isUpdatableStore, "isUpdatableStore");
-function isWritableStore(store) {
-  if (store === null || store === void 0) {
-    return false;
-  }
-  switch (typeof store) {
-    case "function":
-    case "object":
-      return typeof store.subscribe === "function" && typeof store.set === "function";
-  }
-  return false;
-}
-__name(isWritableStore, "isWritableStore");
-function subscribeIgnoreFirst(store, update2) {
-  let firedFirst = false;
-  return store.subscribe((value) => {
-    if (!firedFirst) {
-      firedFirst = true;
-    } else {
-      update2(value);
-    }
-  });
-}
-__name(subscribeIgnoreFirst, "subscribeIgnoreFirst");
 function isSimpleDeriver(deriver) {
   return deriver.length < 2;
 }
-__name(isSimpleDeriver, "isSimpleDeriver");
 function generator(storage2) {
   function readable2(key, value, start) {
     return {
       subscribe: writable2(key, value, start).subscribe
     };
   }
-  __name(readable2, "readable");
   function writable2(key, value, start = noop$1) {
     function wrap_start(ogSet) {
-      return start(/* @__PURE__ */ __name(function wrap_set(new_value) {
+      return start(function wrap_set(new_value) {
         if (storage2) {
           storage2.setItem(key, JSON.stringify(new_value));
         }
         return ogSet(new_value);
-      }, "wrap_set"));
+      });
     }
-    __name(wrap_start, "wrap_start");
     if (storage2) {
       const storageValue = storage2.getItem(key);
       try {
@@ -2828,18 +3504,14 @@ function generator(storage2) {
       }
       ogStore.set(new_value);
     }
-    __name(set2, "set");
     function update2(fn) {
       set2(fn(get_store_value(ogStore)));
     }
-    __name(update2, "update");
     function subscribe2(run2, invalidate = noop$1) {
       return ogStore.subscribe(run2, invalidate);
     }
-    __name(subscribe2, "subscribe");
     return { set: set2, update: update2, subscribe: subscribe2 };
   }
-  __name(writable2, "writable");
   function derived2(key, stores, fn, initial_value) {
     const single = !Array.isArray(stores);
     const stores_array = single ? [stores] : stores;
@@ -2854,7 +3526,7 @@ function generator(storage2) {
       const values = [];
       let pending = 0;
       let cleanup = noop$1;
-      const sync = /* @__PURE__ */ __name(() => {
+      const sync = () => {
         if (pending) {
           return;
         }
@@ -2866,7 +3538,7 @@ function generator(storage2) {
           const result = fn(input, set2);
           cleanup = is_function(result) ? result : noop$1;
         }
-      }, "sync");
+      };
       const unsubscribers = stores_array.map((store, i) => store.subscribe((value) => {
         values[i] = value;
         pending &= ~(1 << i);
@@ -2878,13 +3550,12 @@ function generator(storage2) {
       }));
       inited = true;
       sync();
-      return /* @__PURE__ */ __name(function stop() {
+      return function stop() {
         run_all(unsubscribers);
         cleanup();
-      }, "stop");
+      };
     });
   }
-  __name(derived2, "derived");
   return {
     readable: readable2,
     writable: writable2,
@@ -2892,12 +3563,23 @@ function generator(storage2) {
     get: get_store_value
   };
 }
-__name(generator, "generator");
 var storage = typeof window !== "undefined" ? window.sessionStorage : void 0;
 var g = generator(storage);
 var writable = g.writable;
-class SessionStorage {
+class TJSSessionStorage {
+  /**
+   * @type {Map<string, import('svelte/store').Writable>}
+   */
   #stores = /* @__PURE__ */ new Map();
+  /**
+   * Creates a new store for the given key.
+   *
+   * @param {string}   key - Key to lookup in stores map.
+   *
+   * @param {boolean}  [defaultValue] - A default value to set for the store.
+   *
+   * @returns {import('svelte/store').Writable} The new store.
+   */
   static #createStore(key, defaultValue = void 0) {
     try {
       const value = sessionStorage.getItem(key);
@@ -2908,14 +3590,32 @@ class SessionStorage {
     }
     return writable(key, defaultValue);
   }
+  /**
+   * Gets a store from the `stores` Map or creates a new store for the key and a given default value.
+   *
+   * @param {string}               key - Key to lookup in stores map.
+   *
+   * @param {boolean}              [defaultValue] - A default value to set for the store.
+   *
+   * @returns {import('svelte/store').Writable} The store for the given key.
+   */
   #getStore(key, defaultValue = void 0) {
     let store = this.#stores.get(key);
     if (store === void 0) {
-      store = SessionStorage.#createStore(key, defaultValue);
+      store = TJSSessionStorage.#createStore(key, defaultValue);
       this.#stores.set(key, store);
     }
     return store;
   }
+  /**
+   * Get value from the sessionStorage.
+   *
+   * @param {string}   key - Key to lookup in sessionStorage.
+   *
+   * @param {*}        [defaultValue] - A default value to return if key not present in session storage.
+   *
+   * @returns {*} Value from session storage or if not defined any default value provided.
+   */
   getItem(key, defaultValue) {
     let value = defaultValue;
     const storageValue = sessionStorage.getItem(key);
@@ -2934,13 +3634,39 @@ class SessionStorage {
     }
     return value;
   }
+  /**
+   * Returns the backing Svelte store for the given key; potentially sets a default value if the key
+   * is not already set.
+   *
+   * @param {string}   key - Key to lookup in sessionStorage.
+   *
+   * @param {*}        [defaultValue] - A default value to return if key not present in session storage.
+   *
+   * @returns {import('svelte/store').Writable} The Svelte store for this key.
+   */
   getStore(key, defaultValue) {
     return this.#getStore(key, defaultValue);
   }
+  /**
+   * Sets the value for the given key in sessionStorage.
+   *
+   * @param {string}   key - Key to lookup in sessionStorage.
+   *
+   * @param {*}        value - A value to set for this key.
+   */
   setItem(key, value) {
     const store = this.#getStore(key);
     store.set(value);
   }
+  /**
+   * Convenience method to swap a boolean value stored in session storage.
+   *
+   * @param {string}   key - Key to lookup in sessionStorage.
+   *
+   * @param {boolean}  [defaultValue] - A default value to return if key not present in session storage.
+   *
+   * @returns {boolean} The boolean swap for the given key.
+   */
   swapItemBoolean(key, defaultValue) {
     const store = this.#getStore(key, defaultValue);
     let currentValue = false;
@@ -2953,11 +3679,53 @@ class SessionStorage {
     return newValue;
   }
 }
-__name(SessionStorage, "SessionStorage");
+function isReadableStore(store) {
+  if (store === null || store === void 0) {
+    return false;
+  }
+  switch (typeof store) {
+    case "function":
+    case "object":
+      return typeof store.subscribe === "function";
+  }
+  return false;
+}
+function isUpdatableStore(store) {
+  if (store === null || store === void 0) {
+    return false;
+  }
+  switch (typeof store) {
+    case "function":
+    case "object":
+      return typeof store.subscribe === "function" && typeof store.update === "function";
+  }
+  return false;
+}
+function isWritableStore(store) {
+  if (store === null || store === void 0) {
+    return false;
+  }
+  switch (typeof store) {
+    case "function":
+    case "object":
+      return typeof store.subscribe === "function" && typeof store.set === "function";
+  }
+  return false;
+}
+function subscribeIgnoreFirst(store, update2) {
+  let firedFirst = false;
+  return store.subscribe((value) => {
+    if (!firedFirst) {
+      firedFirst = true;
+    } else {
+      update2(value);
+    }
+  });
+}
 function writableDerived(origins, derive, reflect, initial) {
   var childDerivedSetter, originValues, blockNextDerive = false;
-  var reflectOldValues = "withOld" in reflect;
-  var wrappedDerive = /* @__PURE__ */ __name((got, set2) => {
+  var reflectOldValues = reflect.length >= 2;
+  var wrappedDerive = (got, set2) => {
     childDerivedSetter = set2;
     if (reflectOldValues) {
       originValues = got;
@@ -2971,10 +3739,11 @@ function writableDerived(origins, derive, reflect, initial) {
       }
     }
     blockNextDerive = false;
-  }, "wrappedDerive");
+  };
   var childDerived = derived(origins, wrappedDerive, initial);
   var singleOrigin = !Array.isArray(origins);
-  var sendUpstream = /* @__PURE__ */ __name((setWith) => {
+  function doReflect(reflecting) {
+    var setWith = reflect(reflecting, originValues);
     if (singleOrigin) {
       blockNextDerive = true;
       origins.set(setWith);
@@ -2985,31 +3754,7 @@ function writableDerived(origins, derive, reflect, initial) {
       });
     }
     blockNextDerive = false;
-  }, "sendUpstream");
-  if (reflectOldValues) {
-    reflect = reflect.withOld;
   }
-  var reflectIsAsync = reflect.length >= (reflectOldValues ? 3 : 2);
-  var cleanup = null;
-  function doReflect(reflecting) {
-    if (cleanup) {
-      cleanup();
-      cleanup = null;
-    }
-    if (reflectOldValues) {
-      var returned = reflect(reflecting, originValues, sendUpstream);
-    } else {
-      var returned = reflect(reflecting, sendUpstream);
-    }
-    if (reflectIsAsync) {
-      if (typeof returned == "function") {
-        cleanup = returned;
-      }
-    } else {
-      sendUpstream(returned);
-    }
-  }
-  __name(doReflect, "doReflect");
   var tryingSet = false;
   function update2(fn) {
     var isUpdated, mutatedBySubscriptions, oldValue, newValue;
@@ -3039,7 +3784,6 @@ function writableDerived(origins, derive, reflect, initial) {
       doReflect(newValue);
     }
   }
-  __name(update2, "update");
   return {
     subscribe: childDerived.subscribe,
     set(value) {
@@ -3048,16 +3792,15 @@ function writableDerived(origins, derive, reflect, initial) {
     update: update2
   };
 }
-__name(writableDerived, "writableDerived");
 function propertyStore(origin, propName) {
   if (!Array.isArray(propName)) {
     return writableDerived(
       origin,
       (object) => object[propName],
-      { withOld(reflecting, object) {
+      (reflecting, object) => {
         object[propName] = reflecting;
         return object;
-      } }
+      }
     );
   } else {
     let props = propName.concat();
@@ -3069,38 +3812,33 @@ function propertyStore(origin, propName) {
         }
         return value;
       },
-      { withOld(reflecting, object) {
+      (reflecting, object) => {
         let target = object;
         for (let i = 0; i < props.length - 1; ++i) {
           target = target[props[i]];
         }
         target[props[props.length - 1]] = reflecting;
         return object;
-      } }
+      }
     );
   }
 }
-__name(propertyStore, "propertyStore");
 const storeState = writable$1(void 0);
-const gameState = {
+({
   subscribe: storeState.subscribe,
   get: () => game
-};
-Object.freeze(gameState);
+});
 Hooks.once("ready", () => storeState.set(game));
 function cubicOut(t) {
   const f = t - 1;
   return f * f * f + 1;
 }
-__name(cubicOut, "cubicOut");
 function lerp$5(start, end, amount) {
   return (1 - amount) * start + amount * end;
 }
-__name(lerp$5, "lerp$5");
 function degToRad(deg) {
   return deg * (Math.PI / 180);
 }
-__name(degToRad, "degToRad");
 var EPSILON$1 = 1e-6;
 var ARRAY_TYPE = typeof Float32Array !== "undefined" ? Float32Array : Array;
 var RANDOM = Math.random;
@@ -3127,7 +3865,6 @@ function create$6() {
   out[8] = 1;
   return out;
 }
-__name(create$6, "create$6");
 function create$5() {
   var out = new ARRAY_TYPE(16);
   if (ARRAY_TYPE != Float32Array) {
@@ -3150,7 +3887,6 @@ function create$5() {
   out[15] = 1;
   return out;
 }
-__name(create$5, "create$5");
 function clone$5(a) {
   var out = new ARRAY_TYPE(16);
   out[0] = a[0];
@@ -3171,7 +3907,6 @@ function clone$5(a) {
   out[15] = a[15];
   return out;
 }
-__name(clone$5, "clone$5");
 function copy$5(out, a) {
   out[0] = a[0];
   out[1] = a[1];
@@ -3191,7 +3926,6 @@ function copy$5(out, a) {
   out[15] = a[15];
   return out;
 }
-__name(copy$5, "copy$5");
 function fromValues$5(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
   var out = new ARRAY_TYPE(16);
   out[0] = m00;
@@ -3212,7 +3946,6 @@ function fromValues$5(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23
   out[15] = m33;
   return out;
 }
-__name(fromValues$5, "fromValues$5");
 function set$5(out, m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
   out[0] = m00;
   out[1] = m01;
@@ -3232,7 +3965,6 @@ function set$5(out, m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, 
   out[15] = m33;
   return out;
 }
-__name(set$5, "set$5");
 function identity$2(out) {
   out[0] = 1;
   out[1] = 0;
@@ -3252,7 +3984,6 @@ function identity$2(out) {
   out[15] = 1;
   return out;
 }
-__name(identity$2, "identity$2");
 function transpose(out, a) {
   if (out === a) {
     var a01 = a[1], a02 = a[2], a03 = a[3];
@@ -3290,7 +4021,6 @@ function transpose(out, a) {
   }
   return out;
 }
-__name(transpose, "transpose");
 function invert$2(out, a) {
   var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
   var a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
@@ -3331,7 +4061,6 @@ function invert$2(out, a) {
   out[15] = (a20 * b03 - a21 * b01 + a22 * b00) * det;
   return out;
 }
-__name(invert$2, "invert$2");
 function adjoint(out, a) {
   var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
   var a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
@@ -3355,7 +4084,6 @@ function adjoint(out, a) {
   out[15] = a00 * (a11 * a22 - a12 * a21) - a10 * (a01 * a22 - a02 * a21) + a20 * (a01 * a12 - a02 * a11);
   return out;
 }
-__name(adjoint, "adjoint");
 function determinant(a) {
   var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
   var a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
@@ -3375,7 +4103,6 @@ function determinant(a) {
   var b11 = a22 * a33 - a23 * a32;
   return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 }
-__name(determinant, "determinant");
 function multiply$5(out, a, b) {
   var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
   var a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
@@ -3412,7 +4139,6 @@ function multiply$5(out, a, b) {
   out[15] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
   return out;
 }
-__name(multiply$5, "multiply$5");
 function translate$1(out, a, v) {
   var x = v[0], y = v[1], z = v[2];
   var a00, a01, a02, a03;
@@ -3455,7 +4181,6 @@ function translate$1(out, a, v) {
   }
   return out;
 }
-__name(translate$1, "translate$1");
 function scale$5(out, a, v) {
   var x = v[0], y = v[1], z = v[2];
   out[0] = a[0] * x;
@@ -3476,7 +4201,6 @@ function scale$5(out, a, v) {
   out[15] = a[15];
   return out;
 }
-__name(scale$5, "scale$5");
 function rotate$1(out, a, rad, axis) {
   var x = axis[0], y = axis[1], z = axis[2];
   var len = Math.hypot(x, y, z);
@@ -3538,7 +4262,6 @@ function rotate$1(out, a, rad, axis) {
   }
   return out;
 }
-__name(rotate$1, "rotate$1");
 function rotateX$3(out, a, rad) {
   var s = Math.sin(rad);
   var c = Math.cos(rad);
@@ -3570,7 +4293,6 @@ function rotateX$3(out, a, rad) {
   out[11] = a23 * c - a13 * s;
   return out;
 }
-__name(rotateX$3, "rotateX$3");
 function rotateY$3(out, a, rad) {
   var s = Math.sin(rad);
   var c = Math.cos(rad);
@@ -3602,7 +4324,6 @@ function rotateY$3(out, a, rad) {
   out[11] = a03 * s + a23 * c;
   return out;
 }
-__name(rotateY$3, "rotateY$3");
 function rotateZ$3(out, a, rad) {
   var s = Math.sin(rad);
   var c = Math.cos(rad);
@@ -3634,7 +4355,6 @@ function rotateZ$3(out, a, rad) {
   out[7] = a13 * c - a03 * s;
   return out;
 }
-__name(rotateZ$3, "rotateZ$3");
 function fromTranslation$1(out, v) {
   out[0] = 1;
   out[1] = 0;
@@ -3654,7 +4374,6 @@ function fromTranslation$1(out, v) {
   out[15] = 1;
   return out;
 }
-__name(fromTranslation$1, "fromTranslation$1");
 function fromScaling(out, v) {
   out[0] = v[0];
   out[1] = 0;
@@ -3674,7 +4393,6 @@ function fromScaling(out, v) {
   out[15] = 1;
   return out;
 }
-__name(fromScaling, "fromScaling");
 function fromRotation$1(out, rad, axis) {
   var x = axis[0], y = axis[1], z = axis[2];
   var len = Math.hypot(x, y, z);
@@ -3707,7 +4425,6 @@ function fromRotation$1(out, rad, axis) {
   out[15] = 1;
   return out;
 }
-__name(fromRotation$1, "fromRotation$1");
 function fromXRotation(out, rad) {
   var s = Math.sin(rad);
   var c = Math.cos(rad);
@@ -3729,7 +4446,6 @@ function fromXRotation(out, rad) {
   out[15] = 1;
   return out;
 }
-__name(fromXRotation, "fromXRotation");
 function fromYRotation(out, rad) {
   var s = Math.sin(rad);
   var c = Math.cos(rad);
@@ -3751,7 +4467,6 @@ function fromYRotation(out, rad) {
   out[15] = 1;
   return out;
 }
-__name(fromYRotation, "fromYRotation");
 function fromZRotation(out, rad) {
   var s = Math.sin(rad);
   var c = Math.cos(rad);
@@ -3773,7 +4488,6 @@ function fromZRotation(out, rad) {
   out[15] = 1;
   return out;
 }
-__name(fromZRotation, "fromZRotation");
 function fromRotationTranslation$1(out, q, v) {
   var x = q[0], y = q[1], z = q[2], w = q[3];
   var x2 = x + x;
@@ -3806,7 +4520,6 @@ function fromRotationTranslation$1(out, q, v) {
   out[15] = 1;
   return out;
 }
-__name(fromRotationTranslation$1, "fromRotationTranslation$1");
 function fromQuat2(out, a) {
   var translation = new ARRAY_TYPE(3);
   var bx = -a[0], by = -a[1], bz = -a[2], bw = a[3], ax = a[4], ay = a[5], az = a[6], aw = a[7];
@@ -3823,14 +4536,12 @@ function fromQuat2(out, a) {
   fromRotationTranslation$1(out, a, translation);
   return out;
 }
-__name(fromQuat2, "fromQuat2");
 function getTranslation$1(out, mat) {
   out[0] = mat[12];
   out[1] = mat[13];
   out[2] = mat[14];
   return out;
 }
-__name(getTranslation$1, "getTranslation$1");
 function getScaling(out, mat) {
   var m11 = mat[0];
   var m12 = mat[1];
@@ -3846,7 +4557,6 @@ function getScaling(out, mat) {
   out[2] = Math.hypot(m31, m32, m33);
   return out;
 }
-__name(getScaling, "getScaling");
 function getRotation(out, mat) {
   var scaling = new ARRAY_TYPE(3);
   getScaling(scaling, mat);
@@ -3891,7 +4601,6 @@ function getRotation(out, mat) {
   }
   return out;
 }
-__name(getRotation, "getRotation");
 function fromRotationTranslationScale(out, q, v, s) {
   var x = q[0], y = q[1], z = q[2], w = q[3];
   var x2 = x + x;
@@ -3927,7 +4636,6 @@ function fromRotationTranslationScale(out, q, v, s) {
   out[15] = 1;
   return out;
 }
-__name(fromRotationTranslationScale, "fromRotationTranslationScale");
 function fromRotationTranslationScaleOrigin(out, q, v, s, o) {
   var x = q[0], y = q[1], z = q[2], w = q[3];
   var x2 = x + x;
@@ -3975,7 +4683,6 @@ function fromRotationTranslationScaleOrigin(out, q, v, s, o) {
   out[15] = 1;
   return out;
 }
-__name(fromRotationTranslationScaleOrigin, "fromRotationTranslationScaleOrigin");
 function fromQuat(out, q) {
   var x = q[0], y = q[1], z = q[2], w = q[3];
   var x2 = x + x;
@@ -4008,7 +4715,6 @@ function fromQuat(out, q) {
   out[15] = 1;
   return out;
 }
-__name(fromQuat, "fromQuat");
 function frustum(out, left, right, bottom, top, near, far) {
   var rl = 1 / (right - left);
   var tb = 1 / (top - bottom);
@@ -4031,7 +4737,6 @@ function frustum(out, left, right, bottom, top, near, far) {
   out[15] = 0;
   return out;
 }
-__name(frustum, "frustum");
 function perspectiveNO(out, fovy, aspect, near, far) {
   var f = 1 / Math.tan(fovy / 2), nf;
   out[0] = f / aspect;
@@ -4058,7 +4763,6 @@ function perspectiveNO(out, fovy, aspect, near, far) {
   }
   return out;
 }
-__name(perspectiveNO, "perspectiveNO");
 var perspective = perspectiveNO;
 function perspectiveZO(out, fovy, aspect, near, far) {
   var f = 1 / Math.tan(fovy / 2), nf;
@@ -4086,7 +4790,6 @@ function perspectiveZO(out, fovy, aspect, near, far) {
   }
   return out;
 }
-__name(perspectiveZO, "perspectiveZO");
 function perspectiveFromFieldOfView(out, fov, near, far) {
   var upTan = Math.tan(fov.upDegrees * Math.PI / 180);
   var downTan = Math.tan(fov.downDegrees * Math.PI / 180);
@@ -4112,7 +4815,6 @@ function perspectiveFromFieldOfView(out, fov, near, far) {
   out[15] = 0;
   return out;
 }
-__name(perspectiveFromFieldOfView, "perspectiveFromFieldOfView");
 function orthoNO(out, left, right, bottom, top, near, far) {
   var lr = 1 / (left - right);
   var bt = 1 / (bottom - top);
@@ -4135,7 +4837,6 @@ function orthoNO(out, left, right, bottom, top, near, far) {
   out[15] = 1;
   return out;
 }
-__name(orthoNO, "orthoNO");
 var ortho = orthoNO;
 function orthoZO(out, left, right, bottom, top, near, far) {
   var lr = 1 / (left - right);
@@ -4159,7 +4860,6 @@ function orthoZO(out, left, right, bottom, top, near, far) {
   out[15] = 1;
   return out;
 }
-__name(orthoZO, "orthoZO");
 function lookAt(out, eye, center, up) {
   var x0, x1, x2, y0, y1, y2, z0, z1, z2, len;
   var eyex = eye[0];
@@ -4227,7 +4927,6 @@ function lookAt(out, eye, center, up) {
   out[15] = 1;
   return out;
 }
-__name(lookAt, "lookAt");
 function targetTo(out, eye, target, up) {
   var eyex = eye[0], eyey = eye[1], eyez = eye[2], upx = up[0], upy = up[1], upz = up[2];
   var z0 = eyex - target[0], z1 = eyey - target[1], z2 = eyez - target[2];
@@ -4264,15 +4963,12 @@ function targetTo(out, eye, target, up) {
   out[15] = 1;
   return out;
 }
-__name(targetTo, "targetTo");
 function str$5(a) {
   return "mat4(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ", " + a[4] + ", " + a[5] + ", " + a[6] + ", " + a[7] + ", " + a[8] + ", " + a[9] + ", " + a[10] + ", " + a[11] + ", " + a[12] + ", " + a[13] + ", " + a[14] + ", " + a[15] + ")";
 }
-__name(str$5, "str$5");
 function frob(a) {
   return Math.hypot(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15]);
 }
-__name(frob, "frob");
 function add$5(out, a, b) {
   out[0] = a[0] + b[0];
   out[1] = a[1] + b[1];
@@ -4292,7 +4988,6 @@ function add$5(out, a, b) {
   out[15] = a[15] + b[15];
   return out;
 }
-__name(add$5, "add$5");
 function subtract$3(out, a, b) {
   out[0] = a[0] - b[0];
   out[1] = a[1] - b[1];
@@ -4312,7 +5007,6 @@ function subtract$3(out, a, b) {
   out[15] = a[15] - b[15];
   return out;
 }
-__name(subtract$3, "subtract$3");
 function multiplyScalar(out, a, b) {
   out[0] = a[0] * b;
   out[1] = a[1] * b;
@@ -4332,7 +5026,6 @@ function multiplyScalar(out, a, b) {
   out[15] = a[15] * b;
   return out;
 }
-__name(multiplyScalar, "multiplyScalar");
 function multiplyScalarAndAdd(out, a, b, scale) {
   out[0] = a[0] + b[0] * scale;
   out[1] = a[1] + b[1] * scale;
@@ -4352,11 +5045,9 @@ function multiplyScalarAndAdd(out, a, b, scale) {
   out[15] = a[15] + b[15] * scale;
   return out;
 }
-__name(multiplyScalarAndAdd, "multiplyScalarAndAdd");
 function exactEquals$5(a, b) {
   return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3] && a[4] === b[4] && a[5] === b[5] && a[6] === b[6] && a[7] === b[7] && a[8] === b[8] && a[9] === b[9] && a[10] === b[10] && a[11] === b[11] && a[12] === b[12] && a[13] === b[13] && a[14] === b[14] && a[15] === b[15];
 }
-__name(exactEquals$5, "exactEquals$5");
 function equals$5(a, b) {
   var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
   var a4 = a[4], a5 = a[5], a6 = a[6], a7 = a[7];
@@ -4368,62 +5059,61 @@ function equals$5(a, b) {
   var b12 = b[12], b13 = b[13], b14 = b[14], b15 = b[15];
   return Math.abs(a0 - b0) <= EPSILON$1 * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON$1 * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON$1 * Math.max(1, Math.abs(a2), Math.abs(b2)) && Math.abs(a3 - b3) <= EPSILON$1 * Math.max(1, Math.abs(a3), Math.abs(b3)) && Math.abs(a4 - b4) <= EPSILON$1 * Math.max(1, Math.abs(a4), Math.abs(b4)) && Math.abs(a5 - b5) <= EPSILON$1 * Math.max(1, Math.abs(a5), Math.abs(b5)) && Math.abs(a6 - b6) <= EPSILON$1 * Math.max(1, Math.abs(a6), Math.abs(b6)) && Math.abs(a7 - b7) <= EPSILON$1 * Math.max(1, Math.abs(a7), Math.abs(b7)) && Math.abs(a8 - b8) <= EPSILON$1 * Math.max(1, Math.abs(a8), Math.abs(b8)) && Math.abs(a9 - b9) <= EPSILON$1 * Math.max(1, Math.abs(a9), Math.abs(b9)) && Math.abs(a10 - b10) <= EPSILON$1 * Math.max(1, Math.abs(a10), Math.abs(b10)) && Math.abs(a11 - b11) <= EPSILON$1 * Math.max(1, Math.abs(a11), Math.abs(b11)) && Math.abs(a12 - b12) <= EPSILON$1 * Math.max(1, Math.abs(a12), Math.abs(b12)) && Math.abs(a13 - b13) <= EPSILON$1 * Math.max(1, Math.abs(a13), Math.abs(b13)) && Math.abs(a14 - b14) <= EPSILON$1 * Math.max(1, Math.abs(a14), Math.abs(b14)) && Math.abs(a15 - b15) <= EPSILON$1 * Math.max(1, Math.abs(a15), Math.abs(b15));
 }
-__name(equals$5, "equals$5");
 var mul$5 = multiply$5;
 var sub$3 = subtract$3;
 const mat4 = /* @__PURE__ */ Object.freeze({
   __proto__: null,
-  create: create$5,
+  add: add$5,
+  adjoint,
   clone: clone$5,
   copy: copy$5,
-  fromValues: fromValues$5,
-  set: set$5,
-  identity: identity$2,
-  transpose,
-  invert: invert$2,
-  adjoint,
+  create: create$5,
   determinant,
+  equals: equals$5,
+  exactEquals: exactEquals$5,
+  frob,
+  fromQuat,
+  fromQuat2,
+  fromRotation: fromRotation$1,
+  fromRotationTranslation: fromRotationTranslation$1,
+  fromRotationTranslationScale,
+  fromRotationTranslationScaleOrigin,
+  fromScaling,
+  fromTranslation: fromTranslation$1,
+  fromValues: fromValues$5,
+  fromXRotation,
+  fromYRotation,
+  fromZRotation,
+  frustum,
+  getRotation,
+  getScaling,
+  getTranslation: getTranslation$1,
+  identity: identity$2,
+  invert: invert$2,
+  lookAt,
+  mul: mul$5,
   multiply: multiply$5,
-  translate: translate$1,
-  scale: scale$5,
+  multiplyScalar,
+  multiplyScalarAndAdd,
+  ortho,
+  orthoNO,
+  orthoZO,
+  perspective,
+  perspectiveFromFieldOfView,
+  perspectiveNO,
+  perspectiveZO,
   rotate: rotate$1,
   rotateX: rotateX$3,
   rotateY: rotateY$3,
   rotateZ: rotateZ$3,
-  fromTranslation: fromTranslation$1,
-  fromScaling,
-  fromRotation: fromRotation$1,
-  fromXRotation,
-  fromYRotation,
-  fromZRotation,
-  fromRotationTranslation: fromRotationTranslation$1,
-  fromQuat2,
-  getTranslation: getTranslation$1,
-  getScaling,
-  getRotation,
-  fromRotationTranslationScale,
-  fromRotationTranslationScaleOrigin,
-  fromQuat,
-  frustum,
-  perspectiveNO,
-  perspective,
-  perspectiveZO,
-  perspectiveFromFieldOfView,
-  orthoNO,
-  ortho,
-  orthoZO,
-  lookAt,
-  targetTo,
+  scale: scale$5,
+  set: set$5,
   str: str$5,
-  frob,
-  add: add$5,
+  sub: sub$3,
   subtract: subtract$3,
-  multiplyScalar,
-  multiplyScalarAndAdd,
-  exactEquals: exactEquals$5,
-  equals: equals$5,
-  mul: mul$5,
-  sub: sub$3
+  targetTo,
+  translate: translate$1,
+  transpose
 });
 function create$4() {
   var out = new ARRAY_TYPE(3);
@@ -4434,7 +5124,6 @@ function create$4() {
   }
   return out;
 }
-__name(create$4, "create$4");
 function clone$4(a) {
   var out = new ARRAY_TYPE(3);
   out[0] = a[0];
@@ -4442,14 +5131,12 @@ function clone$4(a) {
   out[2] = a[2];
   return out;
 }
-__name(clone$4, "clone$4");
 function length$4(a) {
   var x = a[0];
   var y = a[1];
   var z = a[2];
   return Math.hypot(x, y, z);
 }
-__name(length$4, "length$4");
 function fromValues$4(x, y, z) {
   var out = new ARRAY_TYPE(3);
   out[0] = x;
@@ -4457,133 +5144,114 @@ function fromValues$4(x, y, z) {
   out[2] = z;
   return out;
 }
-__name(fromValues$4, "fromValues$4");
 function copy$4(out, a) {
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
   return out;
 }
-__name(copy$4, "copy$4");
 function set$4(out, x, y, z) {
   out[0] = x;
   out[1] = y;
   out[2] = z;
   return out;
 }
-__name(set$4, "set$4");
 function add$4(out, a, b) {
   out[0] = a[0] + b[0];
   out[1] = a[1] + b[1];
   out[2] = a[2] + b[2];
   return out;
 }
-__name(add$4, "add$4");
 function subtract$2(out, a, b) {
   out[0] = a[0] - b[0];
   out[1] = a[1] - b[1];
   out[2] = a[2] - b[2];
   return out;
 }
-__name(subtract$2, "subtract$2");
 function multiply$4(out, a, b) {
   out[0] = a[0] * b[0];
   out[1] = a[1] * b[1];
   out[2] = a[2] * b[2];
   return out;
 }
-__name(multiply$4, "multiply$4");
 function divide$2(out, a, b) {
   out[0] = a[0] / b[0];
   out[1] = a[1] / b[1];
   out[2] = a[2] / b[2];
   return out;
 }
-__name(divide$2, "divide$2");
 function ceil$2(out, a) {
   out[0] = Math.ceil(a[0]);
   out[1] = Math.ceil(a[1]);
   out[2] = Math.ceil(a[2]);
   return out;
 }
-__name(ceil$2, "ceil$2");
 function floor$2(out, a) {
   out[0] = Math.floor(a[0]);
   out[1] = Math.floor(a[1]);
   out[2] = Math.floor(a[2]);
   return out;
 }
-__name(floor$2, "floor$2");
 function min$2(out, a, b) {
   out[0] = Math.min(a[0], b[0]);
   out[1] = Math.min(a[1], b[1]);
   out[2] = Math.min(a[2], b[2]);
   return out;
 }
-__name(min$2, "min$2");
 function max$2(out, a, b) {
   out[0] = Math.max(a[0], b[0]);
   out[1] = Math.max(a[1], b[1]);
   out[2] = Math.max(a[2], b[2]);
   return out;
 }
-__name(max$2, "max$2");
 function round$2(out, a) {
   out[0] = Math.round(a[0]);
   out[1] = Math.round(a[1]);
   out[2] = Math.round(a[2]);
   return out;
 }
-__name(round$2, "round$2");
 function scale$4(out, a, b) {
   out[0] = a[0] * b;
   out[1] = a[1] * b;
   out[2] = a[2] * b;
   return out;
 }
-__name(scale$4, "scale$4");
 function scaleAndAdd$2(out, a, b, scale) {
   out[0] = a[0] + b[0] * scale;
   out[1] = a[1] + b[1] * scale;
   out[2] = a[2] + b[2] * scale;
   return out;
 }
-__name(scaleAndAdd$2, "scaleAndAdd$2");
 function distance$2(a, b) {
   var x = b[0] - a[0];
   var y = b[1] - a[1];
   var z = b[2] - a[2];
   return Math.hypot(x, y, z);
 }
-__name(distance$2, "distance$2");
 function squaredDistance$2(a, b) {
   var x = b[0] - a[0];
   var y = b[1] - a[1];
   var z = b[2] - a[2];
   return x * x + y * y + z * z;
 }
-__name(squaredDistance$2, "squaredDistance$2");
 function squaredLength$4(a) {
   var x = a[0];
   var y = a[1];
   var z = a[2];
   return x * x + y * y + z * z;
 }
-__name(squaredLength$4, "squaredLength$4");
 function negate$2(out, a) {
   out[0] = -a[0];
   out[1] = -a[1];
   out[2] = -a[2];
   return out;
 }
-__name(negate$2, "negate$2");
 function inverse$2(out, a) {
   out[0] = 1 / a[0];
   out[1] = 1 / a[1];
   out[2] = 1 / a[2];
   return out;
 }
-__name(inverse$2, "inverse$2");
 function normalize$4(out, a) {
   var x = a[0];
   var y = a[1];
@@ -4597,11 +5265,9 @@ function normalize$4(out, a) {
   out[2] = a[2] * len;
   return out;
 }
-__name(normalize$4, "normalize$4");
 function dot$4(a, b) {
   return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 }
-__name(dot$4, "dot$4");
 function cross$2(out, a, b) {
   var ax = a[0], ay = a[1], az = a[2];
   var bx = b[0], by = b[1], bz = b[2];
@@ -4610,7 +5276,6 @@ function cross$2(out, a, b) {
   out[2] = ax * by - ay * bx;
   return out;
 }
-__name(cross$2, "cross$2");
 function lerp$4(out, a, b, t) {
   var ax = a[0];
   var ay = a[1];
@@ -4620,7 +5285,6 @@ function lerp$4(out, a, b, t) {
   out[2] = az + t * (b[2] - az);
   return out;
 }
-__name(lerp$4, "lerp$4");
 function hermite(out, a, b, c, d, t) {
   var factorTimes2 = t * t;
   var factor1 = factorTimes2 * (2 * t - 3) + 1;
@@ -4632,7 +5296,6 @@ function hermite(out, a, b, c, d, t) {
   out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
   return out;
 }
-__name(hermite, "hermite");
 function bezier(out, a, b, c, d, t) {
   var inverseFactor = 1 - t;
   var inverseFactorTimesTwo = inverseFactor * inverseFactor;
@@ -4646,7 +5309,6 @@ function bezier(out, a, b, c, d, t) {
   out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
   return out;
 }
-__name(bezier, "bezier");
 function random$3(out, scale) {
   scale = scale || 1;
   var r = RANDOM() * 2 * Math.PI;
@@ -4657,7 +5319,6 @@ function random$3(out, scale) {
   out[2] = z * scale;
   return out;
 }
-__name(random$3, "random$3");
 function transformMat4$2(out, a, m) {
   var x = a[0], y = a[1], z = a[2];
   var w = m[3] * x + m[7] * y + m[11] * z + m[15];
@@ -4667,7 +5328,6 @@ function transformMat4$2(out, a, m) {
   out[2] = (m[2] * x + m[6] * y + m[10] * z + m[14]) / w;
   return out;
 }
-__name(transformMat4$2, "transformMat4$2");
 function transformMat3$1(out, a, m) {
   var x = a[0], y = a[1], z = a[2];
   out[0] = x * m[0] + y * m[3] + z * m[6];
@@ -4675,7 +5335,6 @@ function transformMat3$1(out, a, m) {
   out[2] = x * m[2] + y * m[5] + z * m[8];
   return out;
 }
-__name(transformMat3$1, "transformMat3$1");
 function transformQuat$1(out, a, q) {
   var qx = q[0], qy = q[1], qz = q[2], qw = q[3];
   var x = a[0], y = a[1], z = a[2];
@@ -4693,7 +5352,6 @@ function transformQuat$1(out, a, q) {
   out[2] = z + uvz + uuvz;
   return out;
 }
-__name(transformQuat$1, "transformQuat$1");
 function rotateX$2(out, a, b, rad) {
   var p = [], r = [];
   p[0] = a[0] - b[0];
@@ -4707,7 +5365,6 @@ function rotateX$2(out, a, b, rad) {
   out[2] = r[2] + b[2];
   return out;
 }
-__name(rotateX$2, "rotateX$2");
 function rotateY$2(out, a, b, rad) {
   var p = [], r = [];
   p[0] = a[0] - b[0];
@@ -4721,7 +5378,6 @@ function rotateY$2(out, a, b, rad) {
   out[2] = r[2] + b[2];
   return out;
 }
-__name(rotateY$2, "rotateY$2");
 function rotateZ$2(out, a, b, rad) {
   var p = [], r = [];
   p[0] = a[0] - b[0];
@@ -4735,33 +5391,27 @@ function rotateZ$2(out, a, b, rad) {
   out[2] = r[2] + b[2];
   return out;
 }
-__name(rotateZ$2, "rotateZ$2");
 function angle$1(a, b) {
   var ax = a[0], ay = a[1], az = a[2], bx = b[0], by = b[1], bz = b[2], mag1 = Math.sqrt(ax * ax + ay * ay + az * az), mag2 = Math.sqrt(bx * bx + by * by + bz * bz), mag = mag1 * mag2, cosine = mag && dot$4(a, b) / mag;
   return Math.acos(Math.min(Math.max(cosine, -1), 1));
 }
-__name(angle$1, "angle$1");
 function zero$2(out) {
   out[0] = 0;
   out[1] = 0;
   out[2] = 0;
   return out;
 }
-__name(zero$2, "zero$2");
 function str$4(a) {
   return "vec3(" + a[0] + ", " + a[1] + ", " + a[2] + ")";
 }
-__name(str$4, "str$4");
 function exactEquals$4(a, b) {
   return a[0] === b[0] && a[1] === b[1] && a[2] === b[2];
 }
-__name(exactEquals$4, "exactEquals$4");
 function equals$4(a, b) {
   var a0 = a[0], a1 = a[1], a2 = a[2];
   var b0 = b[0], b1 = b[1], b2 = b[2];
   return Math.abs(a0 - b0) <= EPSILON$1 * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON$1 * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON$1 * Math.max(1, Math.abs(a2), Math.abs(b2));
 }
-__name(equals$4, "equals$4");
 var sub$2 = subtract$2;
 var mul$4 = multiply$4;
 var div$2 = divide$2;
@@ -4798,54 +5448,54 @@ var forEach$2 = function() {
 }();
 const vec3 = /* @__PURE__ */ Object.freeze({
   __proto__: null,
-  create: create$4,
-  clone: clone$4,
-  length: length$4,
-  fromValues: fromValues$4,
-  copy: copy$4,
-  set: set$4,
   add: add$4,
-  subtract: subtract$2,
-  multiply: multiply$4,
-  divide: divide$2,
-  ceil: ceil$2,
-  floor: floor$2,
-  min: min$2,
-  max: max$2,
-  round: round$2,
-  scale: scale$4,
-  scaleAndAdd: scaleAndAdd$2,
-  distance: distance$2,
-  squaredDistance: squaredDistance$2,
-  squaredLength: squaredLength$4,
-  negate: negate$2,
-  inverse: inverse$2,
-  normalize: normalize$4,
-  dot: dot$4,
-  cross: cross$2,
-  lerp: lerp$4,
-  hermite,
+  angle: angle$1,
   bezier,
+  ceil: ceil$2,
+  clone: clone$4,
+  copy: copy$4,
+  create: create$4,
+  cross: cross$2,
+  dist: dist$2,
+  distance: distance$2,
+  div: div$2,
+  divide: divide$2,
+  dot: dot$4,
+  equals: equals$4,
+  exactEquals: exactEquals$4,
+  floor: floor$2,
+  forEach: forEach$2,
+  fromValues: fromValues$4,
+  hermite,
+  inverse: inverse$2,
+  len: len$4,
+  length: length$4,
+  lerp: lerp$4,
+  max: max$2,
+  min: min$2,
+  mul: mul$4,
+  multiply: multiply$4,
+  negate: negate$2,
+  normalize: normalize$4,
   random: random$3,
-  transformMat4: transformMat4$2,
-  transformMat3: transformMat3$1,
-  transformQuat: transformQuat$1,
   rotateX: rotateX$2,
   rotateY: rotateY$2,
   rotateZ: rotateZ$2,
-  angle: angle$1,
-  zero: zero$2,
-  str: str$4,
-  exactEquals: exactEquals$4,
-  equals: equals$4,
-  sub: sub$2,
-  mul: mul$4,
-  div: div$2,
-  dist: dist$2,
+  round: round$2,
+  scale: scale$4,
+  scaleAndAdd: scaleAndAdd$2,
+  set: set$4,
   sqrDist: sqrDist$2,
-  len: len$4,
   sqrLen: sqrLen$4,
-  forEach: forEach$2
+  squaredDistance: squaredDistance$2,
+  squaredLength: squaredLength$4,
+  str: str$4,
+  sub: sub$2,
+  subtract: subtract$2,
+  transformMat3: transformMat3$1,
+  transformMat4: transformMat4$2,
+  transformQuat: transformQuat$1,
+  zero: zero$2
 });
 function create$3() {
   var out = new ARRAY_TYPE(4);
@@ -4857,7 +5507,6 @@ function create$3() {
   }
   return out;
 }
-__name(create$3, "create$3");
 function normalize$3(out, a) {
   var x = a[0];
   var y = a[1];
@@ -4873,7 +5522,6 @@ function normalize$3(out, a) {
   out[3] = w * len;
   return out;
 }
-__name(normalize$3, "normalize$3");
 (function() {
   var vec = create$3();
   return function(a, stride, offset, count, fn, arg) {
@@ -4913,7 +5561,6 @@ function create$2() {
   out[3] = 1;
   return out;
 }
-__name(create$2, "create$2");
 function setAxisAngle(out, axis, rad) {
   rad = rad * 0.5;
   var s = Math.sin(rad);
@@ -4923,7 +5570,6 @@ function setAxisAngle(out, axis, rad) {
   out[3] = Math.cos(rad);
   return out;
 }
-__name(setAxisAngle, "setAxisAngle");
 function slerp(out, a, b, t) {
   var ax = a[0], ay = a[1], az = a[2], aw = a[3];
   var bx = b[0], by = b[1], bz = b[2], bw = b[3];
@@ -4951,7 +5597,6 @@ function slerp(out, a, b, t) {
   out[3] = scale0 * aw + scale1 * bw;
   return out;
 }
-__name(slerp, "slerp");
 function fromMat3(out, m) {
   var fTrace = m[0] + m[4] + m[8];
   var fRoot;
@@ -4979,7 +5624,6 @@ function fromMat3(out, m) {
   }
   return out;
 }
-__name(fromMat3, "fromMat3");
 var normalize$2 = normalize$3;
 (function() {
   var tmpvec3 = create$4();
@@ -5043,7 +5687,6 @@ function create() {
   }
   return out;
 }
-__name(create, "create");
 (function() {
   var vec = create();
   return function(a, stride, offset, count, fn, arg) {
@@ -5070,32 +5713,70 @@ __name(create, "create");
   };
 })();
 class AnimationControl {
+  /** @type {object} */
   #animationData;
+  /** @type {Promise<void>} */
   #finishedPromise;
   #willFinish;
+  /**
+   * Defines a static empty / void animation control.
+   *
+   * @type {AnimationControl}
+   */
   static #voidControl = new AnimationControl(null);
+  /**
+   * Provides a static void / undefined AnimationControl that is automatically resolved.
+   *
+   * @returns {AnimationControl} Void AnimationControl
+   */
   static get voidControl() {
     return this.#voidControl;
   }
+  /**
+   * @param {object|null} [animationData] - Animation data from {@link AnimationAPI}.
+   *
+   * @param {boolean}     [willFinish] - Promise that tracks animation finished state.
+   */
   constructor(animationData, willFinish = false) {
     this.#animationData = animationData;
     this.#willFinish = willFinish;
-    if (animationData !== null && typeof animationData === "object") {
+    if (isObject$1(animationData)) {
       animationData.control = this;
     }
   }
+  /**
+   * Get a promise that resolves when animation is finished.
+   *
+   * @returns {Promise<void>}
+   */
   get finished() {
     if (!(this.#finishedPromise instanceof Promise)) {
       this.#finishedPromise = this.#willFinish ? new Promise((resolve2) => this.#animationData.resolve = resolve2) : Promise.resolve();
     }
     return this.#finishedPromise;
   }
+  /**
+   * Returns whether this animation is currently active / animating.
+   *
+   * Note: a delayed animation may not be started / active yet. Use {@link AnimationControl.isFinished} to determine
+   * if an animation is actually finished.
+   *
+   * @returns {boolean} Animation active state.
+   */
   get isActive() {
     return this.#animationData.active;
   }
+  /**
+   * Returns whether this animation is completely finished.
+   *
+   * @returns {boolean} Animation finished state.
+   */
   get isFinished() {
     return this.#animationData.finished;
   }
+  /**
+   * Cancels the animation.
+   */
   cancel() {
     const animationData = this.#animationData;
     if (animationData === null || animationData === void 0) {
@@ -5104,16 +5785,32 @@ class AnimationControl {
     animationData.cancelled = true;
   }
 }
-__name(AnimationControl, "AnimationControl");
 class AnimationManager {
+  /**
+   * @type {object[]}
+   */
   static activeList = [];
+  /**
+   * @type {object[]}
+   */
   static newList = [];
+  /**
+   * @type {number}
+   */
   static current;
+  /**
+   * Add animation data.
+   *
+   * @param {object}   data -
+   */
   static add(data) {
     const now2 = performance.now();
     data.start = now2 + (AnimationManager.current - now2);
     AnimationManager.newList.push(data);
   }
+  /**
+   * Manage all animation
+   */
   static animate() {
     const current = AnimationManager.current = performance.now();
     if (AnimationManager.activeList.length === 0 && AnimationManager.newList.length === 0) {
@@ -5160,6 +5857,11 @@ class AnimationManager {
     }
     globalThis.requestAnimationFrame(AnimationManager.animate);
   }
+  /**
+   * Cancels all animations for given Position instance.
+   *
+   * @param {Position} position - Position instance.
+   */
   static cancel(position) {
     for (let cntr = AnimationManager.activeList.length; --cntr >= 0; ) {
       const data = AnimationManager.activeList[cntr];
@@ -5178,6 +5880,9 @@ class AnimationManager {
       }
     }
   }
+  /**
+   * Cancels all active and delayed animations.
+   */
   static cancelAll() {
     for (let cntr = AnimationManager.activeList.length; --cntr >= 0; ) {
       const data = AnimationManager.activeList[cntr];
@@ -5192,6 +5897,13 @@ class AnimationManager {
     AnimationManager.activeList.length = 0;
     AnimationManager.newList.length = 0;
   }
+  /**
+   * Gets all {@link AnimationControl} instances for a given Position instance.
+   *
+   * @param {Position} position - Position instance.
+   *
+   * @returns {AnimationControl[]} All scheduled AnimationControl instances for the given Position instance.
+   */
   static getScheduled(position) {
     const results = [];
     for (let cntr = AnimationManager.activeList.length; --cntr >= 0; ) {
@@ -5209,9 +5921,9 @@ class AnimationManager {
     return results;
   }
 }
-__name(AnimationManager, "AnimationManager");
 AnimationManager.animate();
 const animateKeys = /* @__PURE__ */ new Set([
+  // Main keys
   "left",
   "top",
   "maxWidth",
@@ -5228,12 +5940,14 @@ const animateKeys = /* @__PURE__ */ new Set([
   "translateY",
   "translateZ",
   "zIndex",
+  // Aliases
   "rotation"
 ]);
 const transformKeys = ["rotateX", "rotateY", "rotateZ", "scale", "translateX", "translateY", "translateZ"];
 Object.freeze(transformKeys);
 const relativeRegex = /^([-+*])=(-?[\d]*\.?[\d]+)$/;
 const numericDefaults = {
+  // Other keys
   height: 0,
   left: 0,
   maxHeight: null,
@@ -5280,7 +5994,6 @@ function setNumericDefaults(data) {
     data.rotation = 0;
   }
 }
-__name(setNumericDefaults, "setNumericDefaults");
 const transformKeysBitwise = {
   rotateX: 1,
   rotateY: 2,
@@ -5335,20 +6048,56 @@ function convertRelative(positionData, position) {
     }
   }
 }
-__name(convertRelative, "convertRelative");
 class AnimationAPI {
+  /** @type {PositionData} */
   #data;
+  /** @type {Position} */
   #position;
+  /**
+   * Tracks the number of animation control instances that are active.
+   *
+   * @type {number}
+   */
   #instanceCount = 0;
+  /**
+   * Provides a bound function to pass as data to AnimationManager to invoke
+   *
+   * @type {Function}
+   * @see {AnimationAPI.#cleanupInstance}
+   */
   #cleanup;
   constructor(position, data) {
     this.#position = position;
     this.#data = data;
     this.#cleanup = this.#cleanupInstance.bind(this);
   }
+  /**
+   * Returns whether there are scheduled animations whether active or delayed for this Position.
+   *
+   * @returns {boolean} Are there active animation instances.
+   */
   get isScheduled() {
     return this.#instanceCount > 0;
   }
+  /**
+   * Adds / schedules an animation w/ the AnimationManager. This contains the final steps common to all tweens.
+   *
+   * @param {object}      initial -
+   *
+   * @param {object}      destination -
+   *
+   * @param {number}      duration -
+   *
+   * @param {HTMLElement} el -
+   *
+   * @param {number}      delay -
+   *
+   * @param {Function}    ease -
+   *
+   * @param {Function}    interpolate -
+   *
+   * @returns {AnimationControl} The associated animation control.
+   */
   #addAnimation(initial, destination, duration, el, delay, ease, interpolate2) {
     setNumericDefaults(initial);
     setNumericDefaults(destination);
@@ -5370,6 +6119,7 @@ class AnimationAPI {
       current: 0,
       destination,
       duration: duration * 1e3,
+      // Internally the AnimationManager works in ms.
       ease,
       el,
       finished: false,
@@ -5395,9 +6145,17 @@ class AnimationAPI {
     AnimationManager.add(animationData);
     return new AnimationControl(animationData, true);
   }
+  /**
+   * Cancels all animation instances for this Position instance.
+   */
   cancel() {
     AnimationManager.cancel(this.#position);
   }
+  /**
+   * Cleans up an animation instance.
+   *
+   * @param {object}   data - Animation data for an animation instance.
+   */
   #cleanupInstance(data) {
     this.#instanceCount--;
     data.active = false;
@@ -5406,9 +6164,31 @@ class AnimationAPI {
       data.resolve(data.cancelled);
     }
   }
+  /**
+   * Returns all currently scheduled AnimationControl instances for this Position instance.
+   *
+   * @returns {AnimationControl[]} All currently scheduled animation controls for this Position instance.
+   */
   getScheduled() {
     return AnimationManager.getScheduled(this.#position);
   }
+  /**
+   * Provides a tween from given position data to the current position.
+   *
+   * @param {PositionDataExtended} fromData - The starting position.
+   *
+   * @param {object}         [opts] - Optional parameters.
+   *
+   * @param {number}         [opts.delay=0] - Delay in seconds before animation starts.
+   *
+   * @param {number}         [opts.duration=1] - Duration in seconds.
+   *
+   * @param {Function}       [opts.ease=cubicOut] - Easing function.
+   *
+   * @param {Function}       [opts.interpolate=lerp] - Interpolation function.
+   *
+   * @returns {AnimationControl}  A control object that can cancel animation and provides a `finished` Promise.
+   */
   from(fromData, { delay = 0, duration = 1, ease = cubicOut, interpolate: interpolate2 = lerp$5 } = {}) {
     if (!isObject$1(fromData)) {
       throw new TypeError(`AnimationAPI.from error: 'fromData' is not an object.`);
@@ -5444,6 +6224,25 @@ class AnimationAPI {
     convertRelative(initial, data);
     return this.#addAnimation(initial, destination, duration, el, delay, ease, interpolate2);
   }
+  /**
+   * Provides a tween from given position data to the current position.
+   *
+   * @param {PositionDataExtended} fromData - The starting position.
+   *
+   * @param {PositionDataExtended} toData - The ending position.
+   *
+   * @param {object}         [opts] - Optional parameters.
+   *
+   * @param {number}         [opts.delay=0] - Delay in seconds before animation starts.
+   *
+   * @param {number}         [opts.duration=1] - Duration in seconds.
+   *
+   * @param {Function}       [opts.ease=cubicOut] - Easing function.
+   *
+   * @param {Function}       [opts.interpolate=lerp] - Interpolation function.
+   *
+   * @returns {AnimationControl}  A control object that can cancel animation and provides a `finished` Promise.
+   */
   fromTo(fromData, toData, { delay = 0, duration = 1, ease = cubicOut, interpolate: interpolate2 = lerp$5 } = {}) {
     if (!isObject$1(fromData)) {
       throw new TypeError(`AnimationAPI.fromTo error: 'fromData' is not an object.`);
@@ -5488,6 +6287,23 @@ class AnimationAPI {
     convertRelative(destination, data);
     return this.#addAnimation(initial, destination, duration, el, delay, ease, interpolate2);
   }
+  /**
+   * Provides a tween to given position data from the current position.
+   *
+   * @param {PositionDataExtended} toData - The destination position.
+   *
+   * @param {object}         [opts] - Optional parameters.
+   *
+   * @param {number}         [opts.delay=0] - Delay in seconds before animation starts.
+   *
+   * @param {number}         [opts.duration=1] - Duration in seconds.
+   *
+   * @param {Function}       [opts.ease=cubicOut] - Easing function.
+   *
+   * @param {Function}       [opts.interpolate=lerp] - Interpolation function.
+   *
+   * @returns {AnimationControl}  A control object that can cancel animation and provides a `finished` Promise.
+   */
   to(toData, { delay = 0, duration = 1, ease = cubicOut, interpolate: interpolate2 = lerp$5 } = {}) {
     if (!isObject$1(toData)) {
       throw new TypeError(`AnimationAPI.to error: 'toData' is not an object.`);
@@ -5522,6 +6338,21 @@ class AnimationAPI {
     convertRelative(destination, data);
     return this.#addAnimation(initial, destination, duration, el, delay, ease, interpolate2);
   }
+  /**
+   * Returns a function that provides an optimized way to constantly update a to-tween.
+   *
+   * @param {Iterable<string>}  keys - The keys for quickTo.
+   *
+   * @param {object}            [opts] - Optional parameters.
+   *
+   * @param {number}            [opts.duration=1] - Duration in seconds.
+   *
+   * @param {Function}          [opts.ease=cubicOut] - Easing function.
+   *
+   * @param {Function}          [opts.interpolate=lerp] - Interpolation function.
+   *
+   * @returns {quickToCallback} quick-to tween function.
+   */
   quickTo(keys, { duration = 1, ease = cubicOut, interpolate: interpolate2 = lerp$5 } = {}) {
     if (!isIterable(keys)) {
       throw new TypeError(`AnimationAPI.quickTo error: 'keys' is not an iterable list.`);
@@ -5565,9 +6396,11 @@ class AnimationAPI {
       current: 0,
       destination,
       duration: duration * 1e3,
+      // Internally the AnimationManager works in ms.
       ease,
       el: void 0,
       finished: true,
+      // Note: start in finished state to add to AnimationManager on first callback.
       initial,
       interpolate: interpolate2,
       keys,
@@ -5576,7 +6409,7 @@ class AnimationAPI {
       resolve: void 0,
       start: void 0
     };
-    const quickToCB = /* @__PURE__ */ __name((...args) => {
+    const quickToCB = (...args) => {
       const argsLength = args.length;
       if (argsLength === 0) {
         return;
@@ -5618,7 +6451,7 @@ class AnimationAPI {
         animationData.start = now2 + (AnimationManager.current - now2);
         animationData.current = 0;
       }
-    }, "quickToCB");
+    };
     quickToCB.keys = keysArray;
     quickToCB.options = ({ duration: duration2, ease: ease2, interpolate: interpolate3 } = {}) => {
       if (duration2 !== void 0 && (!Number.isFinite(duration2) || duration2 < 0)) {
@@ -5644,17 +6477,36 @@ class AnimationAPI {
     return quickToCB;
   }
 }
-__name(AnimationAPI, "AnimationAPI");
 class AnimationGroupControl {
+  /** @type {AnimationControl[]} */
   #animationControls;
+  /** @type {Promise<Awaited<unknown>[]>} */
   #finishedPromise;
+  /**
+   * Defines a static empty / void animation control.
+   *
+   * @type {AnimationGroupControl}
+   */
   static #voidControl = new AnimationGroupControl(null);
+  /**
+   * Provides a static void / undefined AnimationGroupControl that is automatically resolved.
+   *
+   * @returns {AnimationGroupControl} Void AnimationGroupControl
+   */
   static get voidControl() {
     return this.#voidControl;
   }
+  /**
+   * @param {AnimationControl[]} animationControls - An array of AnimationControl instances.
+   */
   constructor(animationControls) {
     this.#animationControls = animationControls;
   }
+  /**
+   * Get a promise that resolves when all animations are finished.
+   *
+   * @returns {Promise<Awaited<unknown>[]>|Promise<void>} Finished Promise for all animations.
+   */
   get finished() {
     const animationControls = this.#animationControls;
     if (animationControls === null || animationControls === void 0) {
@@ -5669,6 +6521,14 @@ class AnimationGroupControl {
     }
     return this.#finishedPromise;
   }
+  /**
+   * Returns whether there are active animation instances for this group.
+   *
+   * Note: a delayed animation may not be started / active yet. Use {@link AnimationGroupControl.isFinished} to
+   * determine if all animations in the group are finished.
+   *
+   * @returns {boolean} Are there active animation instances.
+   */
   get isActive() {
     const animationControls = this.#animationControls;
     if (animationControls === null || animationControls === void 0) {
@@ -5681,6 +6541,11 @@ class AnimationGroupControl {
     }
     return false;
   }
+  /**
+   * Returns whether all animations in the group are finished.
+   *
+   * @returns {boolean} Are all animation instances finished.
+   */
   get isFinished() {
     const animationControls = this.#animationControls;
     if (animationControls === null || animationControls === void 0) {
@@ -5693,6 +6558,9 @@ class AnimationGroupControl {
     }
     return false;
   }
+  /**
+   * Cancels the all animations.
+   */
   cancel() {
     const animationControls = this.#animationControls;
     if (animationControls === null || animationControls === void 0) {
@@ -5703,11 +6571,22 @@ class AnimationGroupControl {
     }
   }
 }
-__name(AnimationGroupControl, "AnimationGroupControl");
 class AnimationGroupAPI {
+  /**
+   * Checks of the given object is a Position instance by checking for AnimationAPI.
+   *
+   * @param {*}  object - Any data.
+   *
+   * @returns {boolean} Is Position.
+   */
   static #isPosition(object) {
-    return object !== null && typeof object === "object" && object.animate instanceof AnimationAPI;
+    return isObject$1(object) && object.animate instanceof AnimationAPI;
   }
+  /**
+   * Cancels any animation for given Position data.
+   *
+   * @param {Position|{position: Position}|Iterable<Position>|Iterable<{position: Position}>} position -
+   */
   static cancel(position) {
     if (isIterable(position)) {
       let index2 = -1;
@@ -5729,9 +6608,19 @@ class AnimationGroupAPI {
       AnimationManager.cancel(actualPosition);
     }
   }
+  /**
+   * Cancels all Position animation.
+   */
   static cancelAll() {
     AnimationManager.cancelAll();
   }
+  /**
+   * Gets all animation controls for the given position data.
+   *
+   * @param {Position|{position: Position}|Iterable<Position>|Iterable<{position: Position}>} position -
+   *
+   * @returns {{position: Position, data: object|void, controls: AnimationControl[]}[]} Results array.
+   */
   static getScheduled(position) {
     const results = [];
     if (isIterable(position)) {
@@ -5759,6 +6648,17 @@ class AnimationGroupAPI {
     }
     return results;
   }
+  /**
+   * Provides the `from` animation tween for one or more Position instances as a group.
+   *
+   * @param {Position|{position: Position}|Iterable<Position>|Iterable<{position: Position}>} position -
+   *
+   * @param {object|Function}   fromData -
+   *
+   * @param {object|Function}   options -
+   *
+   * @returns {TJSBasicAnimation} Basic animation control.
+   */
   static from(position, fromData, options) {
     if (!isObject$1(fromData) && typeof fromData !== "function") {
       throw new TypeError(`AnimationGroupAPI.from error: 'fromData' is not an object or function.`);
@@ -5843,6 +6743,19 @@ class AnimationGroupAPI {
     }
     return new AnimationGroupControl(animationControls);
   }
+  /**
+   * Provides the `fromTo` animation tween for one or more Position instances as a group.
+   *
+   * @param {Position|{position: Position}|Iterable<Position>|Iterable<{position: Position}>} position -
+   *
+   * @param {object|Function}   fromData -
+   *
+   * @param {object|Function}   toData -
+   *
+   * @param {object|Function}   options -
+   *
+   * @returns {TJSBasicAnimation} Basic animation control.
+   */
   static fromTo(position, fromData, toData, options) {
     if (!isObject$1(fromData) && typeof fromData !== "function") {
       throw new TypeError(`AnimationGroupAPI.fromTo error: 'fromData' is not an object or function.`);
@@ -5949,6 +6862,17 @@ class AnimationGroupAPI {
     }
     return new AnimationGroupControl(animationControls);
   }
+  /**
+   * Provides the `to` animation tween for one or more Position instances as a group.
+   *
+   * @param {Position|{position: Position}|Iterable<Position>|Iterable<{position: Position}>} position -
+   *
+   * @param {object|Function}   toData -
+   *
+   * @param {object|Function}   options -
+   *
+   * @returns {TJSBasicAnimation} Basic animation control.
+   */
   static to(position, toData, options) {
     if (!isObject$1(toData) && typeof toData !== "function") {
       throw new TypeError(`AnimationGroupAPI.to error: 'toData' is not an object or function.`);
@@ -6033,6 +6957,17 @@ class AnimationGroupAPI {
     }
     return new AnimationGroupControl(animationControls);
   }
+  /**
+   * Provides the `to` animation tween for one or more Position instances as a group.
+   *
+   * @param {Position|{position: Position}|Iterable<Position>|Iterable<{position: Position}>} position -
+   *
+   * @param {Iterable<string>}  keys -
+   *
+   * @param {object|Function}   options -
+   *
+   * @returns {quickToCallback} Basic animation control.
+   */
   static quickTo(position, keys, options) {
     if (!isIterable(keys)) {
       throw new TypeError(`AnimationGroupAPI.quickTo error: 'keys' is not an iterable list.`);
@@ -6090,7 +7025,7 @@ class AnimationGroupAPI {
     }
     const keysArray = [...keys];
     Object.freeze(keysArray);
-    const quickToCB = /* @__PURE__ */ __name((...args) => {
+    const quickToCB = (...args) => {
       const argsLength = args.length;
       if (argsLength === 0) {
         return;
@@ -6152,7 +7087,7 @@ class AnimationGroupAPI {
           quickToCallbacks[cntr](...args);
         }
       }
-    }, "quickToCB");
+    };
     quickToCB.keys = keysArray;
     quickToCB.options = (options2) => {
       if (options2 !== void 0 && !isObject$1(options2) && typeof options2 !== "function") {
@@ -6214,11 +7149,28 @@ class AnimationGroupAPI {
     return quickToCB;
   }
 }
-__name(AnimationGroupAPI, "AnimationGroupAPI");
 class Centered {
+  /**
+   * @type {HTMLElement}
+   */
   #element;
+  /**
+   * Provides a manual setting of the element height. As things go `offsetHeight` causes a browser layout and is not
+   * performance oriented. If manually set this height is used instead of `offsetHeight`.
+   *
+   * @type {number}
+   */
   #height;
+  /**
+   * Set from an optional value in the constructor to lock accessors preventing modification.
+   */
   #lock;
+  /**
+   * Provides a manual setting of the element width. As things go `offsetWidth` causes a browser layout and is not
+   * performance oriented. If manually set this width is used instead of `offsetWidth`.
+   *
+   * @type {number}
+   */
   #width;
   constructor({ element: element2, lock = false, width, height } = {}) {
     this.element = element2;
@@ -6289,12 +7241,11 @@ class Centered {
     return (boundsHeight - height) / 2;
   }
 }
-__name(Centered, "Centered");
 const browserCentered = new Centered();
 const positionInitial = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  browserCentered,
-  Centered
+  Centered,
+  browserCentered
 }, Symbol.toStringTag, { value: "Module" }));
 class PositionChangeSet {
   constructor() {
@@ -6327,7 +7278,6 @@ class PositionChangeSet {
     this.transformOrigin = value;
   }
 }
-__name(PositionChangeSet, "PositionChangeSet");
 class PositionData {
   constructor({
     height = null,
@@ -6367,6 +7317,13 @@ class PositionData {
     this.zIndex = zIndex;
     Object.seal(this);
   }
+  /**
+   * Copies given data to this instance.
+   *
+   * @param {PositionData}   data - Copy from this instance.
+   *
+   * @returns {PositionData} This instance.
+   */
   copy(data) {
     this.height = data.height;
     this.left = data.left;
@@ -6388,26 +7345,52 @@ class PositionData {
     return this;
   }
 }
-__name(PositionData, "PositionData");
 class PositionStateAPI {
+  /** @type {PositionData} */
   #data;
+  /**
+   * @type {Map<string, PositionDataExtended>}
+   */
   #dataSaved = /* @__PURE__ */ new Map();
+  /** @type {Position} */
   #position;
+  /** @type {Transforms} */
   #transforms;
   constructor(position, data, transforms) {
     this.#position = position;
     this.#data = data;
     this.#transforms = transforms;
   }
+  /**
+   * Returns any stored save state by name.
+   *
+   * @param {string}   name - Saved data set name.
+   *
+   * @returns {PositionDataExtended} The saved data set.
+   */
   get({ name }) {
     if (typeof name !== "string") {
       throw new TypeError(`Position - getSave error: 'name' is not a string.`);
     }
     return this.#dataSaved.get(name);
   }
+  /**
+   * Returns any associated default data.
+   *
+   * @returns {PositionDataExtended} Associated default data.
+   */
   getDefault() {
     return this.#dataSaved.get("#defaultData");
   }
+  /**
+   * Removes and returns any position state by name.
+   *
+   * @param {object}   options - Options.
+   *
+   * @param {string}   options.name - Name to remove and retrieve.
+   *
+   * @returns {PositionDataExtended} Saved position data.
+   */
   remove({ name }) {
     if (typeof name !== "string") {
       throw new TypeError(`Position - remove: 'name' is not a string.`);
@@ -6416,6 +7399,17 @@ class PositionStateAPI {
     this.#dataSaved.delete(name);
     return data;
   }
+  /**
+   * Resets data to default values and invokes set.
+   *
+   * @param {object}   [opts] - Optional parameters.
+   *
+   * @param {boolean}  [opts.keepZIndex=false] - When true keeps current z-index.
+   *
+   * @param {boolean}  [opts.invokeSet=true] - When true invokes set method.
+   *
+   * @returns {boolean} Operation successful.
+   */
   reset({ keepZIndex = false, invokeSet = true } = {}) {
     const defaultData = this.#dataSaved.get("#defaultData");
     if (typeof defaultData !== "object") {
@@ -6438,6 +7432,35 @@ class PositionStateAPI {
     }
     return true;
   }
+  /**
+   * Restores a saved positional state returning the data. Several optional parameters are available
+   * to control whether the restore action occurs silently (no store / inline styles updates), animates
+   * to the stored data, or simply sets the stored data. Restoring via {@link AnimationAPI.to} allows
+   * specification of the duration, easing, and interpolate functions along with configuring a Promise to be
+   * returned if awaiting the end of the animation.
+   *
+   * @param {object}            params - Parameters
+   *
+   * @param {string}            params.name - Saved data set name.
+   *
+   * @param {boolean}           [params.remove=false] - Remove data set.
+   *
+   * @param {Iterable<string>}  [params.properties] - Specific properties to set / animate.
+   *
+   * @param {boolean}           [params.silent] - Set position data directly; no store or style updates.
+   *
+   * @param {boolean}           [params.async=false] - If animating return a Promise that resolves with any saved data.
+   *
+   * @param {boolean}           [params.animateTo=false] - Animate to restore data.
+   *
+   * @param {number}            [params.duration=0.1] - Duration in seconds.
+   *
+   * @param {Function}          [params.ease=linear] - Easing function.
+   *
+   * @param {Function}          [params.interpolate=lerp] - Interpolation function.
+   *
+   * @returns {PositionDataExtended|Promise<PositionDataExtended>} Saved position data.
+   */
   restore({
     name,
     remove = false,
@@ -6484,6 +7507,17 @@ class PositionStateAPI {
     }
     return dataSaved;
   }
+  /**
+   * Saves current position state with the opportunity to add extra data to the saved state.
+   *
+   * @param {object}   opts - Options.
+   *
+   * @param {string}   opts.name - name to index this saved data.
+   *
+   * @param {...*}     [opts.extra] - Extra data to add to saved data.
+   *
+   * @returns {PositionData} Current position data
+   */
   save({ name, ...extra }) {
     if (typeof name !== "string") {
       throw new TypeError(`Position - save error: 'name' is not a string.`);
@@ -6492,6 +7526,15 @@ class PositionStateAPI {
     this.#dataSaved.set(name, data);
     return data;
   }
+  /**
+   * Directly sets a position state.
+   *
+   * @param {object}   opts - Options.
+   *
+   * @param {string}   opts.name - name to index this saved data.
+   *
+   * @param {...*}     [opts.data] - Position data to set.
+   */
   set({ name, ...data }) {
     if (typeof name !== "string") {
       throw new TypeError(`Position - set error: 'name' is not a string.`);
@@ -6499,7 +7542,6 @@ class PositionStateAPI {
     this.#dataSaved.set(name, data);
   }
 }
-__name(PositionStateAPI, "PositionStateAPI");
 class StyleCache {
   constructor() {
     this.el = void 0;
@@ -6527,21 +7569,43 @@ class StyleCache {
       resizeOffsetWidth: propertyStore(storeResizeObserved, "offsetWidth")
     };
   }
+  /**
+   * Returns the cached offsetHeight from any attached `resizeObserver` action otherwise gets the offsetHeight from
+   * the element directly. The more optimized path is using `resizeObserver` as getting it from the element
+   * directly is more expensive and alters the execution order of an animation frame.
+   *
+   * @returns {number} The element offsetHeight.
+   */
   get offsetHeight() {
     if (this.el instanceof HTMLElement) {
       return this.resizeObserved.offsetHeight !== void 0 ? this.resizeObserved.offsetHeight : this.el.offsetHeight;
     }
     throw new Error(`StyleCache - get offsetHeight error: no element assigned.`);
   }
+  /**
+   * Returns the cached offsetWidth from any attached `resizeObserver` action otherwise gets the offsetWidth from
+   * the element directly. The more optimized path is using `resizeObserver` as getting it from the element
+   * directly is more expensive and alters the execution order of an animation frame.
+   *
+   * @returns {number} The element offsetHeight.
+   */
   get offsetWidth() {
     if (this.el instanceof HTMLElement) {
       return this.resizeObserved.offsetWidth !== void 0 ? this.resizeObserved.offsetWidth : this.el.offsetWidth;
     }
     throw new Error(`StyleCache - get offsetWidth error: no element assigned.`);
   }
+  /**
+   * @param {HTMLElement} el -
+   *
+   * @returns {boolean} Does element match cached element.
+   */
   hasData(el) {
     return this.el === el;
   }
+  /**
+   * Resets the style cache.
+   */
   reset() {
     if (this.el instanceof HTMLElement && this.el.isConnected && !this.hasWillChange) {
       this.el.style.willChange = null;
@@ -6561,6 +7625,11 @@ class StyleCache {
     this.resizeObserved.offsetWidth = void 0;
     this.stores.element.set(void 0);
   }
+  /**
+   * Updates the style cache with new data from the given element.
+   *
+   * @param {HTMLElement} el - An HTML element.
+   */
   update(el) {
     this.el = el;
     this.computed = globalThis.getComputedStyle(el);
@@ -6575,43 +7644,109 @@ class StyleCache {
     this.stores.element.set(el);
   }
 }
-__name(StyleCache, "StyleCache");
 class TransformData {
   constructor() {
     Object.seal(this);
   }
+  /**
+   * Stores the calculated bounding rectangle.
+   *
+   * @type {DOMRect}
+   */
   #boundingRect = new DOMRect();
+  /**
+   * Stores the individual transformed corner points of the window in screenspace clockwise from:
+   * top left -> top right -> bottom right -> bottom left.
+   *
+   * @type {Vector3[]}
+   */
   #corners = [vec3.create(), vec3.create(), vec3.create(), vec3.create()];
+  /**
+   * Stores the current gl-matrix mat4 data.
+   *
+   * @type {Matrix4}
+   */
   #mat4 = mat4.create();
+  /**
+   * Stores the pre & post origin translations to apply to matrix transforms.
+   *
+   * @type {Matrix4[]}
+   */
   #originTranslations = [mat4.create(), mat4.create()];
+  /**
+   * @returns {DOMRect} The bounding rectangle.
+   */
   get boundingRect() {
     return this.#boundingRect;
   }
+  /**
+   * @returns {Vector3[]} The transformed corner points as vec3 in screen space.
+   */
   get corners() {
     return this.#corners;
   }
+  /**
+   * @returns {string} Returns the CSS style string for the transform matrix.
+   */
   get css() {
     return `matrix3d(${this.mat4.join(",")})`;
   }
+  /**
+   * @returns {Matrix4} The transform matrix.
+   */
   get mat4() {
     return this.#mat4;
   }
+  /**
+   * @returns {Matrix4[]} The pre / post translation matrices for origin translation.
+   */
   get originTranslations() {
     return this.#originTranslations;
   }
 }
-__name(TransformData, "TransformData");
 class AdapterValidators {
+  /** @type {boolean} */
+  #enabled = true;
+  /**
+   * @type {ValidatorData[]}
+   */
   #validatorData;
   #mapUnsubscribe = /* @__PURE__ */ new Map();
+  /**
+   * @returns {[AdapterValidators, ValidatorData[]]} Returns this and internal storage for validator adapter.
+   */
   constructor() {
     this.#validatorData = [];
     Object.seal(this);
     return [this, this.#validatorData];
   }
+  /**
+   * @returns {boolean} Returns the enabled state.s
+   */
+  get enabled() {
+    return this.#enabled;
+  }
+  /**
+   * @returns {number} Returns the length of the validators array.
+   */
   get length() {
     return this.#validatorData.length;
   }
+  /**
+   * @param {boolean}  enabled - Sets enabled state.
+   */
+  set enabled(enabled) {
+    if (typeof enabled !== "boolean") {
+      throw new TypeError(`'enabled' is not a boolean.`);
+    }
+    this.#enabled = enabled;
+  }
+  /**
+   * Provides an iterator for validators.
+   *
+   * @returns {Generator<ValidatorData|undefined>} Generator / iterator of validators.
+   * @yields {ValidatorData}
+   */
   *[Symbol.iterator]() {
     if (this.#validatorData.length === 0) {
       return;
@@ -6620,6 +7755,9 @@ class AdapterValidators {
       yield { ...entry };
     }
   }
+  /**
+   * @param {...(ValidatorFn|ValidatorData)}   validators -
+   */
   add(...validators) {
     for (const validator of validators) {
       const validatorType = typeof validator;
@@ -6686,13 +7824,16 @@ class AdapterValidators {
     }
     this.#mapUnsubscribe.clear();
   }
+  /**
+   * @param {...(ValidatorFn|ValidatorData)}   validators -
+   */
   remove(...validators) {
     const length = this.#validatorData.length;
     if (length === 0) {
       return;
     }
     for (const data of validators) {
-      const actualValidator = typeof data === "function" ? data : data !== null && typeof data === "object" ? data.validator : void 0;
+      const actualValidator = typeof data === "function" ? data : isObject$1(data) ? data.validator : void 0;
       if (!actualValidator) {
         continue;
       }
@@ -6708,6 +7849,13 @@ class AdapterValidators {
       }
     }
   }
+  /**
+   * Remove validators by the provided callback. The callback takes 3 parameters: `id`, `validator`, and `weight`.
+   * Any truthy value returned will remove that validator.
+   *
+   * @param {function(*, ValidatorFn, number): boolean} callback - Callback function to evaluate each validator
+   *                                                                  entry.
+   */
   removeBy(callback2) {
     const length = this.#validatorData.length;
     if (length === 0) {
@@ -6749,13 +7897,40 @@ class AdapterValidators {
     });
   }
 }
-__name(AdapterValidators, "AdapterValidators");
 class BasicBounds {
+  /**
+   * When true constrains the min / max width or height to element.
+   *
+   * @type {boolean}
+   */
   #constrain;
+  /**
+   * @type {HTMLElement}
+   */
   #element;
+  /**
+   * When true the validator is active.
+   *
+   * @type {boolean}
+   */
   #enabled;
+  /**
+   * Provides a manual setting of the element height. As things go `offsetHeight` causes a browser layout and is not
+   * performance oriented. If manually set this height is used instead of `offsetHeight`.
+   *
+   * @type {number}
+   */
   #height;
+  /**
+   * Set from an optional value in the constructor to lock accessors preventing modification.
+   */
   #lock;
+  /**
+   * Provides a manual setting of the element width. As things go `offsetWidth` causes a browser layout and is not
+   * performance oriented. If manually set this width is used instead of `offsetWidth`.
+   *
+   * @type {number}
+   */
   #width;
   constructor({ constrain = true, element: element2, enabled = true, lock = false, width, height } = {}) {
     this.element = element2;
@@ -6843,6 +8018,14 @@ class BasicBounds {
       throw new TypeError(`'height' is not a finite number or undefined.`);
     }
   }
+  /**
+   * Provides a validator that respects transforms in positional data constraining the position to within the target
+   * elements bounds.
+   *
+   * @param {ValidationData}   valData - The associated validation data for position updates.
+   *
+   * @returns {PositionData} Potentially adjusted position data.
+   */
   validator(valData) {
     if (!this.#enabled) {
       return valData.position;
@@ -6870,14 +8053,41 @@ class BasicBounds {
     return valData.position;
   }
 }
-__name(BasicBounds, "BasicBounds");
 const s_TRANSFORM_DATA = new TransformData();
 class TransformBounds {
+  /**
+   * When true constrains the min / max width or height to element.
+   *
+   * @type {boolean}
+   */
   #constrain;
+  /**
+   * @type {HTMLElement}
+   */
   #element;
+  /**
+   * When true the validator is active.
+   *
+   * @type {boolean}
+   */
   #enabled;
+  /**
+   * Provides a manual setting of the element height. As things go `offsetHeight` causes a browser layout and is not
+   * performance oriented. If manually set this height is used instead of `offsetHeight`.
+   *
+   * @type {number}
+   */
   #height;
+  /**
+   * Set from an optional value in the constructor to lock accessors preventing modification.
+   */
   #lock;
+  /**
+   * Provides a manual setting of the element width. As things go `offsetWidth` causes a browser layout and is not
+   * performance oriented. If manually set this width is used instead of `offsetWidth`.
+   *
+   * @type {number}
+   */
   #width;
   constructor({ constrain = true, element: element2, enabled = true, lock = false, width, height } = {}) {
     this.element = element2;
@@ -6965,6 +8175,14 @@ class TransformBounds {
       throw new TypeError(`'height' is not a finite number or undefined.`);
     }
   }
+  /**
+   * Provides a validator that respects transforms in positional data constraining the position to within the target
+   * elements bounds.
+   *
+   * @param {ValidationData}   valData - The associated validation data for position updates.
+   *
+   * @returns {PositionData} Potentially adjusted position data.
+   */
   validator(valData) {
     if (!this.#enabled) {
       return valData.position;
@@ -6999,15 +8217,14 @@ class TransformBounds {
     return valData.position;
   }
 }
-__name(TransformBounds, "TransformBounds");
 const basicWindow = new BasicBounds({ lock: true });
 const transformWindow = new TransformBounds({ lock: true });
 const positionValidators = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  basicWindow,
   BasicBounds,
-  transformWindow,
-  TransformBounds
+  TransformBounds,
+  basicWindow,
+  transformWindow
 }, Symbol.toStringTag, { value: "Module" }));
 const s_SCALE_VECTOR = [1, 1, 1];
 const s_TRANSLATE_VECTOR = [0, 0, 0];
@@ -7015,34 +8232,68 @@ const s_MAT4_RESULT = mat4.create();
 const s_MAT4_TEMP = mat4.create();
 const s_VEC3_TEMP = vec3.create();
 class Transforms {
+  /**
+   * Stores the transform keys in the order added.
+   *
+   * @type {string[]}
+   */
   #orderList = [];
   constructor() {
     this._data = {};
   }
+  /**
+   * @returns {boolean} Whether there are active transforms in local data.
+   */
   get isActive() {
     return this.#orderList.length > 0;
   }
+  /**
+   * @returns {number|undefined} Any local rotateX data.
+   */
   get rotateX() {
     return this._data.rotateX;
   }
+  /**
+   * @returns {number|undefined} Any local rotateY data.
+   */
   get rotateY() {
     return this._data.rotateY;
   }
+  /**
+   * @returns {number|undefined} Any local rotateZ data.
+   */
   get rotateZ() {
     return this._data.rotateZ;
   }
+  /**
+   * @returns {number|undefined} Any local rotateZ scale.
+   */
   get scale() {
     return this._data.scale;
   }
+  /**
+   * @returns {number|undefined} Any local translateZ data.
+   */
   get translateX() {
     return this._data.translateX;
   }
+  /**
+   * @returns {number|undefined} Any local translateZ data.
+   */
   get translateY() {
     return this._data.translateY;
   }
+  /**
+   * @returns {number|undefined} Any local translateZ data.
+   */
   get translateZ() {
     return this._data.translateZ;
   }
+  /**
+   * Sets the local rotateX data if the value is a finite number otherwise removes the local data.
+   *
+   * @param {number|null|undefined}   value - A value to set.
+   */
   set rotateX(value) {
     if (Number.isFinite(value)) {
       if (this._data.rotateX === void 0) {
@@ -7059,6 +8310,11 @@ class Transforms {
       delete this._data.rotateX;
     }
   }
+  /**
+   * Sets the local rotateY data if the value is a finite number otherwise removes the local data.
+   *
+   * @param {number|null|undefined}   value - A value to set.
+   */
   set rotateY(value) {
     if (Number.isFinite(value)) {
       if (this._data.rotateY === void 0) {
@@ -7075,6 +8331,11 @@ class Transforms {
       delete this._data.rotateY;
     }
   }
+  /**
+   * Sets the local rotateZ data if the value is a finite number otherwise removes the local data.
+   *
+   * @param {number|null|undefined}   value - A value to set.
+   */
   set rotateZ(value) {
     if (Number.isFinite(value)) {
       if (this._data.rotateZ === void 0) {
@@ -7091,6 +8352,11 @@ class Transforms {
       delete this._data.rotateZ;
     }
   }
+  /**
+   * Sets the local scale data if the value is a finite number otherwise removes the local data.
+   *
+   * @param {number|null|undefined}   value - A value to set.
+   */
   set scale(value) {
     if (Number.isFinite(value)) {
       if (this._data.scale === void 0) {
@@ -7107,6 +8373,11 @@ class Transforms {
       delete this._data.scale;
     }
   }
+  /**
+   * Sets the local translateX data if the value is a finite number otherwise removes the local data.
+   *
+   * @param {number|null|undefined}   value - A value to set.
+   */
   set translateX(value) {
     if (Number.isFinite(value)) {
       if (this._data.translateX === void 0) {
@@ -7123,6 +8394,11 @@ class Transforms {
       delete this._data.translateX;
     }
   }
+  /**
+   * Sets the local translateY data if the value is a finite number otherwise removes the local data.
+   *
+   * @param {number|null|undefined}   value - A value to set.
+   */
   set translateY(value) {
     if (Number.isFinite(value)) {
       if (this._data.translateY === void 0) {
@@ -7139,6 +8415,11 @@ class Transforms {
       delete this._data.translateY;
     }
   }
+  /**
+   * Sets the local translateZ data if the value is a finite number otherwise removes the local data.
+   *
+   * @param {number|null|undefined}   value - A value to set.
+   */
   set translateZ(value) {
     if (Number.isFinite(value)) {
       if (this._data.translateZ === void 0) {
@@ -7155,12 +8436,38 @@ class Transforms {
       delete this._data.translateZ;
     }
   }
+  /**
+   * Returns the matrix3d CSS transform for the given position / transform data.
+   *
+   * @param {object} [data] - Optional position data otherwise use local stored transform data.
+   *
+   * @returns {string} The CSS matrix3d string.
+   */
   getCSS(data = this._data) {
     return `matrix3d(${this.getMat4(data, s_MAT4_RESULT).join(",")})`;
   }
+  /**
+   * Returns the matrix3d CSS transform for the given position / transform data.
+   *
+   * @param {object} [data] - Optional position data otherwise use local stored transform data.
+   *
+   * @returns {string} The CSS matrix3d string.
+   */
   getCSSOrtho(data = this._data) {
     return `matrix3d(${this.getMat4Ortho(data, s_MAT4_RESULT).join(",")})`;
   }
+  /**
+   * Collects all data including a bounding rect, transform matrix, and points array of the given {@link PositionData}
+   * instance with the applied local transform data.
+   *
+   * @param {PositionData} position - The position data to process.
+   *
+   * @param {TransformData} [output] - Optional TransformData output instance.
+   *
+   * @param {object} [validationData] - Optional validation data for adjustment parameters.
+   *
+   * @returns {TransformData} The output TransformData instance.
+   */
   getData(position, output = new TransformData(), validationData = {}) {
     const valWidth = validationData.width ?? 0;
     const valHeight = validationData.height ?? 0;
@@ -7248,6 +8555,19 @@ class Transforms {
     position.left -= valOffsetLeft;
     return output;
   }
+  /**
+   * Creates a transform matrix based on local data applied in order it was added.
+   *
+   * If no data object is provided then the source is the local transform data. If another data object is supplied
+   * then the stored local transform order is applied then all remaining transform keys are applied. This allows the
+   * construction of a transform matrix in advance of setting local data and is useful in collision detection.
+   *
+   * @param {object}   [data] - PositionData instance or local transform data.
+   *
+   * @param {Matrix4}  [output] - The output mat4 instance.
+   *
+   * @returns {Matrix4} Transform matrix.
+   */
   getMat4(data = this._data, output = mat4.create()) {
     const matrix = mat4.identity(output);
     let seenKeys = 0;
@@ -7338,6 +8658,22 @@ class Transforms {
     }
     return matrix;
   }
+  /**
+   * Provides an orthographic enhancement to convert left / top positional data to a translate operation.
+   *
+   * This transform matrix takes into account that the remaining operations are , but adds any left / top attributes from passed in data to
+   * translate X / Y.
+   *
+   * If no data object is provided then the source is the local transform data. If another data object is supplied
+   * then the stored local transform order is applied then all remaining transform keys are applied. This allows the
+   * construction of a transform matrix in advance of setting local data and is useful in collision detection.
+   *
+   * @param {object}   [data] - PositionData instance or local transform data.
+   *
+   * @param {Matrix4}  [output] - The output mat4 instance.
+   *
+   * @returns {Matrix4} Transform matrix.
+   */
   getMat4Ortho(data = this._data, output = mat4.create()) {
     const matrix = mat4.identity(output);
     s_TRANSLATE_VECTOR[0] = (data.left ?? 0) + (data.translateX ?? 0);
@@ -7391,6 +8727,13 @@ class Transforms {
     }
     return matrix;
   }
+  /**
+   * Tests an object if it contains transform keys and the values are finite numbers.
+   *
+   * @param {object} data - An object to test for transform data.
+   *
+   * @returns {boolean} Whether the given PositionData has transforms.
+   */
   hasTransform(data) {
     for (const key of transformKeys) {
       if (Number.isFinite(data[key])) {
@@ -7399,6 +8742,11 @@ class Transforms {
     }
     return false;
   }
+  /**
+   * Resets internal data from the given object containing valid transform keys.
+   *
+   * @param {object}   data - An object with transform data.
+   */
   reset(data) {
     for (const key in data) {
       if (transformKeys.includes(key)) {
@@ -7415,7 +8763,6 @@ class Transforms {
     }
   }
 }
-__name(Transforms, "Transforms");
 function s_GET_ORIGIN_TRANSLATION(transformOrigin, width, height, output) {
   const vector = s_VEC3_TEMP;
   switch (transformOrigin) {
@@ -7492,7 +8839,6 @@ function s_GET_ORIGIN_TRANSLATION(transformOrigin, width, height, output) {
   }
   return output;
 }
-__name(s_GET_ORIGIN_TRANSLATION, "s_GET_ORIGIN_TRANSLATION");
 class UpdateElementData {
   constructor() {
     this.data = void 0;
@@ -7514,7 +8860,6 @@ class UpdateElementData {
     Object.seal(this.dimensionData);
   }
 }
-__name(UpdateElementData, "UpdateElementData");
 async function nextAnimationFrame(cntr = 1) {
   if (!Number.isInteger(cntr) || cntr < 1) {
     throw new TypeError(`nextAnimationFrame error: 'cntr' must be a positive integer greater than 0.`);
@@ -7525,7 +8870,6 @@ async function nextAnimationFrame(cntr = 1) {
   }
   return currentTime;
 }
-__name(nextAnimationFrame, "nextAnimationFrame");
 class UpdateElementManager {
   static list = [];
   static listCntr = 0;
@@ -7533,6 +8877,15 @@ class UpdateElementManager {
   static get promise() {
     return this.updatePromise;
   }
+  /**
+   * Potentially adds the given element and internal updateData instance to the list.
+   *
+   * @param {HTMLElement}       el - An HTMLElement instance.
+   *
+   * @param {UpdateElementData} updateData - An UpdateElementData instance.
+   *
+   * @returns {Promise<number>} The unified next frame update promise. Returns `currentTime`.
+   */
   static add(el, updateData) {
     if (this.listCntr < this.list.length) {
       const entry = this.list[this.listCntr];
@@ -7548,6 +8901,11 @@ class UpdateElementManager {
     }
     return this.updatePromise;
   }
+  /**
+   * Await on `nextAnimationFrame` and iterate over list map invoking callback functions.
+   *
+   * @returns {Promise<number>} The next frame Promise / currentTime from nextAnimationFrame.
+   */
   static async wait() {
     const currentTime = await nextAnimationFrame();
     this.updatePromise = void 0;
@@ -7574,6 +8932,13 @@ class UpdateElementManager {
     this.listCntr = 0;
     return currentTime;
   }
+  /**
+   * Potentially immediately updates the given element.
+   *
+   * @param {HTMLElement}       el - An HTMLElement instance.
+   *
+   * @param {UpdateElementData} updateData - An UpdateElementData instance.
+   */
   static immediate(el, updateData) {
     if (!el.isConnected) {
       return;
@@ -7588,6 +8953,9 @@ class UpdateElementManager {
     }
     this.updateSubscribers(updateData);
   }
+  /**
+   * @param {UpdateElementData} updateData - Data change set.
+   */
   static updateSubscribers(updateData) {
     const data = updateData.data;
     const changeSet = updateData.changeSet;
@@ -7609,7 +8977,6 @@ class UpdateElementManager {
     changeSet.set(false);
   }
 }
-__name(UpdateElementManager, "UpdateElementManager");
 function s_UPDATE_ELEMENT(el, updateData) {
   const changeSet = updateData.changeSet;
   const data = updateData.data;
@@ -7635,7 +9002,6 @@ function s_UPDATE_ELEMENT(el, updateData) {
     el.style.transform = updateData.transforms.isActive ? updateData.transforms.getCSS() : null;
   }
 }
-__name(s_UPDATE_ELEMENT, "s_UPDATE_ELEMENT");
 function s_UPDATE_ELEMENT_ORTHO(el, updateData) {
   const changeSet = updateData.changeSet;
   const data = updateData.data;
@@ -7655,7 +9021,6 @@ function s_UPDATE_ELEMENT_ORTHO(el, updateData) {
     el.style.transform = updateData.transforms.getCSSOrtho(data);
   }
 }
-__name(s_UPDATE_ELEMENT_ORTHO, "s_UPDATE_ELEMENT_ORTHO");
 function s_UPDATE_TRANSFORM(el, updateData) {
   s_VALIDATION_DATA$1.height = updateData.data.height !== "auto" ? updateData.data.height : updateData.styleCache.offsetHeight;
   s_VALIDATION_DATA$1.width = updateData.data.width !== "auto" ? updateData.data.width : updateData.styleCache.offsetWidth;
@@ -7664,7 +9029,6 @@ function s_UPDATE_TRANSFORM(el, updateData) {
   updateData.transforms.getData(updateData.data, updateData.transformData, s_VALIDATION_DATA$1);
   updateData.storeTransform.set(updateData.transformData);
 }
-__name(s_UPDATE_TRANSFORM, "s_UPDATE_TRANSFORM");
 const s_VALIDATION_DATA$1 = {
   height: void 0,
   width: void 0,
@@ -7672,38 +9036,129 @@ const s_VALIDATION_DATA$1 = {
   marginTop: void 0
 };
 class Position {
+  /**
+   * @type {PositionData}
+   */
   #data = new PositionData();
+  /**
+   * Provides the animation API.
+   *
+   * @type {AnimationAPI}
+   */
   #animate = new AnimationAPI(this, this.#data);
+  /**
+   * Provides a way to turn on / off the position handling.
+   *
+   * @type {boolean}
+   */
   #enabled = true;
+  /**
+   * Stores the style attributes that changed on update.
+   *
+   * @type {PositionChangeSet}
+   */
   #positionChangeSet = new PositionChangeSet();
+  /**
+   * Stores ongoing options that are set in the constructor or by transform store subscription.
+   *
+   * @type {PositionOptions}
+   */
   #options = {
     calculateTransform: false,
     initialHelper: void 0,
     ortho: true,
     transformSubscribed: false
   };
+  /**
+   * The associated parent for positional data tracking. Used in validators.
+   *
+   * @type {PositionParent}
+   */
   #parent;
+  /**
+   * @type {StorePosition}
+   */
   #stores;
+  /**
+   * Stores an instance of the computer styles for the target element.
+   *
+   * @type {StyleCache}
+   */
   #styleCache;
+  /**
+   * Stores the subscribers.
+   *
+   * @type {(function(PositionData): void)[]}
+   */
   #subscriptions = [];
+  /**
+   * @type {Transforms}
+   */
   #transforms = new Transforms();
+  /**
+   * @type {UpdateElementData}
+   */
   #updateElementData;
+  /**
+   * Stores the UpdateElementManager wait promise.
+   *
+   * @type {Promise}
+   */
   #updateElementPromise;
+  /**
+   * @type {AdapterValidators}
+   */
   #validators;
+  /**
+   * @type {ValidatorData[]}
+   */
   #validatorData;
+  /**
+   * @type {PositionStateAPI}
+   */
   #state = new PositionStateAPI(this, this.#data, this.#transforms);
+  /**
+   * @returns {AnimationGroupAPI} Public Animation API.
+   */
   static get Animate() {
     return AnimationGroupAPI;
   }
+  /**
+   * @returns {{browserCentered?: Centered, Centered?: *}} Initial position helpers.
+   */
   static get Initial() {
     return positionInitial;
   }
+  /**
+   * Returns TransformData class / constructor.
+   *
+   * @returns {TransformData} TransformData class / constructor.
+   */
   static get TransformData() {
     return TransformData;
   }
+  /**
+   * Returns default validators.
+   *
+   * Note: `basicWindow` and `BasicBounds` will eventually be removed.
+   *
+   * @returns {{basicWindow?: BasicBounds, transformWindow?: TransformBounds, TransformBounds?: *, BasicBounds?: *}}
+   *  Available validators.
+   */
   static get Validators() {
     return positionValidators;
   }
+  /**
+   * Returns a duplicate of a given position instance copying any options and validators.
+   *
+   * // TODO: Consider more safety over options processing.
+   *
+   * @param {Position}          position - A position instance.
+   *
+   * @param {PositionOptions}   options - Position options.
+   *
+   * @returns {Position} A duplicate position instance.
+   */
   static duplicate(position, options) {
     if (!(position instanceof Position)) {
       throw new TypeError(`'position' is not an instance of Position.`);
@@ -7714,6 +9169,12 @@ class Position {
     newPosition.set(position.#data);
     return newPosition;
   }
+  /**
+   * @param {PositionParent|PositionOptionsAll}   [parent] - A potential parent element or object w/ `elementTarget`
+   *                                                      getter. May also be the PositionOptions object w/ 1 argument.
+   *
+   * @param {PositionOptionsAll}   [options] - Default values.
+   */
   constructor(parent, options) {
     if (isPlainObject(parent)) {
       options = parent;
@@ -7731,7 +9192,7 @@ class Position {
     updateData.subscriptions = this.#subscriptions;
     updateData.transforms = this.#transforms;
     this.#updateElementData = updateData;
-    if (typeof options === "object") {
+    if (isObject$1(options)) {
       if (typeof options.calculateTransform === "boolean") {
         this.#options.calculateTransform = options.calculateTransform;
       }
@@ -7791,6 +9252,7 @@ class Position {
       }
     }
     this.#stores = {
+      // The main properties for manipulating Position.
       height: propertyStore(this, "height"),
       left: propertyStore(this, "left"),
       rotateX: propertyStore(this, "rotateX"),
@@ -7804,10 +9266,12 @@ class Position {
       translateZ: propertyStore(this, "translateZ"),
       width: propertyStore(this, "width"),
       zIndex: propertyStore(this, "zIndex"),
+      // Stores that control validation when width / height is not `auto`.
       maxHeight: propertyStore(this, "maxHeight"),
       maxWidth: propertyStore(this, "maxWidth"),
       minHeight: propertyStore(this, "minHeight"),
       minWidth: propertyStore(this, "minWidth"),
+      // Readable stores based on updates or from resize observer changes.
       dimension: { subscribe: updateData.storeDimension.subscribe },
       element: { subscribe: this.#styleCache.stores.element.subscribe },
       resizeContentHeight: { subscribe: this.#styleCache.stores.resizeContentHeight.subscribe },
@@ -7815,6 +9279,7 @@ class Position {
       resizeOffsetHeight: { subscribe: this.#styleCache.stores.resizeOffsetHeight.subscribe },
       resizeOffsetWidth: { subscribe: this.#styleCache.stores.resizeOffsetWidth.subscribe },
       transform: { subscribe: updateData.storeTransform.subscribe },
+      // Protected store that should only be set by resizeObserver action.
       resizeObserved: this.#styleCache.stores.resizeObserved
     };
     subscribeIgnoreFirst(this.#stores.resizeObserved, (resizeData) => {
@@ -7843,42 +9308,102 @@ class Position {
       }
     }
   }
+  /**
+   * Returns the animation API.
+   *
+   * @returns {AnimationAPI} Animation API.
+   */
   get animate() {
     return this.#animate;
   }
+  /**
+   * Returns the dimension data for the readable store.
+   *
+   * @returns {{width: number | 'auto', height: number | 'auto'}} Dimension data.
+   */
   get dimension() {
     return this.#updateElementData.dimensionData;
   }
+  /**
+   * Returns the enabled state.
+   *
+   * @returns {boolean} Enabled state.
+   */
   get enabled() {
     return this.#enabled;
   }
+  /**
+   * Returns the current HTMLElement being positioned.
+   *
+   * @returns {HTMLElement|undefined} Current HTMLElement being positioned.
+   */
   get element() {
     return this.#styleCache.el;
   }
+  /**
+   * Returns a promise that is resolved on the next element update with the time of the update.
+   *
+   * @returns {Promise<number>} Promise resolved on element update.
+   */
   get elementUpdated() {
     return this.#updateElementPromise;
   }
+  /**
+   * Returns the associated {@link PositionParent} instance.
+   *
+   * @returns {PositionParent} The PositionParent instance.
+   */
   get parent() {
     return this.#parent;
   }
+  /**
+   * Returns the state API.
+   *
+   * @returns {PositionStateAPI} Position state API.
+   */
   get state() {
     return this.#state;
   }
+  /**
+   * Returns the derived writable stores for individual data variables.
+   *
+   * @returns {StorePosition} Derived / writable stores.
+   */
   get stores() {
     return this.#stores;
   }
+  /**
+   * Returns the transform data for the readable store.
+   *
+   * @returns {TransformData} Transform Data.
+   */
   get transform() {
     return this.#updateElementData.transformData;
   }
+  /**
+   * Returns the validators.
+   *
+   * @returns {AdapterValidators} validators.
+   */
   get validators() {
     return this.#validators;
   }
+  /**
+   * Sets the enabled state.
+   *
+   * @param {boolean}  enabled - New enabled state.
+   */
   set enabled(enabled) {
     if (typeof enabled !== "boolean") {
       throw new TypeError(`'enabled' is not a boolean.`);
     }
     this.#enabled = enabled;
   }
+  /**
+   * Sets the associated {@link PositionParent} instance. Resets the style cache and default data.
+   *
+   * @param {PositionParent|void} parent - A PositionParent instance.
+   */
   set parent(parent) {
     if (parent !== void 0 && !(parent instanceof HTMLElement) && !isObject$1(parent)) {
       throw new TypeError(`'parent' is not an HTMLElement, object, or undefined.`);
@@ -7890,116 +9415,235 @@ class Position {
       this.set(this.#data);
     }
   }
+  // Data accessors ----------------------------------------------------------------------------------------------------
+  /**
+   * @returns {number|'auto'|'inherit'|null} height
+   */
   get height() {
     return this.#data.height;
   }
+  /**
+   * @returns {number|null} left
+   */
   get left() {
     return this.#data.left;
   }
+  /**
+   * @returns {number|null} maxHeight
+   */
   get maxHeight() {
     return this.#data.maxHeight;
   }
+  /**
+   * @returns {number|null} maxWidth
+   */
   get maxWidth() {
     return this.#data.maxWidth;
   }
+  /**
+   * @returns {number|null} minHeight
+   */
   get minHeight() {
     return this.#data.minHeight;
   }
+  /**
+   * @returns {number|null} minWidth
+   */
   get minWidth() {
     return this.#data.minWidth;
   }
+  /**
+   * @returns {number|null} rotateX
+   */
   get rotateX() {
     return this.#data.rotateX;
   }
+  /**
+   * @returns {number|null} rotateY
+   */
   get rotateY() {
     return this.#data.rotateY;
   }
+  /**
+   * @returns {number|null} rotateZ
+   */
   get rotateZ() {
     return this.#data.rotateZ;
   }
+  /**
+   * @returns {number|null} alias for rotateZ
+   */
   get rotation() {
     return this.#data.rotateZ;
   }
+  /**
+   * @returns {number|null} scale
+   */
   get scale() {
     return this.#data.scale;
   }
+  /**
+   * @returns {number|null} top
+   */
   get top() {
     return this.#data.top;
   }
+  /**
+   * @returns {string} transformOrigin
+   */
   get transformOrigin() {
     return this.#data.transformOrigin;
   }
+  /**
+   * @returns {number|null} translateX
+   */
   get translateX() {
     return this.#data.translateX;
   }
+  /**
+   * @returns {number|null} translateY
+   */
   get translateY() {
     return this.#data.translateY;
   }
+  /**
+   * @returns {number|null} translateZ
+   */
   get translateZ() {
     return this.#data.translateZ;
   }
+  /**
+   * @returns {number|'auto'|'inherit'|null} width
+   */
   get width() {
     return this.#data.width;
   }
+  /**
+   * @returns {number|null} z-index
+   */
   get zIndex() {
     return this.#data.zIndex;
   }
+  /**
+   * @param {number|string|null} height -
+   */
   set height(height) {
     this.#stores.height.set(height);
   }
+  /**
+   * @param {number|string|null} left -
+   */
   set left(left) {
     this.#stores.left.set(left);
   }
+  /**
+   * @param {number|string|null} maxHeight -
+   */
   set maxHeight(maxHeight) {
     this.#stores.maxHeight.set(maxHeight);
   }
+  /**
+   * @param {number|string|null} maxWidth -
+   */
   set maxWidth(maxWidth) {
     this.#stores.maxWidth.set(maxWidth);
   }
+  /**
+   * @param {number|string|null} minHeight -
+   */
   set minHeight(minHeight) {
     this.#stores.minHeight.set(minHeight);
   }
+  /**
+   * @param {number|string|null} minWidth -
+   */
   set minWidth(minWidth) {
     this.#stores.minWidth.set(minWidth);
   }
+  /**
+   * @param {number|string|null} rotateX -
+   */
   set rotateX(rotateX) {
     this.#stores.rotateX.set(rotateX);
   }
+  /**
+   * @param {number|string|null} rotateY -
+   */
   set rotateY(rotateY) {
     this.#stores.rotateY.set(rotateY);
   }
+  /**
+   * @param {number|string|null} rotateZ -
+   */
   set rotateZ(rotateZ) {
     this.#stores.rotateZ.set(rotateZ);
   }
+  /**
+   * @param {number|string|null} rotateZ - alias for rotateZ
+   */
   set rotation(rotateZ) {
     this.#stores.rotateZ.set(rotateZ);
   }
+  /**
+   * @param {number|string|null} scale -
+   */
   set scale(scale) {
     this.#stores.scale.set(scale);
   }
+  /**
+   * @param {number|string|null} top -
+   */
   set top(top) {
     this.#stores.top.set(top);
   }
+  /**
+   * @param {string} transformOrigin -
+   */
   set transformOrigin(transformOrigin) {
     if (transformOrigins.includes(transformOrigin)) {
       this.#stores.transformOrigin.set(transformOrigin);
     }
   }
+  /**
+   * @param {number|string|null} translateX -
+   */
   set translateX(translateX) {
     this.#stores.translateX.set(translateX);
   }
+  /**
+   * @param {number|string|null} translateY -
+   */
   set translateY(translateY) {
     this.#stores.translateY.set(translateY);
   }
+  /**
+   * @param {number|string|null} translateZ -
+   */
   set translateZ(translateZ) {
     this.#stores.translateZ.set(translateZ);
   }
+  /**
+   * @param {number|string|null} width -
+   */
   set width(width) {
     this.#stores.width.set(width);
   }
+  /**
+   * @param {number|string|null} zIndex -
+   */
   set zIndex(zIndex) {
     this.#stores.zIndex.set(zIndex);
   }
+  /**
+   * Assigns current position to object passed into method.
+   *
+   * @param {object|PositionData}  [position] - Target to assign current position data.
+   *
+   * @param {PositionGetOptions}   [options] - Defines options for specific keys and substituting null for numeric
+   *                                           default values.
+   *
+   * @returns {PositionData} Passed in object with current position data.
+   */
   get(position = {}, options) {
     const keys = options?.keys;
     const excludeKeys = options?.exclude;
@@ -8033,9 +9677,35 @@ class Position {
       return data;
     }
   }
+  /**
+   * @returns {PositionData} Current position data.
+   */
   toJSON() {
     return Object.assign({}, this.#data);
   }
+  /**
+   * All calculation and updates of position are implemented in {@link Position}. This allows position to be fully
+   * reactive and in control of updating inline styles for the application.
+   *
+   * Note: the logic for updating position is improved and changes a few aspects from the default
+   * {@link Application.setPosition}. The gate on `popOut` is removed, so to ensure no positional application occurs
+   * popOut applications can set `this.options.positionable` to false ensuring no positional inline styles are
+   * applied.
+   *
+   * The initial set call on an application with a target element will always set width / height as this is
+   * necessary for correct calculations.
+   *
+   * When a target element is present updated styles are applied after validation. To modify the behavior of set
+   * implement one or more validator functions and add them from the application via
+   * `this.position.validators.add(<Function>)`.
+   *
+   * Updates to any target element are decoupled from the underlying Position data. This method returns this instance
+   * that you can then await on the target element inline style update by using {@link Position.elementUpdated}.
+   *
+   * @param {PositionDataExtended} [position] - Position data to set.
+   *
+   * @returns {Position} This Position instance.
+   */
   set(position = {}) {
     if (typeof position !== "object") {
       throw new TypeError(`Position - set error: 'position' is not an object.`);
@@ -8198,6 +9868,13 @@ class Position {
     }
     return this;
   }
+  /**
+   *
+   * @param {function(PositionData): void} handler - Callback function that is invoked on update / changes. Receives
+   *                                                 a copy of the PositionData.
+   *
+   * @returns {(function(): void)} Unsubscribe function.
+   */
   subscribe(handler) {
     this.#subscriptions.push(handler);
     handler(Object.assign({}, this.#data));
@@ -8208,7 +9885,57 @@ class Position {
       }
     };
   }
+  /**
+   * @param {PositionDataExtended} opts -
+   *
+   * @param {number|null} opts.left -
+   *
+   * @param {number|null} opts.top -
+   *
+   * @param {number|null} opts.maxHeight -
+   *
+   * @param {number|null} opts.maxWidth -
+   *
+   * @param {number|null} opts.minHeight -
+   *
+   * @param {number|null} opts.minWidth -
+   *
+   * @param {number|'auto'|null} opts.width -
+   *
+   * @param {number|'auto'|null} opts.height -
+   *
+   * @param {number|null} opts.rotateX -
+   *
+   * @param {number|null} opts.rotateY -
+   *
+   * @param {number|null} opts.rotateZ -
+   *
+   * @param {number|null} opts.scale -
+   *
+   * @param {string} opts.transformOrigin -
+   *
+   * @param {number|null} opts.translateX -
+   *
+   * @param {number|null} opts.translateY -
+   *
+   * @param {number|null} opts.translateZ -
+   *
+   * @param {number|null} opts.zIndex -
+   *
+   * @param {number|null} opts.rotation - alias for rotateZ
+   *
+   * @param {*} opts.rest -
+   *
+   * @param {object} parent -
+   *
+   * @param {HTMLElement} el -
+   *
+   * @param {StyleCache} styleCache -
+   *
+   * @returns {null|PositionData} Updated position data or null if validation fails.
+   */
   #updatePosition({
+    // Directly supported parameters
     left,
     top,
     maxWidth,
@@ -8226,6 +9953,7 @@ class Position {
     translateY,
     translateZ,
     zIndex,
+    // Aliased parameters
     rotation,
     ...rest
   } = {}, parent, el, styleCache) {
@@ -8310,7 +10038,7 @@ class Position {
       currentPosition.zIndex = typeof zIndex === "number" ? Math.round(zIndex) : zIndex;
     }
     const validatorData = this.#validatorData;
-    if (validatorData.length) {
+    if (this.#validators.enabled && validatorData.length) {
       s_VALIDATION_DATA.parent = parent;
       s_VALIDATION_DATA.el = el;
       s_VALIDATION_DATA.computed = styleCache.computed;
@@ -8336,7 +10064,6 @@ class Position {
     return currentPosition;
   }
 }
-__name(Position, "Position");
 const s_DATA_UPDATE = new PositionData();
 const s_VALIDATION_DATA = {
   position: void 0,
@@ -8356,11 +10083,24 @@ const s_VALIDATION_DATA = {
 };
 Object.seal(s_VALIDATION_DATA);
 class ApplicationState {
+  /** @type {ApplicationShellExt} */
   #application;
+  /** @type {Map<string, ApplicationStateData>} */
   #dataSaved = /* @__PURE__ */ new Map();
+  /**
+   * @param {ApplicationShellExt}   application - The application.
+   */
   constructor(application) {
     this.#application = application;
+    Object.seal(this);
   }
+  /**
+   * Returns current application state along with any extra data passed into method.
+   *
+   * @param {object} [extra] - Extra data to add to application state.
+   *
+   * @returns {ApplicationStateData} Passed in object with current application state.
+   */
   get(extra = {}) {
     return Object.assign(extra, {
       position: this.#application?.position?.get(),
@@ -8369,12 +10109,28 @@ class ApplicationState {
       ui: { minimized: this.#application?.reactive?.minimized }
     });
   }
+  /**
+   * Returns any stored save state by name.
+   *
+   * @param {string}   name - Saved data set name.
+   *
+   * @returns {ApplicationStateData} The saved data set.
+   */
   getSave({ name }) {
     if (typeof name !== "string") {
       throw new TypeError(`ApplicationState - getSave error: 'name' is not a string.`);
     }
     return this.#dataSaved.get(name);
   }
+  /**
+   * Removes and returns any application state by name.
+   *
+   * @param {object}   options - Options.
+   *
+   * @param {string}   options.name - Name to remove and retrieve.
+   *
+   * @returns {ApplicationStateData} Saved application data.
+   */
   remove({ name }) {
     if (typeof name !== "string") {
       throw new TypeError(`ApplicationState - remove: 'name' is not a string.`);
@@ -8383,6 +10139,31 @@ class ApplicationState {
     this.#dataSaved.delete(name);
     return data;
   }
+  /**
+   * Restores a saved application state returning the data. Several optional parameters are available
+   * to control whether the restore action occurs silently (no store / inline styles updates), animates
+   * to the stored data, or simply sets the stored data. Restoring via {@link AnimationAPI.to} allows
+   * specification of the duration, easing, and interpolate functions along with configuring a Promise to be
+   * returned if awaiting the end of the animation.
+   *
+   * @param {object}            params - Parameters
+   *
+   * @param {string}            params.name - Saved data set name.
+   *
+   * @param {boolean}           [params.remove=false] - Remove data set.
+   *
+   * @param {boolean}           [params.async=false] - If animating return a Promise that resolves with any saved data.
+   *
+   * @param {boolean}           [params.animateTo=false] - Animate to restore data.
+   *
+   * @param {number}            [params.duration=0.1] - Duration in seconds.
+   *
+   * @param {Function}          [params.ease=linear] - Easing function.
+   *
+   * @param {Function}          [params.interpolate=lerp] - Interpolation function.
+   *
+   * @returns {ApplicationStateData|Promise<ApplicationStateData>} Saved application data.
+   */
   restore({
     name,
     remove = false,
@@ -8408,6 +10189,17 @@ class ApplicationState {
     }
     return dataSaved;
   }
+  /**
+   * Saves current application state with the opportunity to add extra data to the saved state.
+   *
+   * @param {object}   options - Options.
+   *
+   * @param {string}   options.name - name to index this saved data.
+   *
+   * @param {...*}     [options.extra] - Extra data to add to saved data.
+   *
+   * @returns {ApplicationStateData} Current application data
+   */
   save({ name, ...extra }) {
     if (typeof name !== "string") {
       throw new TypeError(`ApplicationState - save error: 'name' is not a string.`);
@@ -8416,6 +10208,35 @@ class ApplicationState {
     this.#dataSaved.set(name, data);
     return data;
   }
+  /**
+   * Restores a saved application state returning the data. Several optional parameters are available
+   * to control whether the restore action occurs silently (no store / inline styles updates), animates
+   * to the stored data, or simply sets the stored data. Restoring via {@link AnimationAPI.to} allows
+   * specification of the duration, easing, and interpolate functions along with configuring a Promise to be
+   * returned if awaiting the end of the animation.
+   *
+   * Note: If serializing application state any minimized apps will use the before minimized state on initial render
+   * of the app as it is currently not possible to render apps with Foundry VTT core API in the minimized state.
+   *
+   * TODO: THIS METHOD NEEDS TO BE REFACTORED WHEN TRL IS MADE INTO A STANDALONE FRAMEWORK.
+   *
+   * @param {ApplicationStateData}   data - Saved data set name.
+   *
+   * @param {object}            [opts] - Optional parameters
+   *
+   * @param {boolean}           [opts.async=false] - If animating return a Promise that resolves with any saved data.
+   *
+   * @param {boolean}           [opts.animateTo=false] - Animate to restore data.
+   *
+   * @param {number}            [opts.duration=0.1] - Duration in seconds.
+   *
+   * @param {Function}          [opts.ease=linear] - Easing function.
+   *
+   * @param {Function}          [opts.interpolate=lerp] - Interpolation function.
+   *
+   * @returns {ApplicationShellExt|Promise<ApplicationShellExt>} When synchronous the application or Promise when
+   *                                                             animating resolving with application.
+   */
   set(data, { async = false, animateTo = false, duration = 0.1, ease = identity, interpolate: interpolate2 = lerp$5 } = {}) {
     if (!isObject$1(data)) {
       throw new TypeError(`ApplicationState - restore error: 'data' is not an object.`);
@@ -8494,34 +10315,84 @@ class ApplicationState {
     return application;
   }
 }
-__name(ApplicationState, "ApplicationState");
 class GetSvelteData {
+  /**
+   * @type {MountedAppShell[]|null[]}
+   */
   #applicationShellHolder;
+  /**
+   * @type {SvelteData[]}
+   */
   #svelteData;
+  /**
+   * Keep a direct reference to the SvelteData array in an associated {@link SvelteApplication}.
+   *
+   * @param {MountedAppShell[]|null[]}  applicationShellHolder - A reference to the MountedAppShell array.
+   *
+   * @param {SvelteData[]}  svelteData - A reference to the SvelteData array of mounted components.
+   */
   constructor(applicationShellHolder, svelteData) {
     this.#applicationShellHolder = applicationShellHolder;
     this.#svelteData = svelteData;
   }
+  /**
+   * Returns any mounted {@link MountedAppShell}.
+   *
+   * @returns {MountedAppShell|null} Any mounted application shell.
+   */
   get applicationShell() {
     return this.#applicationShellHolder[0];
   }
+  /**
+   * Returns the indexed Svelte component.
+   *
+   * @param {number}   index -
+   *
+   * @returns {object} The loaded Svelte component.
+   */
   component(index2) {
     const data = this.#svelteData[index2];
-    return typeof data === "object" ? data?.component : void 0;
+    return isObject$1(data) ? data?.component : void 0;
   }
+  /**
+   * Returns the Svelte component entries iterator.
+   *
+   * @returns {Generator<Array<number|SvelteComponent>>} Svelte component entries iterator.
+   * @yields
+   */
   *componentEntries() {
     for (let cntr = 0; cntr < this.#svelteData.length; cntr++) {
       yield [cntr, this.#svelteData[cntr].component];
     }
   }
+  /**
+   * Returns the Svelte component values iterator.
+   *
+   * @returns {Generator<SvelteComponent>} Svelte component values iterator.
+   * @yields
+   */
   *componentValues() {
     for (let cntr = 0; cntr < this.#svelteData.length; cntr++) {
       yield this.#svelteData[cntr].component;
     }
   }
+  /**
+   * Returns the indexed SvelteData entry.
+   *
+   * @param {number}   index -
+   *
+   * @returns {SvelteData} The loaded Svelte config + component.
+   */
   data(index2) {
     return this.#svelteData[index2];
   }
+  /**
+   * Returns the {@link SvelteData} instance for a given component.
+   *
+   * @param {object} component - Svelte component.
+   *
+   * @returns {SvelteData} -  The loaded Svelte config + component.
+   */
   dataByComponent(component) {
     for (const data of this.#svelteData) {
       if (data.component === component) {
@@ -8530,19 +10401,33 @@ class GetSvelteData {
     }
     return void 0;
   }
+  /**
+   * Returns the SvelteData entries iterator.
+   *
+   * @returns {IterableIterator<[number, SvelteData]>} SvelteData entries iterator.
+   */
   dataEntries() {
     return this.#svelteData.entries();
   }
+  /**
+   * Returns the SvelteData values iterator.
+   *
+   * @returns {IterableIterator<SvelteData>} SvelteData values iterator.
+   */
   dataValues() {
     return this.#svelteData.values();
   }
+  /**
+   * Returns the length of the mounted Svelte component list.
+   *
+   * @returns {number} Length of mounted Svelte component list.
+   */
   get length() {
     return this.#svelteData.length;
   }
 }
-__name(GetSvelteData, "GetSvelteData");
 function loadSvelteConfig({ app, template, config, elementRootUpdate } = {}) {
-  const svelteOptions = typeof config.options === "object" ? config.options : {};
+  const svelteOptions = isObject$1(config.options) ? config.options : {};
   let target;
   if (config.target instanceof HTMLElement) {
     target = config.target;
@@ -8562,14 +10447,22 @@ function loadSvelteConfig({ app, template, config, elementRootUpdate } = {}) {
   }
   const NewSvelteComponent = config.class;
   const svelteConfig = parseSvelteConfig({ ...config, target }, app);
-  const externalContext = svelteConfig.context.get("external");
+  const externalContext = svelteConfig.context.get("#external");
   externalContext.application = app;
   externalContext.elementRootUpdate = elementRootUpdate;
+  externalContext.sessionStorage = app.reactive.sessionStorage;
   let eventbus;
-  if (typeof app._eventbus === "object" && typeof app._eventbus.createProxy === "function") {
+  if (isObject$1(app._eventbus) && typeof app._eventbus.createProxy === "function") {
     eventbus = app._eventbus.createProxy();
     externalContext.eventbus = eventbus;
   }
+  Object.seal(externalContext);
+  svelteConfig.context.set("external", new Proxy({}, {
+    get(targetUnused, prop) {
+      console.warn(`[TRL] Deprecation warning: Please change getContext('external') to getContext('#external').`);
+      return externalContext[prop];
+    }
+  }));
   const component = new NewSvelteComponent(svelteConfig);
   svelteConfig.eventbus = eventbus;
   let element2;
@@ -8609,19 +10502,70 @@ Offending config:
   const injectHTML = !(config.target instanceof HTMLElement);
   return { config: svelteConfig, component, element: element2, injectHTML };
 }
-__name(loadSvelteConfig, "loadSvelteConfig");
 class SvelteReactive {
+  /**
+   * @type {SvelteApplication}
+   */
   #application;
+  /**
+   * @type {boolean}
+   */
   #initialized = false;
+  /** @type {TJSSessionStorage} */
+  #sessionStorage;
+  /**
+   * The Application option store which is injected into mounted Svelte component context under the `external` key.
+   *
+   * @type {StoreAppOptions}
+   */
   #storeAppOptions;
+  /**
+   * Stores the update function for `#storeAppOptions`.
+   *
+   * @type {import('svelte/store').Writable.update}
+   */
   #storeAppOptionsUpdate;
+  /**
+   * Stores the UI state data to make it accessible via getters.
+   *
+   * @type {object}
+   */
   #dataUIState;
+  /**
+   * The UI option store which is injected into mounted Svelte component context under the `external` key.
+   *
+   * @type {StoreUIOptions}
+   */
   #storeUIState;
+  /**
+   * Stores the update function for `#storeUIState`.
+   *
+   * @type {import('svelte/store').Writable.update}
+   */
   #storeUIStateUpdate;
+  /**
+   * Stores the unsubscribe functions from local store subscriptions.
+   *
+   * @type {import('svelte/store').Unsubscriber[]}
+   */
   #storeUnsubscribe = [];
+  /**
+   * @param {SvelteApplication} application - The host Foundry application.
+   */
   constructor(application) {
     this.#application = application;
+    const optionsSessionStorage = application?.options?.sessionStorage;
+    if (optionsSessionStorage !== void 0 && !(optionsSessionStorage instanceof TJSSessionStorage)) {
+      throw new TypeError(`'options.sessionStorage' is not an instance of TJSSessionStorage.`);
+    }
+    this.#sessionStorage = optionsSessionStorage !== void 0 ? optionsSessionStorage : new TJSSessionStorage();
   }
+  /**
+   * Initializes reactive support. Package private for internal use.
+   *
+   * @returns {SvelteStores|void} Internal methods to interact with Svelte stores.
+   * @package
+   */
   initialize() {
     if (this.#initialized) {
       return;
@@ -8635,80 +10579,288 @@ class SvelteReactive {
       unsubscribe: this.#storesUnsubscribe.bind(this)
     };
   }
-  get dragging() {
-    return this.#dataUIState.dragging;
+  // Store getters -----------------------------------------------------------------------------------------------------
+  /**
+   * @returns {TJSSessionStorage} Returns TJSSessionStorage instance.
+   */
+  get sessionStorage() {
+    return this.#sessionStorage;
   }
-  get minimized() {
-    return this.#dataUIState.minimized;
-  }
-  get resizing() {
-    return this.#dataUIState.resizing;
-  }
-  get draggable() {
-    return this.#application?.options?.draggable;
-  }
-  get headerButtonNoClose() {
-    return this.#application?.options?.headerButtonNoClose;
-  }
-  get headerButtonNoLabel() {
-    return this.#application?.options?.headerButtonNoLabel;
-  }
-  get headerNoTitleMinimized() {
-    return this.#application?.options?.headerNoTitleMinimized;
-  }
-  get minimizable() {
-    return this.#application?.options?.minimizable;
-  }
-  get popOut() {
-    return this.#application.popOut;
-  }
-  get resizable() {
-    return this.#application?.options?.resizable;
-  }
+  /**
+   * Returns the store for app options.
+   *
+   * @returns {StoreAppOptions} App options store.
+   */
   get storeAppOptions() {
     return this.#storeAppOptions;
   }
+  /**
+   * Returns the store for UI options.
+   *
+   * @returns {StoreUIOptions} UI options store.
+   */
   get storeUIState() {
     return this.#storeUIState;
   }
+  // Only reactive getters ---------------------------------------------------------------------------------------------
+  /**
+   * Returns the current dragging UI state.
+   *
+   * @returns {boolean} Dragging UI state.
+   */
+  get dragging() {
+    return this.#dataUIState.dragging;
+  }
+  /**
+   * Returns the current minimized UI state.
+   *
+   * @returns {boolean} Minimized UI state.
+   */
+  get minimized() {
+    return this.#dataUIState.minimized;
+  }
+  /**
+   * Returns the current resizing UI state.
+   *
+   * @returns {boolean} Resizing UI state.
+   */
+  get resizing() {
+    return this.#dataUIState.resizing;
+  }
+  // Reactive getter / setters -----------------------------------------------------------------------------------------
+  /**
+   * Returns the draggable app option.
+   *
+   * @returns {boolean} Draggable app option.
+   */
+  get draggable() {
+    return this.#application?.options?.draggable;
+  }
+  /**
+   * Returns the focusAuto app option.
+   *
+   * @returns {boolean} When true auto-management of app focus is enabled.
+   */
+  get focusAuto() {
+    return this.#application?.options?.focusAuto;
+  }
+  /**
+   * Returns the focusKeep app option.
+   *
+   * @returns {boolean} When `focusAuto` and `focusKeep` is true; keeps internal focus.
+   */
+  get focusKeep() {
+    return this.#application?.options?.focusKeep;
+  }
+  /**
+   * Returns the focusTrap app option.
+   *
+   * @returns {boolean} When true focus trapping / wrapping is enabled keeping focus inside app.
+   */
+  get focusTrap() {
+    return this.#application?.options?.focusTrap;
+  }
+  /**
+   * Returns the headerButtonNoClose app option.
+   *
+   * @returns {boolean} Remove the close the button in header app option.
+   */
+  get headerButtonNoClose() {
+    return this.#application?.options?.headerButtonNoClose;
+  }
+  /**
+   * Returns the headerButtonNoLabel app option.
+   *
+   * @returns {boolean} Remove the labels from buttons in header app option.
+   */
+  get headerButtonNoLabel() {
+    return this.#application?.options?.headerButtonNoLabel;
+  }
+  /**
+   * Returns the headerIcon app option.
+   *
+   * @returns {string|void} URL for header app icon.
+   */
+  get headerIcon() {
+    return this.#application?.options?.headerIcon;
+  }
+  /**
+   * Returns the headerNoTitleMinimized app option.
+   *
+   * @returns {boolean} When true removes the header title when minimized.
+   */
+  get headerNoTitleMinimized() {
+    return this.#application?.options?.headerNoTitleMinimized;
+  }
+  /**
+   * Returns the minimizable app option.
+   *
+   * @returns {boolean} Minimizable app option.
+   */
+  get minimizable() {
+    return this.#application?.options?.minimizable;
+  }
+  /**
+   * Returns the Foundry popOut state; {@link Application.popOut}
+   *
+   * @returns {boolean} Positionable app option.
+   */
+  get popOut() {
+    return this.#application.popOut;
+  }
+  /**
+   * Returns the positionable app option; {@link SvelteApplicationOptions.positionable}
+   *
+   * @returns {boolean} Positionable app option.
+   */
+  get positionable() {
+    return this.#application?.options?.positionable;
+  }
+  /**
+   * Returns the resizable option.
+   *
+   * @returns {boolean} Resizable app option.
+   */
+  get resizable() {
+    return this.#application?.options?.resizable;
+  }
+  /**
+   * Returns the title accessor from the parent Application class; {@link Application.title}
+   * TODO: Application v2; note that super.title localizes `this.options.title`; IMHO it shouldn't.
+   *
+   * @returns {string} Title.
+   */
   get title() {
     return this.#application.title;
   }
+  /**
+   * Sets `this.options.draggable` which is reactive for application shells.
+   *
+   * @param {boolean}  draggable - Sets the draggable option.
+   */
   set draggable(draggable2) {
     if (typeof draggable2 === "boolean") {
       this.setOptions("draggable", draggable2);
     }
   }
+  /**
+   * Sets `this.options.focusAuto` which is reactive for application shells.
+   *
+   * @param {boolean}  focusAuto - Sets the focusAuto option.
+   */
+  set focusAuto(focusAuto) {
+    if (typeof focusAuto === "boolean") {
+      this.setOptions("focusAuto", focusAuto);
+    }
+  }
+  /**
+   * Sets `this.options.focusKeep` which is reactive for application shells.
+   *
+   * @param {boolean}  focusKeep - Sets the focusKeep option.
+   */
+  set focusKeep(focusKeep) {
+    if (typeof focusKeep === "boolean") {
+      this.setOptions("focusKeep", focusKeep);
+    }
+  }
+  /**
+   * Sets `this.options.focusTrap` which is reactive for application shells.
+   *
+   * @param {boolean}  focusTrap - Sets the focusTrap option.
+   */
+  set focusTrap(focusTrap) {
+    if (typeof focusTrap === "boolean") {
+      this.setOptions("focusTrap", focusTrap);
+    }
+  }
+  /**
+   * Sets `this.options.headerButtonNoClose` which is reactive for application shells.
+   *
+   * @param {boolean}  headerButtonNoClose - Sets the headerButtonNoClose option.
+   */
   set headerButtonNoClose(headerButtonNoClose) {
     if (typeof headerButtonNoClose === "boolean") {
       this.setOptions("headerButtonNoClose", headerButtonNoClose);
     }
   }
+  /**
+   * Sets `this.options.headerButtonNoLabel` which is reactive for application shells.
+   *
+   * @param {boolean}  headerButtonNoLabel - Sets the headerButtonNoLabel option.
+   */
   set headerButtonNoLabel(headerButtonNoLabel) {
     if (typeof headerButtonNoLabel === "boolean") {
       this.setOptions("headerButtonNoLabel", headerButtonNoLabel);
     }
   }
+  /**
+   * Sets `this.options.headerIcon` which is reactive for application shells.
+   *
+   * @param {string|void}  headerIcon - Sets the headerButtonNoLabel option.
+   */
+  set headerIcon(headerIcon) {
+    if (headerIcon === void 0 || typeof headerIcon === "string") {
+      this.setOptions("headerIcon", headerIcon);
+    }
+  }
+  /**
+   * Sets `this.options.headerNoTitleMinimized` which is reactive for application shells.
+   *
+   * @param {boolean}  headerNoTitleMinimized - Sets the headerNoTitleMinimized option.
+   */
   set headerNoTitleMinimized(headerNoTitleMinimized) {
     if (typeof headerNoTitleMinimized === "boolean") {
       this.setOptions("headerNoTitleMinimized", headerNoTitleMinimized);
     }
   }
+  /**
+   * Sets `this.options.minimizable` which is reactive for application shells that are also pop out.
+   *
+   * @param {boolean}  minimizable - Sets the minimizable option.
+   */
   set minimizable(minimizable) {
     if (typeof minimizable === "boolean") {
       this.setOptions("minimizable", minimizable);
     }
   }
+  /**
+   * Sets `this.options.popOut` which is reactive for application shells. This will add / remove this application
+   * from `ui.windows`.
+   *
+   * @param {boolean}  popOut - Sets the popOut option.
+   */
   set popOut(popOut) {
     if (typeof popOut === "boolean") {
       this.setOptions("popOut", popOut);
     }
   }
+  /**
+   * Sets `this.options.positionable` enabling / disabling {@link SvelteApplication.position.set}.
+   *
+   * @param {boolean}  positionable - Sets the positionable option.
+   */
+  set positionable(positionable) {
+    if (typeof positionable === "boolean") {
+      this.setOptions("positionable", positionable);
+    }
+  }
+  /**
+   * Sets `this.options.resizable` which is reactive for application shells.
+   *
+   * @param {boolean}  resizable - Sets the resizable option.
+   */
   set resizable(resizable) {
     if (typeof resizable === "boolean") {
       this.setOptions("resizable", resizable);
     }
   }
+  /**
+   * Sets `this.options.title` which is reactive for application shells.
+   *
+   * Note: Will set empty string if title is undefined or null.
+   *
+   * @param {string|undefined|null}   title - Application title; will be localized, so a translation key is fine.
+   */
   set title(title) {
     if (typeof title === "string") {
       this.setOptions("title", title);
@@ -8716,29 +10868,76 @@ class SvelteReactive {
       this.setOptions("title", "");
     }
   }
+  // Reactive Options API -------------------------------------------------------------------------------------------
+  /**
+   * Provides a way to safely get this applications options given an accessor string which describes the
+   * entries to walk. To access deeper entries into the object format the accessor string with `.` between entries
+   * to walk.
+   *
+   * // TODO DOCUMENT the accessor in more detail.
+   *
+   * @param {string}   accessor - The path / key to set. You can set multiple levels.
+   *
+   * @param {*}        [defaultValue] - A default value returned if the accessor is not found.
+   *
+   * @returns {*} Value at the accessor.
+   */
   getOptions(accessor, defaultValue) {
     return safeAccess(this.#application.options, accessor, defaultValue);
   }
+  /**
+   * Provides a way to merge `options` into this applications options and update the appOptions store.
+   *
+   * @param {object}   options - The options object to merge with `this.options`.
+   */
   mergeOptions(options) {
     this.#storeAppOptionsUpdate((instanceOptions) => deepMerge(instanceOptions, options));
   }
+  /**
+   * Provides a way to safely set this applications options given an accessor string which describes the
+   * entries to walk. To access deeper entries into the object format the accessor string with `.` between entries
+   * to walk.
+   *
+   * Additionally if an application shell Svelte component is mounted and exports the `appOptions` property then
+   * the application options is set to `appOptions` potentially updating the application shell / Svelte component.
+   *
+   * // TODO DOCUMENT the accessor in more detail.
+   *
+   * @param {string}   accessor - The path / key to set. You can set multiple levels.
+   *
+   * @param {*}        value - Value to set.
+   */
   setOptions(accessor, value) {
     const success = safeSet(this.#application.options, accessor, value);
     if (success) {
       this.#storeAppOptionsUpdate(() => this.#application.options);
     }
   }
+  /**
+   * Initializes the Svelte stores and derived stores for the application options and UI state.
+   *
+   * While writable stores are created the update method is stored in private variables locally and derived Readable
+   * stores are provided for essential options which are commonly used.
+   *
+   * These stores are injected into all Svelte components mounted under the `external` context: `storeAppOptions` and
+   * ` storeUIState`.
+   */
   #storesInitialize() {
     const writableAppOptions = writable$1(this.#application.options);
     this.#storeAppOptionsUpdate = writableAppOptions.update;
     const storeAppOptions = {
       subscribe: writableAppOptions.subscribe,
       draggable: propertyStore(writableAppOptions, "draggable"),
+      focusAuto: propertyStore(writableAppOptions, "focusAuto"),
+      focusKeep: propertyStore(writableAppOptions, "focusKeep"),
+      focusTrap: propertyStore(writableAppOptions, "focusTrap"),
       headerButtonNoClose: propertyStore(writableAppOptions, "headerButtonNoClose"),
       headerButtonNoLabel: propertyStore(writableAppOptions, "headerButtonNoLabel"),
+      headerIcon: propertyStore(writableAppOptions, "headerIcon"),
       headerNoTitleMinimized: propertyStore(writableAppOptions, "headerNoTitleMinimized"),
       minimizable: propertyStore(writableAppOptions, "minimizable"),
       popOut: propertyStore(writableAppOptions, "popOut"),
+      positionable: propertyStore(writableAppOptions, "positionable"),
       resizable: propertyStore(writableAppOptions, "resizable"),
       title: propertyStore(writableAppOptions, "title")
     };
@@ -8762,6 +10961,11 @@ class SvelteReactive {
     Object.freeze(storeUIState);
     this.#storeUIState = storeUIState;
   }
+  /**
+   * Registers local store subscriptions for app options. `popOut` controls registering this app with `ui.windows`.
+   *
+   * @see SvelteApplication._injectHTML
+   */
   #storesSubscribe() {
     this.#storeUnsubscribe.push(subscribeIgnoreFirst(this.#storeAppOptions.headerButtonNoClose, (value) => {
       this.updateHeaderButtons({ headerButtonNoClose: value });
@@ -8771,16 +10975,37 @@ class SvelteReactive {
     }));
     this.#storeUnsubscribe.push(subscribeIgnoreFirst(this.#storeAppOptions.popOut, (value) => {
       if (value && this.#application.rendered) {
-        ui.windows[this.#application.appId] = this.#application;
+        globalThis.ui.windows[this.#application.appId] = this.#application;
       } else {
-        delete ui.windows[this.#application.appId];
+        delete globalThis.ui.windows[this.#application.appId];
       }
     }));
   }
+  /**
+   * Unsubscribes from any locally monitored stores.
+   *
+   * @see SvelteApplication.close
+   */
   #storesUnsubscribe() {
     this.#storeUnsubscribe.forEach((unsubscribe) => unsubscribe());
     this.#storeUnsubscribe = [];
   }
+  /**
+   * Updates the UI Options store with the current header buttons. You may dynamically add / remove header buttons
+   * if using an application shell Svelte component. In either overriding `_getHeaderButtons` or responding to the
+   * Hooks fired return a new button array and the uiOptions store is updated and the application shell will render
+   * the new buttons.
+   *
+   * Optionally you can set in the SvelteApplication app options {@link SvelteApplicationOptions.headerButtonNoClose}
+   * to remove the close button and {@link SvelteApplicationOptions.headerButtonNoLabel} to true and labels will be
+   * removed from the header buttons.
+   *
+   * @param {object} opts - Optional parameters (for internal use)
+   *
+   * @param {boolean} opts.headerButtonNoClose - The value for `headerButtonNoClose`.
+   *
+   * @param {boolean} opts.headerButtonNoLabel - The value for `headerButtonNoLabel`.
+   */
   updateHeaderButtons({
     headerButtonNoClose = this.#application.options.headerButtonNoClose,
     headerButtonNoLabel = this.#application.options.headerButtonNoLabel
@@ -8800,19 +11025,79 @@ class SvelteReactive {
     });
   }
 }
-__name(SvelteReactive, "SvelteReactive");
 class SvelteApplication extends Application {
+  /**
+   * Stores the first mounted component which follows the application shell contract.
+   *
+   * @type {MountedAppShell[]|null[]} Application shell.
+   */
   #applicationShellHolder = [null];
+  /**
+   * Stores and manages application state for saving / restoring / serializing.
+   *
+   * @type {ApplicationState}
+   */
   #applicationState;
+  /**
+   * Stores the target element which may not necessarily be the main element.
+   *
+   * @type {HTMLElement}
+   */
   #elementTarget = null;
+  /**
+   * Stores the content element which is set for application shells.
+   *
+   * @type {HTMLElement}
+   */
   #elementContent = null;
+  /**
+   * Stores initial z-index from `_renderOuter` to set to target element / Svelte component.
+   *
+   * @type {number}
+   */
   #initialZIndex = 95;
+  /**
+   * Stores on mount state which is checked in _render to trigger onSvelteMount callback.
+   *
+   * @type {boolean}
+   */
   #onMount = false;
+  /**
+   * The position store.
+   *
+   * @type {Position}
+   */
   #position;
+  /**
+   * Contains the Svelte stores and reactive accessors.
+   *
+   * @type {SvelteReactive}
+   */
   #reactive;
+  /**
+   * Stores SvelteData entries with instantiated Svelte components.
+   *
+   * @type {SvelteData[]}
+   */
   #svelteData = [];
+  /**
+   * Provides a helper class that combines multiple methods for interacting with the mounted components tracked in
+   * {@link SvelteData}.
+   *
+   * @type {GetSvelteData}
+   */
   #getSvelteData = new GetSvelteData(this.#applicationShellHolder, this.#svelteData);
+  /**
+   * Contains methods to interact with the Svelte stores.
+   *
+   * @type {SvelteStores}
+   */
   #stores;
+  /**
+   * @param {SvelteApplicationOptions} options - The options for the application.
+   *
+   * @inheritDoc
+   */
   constructor(options = {}) {
     super(options);
     this.#applicationState = new ApplicationState(this);
@@ -8827,7 +11112,7 @@ class SvelteApplication extends Application {
     Object.defineProperty(this, "position", {
       get: () => this.#position,
       set: (position) => {
-        if (typeof position === "object") {
+        if (isObject$1(position)) {
           this.#position.set(position);
         }
       }
@@ -8835,40 +11120,115 @@ class SvelteApplication extends Application {
     this.#reactive = new SvelteReactive(this);
     this.#stores = this.#reactive.initialize();
   }
+  /**
+   * Specifies the default options that SvelteApplication supports.
+   *
+   * @returns {SvelteApplicationOptions} options - Application options.
+   * @see https://foundryvtt.com/api/interfaces/client.ApplicationOptions.html
+   */
   static get defaultOptions() {
     return deepMerge(super.defaultOptions, {
       defaultCloseAnimation: true,
+      // If false the default slide close animation is not run.
       draggable: true,
+      // If true then application shells are draggable.
+      focusAuto: true,
+      // When true auto-management of app focus is enabled.
+      focusKeep: false,
+      // When `focusAuto` and `focusKeep` is true; keeps internal focus.
+      focusSource: void 0,
+      // Stores any A11yFocusSource data that is applied when app is closed.
+      focusTrap: true,
+      // When true focus trapping / wrapping is enabled keeping focus inside app.
       headerButtonNoClose: false,
+      // If true then the close header button is removed.
       headerButtonNoLabel: false,
+      // If true then header button labels are removed for application shells.
+      headerIcon: void 0,
+      // Sets a header icon given an image URL.
       headerNoTitleMinimized: false,
+      // If true then header title is hidden when application is minimized.
       minHeight: MIN_WINDOW_HEIGHT,
+      // Assigned to position. Number specifying minimum window height.
       minWidth: MIN_WINDOW_WIDTH,
+      // Assigned to position. Number specifying minimum window width.
       positionable: true,
+      // If false then `position.set` does not take effect.
       positionInitial: Position.Initial.browserCentered,
+      // A helper for initial position placement.
       positionOrtho: true,
+      // When true Position is optimized for orthographic use.
       positionValidator: Position.Validators.transformWindow,
+      // A function providing the default validator.
+      sessionStorage: void 0,
+      // An instance of SessionStorage to share across SvelteApplications.
+      svelte: void 0,
+      // A Svelte configuration object.
       transformOrigin: "top left"
+      // By default, 'top / left' respects rotation when minimizing.
     });
   }
+  /**
+   * Returns the content element if an application shell is mounted.
+   *
+   * @returns {HTMLElement} Content element.
+   */
   get elementContent() {
     return this.#elementContent;
   }
+  /**
+   * Returns the target element or main element if no target defined.
+   *
+   * @returns {HTMLElement} Target element.
+   */
   get elementTarget() {
     return this.#elementTarget;
   }
+  /**
+   * Returns the reactive accessors & Svelte stores for SvelteApplication.
+   *
+   * @returns {SvelteReactive} The reactive accessors & Svelte stores.
+   */
   get reactive() {
     return this.#reactive;
   }
+  /**
+   * Returns the application state manager.
+   *
+   * @returns {ApplicationState} The application state manager.
+   */
   get state() {
     return this.#applicationState;
   }
+  /**
+   * Returns the Svelte helper class w/ various methods to access mounted Svelte components.
+   *
+   * @returns {GetSvelteData} GetSvelteData
+   */
   get svelte() {
     return this.#getSvelteData;
   }
+  /**
+   * In this case of when a template is defined in app options `html` references the inner HTML / template. However,
+   * to activate classic v1 tabs for a Svelte component the element target is passed as an array simulating JQuery as
+   * the element is retrieved immediately and the core listeners use standard DOM queries.
+   *
+   * @inheritDoc
+   * @protected
+   * @ignore
+   */
   _activateCoreListeners(html) {
     super._activateCoreListeners(typeof this.options.template === "string" ? html : [this.#elementTarget]);
   }
+  /**
+   * Provide an override to set this application as the active window regardless of z-index. Changes behaviour from
+   * Foundry core. This is important / used for instance in dialog key handling for left / right button selection.
+   *
+   * @param {object} [opts] - Optional parameters.
+   *
+   * @param {boolean} [opts.force=false] - Force bring to top; will increment z-index by popOut order.
+   *
+   */
   bringToTop({ force = false } = {}) {
     if (force || this.popOut) {
       super.bringToTop();
@@ -8879,8 +11239,27 @@ class SvelteApplication extends Application {
       }
       document.body.focus();
     }
-    ui.activeWindow = this;
+    globalThis.ui.activeWindow = this;
   }
+  /**
+   * Note: This method is fully overridden and duplicated as Svelte components need to be destroyed manually and the
+   * best visual result is to destroy them after the default slide up animation occurs, but before the element
+   * is removed from the DOM.
+   *
+   * If you destroy the Svelte components before the slide up animation the Svelte elements are removed immediately
+   * from the DOM. The purpose of overriding ensures the slide up animation is always completed before
+   * the Svelte components are destroyed and then the element is removed from the DOM.
+   *
+   * Close the application and un-register references to it within UI mappings.
+   * This function returns a Promise which resolves once the window closing animation concludes
+   *
+   * @param {object}   [options] - Optional parameters.
+   *
+   * @param {boolean}  [options.force] - Force close regardless of render state.
+   *
+   * @returns {Promise<void>}    A Promise which resolves once the application is closed.
+   * @ignore
+   */
   async close(options = {}) {
     const states = Application.RENDER_STATES;
     if (!options.force && ![states.RENDERED, states.ERROR].includes(this._state)) {
@@ -8915,7 +11294,7 @@ class SvelteApplication extends Application {
     for (const entry of this.#svelteData) {
       svelteDestroyPromises.push(outroAndDestroy(entry.component));
       const eventbus = entry.config.eventbus;
-      if (typeof eventbus === "object" && typeof eventbus.off === "function") {
+      if (isObject$1(eventbus) && typeof eventbus.off === "function") {
         eventbus.off();
         entry.config.eventbus = void 0;
       }
@@ -8933,13 +11312,25 @@ class SvelteApplication extends Application {
     this._element = null;
     this.#elementContent = null;
     this.#elementTarget = null;
-    delete ui.windows[this.appId];
+    delete globalThis.ui.windows[this.appId];
     this._minimized = false;
     this._scrollPositions = null;
     this._state = states.CLOSED;
     this.#onMount = false;
     this.#stores.uiOptionsUpdate((storeOptions) => deepMerge(storeOptions, { minimized: this._minimized }));
+    A11yHelper.applyFocusSource(this.options.focusSource);
+    delete this.options.focusSource;
   }
+  /**
+   * Inject the Svelte components defined in `this.options.svelte`. The Svelte component can attach to the existing
+   * pop-out of Application or provide no template and render into a document fragment which is then attached to the
+   * DOM.
+   *
+   * @param {JQuery} html -
+   *
+   * @inheritDoc
+   * @ignore
+   */
   _injectHTML(html) {
     if (this.popOut && html.length === 0 && Array.isArray(this.options.svelte)) {
       throw new Error(
@@ -8947,7 +11338,7 @@ class SvelteApplication extends Application {
       );
     }
     this.reactive.updateHeaderButtons();
-    const elementRootUpdate = /* @__PURE__ */ __name(() => {
+    const elementRootUpdate = () => {
       let cntr = 0;
       return (elementRoot) => {
         if (elementRoot !== null && elementRoot !== void 0 && cntr++ > 0) {
@@ -8956,7 +11347,7 @@ class SvelteApplication extends Application {
         }
         return false;
       };
-    }, "elementRootUpdate");
+    };
     if (Array.isArray(this.options.svelte)) {
       for (const svelteConfig of this.options.svelte) {
         const svelteData = loadSvelteConfig({
@@ -8979,7 +11370,7 @@ class SvelteApplication extends Application {
         }
         this.#svelteData.push(svelteData);
       }
-    } else if (typeof this.options.svelte === "object") {
+    } else if (isObject$1(this.options.svelte)) {
       const svelteData = loadSvelteConfig({
         app: this,
         template: html[0],
@@ -9024,10 +11415,9 @@ class SvelteApplication extends Application {
       }
     }
     if (this.#elementTarget === null) {
-      const element2 = typeof this.options.selectorTarget === "string" ? this._element.find(this.options.selectorTarget) : this._element;
-      this.#elementTarget = element2[0];
+      this.#elementTarget = typeof this.options.selectorTarget === "string" ? this._element[0].querySelector(this.options.selectorTarget) : this._element[0];
     }
-    if (this.#elementTarget === null || this.#elementTarget === void 0 || this.#elementTarget.length === 0) {
+    if (this.#elementTarget === null || this.#elementTarget === void 0) {
       throw new Error(`SvelteApplication - _injectHTML: Target element '${this.options.selectorTarget}' not found.`);
     }
     if (typeof this.options.positionable === "boolean" && this.options.positionable) {
@@ -9035,6 +11425,20 @@ class SvelteApplication extends Application {
     }
     this.#stores.subscribe();
   }
+  /**
+   * Provides a mechanism to update the UI options store for maximized.
+   *
+   * Note: the sanity check is duplicated from {@link Application.maximize} the store is updated _before_
+   * performing the rest of animations. This allows application shells to remove / show any resize handlers
+   * correctly. Extra constraint data is stored in a saved position state in {@link SvelteApplication.minimize}
+   * to animate the content area.
+   *
+   * @param {object}   [opts] - Optional parameters.
+   *
+   * @param {boolean}  [opts.animate=true] - When true perform default maximizing animation.
+   *
+   * @param {number}   [opts.duration=0.1] - Controls content area animation duration in seconds.
+   */
   async maximize({ animate = true, duration = 0.1 } = {}) {
     if (!this.popOut || [false, null].includes(this._minimized)) {
       return;
@@ -9054,6 +11458,7 @@ class SvelteApplication extends Application {
         duration: 0.1
       });
     }
+    element2.classList.remove("minimized");
     for (let cntr = header.children.length; --cntr >= 0; ) {
       header.children[cntr].style.display = null;
     }
@@ -9081,7 +11486,6 @@ class SvelteApplication extends Application {
     });
     element2.style.minWidth = null;
     element2.style.minHeight = null;
-    element2.classList.remove("minimized");
     this._minimized = false;
     setTimeout(() => {
       content.style.overflow = null;
@@ -9091,6 +11495,20 @@ class SvelteApplication extends Application {
     }, 50);
     this.#stores.uiOptionsUpdate((options) => deepMerge(options, { minimized: false }));
   }
+  /**
+   * Provides a mechanism to update the UI options store for minimized.
+   *
+   * Note: the sanity check is duplicated from {@link Application.minimize} the store is updated _before_
+   * performing the rest of animations. This allows application shells to remove / show any resize handlers
+   * correctly. Extra constraint data is stored in a saved position state in {@link SvelteApplication.minimize}
+   * to animate the content area.
+   *
+   * @param {object}   [opts] - Optional parameters
+   *
+   * @param {boolean}  [opts.animate=true] - When true perform default minimizing animation.
+   *
+   * @param {number}   [opts.duration=0.1] - Controls content area animation duration in seconds.
+   */
   async minimize({ animate = true, duration = 0.1 } = {}) {
     if (!this.rendered || !this.popOut || [true, null].includes(this._minimized)) {
       return;
@@ -9152,17 +11570,66 @@ class SvelteApplication extends Application {
     element2.classList.add("minimized");
     this._minimized = true;
   }
+  /**
+   * Provides a callback after all Svelte components are initialized.
+   *
+   * @param {object}      [opts] - Optional parameters.
+   *
+   * @param {HTMLElement} [opts.element] - HTMLElement container for main application element.
+   *
+   * @param {HTMLElement} [opts.elementContent] - HTMLElement container for content area of application shells.
+   *
+   * @param {HTMLElement} [opts.elementTarget] - HTMLElement container for main application target element.
+   */
   onSvelteMount({ element: element2, elementContent, elementTarget } = {}) {
   }
+  // eslint-disable-line no-unused-vars
+  /**
+   * Provides a callback after the main application shell is remounted. This may occur during HMR / hot module
+   * replacement or directly invoked from the `elementRootUpdate` callback passed to the application shell component
+   * context.
+   *
+   * @param {object}      [opts] - Optional parameters.
+   *
+   * @param {HTMLElement} [opts.element] - HTMLElement container for main application element.
+   *
+   * @param {HTMLElement} [opts.elementContent] - HTMLElement container for content area of application shells.
+   *
+   * @param {HTMLElement} [opts.elementTarget] - HTMLElement container for main application target element.
+   */
   onSvelteRemount({ element: element2, elementContent, elementTarget } = {}) {
   }
+  // eslint-disable-line no-unused-vars
+  /**
+   * Override replacing HTML as Svelte components control the rendering process. Only potentially change the outer
+   * application frame / title for pop-out applications.
+   *
+   * @inheritDoc
+   * @ignore
+   */
   _replaceHTML(element2, html) {
     if (!element2.length) {
       return;
     }
     this.reactive.updateHeaderButtons();
   }
+  /**
+   * Provides an override verifying that a new Application being rendered for the first time doesn't have a
+   * corresponding DOM element already loaded. This is a check that only occurs when `this._state` is
+   * `Application.RENDER_STATES.NONE`. It is useful in particular when SvelteApplication has a static ID
+   * explicitly set in `this.options.id` and long intro / outro transitions are assigned. If a new application
+   * sharing this static ID attempts to open / render for the first time while an existing DOM element sharing
+   * this static ID exists then the initial render is cancelled below rather than crashing later in the render
+   * cycle {@link Position.set}.
+   *
+   * @inheritDoc
+   * @protected
+   * @ignore
+   */
   async _render(force = false, options = {}) {
+    if (isObject$1(options?.focusSource)) {
+      this.options.focusSource = options.focusSource;
+    }
     if (this._state === Application.RENDER_STATES.NONE && document.querySelector(`#${this.id}`) instanceof HTMLElement) {
       console.warn(`SvelteApplication - _render: A DOM element already exists for CSS ID '${this.id}'. Cancelling initial render for new application with appId '${this.appId}'.`);
       return;
@@ -9173,18 +11640,54 @@ class SvelteApplication extends Application {
       this.#onMount = true;
     }
   }
+  /**
+   * Render the inner application content. Only render a template if one is defined otherwise provide an empty
+   * JQuery element per the core Foundry API.
+   *
+   * @param {object} data         The data used to render the inner template
+   *
+   * @returns {Promise.<JQuery>}   A promise resolving to the constructed jQuery object
+   *
+   * @protected
+   * @ignore
+   */
   async _renderInner(data) {
     const html = typeof this.template === "string" ? await renderTemplate(this.template, data) : document.createDocumentFragment();
     return $(html);
   }
+  /**
+   * Stores the initial z-index set in `_renderOuter` which is used in `_injectHTML` to set the target element
+   * z-index after the Svelte component is mounted.
+   *
+   * @returns {Promise<JQuery>} Outer frame / unused.
+   * @protected
+   * @ignore
+   */
   async _renderOuter() {
     const html = await super._renderOuter();
     this.#initialZIndex = html[0].style.zIndex;
     return html;
   }
+  /**
+   * All calculation and updates of position are implemented in {@link Position.set}. This allows position to be fully
+   * reactive and in control of updating inline styles for the application.
+   *
+   * This method remains for backward compatibility with Foundry. If you have a custom override quite likely you need
+   * to update to using the {@link Position.validators} functionality.
+   *
+   * @param {PositionDataExtended}   [position] - Position data.
+   *
+   * @returns {Position} The updated position object for the application containing the new values
+   */
   setPosition(position) {
     return this.position.set(position);
   }
+  /**
+   * This method is invoked by the `elementRootUpdate` callback that is added to the external context passed to
+   * Svelte components. When invoked it updates the local element roots tracked by SvelteApplication.
+   *
+   * This method may also be invoked by HMR / hot module replacement via `svelte-hmr`.
+   */
   #updateApplicationShell() {
     const applicationShell = this.svelte.applicationShell;
     if (applicationShell !== null) {
@@ -9192,8 +11695,7 @@ class SvelteApplication extends Application {
       this.#elementContent = hasGetter(applicationShell, "elementContent") ? applicationShell.elementContent : null;
       this.#elementTarget = hasGetter(applicationShell, "elementTarget") ? applicationShell.elementTarget : null;
       if (this.#elementTarget === null) {
-        const element2 = typeof this.options.selectorTarget === "string" ? this._element.find(this.options.selectorTarget) : this._element;
-        this.#elementTarget = element2[0];
+        this.#elementTarget = typeof this.options.selectorTarget === "string" ? this._element[0].querySelector(this.options.selectorTarget) : this._element[0];
       }
       if (typeof this.options.positionable === "boolean" && this.options.positionable) {
         this.#elementTarget.style.zIndex = typeof this.options.zIndex === "number" ? this.options.zIndex : this.#initialZIndex ?? 95;
@@ -9205,346 +11707,9 @@ class SvelteApplication extends Application {
     }
   }
 }
-__name(SvelteApplication, "SvelteApplication");
+const s_STYLE_KEY$1 = "#__trl-root-styles";
+const cssVariables$1 = new StyleManager({ docKey: s_STYLE_KEY$1, version: 1 });
 const TJSContainer_svelte_svelte_type_style_lang = "";
-function get_each_context$5(ctx, list, i) {
-  const child_ctx = ctx.slice();
-  child_ctx[2] = list[i];
-  return child_ctx;
-}
-__name(get_each_context$5, "get_each_context$5");
-function create_if_block_1(ctx) {
-  let p;
-  return {
-    c() {
-      p = element("p");
-      p.textContent = "Container warning: No children.";
-      attr(p, "class", "svelte-1s361pr");
-    },
-    m(target, anchor) {
-      insert(target, p, anchor);
-    },
-    p: noop$1,
-    i: noop$1,
-    o: noop$1,
-    d(detaching) {
-      if (detaching)
-        detach(p);
-    }
-  };
-}
-__name(create_if_block_1, "create_if_block_1");
-function create_if_block$5(ctx) {
-  let each_1_anchor;
-  let current;
-  let each_value = ctx[1];
-  let each_blocks = [];
-  for (let i = 0; i < each_value.length; i += 1) {
-    each_blocks[i] = create_each_block$5(get_each_context$5(ctx, each_value, i));
-  }
-  const out = /* @__PURE__ */ __name((i) => transition_out(each_blocks[i], 1, 1, () => {
-    each_blocks[i] = null;
-  }), "out");
-  return {
-    c() {
-      for (let i = 0; i < each_blocks.length; i += 1) {
-        each_blocks[i].c();
-      }
-      each_1_anchor = empty();
-    },
-    m(target, anchor) {
-      for (let i = 0; i < each_blocks.length; i += 1) {
-        each_blocks[i].m(target, anchor);
-      }
-      insert(target, each_1_anchor, anchor);
-      current = true;
-    },
-    p(ctx2, dirty) {
-      if (dirty & 2) {
-        each_value = ctx2[1];
-        let i;
-        for (i = 0; i < each_value.length; i += 1) {
-          const child_ctx = get_each_context$5(ctx2, each_value, i);
-          if (each_blocks[i]) {
-            each_blocks[i].p(child_ctx, dirty);
-            transition_in(each_blocks[i], 1);
-          } else {
-            each_blocks[i] = create_each_block$5(child_ctx);
-            each_blocks[i].c();
-            transition_in(each_blocks[i], 1);
-            each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-          }
-        }
-        group_outros();
-        for (i = each_value.length; i < each_blocks.length; i += 1) {
-          out(i);
-        }
-        check_outros();
-      }
-    },
-    i(local) {
-      if (current)
-        return;
-      for (let i = 0; i < each_value.length; i += 1) {
-        transition_in(each_blocks[i]);
-      }
-      current = true;
-    },
-    o(local) {
-      each_blocks = each_blocks.filter(Boolean);
-      for (let i = 0; i < each_blocks.length; i += 1) {
-        transition_out(each_blocks[i]);
-      }
-      current = false;
-    },
-    d(detaching) {
-      destroy_each(each_blocks, detaching);
-      if (detaching)
-        detach(each_1_anchor);
-    }
-  };
-}
-__name(create_if_block$5, "create_if_block$5");
-function create_each_block$5(ctx) {
-  let switch_instance;
-  let switch_instance_anchor;
-  let current;
-  const switch_instance_spread_levels = [ctx[2].props];
-  var switch_value = ctx[2].class;
-  function switch_props(ctx2) {
-    let switch_instance_props = {};
-    for (let i = 0; i < switch_instance_spread_levels.length; i += 1) {
-      switch_instance_props = assign(switch_instance_props, switch_instance_spread_levels[i]);
-    }
-    return { props: switch_instance_props };
-  }
-  __name(switch_props, "switch_props");
-  if (switch_value) {
-    switch_instance = construct_svelte_component(switch_value, switch_props());
-  }
-  return {
-    c() {
-      if (switch_instance)
-        create_component(switch_instance.$$.fragment);
-      switch_instance_anchor = empty();
-    },
-    m(target, anchor) {
-      if (switch_instance)
-        mount_component(switch_instance, target, anchor);
-      insert(target, switch_instance_anchor, anchor);
-      current = true;
-    },
-    p(ctx2, dirty) {
-      const switch_instance_changes = dirty & 2 ? get_spread_update(switch_instance_spread_levels, [get_spread_object(ctx2[2].props)]) : {};
-      if (switch_value !== (switch_value = ctx2[2].class)) {
-        if (switch_instance) {
-          group_outros();
-          const old_component = switch_instance;
-          transition_out(old_component.$$.fragment, 1, 0, () => {
-            destroy_component(old_component, 1);
-          });
-          check_outros();
-        }
-        if (switch_value) {
-          switch_instance = construct_svelte_component(switch_value, switch_props());
-          create_component(switch_instance.$$.fragment);
-          transition_in(switch_instance.$$.fragment, 1);
-          mount_component(switch_instance, switch_instance_anchor.parentNode, switch_instance_anchor);
-        } else {
-          switch_instance = null;
-        }
-      } else if (switch_value) {
-        switch_instance.$set(switch_instance_changes);
-      }
-    },
-    i(local) {
-      if (current)
-        return;
-      if (switch_instance)
-        transition_in(switch_instance.$$.fragment, local);
-      current = true;
-    },
-    o(local) {
-      if (switch_instance)
-        transition_out(switch_instance.$$.fragment, local);
-      current = false;
-    },
-    d(detaching) {
-      if (detaching)
-        detach(switch_instance_anchor);
-      if (switch_instance)
-        destroy_component(switch_instance, detaching);
-    }
-  };
-}
-__name(create_each_block$5, "create_each_block$5");
-function create_fragment$n(ctx) {
-  let show_if;
-  let current_block_type_index;
-  let if_block;
-  let if_block_anchor;
-  let current;
-  const if_block_creators = [create_if_block$5, create_if_block_1];
-  const if_blocks = [];
-  function select_block_type(ctx2, dirty) {
-    if (dirty & 2)
-      show_if = null;
-    if (show_if == null)
-      show_if = !!Array.isArray(ctx2[1]);
-    if (show_if)
-      return 0;
-    if (ctx2[0])
-      return 1;
-    return -1;
-  }
-  __name(select_block_type, "select_block_type");
-  if (~(current_block_type_index = select_block_type(ctx, -1))) {
-    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-  }
-  return {
-    c() {
-      if (if_block)
-        if_block.c();
-      if_block_anchor = empty();
-    },
-    m(target, anchor) {
-      if (~current_block_type_index) {
-        if_blocks[current_block_type_index].m(target, anchor);
-      }
-      insert(target, if_block_anchor, anchor);
-      current = true;
-    },
-    p(ctx2, [dirty]) {
-      let previous_block_index = current_block_type_index;
-      current_block_type_index = select_block_type(ctx2, dirty);
-      if (current_block_type_index === previous_block_index) {
-        if (~current_block_type_index) {
-          if_blocks[current_block_type_index].p(ctx2, dirty);
-        }
-      } else {
-        if (if_block) {
-          group_outros();
-          transition_out(if_blocks[previous_block_index], 1, 1, () => {
-            if_blocks[previous_block_index] = null;
-          });
-          check_outros();
-        }
-        if (~current_block_type_index) {
-          if_block = if_blocks[current_block_type_index];
-          if (!if_block) {
-            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
-            if_block.c();
-          } else {
-            if_block.p(ctx2, dirty);
-          }
-          transition_in(if_block, 1);
-          if_block.m(if_block_anchor.parentNode, if_block_anchor);
-        } else {
-          if_block = null;
-        }
-      }
-    },
-    i(local) {
-      if (current)
-        return;
-      transition_in(if_block);
-      current = true;
-    },
-    o(local) {
-      transition_out(if_block);
-      current = false;
-    },
-    d(detaching) {
-      if (~current_block_type_index) {
-        if_blocks[current_block_type_index].d(detaching);
-      }
-      if (detaching)
-        detach(if_block_anchor);
-    }
-  };
-}
-__name(create_fragment$n, "create_fragment$n");
-function instance$l($$self, $$props, $$invalidate) {
-  let { warn = false } = $$props;
-  let { children: children2 = void 0 } = $$props;
-  $$self.$$set = ($$props2) => {
-    if ("warn" in $$props2)
-      $$invalidate(0, warn = $$props2.warn);
-    if ("children" in $$props2)
-      $$invalidate(1, children2 = $$props2.children);
-  };
-  return [warn, children2];
-}
-__name(instance$l, "instance$l");
-class TJSContainer extends SvelteComponent {
-  constructor(options) {
-    super();
-    init$1(this, options, instance$l, create_fragment$n, safe_not_equal, { warn: 0, children: 1 });
-  }
-  get warn() {
-    return this.$$.ctx[0];
-  }
-  set warn(warn) {
-    this.$$set({ warn });
-    flush();
-  }
-  get children() {
-    return this.$$.ctx[1];
-  }
-  set children(children2) {
-    this.$$set({ children: children2 });
-    flush();
-  }
-}
-__name(TJSContainer, "TJSContainer");
-function fade(node, { delay = 0, duration = 400, easing = identity } = {}) {
-  const o = +getComputedStyle(node).opacity;
-  return {
-    delay,
-    duration,
-    easing,
-    css: (t) => `opacity: ${t * o}`
-  };
-}
-__name(fade, "fade");
-function slide(node, { delay = 0, duration = 400, easing = cubicOut } = {}) {
-  const style = getComputedStyle(node);
-  const opacity = +style.opacity;
-  const height = parseFloat(style.height);
-  const padding_top = parseFloat(style.paddingTop);
-  const padding_bottom = parseFloat(style.paddingBottom);
-  const margin_top = parseFloat(style.marginTop);
-  const margin_bottom = parseFloat(style.marginBottom);
-  const border_top_width = parseFloat(style.borderTopWidth);
-  const border_bottom_width = parseFloat(style.borderBottomWidth);
-  return {
-    delay,
-    duration,
-    easing,
-    css: (t) => `overflow: hidden;opacity: ${Math.min(t * 20, 1) * opacity};height: ${t * height}px;padding-top: ${t * padding_top}px;padding-bottom: ${t * padding_bottom}px;margin-top: ${t * margin_top}px;margin-bottom: ${t * margin_bottom}px;border-top-width: ${t * border_top_width}px;border-bottom-width: ${t * border_bottom_width}px;`
-  };
-}
-__name(slide, "slide");
-function slideFade(node, options) {
-  const fadeEasing = options.easingFade || options.easing || identity;
-  const slideEasing = options.easingSlide || options.easing || identity;
-  const fadeTransition = fade(node);
-  const slideTransition = slide(node);
-  return {
-    delay: options.delay || 0,
-    duration: options.duration || 500,
-    easing: identity,
-    css: (t) => {
-      const fadeT = fadeEasing(t);
-      const slideT = slideEasing(t);
-      return `${slideTransition.css(slideT, 1 - slideT)}; ${fadeTransition.css(fadeT, 1 - fadeT)}`;
-    }
-  };
-}
-__name(slideFade, "slideFade");
-const s_DEFAULT_TRANSITION = /* @__PURE__ */ __name(() => void 0, "s_DEFAULT_TRANSITION");
-const s_DEFAULT_TRANSITION_OPTIONS = {};
-const TJSGlassPane_svelte_svelte_type_style_lang = "";
 function resizeObserver(node, target) {
   ResizeObserverManager.add(node, target);
   return {
@@ -9558,7 +11723,6 @@ function resizeObserver(node, target) {
     }
   };
 }
-__name(resizeObserver, "resizeObserver");
 resizeObserver.updateCache = function(el) {
   if (!(el instanceof HTMLElement)) {
     throw new TypeError(`resizeObserverUpdate error: 'el' is not an HTMLElement.`);
@@ -9585,6 +11749,14 @@ resizeObserver.updateCache = function(el) {
 };
 const s_MAP = /* @__PURE__ */ new Map();
 class ResizeObserverManager {
+  /**
+   * Add an HTMLElement and ResizeObserverTarget instance for monitoring. Create cached style attributes for the
+   * given element include border & padding dimensions for offset width / height calculations.
+   *
+   * @param {HTMLElement}    el - The element to observe.
+   *
+   * @param {ResizeObserverTarget} target - A target that contains one of several mechanisms for updating resize data.
+   */
   static add(el, target) {
     const updateType = s_GET_UPDATE_TYPE(target);
     if (updateType === 0) {
@@ -9602,8 +11774,10 @@ class ResizeObserverManager {
     const data = {
       updateType,
       target,
+      // Stores most recent contentRect.width and contentRect.height values from ResizeObserver.
       contentWidth: 0,
       contentHeight: 0,
+      // Convenience data for total border & padding for offset width & height calculations.
       styles: {
         additionalWidth: borderLeft + borderRight + paddingLeft + paddingRight,
         additionalHeight: borderTop + borderBottom + paddingTop + paddingBottom
@@ -9617,6 +11791,14 @@ class ResizeObserverManager {
     }
     s_RESIZE_OBSERVER.observe(el);
   }
+  /**
+   * Removes all targets from monitoring when just an element is provided otherwise removes a specific target
+   * from the monitoring map. If no more targets remain then the element is removed from monitoring.
+   *
+   * @param {HTMLElement}          el - Element to remove from monitoring.
+   *
+   * @param {ResizeObserverTarget} [target] - A specific target to remove from monitoring.
+   */
   static remove(el, target = void 0) {
     const subscribers = s_MAP.get(el);
     if (Array.isArray(subscribers)) {
@@ -9632,7 +11814,6 @@ class ResizeObserverManager {
     }
   }
 }
-__name(ResizeObserverManager, "ResizeObserverManager");
 const s_UPDATE_TYPES = {
   none: 0,
   attribute: 1,
@@ -9666,18 +11847,18 @@ function s_GET_UPDATE_TYPE(target) {
     return s_UPDATE_TYPES.setContentBounds;
   }
   const targetType = typeof target;
-  if (targetType === "object" || targetType === "function") {
+  if (targetType !== null && (targetType === "object" || targetType === "function")) {
     if (isUpdatableStore(target.resizeObserved)) {
       return s_UPDATE_TYPES.storeObject;
     }
     const stores = target?.stores;
-    if (typeof stores === "object" || typeof stores === "function") {
+    if (isObject$1(stores) || typeof stores === "function") {
       if (isUpdatableStore(stores.resizeObserved)) {
         return s_UPDATE_TYPES.storesObject;
       }
     }
   }
-  if (targetType === "object") {
+  if (targetType !== null && targetType === "object") {
     return s_UPDATE_TYPES.attribute;
   }
   if (targetType === "function") {
@@ -9685,7 +11866,6 @@ function s_GET_UPDATE_TYPE(target) {
   }
   return s_UPDATE_TYPES.none;
 }
-__name(s_GET_UPDATE_TYPE, "s_GET_UPDATE_TYPE");
 function s_UPDATE_SUBSCRIBER(subscriber, contentWidth, contentHeight) {
   const styles = subscriber.styles;
   subscriber.contentWidth = contentWidth;
@@ -9732,7 +11912,6 @@ function s_UPDATE_SUBSCRIBER(subscriber, contentWidth, contentHeight) {
       break;
   }
 }
-__name(s_UPDATE_SUBSCRIBER, "s_UPDATE_SUBSCRIBER");
 function applyScrolltop(element2, store) {
   if (!isWritableStore(store)) {
     throw new TypeError(`applyScrolltop error: 'store' must be a writable Svelte store.`);
@@ -9743,7 +11922,6 @@ function applyScrolltop(element2, store) {
     }
     setTimeout(() => element2.scrollTop = value, 0);
   }
-  __name(storeUpdate, "storeUpdate");
   let unsubscribe = store.subscribe(storeUpdate);
   const resizeControl = resizeObserver(element2, debounce$1(() => {
     if (element2.isConnected) {
@@ -9753,7 +11931,6 @@ function applyScrolltop(element2, store) {
   function onScroll(event) {
     store.set(event.target.scrollTop);
   }
-  __name(onScroll, "onScroll");
   const debounceFn = debounce$1((e) => onScroll(e), 500);
   element2.addEventListener("scroll", debounceFn);
   return {
@@ -9772,7 +11949,6 @@ function applyScrolltop(element2, store) {
     }
   };
 }
-__name(applyScrolltop, "applyScrolltop");
 function applyStyles(node, properties) {
   function setProperties() {
     if (typeof properties !== "object") {
@@ -9782,7 +11958,6 @@ function applyStyles(node, properties) {
       node.style.setProperty(`${prop}`, properties[prop]);
     }
   }
-  __name(setProperties, "setProperties");
   setProperties();
   return {
     update(newProperties) {
@@ -9791,44 +11966,22 @@ function applyStyles(node, properties) {
     }
   };
 }
-__name(applyStyles, "applyStyles");
-function autoBlur(node) {
-  function onBlur() {
-    document.body.removeEventListener("pointerdown", onPointerDown);
-  }
-  __name(onBlur, "onBlur");
-  function onFocus() {
-    document.body.addEventListener("pointerdown", onPointerDown);
-  }
-  __name(onFocus, "onFocus");
-  function onPointerDown(event) {
-    if (event.target === node || node.contains(event.target)) {
-      return;
-    }
-    if (document.activeElement === node) {
-      node.blur();
-    }
-  }
-  __name(onPointerDown, "onPointerDown");
-  node.addEventListener("blur", onBlur);
-  node.addEventListener("focus", onFocus);
-  return {
-    destroy: () => {
-      document.body.removeEventListener("pointerdown", onPointerDown);
-      node.removeEventListener("blur", onBlur);
-      node.removeEventListener("focus", onFocus);
-    }
-  };
-}
-__name(autoBlur, "autoBlur");
 function draggable(node, {
   position,
   active: active2 = true,
   button = 0,
   storeDragging = void 0,
   ease = false,
-  easeOptions = { duration: 0.1, ease: cubicOut }
+  easeOptions = { duration: 0.1, ease: cubicOut },
+  hasTargetClassList,
+  ignoreTargetClassList
 }) {
+  if (hasTargetClassList !== void 0 && !isIterable(hasTargetClassList)) {
+    throw new TypeError(`'hasTargetClassList' is not iterable.`);
+  }
+  if (ignoreTargetClassList !== void 0 && !isIterable(ignoreTargetClassList)) {
+    throw new TypeError(`'ignoreTargetClassList' is not iterable.`);
+  }
   let initialPosition = null;
   let initialDragPoint = {};
   let dragging = false;
@@ -9842,7 +11995,6 @@ function draggable(node, {
     node.addEventListener(...handlers.dragDown);
     node.classList.add("draggable");
   }
-  __name(activateListeners, "activateListeners");
   function removeListeners() {
     if (typeof storeDragging?.set === "function") {
       storeDragging.set(false);
@@ -9852,7 +12004,6 @@ function draggable(node, {
     node.removeEventListener(...handlers.dragUp);
     node.classList.remove("draggable");
   }
-  __name(removeListeners, "removeListeners");
   if (active2) {
     activateListeners();
   }
@@ -9863,6 +12014,25 @@ function draggable(node, {
     if (!position.enabled) {
       return;
     }
+    if (ignoreTargetClassList !== void 0 && event.target instanceof HTMLElement) {
+      for (const targetClass of ignoreTargetClassList) {
+        if (event.target.classList.contains(targetClass)) {
+          return;
+        }
+      }
+    }
+    if (hasTargetClassList !== void 0 && event.target instanceof HTMLElement) {
+      let foundTarget = false;
+      for (const targetClass of hasTargetClassList) {
+        if (event.target.classList.contains(targetClass)) {
+          foundTarget = true;
+          break;
+        }
+      }
+      if (!foundTarget) {
+        return;
+      }
+    }
     event.preventDefault();
     dragging = false;
     initialPosition = position.get();
@@ -9871,7 +12041,6 @@ function draggable(node, {
     node.addEventListener(...handlers.dragUp);
     node.setPointerCapture(event.pointerId);
   }
-  __name(onDragPointerDown, "onDragPointerDown");
   function onDragPointerChange(event) {
     if ((event.buttons & 1) === 0) {
       onDragPointerUp(event);
@@ -9895,7 +12064,6 @@ function draggable(node, {
       position.set(s_POSITION_DATA);
     }
   }
-  __name(onDragPointerChange, "onDragPointerChange");
   function onDragPointerUp(event) {
     event.preventDefault();
     dragging = false;
@@ -9905,8 +12073,8 @@ function draggable(node, {
     node.removeEventListener(...handlers.dragMove);
     node.removeEventListener(...handlers.dragUp);
   }
-  __name(onDragPointerUp, "onDragPointerUp");
   return {
+    // The default of active being true won't automatically add listeners twice.
     update: (options) => {
       if (typeof options.active === "boolean") {
         active2 = options.active;
@@ -9926,18 +12094,36 @@ function draggable(node, {
       if (typeof options.ease === "boolean") {
         ease = options.ease;
       }
-      if (typeof options.easeOptions === "object") {
+      if (isObject$1(options.easeOptions)) {
         easeOptions = options.easeOptions;
         quickTo.options(easeOptions);
+      }
+      if (options.hasTargetClassList !== void 0) {
+        if (!isIterable(options.hasTargetClassList)) {
+          throw new TypeError(`'hasTargetClassList' is not iterable.`);
+        } else {
+          hasTargetClassList = options.hasTargetClassList;
+        }
+      }
+      if (options.ignoreTargetClassList !== void 0) {
+        if (!isIterable(options.ignoreTargetClassList)) {
+          throw new TypeError(`'ignoreTargetClassList' is not iterable.`);
+        } else {
+          ignoreTargetClassList = options.ignoreTargetClassList;
+        }
       }
     },
     destroy: () => removeListeners()
   };
 }
-__name(draggable, "draggable");
 class DraggableOptions {
   #ease = false;
   #easeOptions = { duration: 0.1, ease: cubicOut };
+  /**
+   * Stores the subscribers.
+   *
+   * @type {(function(DraggableOptions): void)[]}
+   */
   #subscriptions = [];
   constructor({ ease, easeOptions } = {}) {
     Object.defineProperty(this, "ease", {
@@ -9987,12 +12173,21 @@ class DraggableOptions {
       this.easeOptions = easeOptions;
     }
   }
+  /**
+   * @returns {number} Get ease duration
+   */
   get easeDuration() {
     return this.#easeOptions.duration;
   }
+  /**
+   * @returns {string|Function} Get easing function value.
+   */
   get easeValue() {
     return this.#easeOptions.ease;
   }
+  /**
+   * @param {number}   duration - Set ease duration.
+   */
   set easeDuration(duration) {
     if (!Number.isFinite(duration)) {
       throw new TypeError(`'duration' is not a finite number.`);
@@ -10003,6 +12198,9 @@ class DraggableOptions {
     this.#easeOptions.duration = duration;
     this.#updateSubscribers();
   }
+  /**
+   * @param {string|Function} value - Get easing function value.
+   */
   set easeValue(value) {
     if (typeof value !== "function" && typeof value !== "string") {
       throw new TypeError(`'value' is not a function or string.`);
@@ -10010,15 +12208,28 @@ class DraggableOptions {
     this.#easeOptions.ease = value;
     this.#updateSubscribers();
   }
+  /**
+   * Resets all options data to default values.
+   */
   reset() {
     this.#ease = false;
     this.#easeOptions = { duration: 0.1, ease: cubicOut };
     this.#updateSubscribers();
   }
+  /**
+   * Resets easing options to default values.
+   */
   resetEase() {
     this.#easeOptions = { duration: 0.1, ease: cubicOut };
     this.#updateSubscribers();
   }
+  /**
+   *
+   * @param {function(DraggableOptions): void} handler - Callback function that is invoked on update / changes.
+   *                                                 Receives the DraggableOptions object / instance.
+   *
+   * @returns {(function(): void)} Unsubscribe function.
+   */
   subscribe(handler) {
     this.#subscriptions.push(handler);
     handler(this);
@@ -10038,99 +12249,348 @@ class DraggableOptions {
     }
   }
 }
-__name(DraggableOptions, "DraggableOptions");
 draggable.options = (options) => new DraggableOptions(options);
 const s_POSITION_DATA = { left: 0, top: 0 };
-function create_fragment$m(ctx) {
+function fade(node, { delay = 0, duration = 400, easing = identity } = {}) {
+  const o = +getComputedStyle(node).opacity;
+  return {
+    delay,
+    duration,
+    easing,
+    css: (t) => `opacity: ${t * o}`
+  };
+}
+function slide(node, { delay = 0, duration = 400, easing = cubicOut } = {}) {
+  const style = getComputedStyle(node);
+  const opacity = +style.opacity;
+  const height = parseFloat(style.height);
+  const padding_top = parseFloat(style.paddingTop);
+  const padding_bottom = parseFloat(style.paddingBottom);
+  const margin_top = parseFloat(style.marginTop);
+  const margin_bottom = parseFloat(style.marginBottom);
+  const border_top_width = parseFloat(style.borderTopWidth);
+  const border_bottom_width = parseFloat(style.borderBottomWidth);
+  return {
+    delay,
+    duration,
+    easing,
+    css: (t) => `overflow: hidden;opacity: ${Math.min(t * 20, 1) * opacity};height: ${t * height}px;padding-top: ${t * padding_top}px;padding-bottom: ${t * padding_bottom}px;margin-top: ${t * margin_top}px;margin-bottom: ${t * margin_bottom}px;border-top-width: ${t * border_top_width}px;border-bottom-width: ${t * border_bottom_width}px;`
+  };
+}
+function slideFade(node, options) {
+  const fadeEasing = options.easingFade || options.easing || identity;
+  const slideEasing = options.easingSlide || options.easing || identity;
+  const fadeTransition = fade(node);
+  const slideTransition = slide(node);
+  return {
+    delay: options.delay || 0,
+    duration: options.duration || 500,
+    easing: identity,
+    css: (t) => {
+      const fadeT = fadeEasing(t);
+      const slideT = slideEasing(t);
+      return `${slideTransition.css(slideT, 1 - slideT)}; ${fadeTransition.css(fadeT, 1 - fadeT)}`;
+    }
+  };
+}
+const s_DEFAULT_TRANSITION_OPTIONS = {};
+const TJSGlassPane_svelte_svelte_type_style_lang = "";
+class AppShellContextInternal {
+  /** @type {InternalAppStores} */
+  #stores;
+  constructor() {
+    this.#stores = {
+      elementContent: writable$1(void 0),
+      elementRoot: writable$1(void 0)
+    };
+    Object.freeze(this.#stores);
+    Object.seal(this);
+  }
+  /**
+   * @returns {InternalAppStores} The internal context stores for elementContent / elementRoot
+   */
+  get stores() {
+    return this.#stores;
+  }
+}
+const TJSHeaderButton_svelte_svelte_type_style_lang = "";
+function create_if_block$7(ctx) {
+  let span;
+  let t;
+  return {
+    c() {
+      span = element("span");
+      t = text(
+        /*label*/
+        ctx[3]
+      );
+      attr(span, "class", "svelte-mcc-166l8wd");
+      toggle_class(
+        span,
+        "has-icon",
+        /*icon*/
+        ctx[4] !== void 0
+      );
+    },
+    m(target, anchor) {
+      insert(target, span, anchor);
+      append(span, t);
+    },
+    p(ctx2, dirty) {
+      if (dirty & /*label*/
+      8)
+        set_data(
+          t,
+          /*label*/
+          ctx2[3]
+        );
+      if (dirty & /*icon*/
+      16) {
+        toggle_class(
+          span,
+          "has-icon",
+          /*icon*/
+          ctx2[4] !== void 0
+        );
+      }
+    },
+    d(detaching) {
+      if (detaching)
+        detach(span);
+    }
+  };
+}
+function create_fragment$n(ctx) {
   let a;
   let html_tag;
-  let t;
+  let html_anchor;
   let a_class_value;
   let applyStyles_action;
   let mounted;
   let dispose;
+  let if_block = (
+    /*label*/
+    ctx[3] && create_if_block$7(ctx)
+  );
   return {
     c() {
       a = element("a");
       html_tag = new HtmlTag(false);
-      t = text(ctx[2]);
-      html_tag.a = t;
-      attr(a, "class", a_class_value = "header-button " + ctx[0].class);
-      attr(a, "role", "presentation");
+      html_anchor = empty();
+      if (if_block)
+        if_block.c();
+      html_tag.a = html_anchor;
+      attr(a, "class", a_class_value = "header-button " + /*button*/
+      ctx[0].class + " svelte-mcc-166l8wd");
+      attr(
+        a,
+        "aria-label",
+        /*label*/
+        ctx[3]
+      );
+      attr(a, "tabindex", "0");
+      attr(a, "role", "button");
+      toggle_class(
+        a,
+        "keep-minimized",
+        /*keepMinimized*/
+        ctx[2]
+      );
     },
     m(target, anchor) {
       insert(target, a, anchor);
-      html_tag.m(ctx[1], a);
-      append(a, t);
+      html_tag.m(
+        /*icon*/
+        ctx[4],
+        a
+      );
+      append(a, html_anchor);
+      if (if_block)
+        if_block.m(a, null);
       if (!mounted) {
         dispose = [
-          listen(a, "click", stop_propagation(prevent_default(ctx[4])), true),
-          listen(a, "pointerdown", stop_propagation(prevent_default(pointerdown_handler)), true),
-          listen(a, "mousedown", stop_propagation(prevent_default(mousedown_handler)), true),
-          listen(a, "dblclick", stop_propagation(prevent_default(dblclick_handler)), true),
-          action_destroyer(applyStyles_action = applyStyles.call(null, a, ctx[3]))
+          listen(a, "click", stop_propagation(prevent_default(
+            /*onClick*/
+            ctx[5]
+          ))),
+          listen(a, "contextmenu", stop_propagation(prevent_default(
+            /*onContextMenu*/
+            ctx[6]
+          ))),
+          listen(
+            a,
+            "keydown",
+            /*onKeydown*/
+            ctx[7]
+          ),
+          listen(
+            a,
+            "keyup",
+            /*onKeyup*/
+            ctx[8]
+          ),
+          action_destroyer(applyStyles_action = applyStyles.call(
+            null,
+            a,
+            /*styles*/
+            ctx[1]
+          ))
         ];
         mounted = true;
       }
     },
     p(ctx2, [dirty]) {
-      if (dirty & 2)
-        html_tag.p(ctx2[1]);
-      if (dirty & 4)
-        set_data(t, ctx2[2]);
-      if (dirty & 1 && a_class_value !== (a_class_value = "header-button " + ctx2[0].class)) {
+      if (dirty & /*icon*/
+      16)
+        html_tag.p(
+          /*icon*/
+          ctx2[4]
+        );
+      if (
+        /*label*/
+        ctx2[3]
+      ) {
+        if (if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block = create_if_block$7(ctx2);
+          if_block.c();
+          if_block.m(a, null);
+        }
+      } else if (if_block) {
+        if_block.d(1);
+        if_block = null;
+      }
+      if (dirty & /*button*/
+      1 && a_class_value !== (a_class_value = "header-button " + /*button*/
+      ctx2[0].class + " svelte-mcc-166l8wd")) {
         attr(a, "class", a_class_value);
       }
-      if (applyStyles_action && is_function(applyStyles_action.update) && dirty & 8)
-        applyStyles_action.update.call(null, ctx2[3]);
+      if (dirty & /*label*/
+      8) {
+        attr(
+          a,
+          "aria-label",
+          /*label*/
+          ctx2[3]
+        );
+      }
+      if (applyStyles_action && is_function(applyStyles_action.update) && dirty & /*styles*/
+      2)
+        applyStyles_action.update.call(
+          null,
+          /*styles*/
+          ctx2[1]
+        );
+      if (dirty & /*button, keepMinimized*/
+      5) {
+        toggle_class(
+          a,
+          "keep-minimized",
+          /*keepMinimized*/
+          ctx2[2]
+        );
+      }
     },
     i: noop$1,
     o: noop$1,
     d(detaching) {
       if (detaching)
         detach(a);
+      if (if_block)
+        if_block.d();
       mounted = false;
       run_all(dispose);
     }
   };
 }
-__name(create_fragment$m, "create_fragment$m");
 const s_REGEX_HTML = /^\s*<.*>$/;
-const pointerdown_handler = /* @__PURE__ */ __name(() => null, "pointerdown_handler");
-const mousedown_handler = /* @__PURE__ */ __name(() => null, "mousedown_handler");
-const dblclick_handler = /* @__PURE__ */ __name(() => null, "dblclick_handler");
-function instance$k($$self, $$props, $$invalidate) {
+function instance$l($$self, $$props, $$invalidate) {
+  let title;
+  let icon;
+  let label;
+  let keepMinimized;
+  let keyCode;
+  let styles;
   let { button = void 0 } = $$props;
-  let icon, label, title, styles;
   function onClick(event) {
-    const invoke = button.callback ?? button.onclick;
+    const invoke = button?.onPress ?? button?.onclick;
     if (typeof invoke === "function") {
       invoke.call(button, event);
       $$invalidate(0, button);
     }
   }
-  __name(onClick, "onClick");
+  function onContextMenu(event) {
+    const invoke = button?.onContextMenu;
+    if (typeof invoke === "function") {
+      invoke.call(button, event);
+      $$invalidate(0, button);
+    }
+  }
+  function onKeydown(event) {
+    if (event.code === keyCode) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+  function onKeyup(event) {
+    if (event.code === keyCode) {
+      const invoke = button.onPress ?? button.onclick;
+      if (typeof invoke === "function") {
+        invoke.call(button, event);
+        $$invalidate(0, button);
+      }
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
   $$self.$$set = ($$props2) => {
     if ("button" in $$props2)
       $$invalidate(0, button = $$props2.button);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & 33) {
-      if (button) {
-        $$invalidate(5, title = typeof button.title === "string" ? localize(button.title) : "");
-        $$invalidate(1, icon = typeof button.icon !== "string" ? void 0 : s_REGEX_HTML.test(button.icon) ? button.icon : `<i class="${button.icon}" title="${title}"></i>`);
-        $$invalidate(2, label = typeof button.label === "string" ? localize(button.label) : "");
-        $$invalidate(3, styles = typeof button.styles === "object" ? button.styles : void 0);
-      }
+    if ($$self.$$.dirty & /*button*/
+    1) {
+      $$invalidate(9, title = isObject$1(button) && typeof button.title === "string" ? localize(button.title) : "");
+    }
+    if ($$self.$$.dirty & /*button, title*/
+    513) {
+      $$invalidate(4, icon = isObject$1(button) && typeof button.icon !== "string" ? void 0 : s_REGEX_HTML.test(button.icon) ? button.icon : `<i class="${button.icon}" title="${title}"></i>`);
+    }
+    if ($$self.$$.dirty & /*button*/
+    1) {
+      $$invalidate(3, label = isObject$1(button) && typeof button.label === "string" ? localize(button.label) : void 0);
+    }
+    if ($$self.$$.dirty & /*button*/
+    1) {
+      $$invalidate(2, keepMinimized = isObject$1(button) && typeof button.keepMinimized === "boolean" ? button.keepMinimized : false);
+    }
+    if ($$self.$$.dirty & /*button*/
+    1) {
+      keyCode = isObject$1(button) && typeof button.keyCode === "string" ? button.keyCode : "Enter";
+    }
+    if ($$self.$$.dirty & /*button*/
+    1) {
+      $$invalidate(1, styles = isObject$1(button) && isObject$1(button.styles) ? button.styles : void 0);
     }
   };
-  return [button, icon, label, styles, onClick, title];
+  return [
+    button,
+    styles,
+    keepMinimized,
+    label,
+    icon,
+    onClick,
+    onContextMenu,
+    onKeydown,
+    onKeyup,
+    title
+  ];
 }
-__name(instance$k, "instance$k");
 class TJSHeaderButton extends SvelteComponent {
   constructor(options) {
     super();
-    init$1(this, options, instance$k, create_fragment$m, safe_not_equal, { button: 0 });
+    init$1(this, options, instance$l, create_fragment$n, safe_not_equal, { button: 0 });
   }
   get button() {
     return this.$$.ctx[0];
@@ -10140,20 +12600,57 @@ class TJSHeaderButton extends SvelteComponent {
     flush();
   }
 }
-__name(TJSHeaderButton, "TJSHeaderButton");
 const TJSApplicationHeader_svelte_svelte_type_style_lang = "";
 function get_each_context$4(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[20] = list[i];
+  child_ctx[31] = list[i];
   return child_ctx;
 }
-__name(get_each_context$4, "get_each_context$4");
-function create_each_block$4(ctx) {
+function get_each_context_1(ctx, list, i) {
+  const child_ctx = ctx.slice();
+  child_ctx[31] = list[i];
+  return child_ctx;
+}
+function create_if_block$6(ctx) {
+  let img;
+  let img_src_value;
+  return {
+    c() {
+      img = element("img");
+      attr(img, "class", "tjs-app-icon keep-minimized svelte-mcc-1wviwl9");
+      if (!src_url_equal(img.src, img_src_value = /*$storeHeaderIcon*/
+      ctx[6]))
+        attr(img, "src", img_src_value);
+      attr(img, "alt", "icon");
+    },
+    m(target, anchor) {
+      insert(target, img, anchor);
+    },
+    p(ctx2, dirty) {
+      if (dirty[0] & /*$storeHeaderIcon*/
+      64 && !src_url_equal(img.src, img_src_value = /*$storeHeaderIcon*/
+      ctx2[6])) {
+        attr(img, "src", img_src_value);
+      }
+    },
+    d(detaching) {
+      if (detaching)
+        detach(img);
+    }
+  };
+}
+function create_each_block_1(ctx) {
   let switch_instance;
   let switch_instance_anchor;
   let current;
-  const switch_instance_spread_levels = [ctx[20].props];
-  var switch_value = ctx[20].class;
+  const switch_instance_spread_levels = [
+    /*button*/
+    ctx[31].props
+  ];
+  var switch_value = (
+    /*button*/
+    ctx[31].class
+  );
   function switch_props(ctx2) {
     let switch_instance_props = {};
     for (let i = 0; i < switch_instance_spread_levels.length; i += 1) {
@@ -10161,7 +12658,6 @@ function create_each_block$4(ctx) {
     }
     return { props: switch_instance_props };
   }
-  __name(switch_props, "switch_props");
   if (switch_value) {
     switch_instance = construct_svelte_component(switch_value, switch_props());
   }
@@ -10178,8 +12674,13 @@ function create_each_block$4(ctx) {
       current = true;
     },
     p(ctx2, dirty) {
-      const switch_instance_changes = dirty & 8 ? get_spread_update(switch_instance_spread_levels, [get_spread_object(ctx2[20].props)]) : {};
-      if (switch_value !== (switch_value = ctx2[20].class)) {
+      const switch_instance_changes = dirty[0] & /*buttonsLeft*/
+      2 ? get_spread_update(switch_instance_spread_levels, [get_spread_object(
+        /*button*/
+        ctx2[31].props
+      )]) : {};
+      if (switch_value !== (switch_value = /*button*/
+      ctx2[31].class)) {
         if (switch_instance) {
           group_outros();
           const old_component = switch_instance;
@@ -10220,64 +12721,258 @@ function create_each_block$4(ctx) {
     }
   };
 }
-__name(create_each_block$4, "create_each_block$4");
+function create_each_block$4(ctx) {
+  let switch_instance;
+  let switch_instance_anchor;
+  let current;
+  const switch_instance_spread_levels = [
+    /*button*/
+    ctx[31].props
+  ];
+  var switch_value = (
+    /*button*/
+    ctx[31].class
+  );
+  function switch_props(ctx2) {
+    let switch_instance_props = {};
+    for (let i = 0; i < switch_instance_spread_levels.length; i += 1) {
+      switch_instance_props = assign(switch_instance_props, switch_instance_spread_levels[i]);
+    }
+    return { props: switch_instance_props };
+  }
+  if (switch_value) {
+    switch_instance = construct_svelte_component(switch_value, switch_props());
+  }
+  return {
+    c() {
+      if (switch_instance)
+        create_component(switch_instance.$$.fragment);
+      switch_instance_anchor = empty();
+    },
+    m(target, anchor) {
+      if (switch_instance)
+        mount_component(switch_instance, target, anchor);
+      insert(target, switch_instance_anchor, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const switch_instance_changes = dirty[0] & /*buttonsRight*/
+      4 ? get_spread_update(switch_instance_spread_levels, [get_spread_object(
+        /*button*/
+        ctx2[31].props
+      )]) : {};
+      if (switch_value !== (switch_value = /*button*/
+      ctx2[31].class)) {
+        if (switch_instance) {
+          group_outros();
+          const old_component = switch_instance;
+          transition_out(old_component.$$.fragment, 1, 0, () => {
+            destroy_component(old_component, 1);
+          });
+          check_outros();
+        }
+        if (switch_value) {
+          switch_instance = construct_svelte_component(switch_value, switch_props());
+          create_component(switch_instance.$$.fragment);
+          transition_in(switch_instance.$$.fragment, 1);
+          mount_component(switch_instance, switch_instance_anchor.parentNode, switch_instance_anchor);
+        } else {
+          switch_instance = null;
+        }
+      } else if (switch_value) {
+        switch_instance.$set(switch_instance_changes);
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      if (switch_instance)
+        transition_in(switch_instance.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      if (switch_instance)
+        transition_out(switch_instance.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(switch_instance_anchor);
+      if (switch_instance)
+        destroy_component(switch_instance, detaching);
+    }
+  };
+}
 function create_key_block$2(ctx) {
   let header;
-  let h4;
-  let t0_value = localize(ctx[5]) + "";
   let t0;
+  let h4;
+  let t1_value = localize(
+    /*$storeTitle*/
+    ctx[7]
+  ) + "";
   let t1;
+  let t2;
+  let t3;
+  let span;
+  let t4;
   let draggable_action;
   let minimizable_action;
   let current;
   let mounted;
   let dispose;
-  let each_value = ctx[3];
+  let if_block = typeof /*$storeHeaderIcon*/
+  ctx[6] === "string" && create_if_block$6(ctx);
+  let each_value_1 = (
+    /*buttonsLeft*/
+    ctx[1]
+  );
+  let each_blocks_1 = [];
+  for (let i = 0; i < each_value_1.length; i += 1) {
+    each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+  }
+  const out = (i) => transition_out(each_blocks_1[i], 1, 1, () => {
+    each_blocks_1[i] = null;
+  });
+  let each_value = (
+    /*buttonsRight*/
+    ctx[2]
+  );
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
     each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
   }
-  const out = /* @__PURE__ */ __name((i) => transition_out(each_blocks[i], 1, 1, () => {
+  const out_1 = (i) => transition_out(each_blocks[i], 1, 1, () => {
     each_blocks[i] = null;
-  }), "out");
+  });
   return {
     c() {
       header = element("header");
+      if (if_block)
+        if_block.c();
+      t0 = space();
       h4 = element("h4");
-      t0 = text(t0_value);
-      t1 = space();
+      t1 = text(t1_value);
+      t2 = space();
+      for (let i = 0; i < each_blocks_1.length; i += 1) {
+        each_blocks_1[i].c();
+      }
+      t3 = space();
+      span = element("span");
+      t4 = space();
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      attr(h4, "class", "window-title svelte-3umz0z");
-      set_style(h4, "display", ctx[2]);
-      attr(header, "class", "window-header flexrow");
+      attr(h4, "class", "window-title svelte-mcc-1wviwl9");
+      set_style(
+        h4,
+        "display",
+        /*displayHeaderTitle*/
+        ctx[4]
+      );
+      attr(span, "class", "tjs-window-header-spacer keep-minimized svelte-mcc-1wviwl9");
+      attr(header, "class", "window-header flexrow svelte-mcc-1wviwl9");
     },
     m(target, anchor) {
       insert(target, header, anchor);
+      if (if_block)
+        if_block.m(header, null);
+      append(header, t0);
       append(header, h4);
-      append(h4, t0);
-      append(header, t1);
+      append(h4, t1);
+      append(header, t2);
+      for (let i = 0; i < each_blocks_1.length; i += 1) {
+        each_blocks_1[i].m(header, null);
+      }
+      append(header, t3);
+      append(header, span);
+      append(header, t4);
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].m(header, null);
       }
       current = true;
       if (!mounted) {
         dispose = [
-          action_destroyer(draggable_action = ctx[0].call(null, header, ctx[1])),
-          action_destroyer(minimizable_action = ctx[12].call(null, header, ctx[4]))
+          action_destroyer(draggable_action = /*draggable*/
+          ctx[0].call(
+            null,
+            header,
+            /*dragOptions*/
+            ctx[3]
+          )),
+          action_destroyer(minimizable_action = /*minimizable*/
+          ctx[18].call(
+            null,
+            header,
+            /*$storeMinimizable*/
+            ctx[5]
+          )),
+          listen(
+            header,
+            "pointerdown",
+            /*onPointerdown*/
+            ctx[19]
+          )
         ];
         mounted = true;
       }
     },
     p(ctx2, dirty) {
-      if ((!current || dirty & 32) && t0_value !== (t0_value = localize(ctx2[5]) + ""))
-        set_data(t0, t0_value);
-      if (dirty & 4) {
-        set_style(h4, "display", ctx2[2]);
+      if (typeof /*$storeHeaderIcon*/
+      ctx2[6] === "string") {
+        if (if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block = create_if_block$6(ctx2);
+          if_block.c();
+          if_block.m(header, t0);
+        }
+      } else if (if_block) {
+        if_block.d(1);
+        if_block = null;
       }
-      if (dirty & 8) {
-        each_value = ctx2[3];
+      if ((!current || dirty[0] & /*$storeTitle*/
+      128) && t1_value !== (t1_value = localize(
+        /*$storeTitle*/
+        ctx2[7]
+      ) + ""))
+        set_data(t1, t1_value);
+      if (dirty[0] & /*displayHeaderTitle*/
+      16) {
+        set_style(
+          h4,
+          "display",
+          /*displayHeaderTitle*/
+          ctx2[4]
+        );
+      }
+      if (dirty[0] & /*buttonsLeft*/
+      2) {
+        each_value_1 = /*buttonsLeft*/
+        ctx2[1];
+        let i;
+        for (i = 0; i < each_value_1.length; i += 1) {
+          const child_ctx = get_each_context_1(ctx2, each_value_1, i);
+          if (each_blocks_1[i]) {
+            each_blocks_1[i].p(child_ctx, dirty);
+            transition_in(each_blocks_1[i], 1);
+          } else {
+            each_blocks_1[i] = create_each_block_1(child_ctx);
+            each_blocks_1[i].c();
+            transition_in(each_blocks_1[i], 1);
+            each_blocks_1[i].m(header, t3);
+          }
+        }
+        group_outros();
+        for (i = each_value_1.length; i < each_blocks_1.length; i += 1) {
+          out(i);
+        }
+        check_outros();
+      }
+      if (dirty[0] & /*buttonsRight*/
+      4) {
+        each_value = /*buttonsRight*/
+        ctx2[2];
         let i;
         for (i = 0; i < each_value.length; i += 1) {
           const child_ctx = get_each_context$4(ctx2, each_value, i);
@@ -10293,24 +12988,41 @@ function create_key_block$2(ctx) {
         }
         group_outros();
         for (i = each_value.length; i < each_blocks.length; i += 1) {
-          out(i);
+          out_1(i);
         }
         check_outros();
       }
-      if (draggable_action && is_function(draggable_action.update) && dirty & 2)
-        draggable_action.update.call(null, ctx2[1]);
-      if (minimizable_action && is_function(minimizable_action.update) && dirty & 16)
-        minimizable_action.update.call(null, ctx2[4]);
+      if (draggable_action && is_function(draggable_action.update) && dirty[0] & /*dragOptions*/
+      8)
+        draggable_action.update.call(
+          null,
+          /*dragOptions*/
+          ctx2[3]
+        );
+      if (minimizable_action && is_function(minimizable_action.update) && dirty[0] & /*$storeMinimizable*/
+      32)
+        minimizable_action.update.call(
+          null,
+          /*$storeMinimizable*/
+          ctx2[5]
+        );
     },
     i(local) {
       if (current)
         return;
+      for (let i = 0; i < each_value_1.length; i += 1) {
+        transition_in(each_blocks_1[i]);
+      }
       for (let i = 0; i < each_value.length; i += 1) {
         transition_in(each_blocks[i]);
       }
       current = true;
     },
     o(local) {
+      each_blocks_1 = each_blocks_1.filter(Boolean);
+      for (let i = 0; i < each_blocks_1.length; i += 1) {
+        transition_out(each_blocks_1[i]);
+      }
       each_blocks = each_blocks.filter(Boolean);
       for (let i = 0; i < each_blocks.length; i += 1) {
         transition_out(each_blocks[i]);
@@ -10320,15 +13032,20 @@ function create_key_block$2(ctx) {
     d(detaching) {
       if (detaching)
         detach(header);
+      if (if_block)
+        if_block.d();
+      destroy_each(each_blocks_1, detaching);
       destroy_each(each_blocks, detaching);
       mounted = false;
       run_all(dispose);
     }
   };
 }
-__name(create_key_block$2, "create_key_block$2");
-function create_fragment$l(ctx) {
-  let previous_key = ctx[0];
+function create_fragment$m(ctx) {
+  let previous_key = (
+    /*draggable*/
+    ctx[0]
+  );
   let key_block_anchor;
   let current;
   let key_block = create_key_block$2(ctx);
@@ -10342,8 +13059,10 @@ function create_fragment$l(ctx) {
       insert(target, key_block_anchor, anchor);
       current = true;
     },
-    p(ctx2, [dirty]) {
-      if (dirty & 1 && safe_not_equal(previous_key, previous_key = ctx2[0])) {
+    p(ctx2, dirty) {
+      if (dirty[0] & /*draggable*/
+      1 && safe_not_equal(previous_key, previous_key = /*draggable*/
+      ctx2[0])) {
         group_outros();
         transition_out(key_block, 1, 1, noop$1);
         check_outros();
@@ -10372,43 +13091,57 @@ function create_fragment$l(ctx) {
     }
   };
 }
-__name(create_fragment$l, "create_fragment$l");
-function instance$j($$self, $$props, $$invalidate) {
+function instance$k($$self, $$props, $$invalidate) {
+  let $focusKeep;
+  let $focusAuto;
+  let $elementRoot;
   let $storeHeaderButtons;
   let $storeMinimized;
   let $storeHeaderNoTitleMinimized;
   let $storeDraggable;
   let $storeMinimizable;
+  let $storeHeaderIcon;
   let $storeTitle;
   let { draggable: draggable$1 = void 0 } = $$props;
   let { draggableOptions = void 0 } = $$props;
-  const application = getContext("external").application;
+  const { application } = getContext("#external");
+  const { focusAuto, focusKeep } = application.reactive.storeAppOptions;
+  component_subscribe($$self, focusAuto, (value) => $$invalidate(26, $focusAuto = value));
+  component_subscribe($$self, focusKeep, (value) => $$invalidate(25, $focusKeep = value));
+  const { elementRoot } = getContext("#internal").stores;
+  component_subscribe($$self, elementRoot, (value) => $$invalidate(27, $elementRoot = value));
   const storeTitle = application.reactive.storeAppOptions.title;
-  component_subscribe($$self, storeTitle, (value) => $$invalidate(5, $storeTitle = value));
+  component_subscribe($$self, storeTitle, (value) => $$invalidate(7, $storeTitle = value));
   const storeDraggable = application.reactive.storeAppOptions.draggable;
-  component_subscribe($$self, storeDraggable, (value) => $$invalidate(17, $storeDraggable = value));
+  component_subscribe($$self, storeDraggable, (value) => $$invalidate(24, $storeDraggable = value));
   const storeDragging = application.reactive.storeUIState.dragging;
   const storeHeaderButtons = application.reactive.storeUIState.headerButtons;
-  component_subscribe($$self, storeHeaderButtons, (value) => $$invalidate(14, $storeHeaderButtons = value));
+  component_subscribe($$self, storeHeaderButtons, (value) => $$invalidate(21, $storeHeaderButtons = value));
+  const storeHeaderIcon = application.reactive.storeAppOptions.headerIcon;
+  component_subscribe($$self, storeHeaderIcon, (value) => $$invalidate(6, $storeHeaderIcon = value));
   const storeHeaderNoTitleMinimized = application.reactive.storeAppOptions.headerNoTitleMinimized;
-  component_subscribe($$self, storeHeaderNoTitleMinimized, (value) => $$invalidate(16, $storeHeaderNoTitleMinimized = value));
+  component_subscribe($$self, storeHeaderNoTitleMinimized, (value) => $$invalidate(23, $storeHeaderNoTitleMinimized = value));
   const storeMinimizable = application.reactive.storeAppOptions.minimizable;
-  component_subscribe($$self, storeMinimizable, (value) => $$invalidate(4, $storeMinimizable = value));
+  component_subscribe($$self, storeMinimizable, (value) => $$invalidate(5, $storeMinimizable = value));
   const storeMinimized = application.reactive.storeUIState.minimized;
-  component_subscribe($$self, storeMinimized, (value) => $$invalidate(15, $storeMinimized = value));
+  component_subscribe($$self, storeMinimized, (value) => $$invalidate(22, $storeMinimized = value));
+  const s_DRAG_TARGET_CLASSLIST = Object.freeze(["tjs-app-icon", "tjs-window-header-spacer", "window-header", "window-title"]);
   let dragOptions;
   let displayHeaderTitle;
-  let buttons;
+  let buttonsLeft;
+  let buttonsRight;
   function minimizable(node, booleanStore) {
-    const callback2 = application._onToggleMinimize.bind(application);
+    const callback2 = (event) => {
+      if (event.target.classList.contains("window-title") || event.target.classList.contains("window-header") || event.target.classList.contains("keep-minimized")) {
+        application._onToggleMinimize(event);
+      }
+    };
     function activateListeners() {
       node.addEventListener("dblclick", callback2);
     }
-    __name(activateListeners, "activateListeners");
     function removeListeners() {
       node.removeEventListener("dblclick", callback2);
     }
-    __name(removeListeners, "removeListeners");
     if (booleanStore) {
       activateListeners();
     }
@@ -10423,64 +13156,89 @@ function instance$j($$self, $$props, $$invalidate) {
       destroy: () => removeListeners()
     };
   }
-  __name(minimizable, "minimizable");
+  function onPointerdown(event) {
+    const rootEl = $elementRoot;
+    if ($focusAuto && rootEl instanceof HTMLElement && rootEl?.isConnected) {
+      if ($focusKeep) {
+        const focusOutside = document.activeElement instanceof HTMLElement && !rootEl.contains(document.activeElement);
+        if (focusOutside) {
+          rootEl.focus();
+        } else {
+          event.preventDefault();
+        }
+      } else {
+        rootEl.focus();
+      }
+    }
+  }
   $$self.$$set = ($$props2) => {
     if ("draggable" in $$props2)
       $$invalidate(0, draggable$1 = $$props2.draggable);
     if ("draggableOptions" in $$props2)
-      $$invalidate(13, draggableOptions = $$props2.draggableOptions);
+      $$invalidate(20, draggableOptions = $$props2.draggableOptions);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & 1) {
+    if ($$self.$$.dirty[0] & /*draggable*/
+    1) {
       $$invalidate(0, draggable$1 = typeof draggable$1 === "function" ? draggable$1 : draggable);
     }
-    if ($$self.$$.dirty & 139264) {
-      $$invalidate(1, dragOptions = Object.assign(
+    if ($$self.$$.dirty[0] & /*draggableOptions, $storeDraggable*/
+    17825792) {
+      $$invalidate(3, dragOptions = Object.assign(
         {},
         {
           ease: true,
-          easeOptions: { duration: 0.1, ease: cubicOut }
+          easeOptions: { duration: 0.08, ease: cubicOut }
         },
-        typeof draggableOptions === "object" ? draggableOptions : {},
+        isObject$1(draggableOptions) ? draggableOptions : {},
         {
           position: application.position,
           active: $storeDraggable,
-          storeDragging
+          storeDragging,
+          hasTargetClassList: s_DRAG_TARGET_CLASSLIST
         }
       ));
     }
-    if ($$self.$$.dirty & 98304) {
-      $$invalidate(2, displayHeaderTitle = $storeHeaderNoTitleMinimized && $storeMinimized ? "none" : null);
+    if ($$self.$$.dirty[0] & /*$storeHeaderNoTitleMinimized, $storeMinimized*/
+    12582912) {
+      $$invalidate(4, displayHeaderTitle = $storeHeaderNoTitleMinimized && $storeMinimized ? "none" : null);
     }
-    if ($$self.$$.dirty & 16384) {
+    if ($$self.$$.dirty[0] & /*$storeHeaderButtons, buttonsLeft, buttonsRight*/
+    2097158) {
       {
-        $$invalidate(3, buttons = $storeHeaderButtons.reduce(
-          (array, button) => {
-            array.push(isSvelteComponent(button) ? { class: button, props: {} } : {
-              class: TJSHeaderButton,
-              props: { button }
-            });
-            return array;
-          },
-          []
-        ));
+        $$invalidate(1, buttonsLeft = []);
+        $$invalidate(2, buttonsRight = []);
+        for (const button of $storeHeaderButtons) {
+          const buttonsList = typeof button?.alignLeft === "boolean" && button?.alignLeft ? buttonsLeft : buttonsRight;
+          buttonsList.push(isSvelteComponent(button) ? { class: button, props: {} } : {
+            class: TJSHeaderButton,
+            props: { button }
+          });
+        }
       }
     }
   };
   return [
     draggable$1,
+    buttonsLeft,
+    buttonsRight,
     dragOptions,
     displayHeaderTitle,
-    buttons,
     $storeMinimizable,
+    $storeHeaderIcon,
     $storeTitle,
+    focusAuto,
+    focusKeep,
+    elementRoot,
     storeTitle,
     storeDraggable,
     storeHeaderButtons,
+    storeHeaderIcon,
     storeHeaderNoTitleMinimized,
     storeMinimizable,
     storeMinimized,
     minimizable,
+    onPointerdown,
     draggableOptions,
     $storeHeaderButtons,
     $storeMinimized,
@@ -10488,14 +13246,93 @@ function instance$j($$self, $$props, $$invalidate) {
     $storeDraggable
   ];
 }
-__name(instance$j, "instance$j");
 class TJSApplicationHeader extends SvelteComponent {
   constructor(options) {
     super();
-    init$1(this, options, instance$j, create_fragment$l, safe_not_equal, { draggable: 0, draggableOptions: 13 });
+    init$1(this, options, instance$k, create_fragment$m, safe_not_equal, { draggable: 0, draggableOptions: 20 }, null, [-1, -1]);
   }
 }
-__name(TJSApplicationHeader, "TJSApplicationHeader");
+const TJSFocusWrap_svelte_svelte_type_style_lang = "";
+function create_fragment$l(ctx) {
+  let div;
+  let mounted;
+  let dispose;
+  return {
+    c() {
+      div = element("div");
+      attr(div, "class", "tjs-focus-wrap svelte-mcc-kjcljd");
+      attr(div, "tabindex", "0");
+    },
+    m(target, anchor) {
+      insert(target, div, anchor);
+      ctx[4](div);
+      if (!mounted) {
+        dispose = listen(
+          div,
+          "focus",
+          /*onFocus*/
+          ctx[1]
+        );
+        mounted = true;
+      }
+    },
+    p: noop$1,
+    i: noop$1,
+    o: noop$1,
+    d(detaching) {
+      if (detaching)
+        detach(div);
+      ctx[4](null);
+      mounted = false;
+      dispose();
+    }
+  };
+}
+function instance$j($$self, $$props, $$invalidate) {
+  let { elementRoot = void 0 } = $$props;
+  let { enabled = true } = $$props;
+  let ignoreElements, wrapEl;
+  function onFocus() {
+    if (!enabled) {
+      return;
+    }
+    if (elementRoot instanceof HTMLElement) {
+      const firstFocusEl = A11yHelper.getFirstFocusableElement(elementRoot, ignoreElements);
+      if (firstFocusEl instanceof HTMLElement && firstFocusEl !== wrapEl) {
+        firstFocusEl.focus();
+      } else {
+        elementRoot.focus();
+      }
+    }
+  }
+  function div_binding($$value) {
+    binding_callbacks[$$value ? "unshift" : "push"](() => {
+      wrapEl = $$value;
+      $$invalidate(0, wrapEl);
+    });
+  }
+  $$self.$$set = ($$props2) => {
+    if ("elementRoot" in $$props2)
+      $$invalidate(2, elementRoot = $$props2.elementRoot);
+    if ("enabled" in $$props2)
+      $$invalidate(3, enabled = $$props2.enabled);
+  };
+  $$self.$$.update = () => {
+    if ($$self.$$.dirty & /*wrapEl*/
+    1) {
+      if (wrapEl) {
+        ignoreElements = /* @__PURE__ */ new Set([wrapEl]);
+      }
+    }
+  };
+  return [wrapEl, onFocus, elementRoot, enabled, div_binding];
+}
+class TJSFocusWrap extends SvelteComponent {
+  constructor(options) {
+    super();
+    init$1(this, options, instance$j, create_fragment$l, safe_not_equal, { elementRoot: 2, enabled: 3 });
+  }
+}
 function create_fragment$k(ctx) {
   let div;
   let resizable_action;
@@ -10511,18 +13348,32 @@ function create_fragment$k(ctx) {
       insert(target, div, anchor);
       ctx[10](div);
       if (!mounted) {
-        dispose = action_destroyer(resizable_action = ctx[6].call(null, div, {
-          active: ctx[1],
-          storeResizing: ctx[5]
+        dispose = action_destroyer(resizable_action = /*resizable*/
+        ctx[6].call(null, div, {
+          active: (
+            /*$storeResizable*/
+            ctx[1]
+          ),
+          storeResizing: (
+            /*storeResizing*/
+            ctx[5]
+          )
         }));
         mounted = true;
       }
     },
     p(ctx2, [dirty]) {
-      if (resizable_action && is_function(resizable_action.update) && dirty & 2)
+      if (resizable_action && is_function(resizable_action.update) && dirty & /*$storeResizable*/
+      2)
         resizable_action.update.call(null, {
-          active: ctx2[1],
-          storeResizing: ctx2[5]
+          active: (
+            /*$storeResizable*/
+            ctx2[1]
+          ),
+          storeResizing: (
+            /*storeResizing*/
+            ctx2[5]
+          )
         });
     },
     i: noop$1,
@@ -10536,13 +13387,12 @@ function create_fragment$k(ctx) {
     }
   };
 }
-__name(create_fragment$k, "create_fragment$k");
 function instance$i($$self, $$props, $$invalidate) {
   let $storeElementRoot;
   let $storeMinimized;
   let $storeResizable;
   let { isResizable = false } = $$props;
-  const application = getContext("external").application;
+  const application = getContext("#external").application;
   const storeElementRoot = getContext("storeElementRoot");
   component_subscribe($$self, storeElementRoot, (value) => $$invalidate(8, $storeElementRoot = value));
   const storeResizable = application.reactive.storeAppOptions.resizable;
@@ -10565,7 +13415,6 @@ function instance$i($$self, $$props, $$invalidate) {
       $$invalidate(7, isResizable = true);
       node.style.display = "block";
     }
-    __name(activateListeners, "activateListeners");
     function removeListeners() {
       if (typeof storeResizing2?.set === "function") {
         storeResizing2.set(false);
@@ -10576,7 +13425,6 @@ function instance$i($$self, $$props, $$invalidate) {
       node.style.display = "none";
       $$invalidate(7, isResizable = false);
     }
-    __name(removeListeners, "removeListeners");
     if (active2) {
       activateListeners();
     } else {
@@ -10597,7 +13445,6 @@ function instance$i($$self, $$props, $$invalidate) {
       node.addEventListener(...handlers.resizeUp);
       node.setPointerCapture(event.pointerId);
     }
-    __name(onResizePointerDown, "onResizePointerDown");
     function onResizePointerMove(event) {
       event.preventDefault();
       if (!resizing && typeof storeResizing2?.set === "function") {
@@ -10609,7 +13456,6 @@ function instance$i($$self, $$props, $$invalidate) {
         height: position.height + (event.clientY - initialPosition.y)
       });
     }
-    __name(onResizePointerMove, "onResizePointerMove");
     function onResizePointerUp(event) {
       resizing = false;
       if (typeof storeResizing2?.set === "function") {
@@ -10620,7 +13466,6 @@ function instance$i($$self, $$props, $$invalidate) {
       node.removeEventListener(...handlers.resizeUp);
       application._onResize(event);
     }
-    __name(onResizePointerUp, "onResizePointerUp");
     return {
       update: ({ active: active3 }) => {
         if (active3) {
@@ -10632,20 +13477,19 @@ function instance$i($$self, $$props, $$invalidate) {
       destroy: () => removeListeners()
     };
   }
-  __name(resizable, "resizable");
   function div_binding($$value) {
     binding_callbacks[$$value ? "unshift" : "push"](() => {
       elementResize = $$value;
       $$invalidate(0, elementResize), $$invalidate(7, isResizable), $$invalidate(9, $storeMinimized), $$invalidate(8, $storeElementRoot);
     });
   }
-  __name(div_binding, "div_binding");
   $$self.$$set = ($$props2) => {
     if ("isResizable" in $$props2)
       $$invalidate(7, isResizable = $$props2.isResizable);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & 897) {
+    if ($$self.$$.dirty & /*elementResize, isResizable, $storeMinimized, $storeElementRoot*/
+    897) {
       if (elementResize) {
         $$invalidate(0, elementResize.style.display = isResizable && !$storeMinimized ? "block" : "none", elementResize);
         const elementRoot = $storeElementRoot;
@@ -10669,102 +13513,277 @@ function instance$i($$self, $$props, $$invalidate) {
     div_binding
   ];
 }
-__name(instance$i, "instance$i");
 class ResizableHandle extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance$i, create_fragment$k, safe_not_equal, { isResizable: 7 });
   }
 }
-__name(ResizableHandle, "ResizableHandle");
 const ApplicationShell_svelte_svelte_type_style_lang = "";
 function create_else_block(ctx) {
-  let current;
-  const default_slot_template = ctx[27].default;
-  const default_slot = create_slot(default_slot_template, ctx, ctx[26], null);
-  return {
-    c() {
-      if (default_slot)
-        default_slot.c();
-    },
-    m(target, anchor) {
-      if (default_slot) {
-        default_slot.m(target, anchor);
-      }
-      current = true;
-    },
-    p(ctx2, dirty) {
-      if (default_slot) {
-        if (default_slot.p && (!current || dirty & 67108864)) {
-          update_slot_base(
-            default_slot,
-            default_slot_template,
-            ctx2,
-            ctx2[26],
-            !current ? get_all_dirty_from_scope(ctx2[26]) : get_slot_changes(default_slot_template, ctx2[26], dirty, null),
-            null
-          );
-        }
-      }
-    },
-    i(local) {
-      if (current)
-        return;
-      transition_in(default_slot, local);
-      current = true;
-    },
-    o(local) {
-      transition_out(default_slot, local);
-      current = false;
-    },
-    d(detaching) {
-      if (default_slot)
-        default_slot.d(detaching);
-    }
-  };
-}
-__name(create_else_block, "create_else_block");
-function create_if_block$4(ctx) {
-  let tjscontainer;
-  let current;
-  tjscontainer = new TJSContainer({
-    props: { children: ctx[14] }
-  });
-  return {
-    c() {
-      create_component(tjscontainer.$$.fragment);
-    },
-    m(target, anchor) {
-      mount_component(tjscontainer, target, anchor);
-      current = true;
-    },
-    p: noop$1,
-    i(local) {
-      if (current)
-        return;
-      transition_in(tjscontainer.$$.fragment, local);
-      current = true;
-    },
-    o(local) {
-      transition_out(tjscontainer.$$.fragment, local);
-      current = false;
-    },
-    d(detaching) {
-      destroy_component(tjscontainer, detaching);
-    }
-  };
-}
-__name(create_if_block$4, "create_if_block$4");
-function create_fragment$j(ctx) {
   let div;
   let tjsapplicationheader;
   let t0;
   let section;
-  let current_block_type_index;
-  let if_block;
   let applyStyles_action;
   let t1;
   let resizablehandle;
+  let t2;
+  let tjsfocuswrap;
+  let div_id_value;
+  let div_class_value;
+  let div_data_appid_value;
+  let applyStyles_action_1;
+  let current;
+  let mounted;
+  let dispose;
+  tjsapplicationheader = new TJSApplicationHeader({
+    props: {
+      draggable: (
+        /*draggable*/
+        ctx[6]
+      ),
+      draggableOptions: (
+        /*draggableOptions*/
+        ctx[7]
+      )
+    }
+  });
+  const default_slot_template = (
+    /*#slots*/
+    ctx[36].default
+  );
+  const default_slot = create_slot(
+    default_slot_template,
+    ctx,
+    /*$$scope*/
+    ctx[35],
+    null
+  );
+  resizablehandle = new ResizableHandle({});
+  tjsfocuswrap = new TJSFocusWrap({
+    props: {
+      elementRoot: (
+        /*elementRoot*/
+        ctx[1]
+      ),
+      enabled: (
+        /*focusWrapEnabled*/
+        ctx[11]
+      )
+    }
+  });
+  return {
+    c() {
+      div = element("div");
+      create_component(tjsapplicationheader.$$.fragment);
+      t0 = space();
+      section = element("section");
+      if (default_slot)
+        default_slot.c();
+      t1 = space();
+      create_component(resizablehandle.$$.fragment);
+      t2 = space();
+      create_component(tjsfocuswrap.$$.fragment);
+      attr(section, "class", "window-content svelte-mcc-oz81f7");
+      attr(section, "tabindex", "-1");
+      attr(div, "id", div_id_value = /*application*/
+      ctx[10].id);
+      attr(div, "class", div_class_value = "app window-app " + /*application*/
+      ctx[10].options.classes.join(" ") + " svelte-mcc-oz81f7");
+      attr(div, "data-appid", div_data_appid_value = /*application*/
+      ctx[10].appId);
+      attr(div, "tabindex", "-1");
+    },
+    m(target, anchor) {
+      insert(target, div, anchor);
+      mount_component(tjsapplicationheader, div, null);
+      append(div, t0);
+      append(div, section);
+      if (default_slot) {
+        default_slot.m(section, null);
+      }
+      ctx[39](section);
+      append(div, t1);
+      mount_component(resizablehandle, div, null);
+      append(div, t2);
+      mount_component(tjsfocuswrap, div, null);
+      ctx[40](div);
+      current = true;
+      if (!mounted) {
+        dispose = [
+          listen(
+            section,
+            "pointerdown",
+            /*onPointerdownContent*/
+            ctx[21]
+          ),
+          action_destroyer(applyStyles_action = applyStyles.call(
+            null,
+            section,
+            /*stylesContent*/
+            ctx[9]
+          )),
+          action_destroyer(
+            /*contentResizeObserver*/
+            ctx[13].call(
+              null,
+              section,
+              /*resizeObservedContent*/
+              ctx[22]
+            )
+          ),
+          listen(div, "close:popup", stop_propagation(prevent_default(
+            /*onClosePopup*/
+            ctx[18]
+          ))),
+          listen(
+            div,
+            "keydown",
+            /*onKeydown*/
+            ctx[19],
+            true
+          ),
+          listen(
+            div,
+            "pointerdown",
+            /*onPointerdownApp*/
+            ctx[20]
+          ),
+          action_destroyer(applyStyles_action_1 = applyStyles.call(
+            null,
+            div,
+            /*stylesApp*/
+            ctx[8]
+          )),
+          action_destroyer(
+            /*appResizeObserver*/
+            ctx[12].call(
+              null,
+              div,
+              /*resizeObservedApp*/
+              ctx[23]
+            )
+          )
+        ];
+        mounted = true;
+      }
+    },
+    p(ctx2, dirty) {
+      const tjsapplicationheader_changes = {};
+      if (dirty[0] & /*draggable*/
+      64)
+        tjsapplicationheader_changes.draggable = /*draggable*/
+        ctx2[6];
+      if (dirty[0] & /*draggableOptions*/
+      128)
+        tjsapplicationheader_changes.draggableOptions = /*draggableOptions*/
+        ctx2[7];
+      tjsapplicationheader.$set(tjsapplicationheader_changes);
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty[1] & /*$$scope*/
+        16)) {
+          update_slot_base(
+            default_slot,
+            default_slot_template,
+            ctx2,
+            /*$$scope*/
+            ctx2[35],
+            !current ? get_all_dirty_from_scope(
+              /*$$scope*/
+              ctx2[35]
+            ) : get_slot_changes(
+              default_slot_template,
+              /*$$scope*/
+              ctx2[35],
+              dirty,
+              null
+            ),
+            null
+          );
+        }
+      }
+      if (applyStyles_action && is_function(applyStyles_action.update) && dirty[0] & /*stylesContent*/
+      512)
+        applyStyles_action.update.call(
+          null,
+          /*stylesContent*/
+          ctx2[9]
+        );
+      const tjsfocuswrap_changes = {};
+      if (dirty[0] & /*elementRoot*/
+      2)
+        tjsfocuswrap_changes.elementRoot = /*elementRoot*/
+        ctx2[1];
+      if (dirty[0] & /*focusWrapEnabled*/
+      2048)
+        tjsfocuswrap_changes.enabled = /*focusWrapEnabled*/
+        ctx2[11];
+      tjsfocuswrap.$set(tjsfocuswrap_changes);
+      if (!current || dirty[0] & /*application*/
+      1024 && div_id_value !== (div_id_value = /*application*/
+      ctx2[10].id)) {
+        attr(div, "id", div_id_value);
+      }
+      if (!current || dirty[0] & /*application*/
+      1024 && div_class_value !== (div_class_value = "app window-app " + /*application*/
+      ctx2[10].options.classes.join(" ") + " svelte-mcc-oz81f7")) {
+        attr(div, "class", div_class_value);
+      }
+      if (!current || dirty[0] & /*application*/
+      1024 && div_data_appid_value !== (div_data_appid_value = /*application*/
+      ctx2[10].appId)) {
+        attr(div, "data-appid", div_data_appid_value);
+      }
+      if (applyStyles_action_1 && is_function(applyStyles_action_1.update) && dirty[0] & /*stylesApp*/
+      256)
+        applyStyles_action_1.update.call(
+          null,
+          /*stylesApp*/
+          ctx2[8]
+        );
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(tjsapplicationheader.$$.fragment, local);
+      transition_in(default_slot, local);
+      transition_in(resizablehandle.$$.fragment, local);
+      transition_in(tjsfocuswrap.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(tjsapplicationheader.$$.fragment, local);
+      transition_out(default_slot, local);
+      transition_out(resizablehandle.$$.fragment, local);
+      transition_out(tjsfocuswrap.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(div);
+      destroy_component(tjsapplicationheader);
+      if (default_slot)
+        default_slot.d(detaching);
+      ctx[39](null);
+      destroy_component(resizablehandle);
+      destroy_component(tjsfocuswrap);
+      ctx[40](null);
+      mounted = false;
+      run_all(dispose);
+    }
+  };
+}
+function create_if_block$5(ctx) {
+  let div;
+  let tjsapplicationheader;
+  let t0;
+  let section;
+  let applyStyles_action;
+  let t1;
+  let resizablehandle;
+  let t2;
+  let tjsfocuswrap;
   let div_id_value;
   let div_class_value;
   let div_data_appid_value;
@@ -10776,111 +13795,248 @@ function create_fragment$j(ctx) {
   let dispose;
   tjsapplicationheader = new TJSApplicationHeader({
     props: {
-      draggable: ctx[6],
-      draggableOptions: ctx[7]
+      draggable: (
+        /*draggable*/
+        ctx[6]
+      ),
+      draggableOptions: (
+        /*draggableOptions*/
+        ctx[7]
+      )
     }
   });
-  const if_block_creators = [create_if_block$4, create_else_block];
-  const if_blocks = [];
-  function select_block_type(ctx2, dirty) {
-    if (Array.isArray(ctx2[14]))
-      return 0;
-    return 1;
-  }
-  __name(select_block_type, "select_block_type");
-  current_block_type_index = select_block_type(ctx);
-  if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  const default_slot_template = (
+    /*#slots*/
+    ctx[36].default
+  );
+  const default_slot = create_slot(
+    default_slot_template,
+    ctx,
+    /*$$scope*/
+    ctx[35],
+    null
+  );
   resizablehandle = new ResizableHandle({});
+  tjsfocuswrap = new TJSFocusWrap({
+    props: { elementRoot: (
+      /*elementRoot*/
+      ctx[1]
+    ) }
+  });
   return {
     c() {
       div = element("div");
       create_component(tjsapplicationheader.$$.fragment);
       t0 = space();
       section = element("section");
-      if_block.c();
+      if (default_slot)
+        default_slot.c();
       t1 = space();
       create_component(resizablehandle.$$.fragment);
-      attr(section, "class", "window-content svelte-u0ofv1");
-      attr(div, "id", div_id_value = ctx[10].id);
-      attr(div, "class", div_class_value = "app window-app " + ctx[10].options.classes.join(" ") + " svelte-u0ofv1");
-      attr(div, "data-appid", div_data_appid_value = ctx[10].appId);
+      t2 = space();
+      create_component(tjsfocuswrap.$$.fragment);
+      attr(section, "class", "window-content svelte-mcc-oz81f7");
+      attr(section, "tabindex", "-1");
+      attr(div, "id", div_id_value = /*application*/
+      ctx[10].id);
+      attr(div, "class", div_class_value = "app window-app " + /*application*/
+      ctx[10].options.classes.join(" ") + " svelte-mcc-oz81f7");
+      attr(div, "data-appid", div_data_appid_value = /*application*/
+      ctx[10].appId);
+      attr(div, "tabindex", "-1");
     },
     m(target, anchor) {
       insert(target, div, anchor);
       mount_component(tjsapplicationheader, div, null);
       append(div, t0);
       append(div, section);
-      if_blocks[current_block_type_index].m(section, null);
-      ctx[28](section);
+      if (default_slot) {
+        default_slot.m(section, null);
+      }
+      ctx[37](section);
       append(div, t1);
       mount_component(resizablehandle, div, null);
-      ctx[29](div);
+      append(div, t2);
+      mount_component(tjsfocuswrap, div, null);
+      ctx[38](div);
       current = true;
       if (!mounted) {
         dispose = [
-          action_destroyer(applyStyles_action = applyStyles.call(null, section, ctx[9])),
-          action_destroyer(ctx[12].call(null, section, ctx[15])),
-          listen(div, "pointerdown", ctx[13], true),
-          action_destroyer(applyStyles_action_1 = applyStyles.call(null, div, ctx[8])),
-          action_destroyer(ctx[11].call(null, div, ctx[16]))
+          listen(
+            section,
+            "pointerdown",
+            /*onPointerdownContent*/
+            ctx[21]
+          ),
+          action_destroyer(applyStyles_action = applyStyles.call(
+            null,
+            section,
+            /*stylesContent*/
+            ctx[9]
+          )),
+          action_destroyer(
+            /*contentResizeObserver*/
+            ctx[13].call(
+              null,
+              section,
+              /*resizeObservedContent*/
+              ctx[22]
+            )
+          ),
+          listen(div, "close:popup", stop_propagation(prevent_default(
+            /*onClosePopup*/
+            ctx[18]
+          ))),
+          listen(
+            div,
+            "keydown",
+            /*onKeydown*/
+            ctx[19],
+            true
+          ),
+          listen(
+            div,
+            "pointerdown",
+            /*onPointerdownApp*/
+            ctx[20]
+          ),
+          action_destroyer(applyStyles_action_1 = applyStyles.call(
+            null,
+            div,
+            /*stylesApp*/
+            ctx[8]
+          )),
+          action_destroyer(
+            /*appResizeObserver*/
+            ctx[12].call(
+              null,
+              div,
+              /*resizeObservedApp*/
+              ctx[23]
+            )
+          )
         ];
         mounted = true;
       }
     },
-    p(new_ctx, [dirty]) {
+    p(new_ctx, dirty) {
       ctx = new_ctx;
       const tjsapplicationheader_changes = {};
-      if (dirty & 64)
-        tjsapplicationheader_changes.draggable = ctx[6];
-      if (dirty & 128)
-        tjsapplicationheader_changes.draggableOptions = ctx[7];
+      if (dirty[0] & /*draggable*/
+      64)
+        tjsapplicationheader_changes.draggable = /*draggable*/
+        ctx[6];
+      if (dirty[0] & /*draggableOptions*/
+      128)
+        tjsapplicationheader_changes.draggableOptions = /*draggableOptions*/
+        ctx[7];
       tjsapplicationheader.$set(tjsapplicationheader_changes);
-      if_block.p(ctx, dirty);
-      if (applyStyles_action && is_function(applyStyles_action.update) && dirty & 512)
-        applyStyles_action.update.call(null, ctx[9]);
-      if (!current || dirty & 1024 && div_id_value !== (div_id_value = ctx[10].id)) {
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty[1] & /*$$scope*/
+        16)) {
+          update_slot_base(
+            default_slot,
+            default_slot_template,
+            ctx,
+            /*$$scope*/
+            ctx[35],
+            !current ? get_all_dirty_from_scope(
+              /*$$scope*/
+              ctx[35]
+            ) : get_slot_changes(
+              default_slot_template,
+              /*$$scope*/
+              ctx[35],
+              dirty,
+              null
+            ),
+            null
+          );
+        }
+      }
+      if (applyStyles_action && is_function(applyStyles_action.update) && dirty[0] & /*stylesContent*/
+      512)
+        applyStyles_action.update.call(
+          null,
+          /*stylesContent*/
+          ctx[9]
+        );
+      const tjsfocuswrap_changes = {};
+      if (dirty[0] & /*elementRoot*/
+      2)
+        tjsfocuswrap_changes.elementRoot = /*elementRoot*/
+        ctx[1];
+      tjsfocuswrap.$set(tjsfocuswrap_changes);
+      if (!current || dirty[0] & /*application*/
+      1024 && div_id_value !== (div_id_value = /*application*/
+      ctx[10].id)) {
         attr(div, "id", div_id_value);
       }
-      if (!current || dirty & 1024 && div_class_value !== (div_class_value = "app window-app " + ctx[10].options.classes.join(" ") + " svelte-u0ofv1")) {
+      if (!current || dirty[0] & /*application*/
+      1024 && div_class_value !== (div_class_value = "app window-app " + /*application*/
+      ctx[10].options.classes.join(" ") + " svelte-mcc-oz81f7")) {
         attr(div, "class", div_class_value);
       }
-      if (!current || dirty & 1024 && div_data_appid_value !== (div_data_appid_value = ctx[10].appId)) {
+      if (!current || dirty[0] & /*application*/
+      1024 && div_data_appid_value !== (div_data_appid_value = /*application*/
+      ctx[10].appId)) {
         attr(div, "data-appid", div_data_appid_value);
       }
-      if (applyStyles_action_1 && is_function(applyStyles_action_1.update) && dirty & 256)
-        applyStyles_action_1.update.call(null, ctx[8]);
+      if (applyStyles_action_1 && is_function(applyStyles_action_1.update) && dirty[0] & /*stylesApp*/
+      256)
+        applyStyles_action_1.update.call(
+          null,
+          /*stylesApp*/
+          ctx[8]
+        );
     },
     i(local) {
       if (current)
         return;
       transition_in(tjsapplicationheader.$$.fragment, local);
-      transition_in(if_block);
+      transition_in(default_slot, local);
       transition_in(resizablehandle.$$.fragment, local);
+      transition_in(tjsfocuswrap.$$.fragment, local);
       add_render_callback(() => {
         if (div_outro)
           div_outro.end(1);
-        div_intro = create_in_transition(div, ctx[2], ctx[4]);
+        div_intro = create_in_transition(
+          div,
+          /*inTransition*/
+          ctx[2],
+          /*inTransitionOptions*/
+          ctx[4]
+        );
         div_intro.start();
       });
       current = true;
     },
     o(local) {
       transition_out(tjsapplicationheader.$$.fragment, local);
-      transition_out(if_block);
+      transition_out(default_slot, local);
       transition_out(resizablehandle.$$.fragment, local);
+      transition_out(tjsfocuswrap.$$.fragment, local);
       if (div_intro)
         div_intro.invalidate();
-      div_outro = create_out_transition(div, ctx[3], ctx[5]);
+      div_outro = create_out_transition(
+        div,
+        /*outTransition*/
+        ctx[3],
+        /*outTransitionOptions*/
+        ctx[5]
+      );
       current = false;
     },
     d(detaching) {
       if (detaching)
         detach(div);
       destroy_component(tjsapplicationheader);
-      if_blocks[current_block_type_index].d();
-      ctx[28](null);
+      if (default_slot)
+        default_slot.d(detaching);
+      ctx[37](null);
       destroy_component(resizablehandle);
-      ctx[29](null);
+      destroy_component(tjsfocuswrap);
+      ctx[38](null);
       if (detaching && div_outro)
         div_outro.end();
       mounted = false;
@@ -10888,14 +14044,83 @@ function create_fragment$j(ctx) {
     }
   };
 }
-__name(create_fragment$j, "create_fragment$j");
+function create_fragment$j(ctx) {
+  let current_block_type_index;
+  let if_block;
+  let if_block_anchor;
+  let current;
+  const if_block_creators = [create_if_block$5, create_else_block];
+  const if_blocks = [];
+  function select_block_type(ctx2, dirty) {
+    if (
+      /*inTransition*/
+      ctx2[2] || /*outTransition*/
+      ctx2[3]
+    )
+      return 0;
+    return 1;
+  }
+  current_block_type_index = select_block_type(ctx);
+  if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  return {
+    c() {
+      if_block.c();
+      if_block_anchor = empty();
+    },
+    m(target, anchor) {
+      if_blocks[current_block_type_index].m(target, anchor);
+      insert(target, if_block_anchor, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type(ctx2);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx2, dirty);
+      } else {
+        group_outros();
+        transition_out(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
+        });
+        check_outros();
+        if_block = if_blocks[current_block_type_index];
+        if (!if_block) {
+          if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+          if_block.c();
+        } else {
+          if_block.p(ctx2, dirty);
+        }
+        transition_in(if_block, 1);
+        if_block.m(if_block_anchor.parentNode, if_block_anchor);
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(if_block);
+      current = true;
+    },
+    o(local) {
+      transition_out(if_block);
+      current = false;
+    },
+    d(detaching) {
+      if_blocks[current_block_type_index].d(detaching);
+      if (detaching)
+        detach(if_block_anchor);
+    }
+  };
+}
 function instance$h($$self, $$props, $$invalidate) {
+  let $focusKeep;
+  let $focusAuto;
+  let $minimized;
+  let $focusTrap;
   let { $$slots: slots = {}, $$scope } = $$props;
   let { elementContent = void 0 } = $$props;
   let { elementRoot = void 0 } = $$props;
   let { draggable: draggable2 = void 0 } = $$props;
   let { draggableOptions = void 0 } = $$props;
-  let { children: children2 = void 0 } = $$props;
   let { stylesApp = void 0 } = $$props;
   let { stylesContent = void 0 } = $$props;
   let { appOffsetHeight = false } = $$props;
@@ -10904,41 +14129,91 @@ function instance$h($$self, $$props, $$invalidate) {
   let { contentOffsetHeight = false } = $$props;
   let { contentOffsetWidth = false } = $$props;
   const contentResizeObserver = !!contentOffsetHeight || !!contentOffsetWidth ? resizeObserver : () => null;
-  const bringToTop = /* @__PURE__ */ __name((event) => {
-    if (typeof application.options.popOut === "boolean" && application.options.popOut) {
-      if (application !== ui?.activeWindow) {
-        application.bringToTop.call(application);
-      }
-      if (document.activeElement !== document.body && event.target !== document.activeElement) {
-        if (document.activeElement instanceof HTMLElement) {
-          document.activeElement.blur();
-        }
-        document.body.focus();
-      }
-    }
-  }, "bringToTop");
-  if (!getContext("storeElementContent")) {
-    setContext("storeElementContent", writable$1(elementContent));
-  }
-  if (!getContext("storeElementRoot")) {
-    setContext("storeElementRoot", writable$1(elementRoot));
-  }
-  const context = getContext("external");
-  const application = context.application;
-  const allChildren = Array.isArray(children2) ? children2 : typeof context === "object" ? context.children : void 0;
+  const internal = new AppShellContextInternal();
+  const s_IGNORE_CLASSES = { ignoreClasses: ["tjs-focus-wrap"] };
+  setContext("#internal", internal);
+  const { application } = getContext("#external");
+  const { focusAuto, focusKeep, focusTrap } = application.reactive.storeAppOptions;
+  component_subscribe($$self, focusAuto, (value) => $$invalidate(32, $focusAuto = value));
+  component_subscribe($$self, focusKeep, (value) => $$invalidate(41, $focusKeep = value));
+  component_subscribe($$self, focusTrap, (value) => $$invalidate(34, $focusTrap = value));
+  const { minimized } = application.reactive.storeUIState;
+  component_subscribe($$self, minimized, (value) => $$invalidate(33, $minimized = value));
+  let focusWrapEnabled;
   let { transition = void 0 } = $$props;
-  let { inTransition = s_DEFAULT_TRANSITION } = $$props;
-  let { outTransition = s_DEFAULT_TRANSITION } = $$props;
+  let { inTransition = void 0 } = $$props;
+  let { outTransition = void 0 } = $$props;
   let { transitionOptions = void 0 } = $$props;
   let { inTransitionOptions = s_DEFAULT_TRANSITION_OPTIONS } = $$props;
   let { outTransitionOptions = s_DEFAULT_TRANSITION_OPTIONS } = $$props;
   let oldTransition = void 0;
   let oldTransitionOptions = void 0;
-  function resizeObservedContent(offsetWidth, offsetHeight) {
-    $$invalidate(20, contentOffsetWidth = offsetWidth);
-    $$invalidate(19, contentOffsetHeight = offsetHeight);
+  onMount(() => elementRoot.focus());
+  function onClosePopup(event) {
+    if (!$focusAuto) {
+      return;
+    }
+    const targetEl = event?.detail?.target;
+    if (!(targetEl instanceof HTMLElement)) {
+      return;
+    }
+    if (A11yHelper.isFocusable(targetEl)) {
+      return;
+    }
+    const elementRootContains = elementRoot.contains(targetEl);
+    if (targetEl === elementRoot) {
+      elementRoot.focus();
+    } else if (targetEl === elementContent) {
+      elementContent.focus();
+    } else if (elementRootContains) {
+      if (elementContent.contains(targetEl)) {
+        elementContent.focus();
+      } else {
+        elementRoot.focus();
+      }
+    }
   }
-  __name(resizeObservedContent, "resizeObservedContent");
+  function onKeydown(event) {
+    if (focusWrapEnabled && event.shiftKey && event.code === "Tab") {
+      const allFocusable = A11yHelper.getFocusableElements(elementRoot, s_IGNORE_CLASSES);
+      const firstFocusEl = allFocusable.length > 0 ? allFocusable[0] : void 0;
+      const lastFocusEl = allFocusable.length > 0 ? allFocusable[allFocusable.length - 1] : void 0;
+      if (elementRoot === document.activeElement || firstFocusEl === document.activeElement) {
+        if (lastFocusEl instanceof HTMLElement && firstFocusEl !== lastFocusEl) {
+          lastFocusEl.focus();
+        }
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }
+    if (typeof application?.options?.popOut === "boolean" && application.options.popOut && application !== globalThis.ui?.activeWindow) {
+      application.bringToTop.call(application);
+    }
+  }
+  function onPointerdownApp() {
+    if (typeof application?.options?.popOut === "boolean" && application.options.popOut && application !== globalThis.ui?.activeWindow) {
+      application.bringToTop.call(application);
+    }
+  }
+  function onPointerdownContent(event) {
+    const focusable = A11yHelper.isFocusable(event.target);
+    if (!focusable && $focusAuto) {
+      if ($focusKeep) {
+        const focusOutside = document.activeElement instanceof HTMLElement && !elementRoot.contains(document.activeElement);
+        if (focusOutside) {
+          elementContent.focus();
+        } else {
+          event.preventDefault();
+        }
+      } else {
+        elementContent.focus();
+      }
+    }
+  }
+  function resizeObservedContent(offsetWidth, offsetHeight) {
+    $$invalidate(27, contentOffsetWidth = offsetWidth);
+    $$invalidate(26, contentOffsetHeight = offsetHeight);
+  }
   function resizeObservedApp(offsetWidth, offsetHeight, contentWidth, contentHeight) {
     application.position.stores.resizeObserved.update((object) => {
       object.contentWidth = contentWidth;
@@ -10947,24 +14222,33 @@ function instance$h($$self, $$props, $$invalidate) {
       object.offsetHeight = offsetHeight;
       return object;
     });
-    $$invalidate(17, appOffsetHeight = offsetHeight);
-    $$invalidate(18, appOffsetWidth = offsetWidth);
+    $$invalidate(24, appOffsetHeight = offsetHeight);
+    $$invalidate(25, appOffsetWidth = offsetWidth);
   }
-  __name(resizeObservedApp, "resizeObservedApp");
   function section_binding($$value) {
     binding_callbacks[$$value ? "unshift" : "push"](() => {
       elementContent = $$value;
       $$invalidate(0, elementContent);
     });
   }
-  __name(section_binding, "section_binding");
   function div_binding($$value) {
     binding_callbacks[$$value ? "unshift" : "push"](() => {
       elementRoot = $$value;
       $$invalidate(1, elementRoot);
     });
   }
-  __name(div_binding, "div_binding");
+  function section_binding_1($$value) {
+    binding_callbacks[$$value ? "unshift" : "push"](() => {
+      elementContent = $$value;
+      $$invalidate(0, elementContent);
+    });
+  }
+  function div_binding_1($$value) {
+    binding_callbacks[$$value ? "unshift" : "push"](() => {
+      elementRoot = $$value;
+      $$invalidate(1, elementRoot);
+    });
+  }
   $$self.$$set = ($$props2) => {
     if ("elementContent" in $$props2)
       $$invalidate(0, elementContent = $$props2.elementContent);
@@ -10974,83 +14258,94 @@ function instance$h($$self, $$props, $$invalidate) {
       $$invalidate(6, draggable2 = $$props2.draggable);
     if ("draggableOptions" in $$props2)
       $$invalidate(7, draggableOptions = $$props2.draggableOptions);
-    if ("children" in $$props2)
-      $$invalidate(21, children2 = $$props2.children);
     if ("stylesApp" in $$props2)
       $$invalidate(8, stylesApp = $$props2.stylesApp);
     if ("stylesContent" in $$props2)
       $$invalidate(9, stylesContent = $$props2.stylesContent);
     if ("appOffsetHeight" in $$props2)
-      $$invalidate(17, appOffsetHeight = $$props2.appOffsetHeight);
+      $$invalidate(24, appOffsetHeight = $$props2.appOffsetHeight);
     if ("appOffsetWidth" in $$props2)
-      $$invalidate(18, appOffsetWidth = $$props2.appOffsetWidth);
+      $$invalidate(25, appOffsetWidth = $$props2.appOffsetWidth);
     if ("contentOffsetHeight" in $$props2)
-      $$invalidate(19, contentOffsetHeight = $$props2.contentOffsetHeight);
+      $$invalidate(26, contentOffsetHeight = $$props2.contentOffsetHeight);
     if ("contentOffsetWidth" in $$props2)
-      $$invalidate(20, contentOffsetWidth = $$props2.contentOffsetWidth);
+      $$invalidate(27, contentOffsetWidth = $$props2.contentOffsetWidth);
     if ("transition" in $$props2)
-      $$invalidate(22, transition = $$props2.transition);
+      $$invalidate(28, transition = $$props2.transition);
     if ("inTransition" in $$props2)
       $$invalidate(2, inTransition = $$props2.inTransition);
     if ("outTransition" in $$props2)
       $$invalidate(3, outTransition = $$props2.outTransition);
     if ("transitionOptions" in $$props2)
-      $$invalidate(23, transitionOptions = $$props2.transitionOptions);
+      $$invalidate(29, transitionOptions = $$props2.transitionOptions);
     if ("inTransitionOptions" in $$props2)
       $$invalidate(4, inTransitionOptions = $$props2.inTransitionOptions);
     if ("outTransitionOptions" in $$props2)
       $$invalidate(5, outTransitionOptions = $$props2.outTransitionOptions);
     if ("$$scope" in $$props2)
-      $$invalidate(26, $$scope = $$props2.$$scope);
+      $$invalidate(35, $$scope = $$props2.$$scope);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & 1) {
+    if ($$self.$$.dirty[0] & /*elementContent*/
+    1) {
       if (elementContent !== void 0 && elementContent !== null) {
-        getContext("storeElementContent").set(elementContent);
+        getContext("#internal").stores.elementContent.set(elementContent);
       }
     }
-    if ($$self.$$.dirty & 2) {
+    if ($$self.$$.dirty[0] & /*elementRoot*/
+    2) {
       if (elementRoot !== void 0 && elementRoot !== null) {
-        getContext("storeElementRoot").set(elementRoot);
+        getContext("#internal").stores.elementRoot.set(elementRoot);
       }
     }
-    if ($$self.$$.dirty & 20971520) {
+    if ($$self.$$.dirty[1] & /*$focusAuto, $focusTrap, $minimized*/
+    14) {
+      $$invalidate(11, focusWrapEnabled = $focusAuto && $focusTrap && !$minimized);
+    }
+    if ($$self.$$.dirty[0] & /*oldTransition, transition*/
+    1342177280) {
       if (oldTransition !== transition) {
-        const newTransition = s_DEFAULT_TRANSITION !== transition && typeof transition === "function" ? transition : s_DEFAULT_TRANSITION;
+        const newTransition = typeof transition === "function" ? transition : void 0;
         $$invalidate(2, inTransition = newTransition);
         $$invalidate(3, outTransition = newTransition);
-        $$invalidate(24, oldTransition = newTransition);
+        $$invalidate(30, oldTransition = newTransition);
       }
     }
-    if ($$self.$$.dirty & 41943040) {
+    if ($$self.$$.dirty[0] & /*transitionOptions*/
+    536870912 | $$self.$$.dirty[1] & /*oldTransitionOptions*/
+    1) {
       if (oldTransitionOptions !== transitionOptions) {
-        const newOptions = transitionOptions !== s_DEFAULT_TRANSITION_OPTIONS && typeof transitionOptions === "object" ? transitionOptions : s_DEFAULT_TRANSITION_OPTIONS;
+        const newOptions = transitionOptions !== s_DEFAULT_TRANSITION_OPTIONS && isObject$1(transitionOptions) ? transitionOptions : s_DEFAULT_TRANSITION_OPTIONS;
         $$invalidate(4, inTransitionOptions = newOptions);
         $$invalidate(5, outTransitionOptions = newOptions);
-        $$invalidate(25, oldTransitionOptions = newOptions);
+        $$invalidate(31, oldTransitionOptions = newOptions);
       }
     }
-    if ($$self.$$.dirty & 4) {
+    if ($$self.$$.dirty[0] & /*inTransition*/
+    4) {
       if (typeof inTransition !== "function") {
-        $$invalidate(2, inTransition = s_DEFAULT_TRANSITION);
+        $$invalidate(2, inTransition = void 0);
       }
     }
-    if ($$self.$$.dirty & 1032) {
+    if ($$self.$$.dirty[0] & /*outTransition, application*/
+    1032) {
       {
         if (typeof outTransition !== "function") {
-          $$invalidate(3, outTransition = s_DEFAULT_TRANSITION);
+          $$invalidate(3, outTransition = void 0);
         }
         if (application && typeof application?.options?.defaultCloseAnimation === "boolean") {
-          $$invalidate(10, application.options.defaultCloseAnimation = outTransition === s_DEFAULT_TRANSITION, application);
+          $$invalidate(10, application.options.defaultCloseAnimation = outTransition === void 0, application);
         }
       }
     }
-    if ($$self.$$.dirty & 16) {
+    if ($$self.$$.dirty[0] & /*inTransitionOptions*/
+    16) {
       if (typeof inTransitionOptions !== "object") {
         $$invalidate(4, inTransitionOptions = s_DEFAULT_TRANSITION_OPTIONS);
       }
     }
-    if ($$self.$$.dirty & 32) {
+    if ($$self.$$.dirty[0] & /*outTransitionOptions*/
+    32) {
       if (typeof outTransitionOptions !== "object") {
         $$invalidate(5, outTransitionOptions = s_DEFAULT_TRANSITION_OPTIONS);
       }
@@ -11068,50 +14363,68 @@ function instance$h($$self, $$props, $$invalidate) {
     stylesApp,
     stylesContent,
     application,
+    focusWrapEnabled,
     appResizeObserver,
     contentResizeObserver,
-    bringToTop,
-    allChildren,
+    focusAuto,
+    focusKeep,
+    focusTrap,
+    minimized,
+    onClosePopup,
+    onKeydown,
+    onPointerdownApp,
+    onPointerdownContent,
     resizeObservedContent,
     resizeObservedApp,
     appOffsetHeight,
     appOffsetWidth,
     contentOffsetHeight,
     contentOffsetWidth,
-    children2,
     transition,
     transitionOptions,
     oldTransition,
     oldTransitionOptions,
+    $focusAuto,
+    $minimized,
+    $focusTrap,
     $$scope,
     slots,
     section_binding,
-    div_binding
+    div_binding,
+    section_binding_1,
+    div_binding_1
   ];
 }
-__name(instance$h, "instance$h");
 class ApplicationShell extends SvelteComponent {
   constructor(options) {
     super();
-    init$1(this, options, instance$h, create_fragment$j, safe_not_equal, {
-      elementContent: 0,
-      elementRoot: 1,
-      draggable: 6,
-      draggableOptions: 7,
-      children: 21,
-      stylesApp: 8,
-      stylesContent: 9,
-      appOffsetHeight: 17,
-      appOffsetWidth: 18,
-      contentOffsetHeight: 19,
-      contentOffsetWidth: 20,
-      transition: 22,
-      inTransition: 2,
-      outTransition: 3,
-      transitionOptions: 23,
-      inTransitionOptions: 4,
-      outTransitionOptions: 5
-    });
+    init$1(
+      this,
+      options,
+      instance$h,
+      create_fragment$j,
+      safe_not_equal,
+      {
+        elementContent: 0,
+        elementRoot: 1,
+        draggable: 6,
+        draggableOptions: 7,
+        stylesApp: 8,
+        stylesContent: 9,
+        appOffsetHeight: 24,
+        appOffsetWidth: 25,
+        contentOffsetHeight: 26,
+        contentOffsetWidth: 27,
+        transition: 28,
+        inTransition: 2,
+        outTransition: 3,
+        transitionOptions: 29,
+        inTransitionOptions: 4,
+        outTransitionOptions: 5
+      },
+      null,
+      [-1, -1]
+    );
   }
   get elementContent() {
     return this.$$.ctx[0];
@@ -11141,13 +14454,6 @@ class ApplicationShell extends SvelteComponent {
     this.$$set({ draggableOptions });
     flush();
   }
-  get children() {
-    return this.$$.ctx[21];
-  }
-  set children(children2) {
-    this.$$set({ children: children2 });
-    flush();
-  }
   get stylesApp() {
     return this.$$.ctx[8];
   }
@@ -11163,35 +14469,35 @@ class ApplicationShell extends SvelteComponent {
     flush();
   }
   get appOffsetHeight() {
-    return this.$$.ctx[17];
+    return this.$$.ctx[24];
   }
   set appOffsetHeight(appOffsetHeight) {
     this.$$set({ appOffsetHeight });
     flush();
   }
   get appOffsetWidth() {
-    return this.$$.ctx[18];
+    return this.$$.ctx[25];
   }
   set appOffsetWidth(appOffsetWidth) {
     this.$$set({ appOffsetWidth });
     flush();
   }
   get contentOffsetHeight() {
-    return this.$$.ctx[19];
+    return this.$$.ctx[26];
   }
   set contentOffsetHeight(contentOffsetHeight) {
     this.$$set({ contentOffsetHeight });
     flush();
   }
   get contentOffsetWidth() {
-    return this.$$.ctx[20];
+    return this.$$.ctx[27];
   }
   set contentOffsetWidth(contentOffsetWidth) {
     this.$$set({ contentOffsetWidth });
     flush();
   }
   get transition() {
-    return this.$$.ctx[22];
+    return this.$$.ctx[28];
   }
   set transition(transition) {
     this.$$set({ transition });
@@ -11212,7 +14518,7 @@ class ApplicationShell extends SvelteComponent {
     flush();
   }
   get transitionOptions() {
-    return this.$$.ctx[23];
+    return this.$$.ctx[29];
   }
   set transitionOptions(transitionOptions) {
     this.$$set({ transitionOptions });
@@ -11233,9 +14539,15 @@ class ApplicationShell extends SvelteComponent {
     flush();
   }
 }
-__name(ApplicationShell, "ApplicationShell");
+const EmptyApplicationShell_svelte_svelte_type_style_lang = "";
 const TJSApplicationShell_svelte_svelte_type_style_lang = "";
 const DialogContent_svelte_svelte_type_style_lang = "";
+cssVariables$1.setProperties({
+  // Anchor text shadow / header buttons
+  "--tjs-default-text-shadow-focus-hover": "0 0 8px var(--color-shadow-primary)",
+  // TJSApplicationShell app background.
+  "--tjs-app-background": `url("${globalThis.foundry.utils.getRoute("/ui/denim075.png")}")`
+}, false);
 Hooks.on("PopOut:loading", (app) => {
   if (app instanceof SvelteApplication) {
     app.position.enabled = false;
@@ -11251,14 +14563,20 @@ Hooks.on("PopOut:close", (app) => {
     app.position.enabled = true;
   }
 });
-function ripple({ duration = 600, background = "rgba(255, 255, 255, 0.7)", event = "click", debounce: debounce$1$1 } = {}) {
+function ripple({
+  duration = 600,
+  background = "rgba(255, 255, 255, 0.7)",
+  events = ["click", "keyup"],
+  keyCode = "Enter",
+  debounce: debounce$1$1
+} = {}) {
   return (element2) => {
     function createRipple(e) {
       const elementRect = element2.getBoundingClientRect();
       const diameter = Math.max(elementRect.width, elementRect.height);
       const radius2 = diameter / 2;
-      const left = `${e.clientX - (elementRect.left + radius2)}px`;
-      const top = `${e.clientY - (elementRect.top + radius2)}px`;
+      const left = e.clientX ? `${e.clientX - (elementRect.left + radius2)}px` : "0";
+      const top = e.clientY ? `${e.clientY - (elementRect.top + radius2)}px` : "0";
       const span = document.createElement("span");
       span.style.position = "absolute";
       span.style.width = `${diameter}px`;
@@ -11273,11 +14591,13 @@ function ripple({ duration = 600, background = "rgba(255, 255, 255, 0.7)", event
       const animation = span.animate(
         [
           {
+            // from
             transform: "scale(.7)",
             opacity: 0.5,
             filter: "blur(2px)"
           },
           {
+            // to
             transform: "scale(4)",
             opacity: 0,
             filter: "blur(5px)"
@@ -11285,17 +14605,39 @@ function ripple({ duration = 600, background = "rgba(255, 255, 255, 0.7)", event
         ],
         duration
       );
-      animation.onfinish = () => span.remove();
+      animation.onfinish = () => {
+        if (span && span.isConnected) {
+          span.remove();
+        }
+      };
     }
-    __name(createRipple, "createRipple");
+    function keyHandler(event) {
+      if (event?.code === keyCode) {
+        createRipple(event);
+      }
+    }
     const eventFn = Number.isInteger(debounce$1$1) && debounce$1$1 > 0 ? debounce$1(createRipple, debounce$1$1) : createRipple;
-    element2.addEventListener(event, eventFn);
+    const keyEventFn = Number.isInteger(debounce$1$1) && debounce$1$1 > 0 ? debounce$1(keyHandler, debounce$1$1) : keyHandler;
+    for (const event of events) {
+      if (["keydown", "keyup"].includes(event)) {
+        element2.addEventListener(event, keyEventFn);
+      } else {
+        element2.addEventListener(event, eventFn);
+      }
+    }
     return {
-      destroy: () => element2.removeEventListener(event, eventFn)
+      destroy: () => {
+        for (const event of events) {
+          if (["keydown", "keyup"].includes(event)) {
+            element2.removeEventListener(event, keyEventFn);
+          } else {
+            element2.removeEventListener(event, eventFn);
+          }
+        }
+      }
     };
   };
 }
-__name(ripple, "ripple");
 function rippleFocus({ duration = 300, background = "rgba(255, 255, 255, 0.7)", selectors } = {}) {
   return (element2) => {
     const targetEl = typeof selectors === "string" ? element2.querySelector(selectors) : element2.firstChild instanceof HTMLElement ? element2.firstChild : element2;
@@ -11309,10 +14651,12 @@ function rippleFocus({ duration = 300, background = "rgba(255, 255, 255, 0.7)", 
       const animation = span.animate(
         [
           {
+            // from
             transform: "scale(3)",
             opacity: 0.3
           },
           {
+            // to
             transform: "scale(.7)",
             opacity: 0
           }
@@ -11324,11 +14668,12 @@ function rippleFocus({ duration = 300, background = "rgba(255, 255, 255, 0.7)", 
       );
       animation.onfinish = () => {
         clientX = clientY = -1;
-        span.remove();
+        if (span && span.isConnected) {
+          span.remove();
+        }
         span = void 0;
       };
     }
-    __name(blurRipple, "blurRipple");
     function focusRipple() {
       if (span instanceof HTMLElement) {
         return;
@@ -11354,10 +14699,12 @@ function rippleFocus({ duration = 300, background = "rgba(255, 255, 255, 0.7)", 
       span.animate(
         [
           {
+            // from
             transform: "scale(.7)",
             opacity: 0.5
           },
           {
+            // to
             transform: "scale(3)",
             opacity: 0.3
           }
@@ -11368,12 +14715,10 @@ function rippleFocus({ duration = 300, background = "rgba(255, 255, 255, 0.7)", 
         }
       );
     }
-    __name(focusRipple, "focusRipple");
     function onPointerDown(e) {
       clientX = e.clientX;
       clientY = e.clientY;
     }
-    __name(onPointerDown, "onPointerDown");
     targetEl.addEventListener("pointerdown", onPointerDown);
     targetEl.addEventListener("blur", blurRipple);
     targetEl.addEventListener("focus", focusRipple);
@@ -11386,7 +14731,6 @@ function rippleFocus({ duration = 300, background = "rgba(255, 255, 255, 0.7)", 
     };
   };
 }
-__name(rippleFocus, "rippleFocus");
 function createFilterQuery(properties, { caseSensitive = false, store } = {}) {
   let keyword = "";
   let regex;
@@ -11418,7 +14762,6 @@ function createFilterQuery(properties, { caseSensitive = false, store } = {}) {
       return regex.test(normalizeString(data?.[properties]));
     }
   }
-  __name(filterQuery, "filterQuery");
   filterQuery.subscribe = (handler) => {
     return storeKeyword.subscribe(handler);
   };
@@ -11431,8 +14774,7 @@ function createFilterQuery(properties, { caseSensitive = false, store } = {}) {
   };
   return filterQuery;
 }
-__name(createFilterQuery, "createFilterQuery");
-const mccSessionStorage = new SessionStorage();
+const mccSessionStorage = new TJSSessionStorage();
 function createAccessorStore(target, accessor, initial) {
   if (!hasSetter(target, accessor)) {
     throw new TypeError(`Accessor '${accessor} is not available on target.`);
@@ -11441,20 +14783,25 @@ function createAccessorStore(target, accessor, initial) {
   target[accessor] = mccSessionStorage.getItem(sessionKey, initial);
   const mccSessionStore = mccSessionStorage.getStore(sessionKey, initial);
   return {
+    /**
+     * @param {T => void} handler
+     * @returns {import("svelte/store").Unsubscriber} Unsubscriber
+     */
     subscribe: (handler) => mccSessionStore.subscribe(handler),
+    /**
+     * @param {T} value
+     */
     set: (value) => {
       target[accessor] = value;
       mccSessionStore.set(value);
     }
   };
 }
-__name(createAccessorStore, "createAccessorStore");
 let active = mccSessionStorage.getItem("mcc.active", false);
 const storeActive = mccSessionStorage.getStore("mcc.active", active);
 function filterActive(row) {
   return !active || game.modules.get(row.id)?.active;
 }
-__name(filterActive, "filterActive");
 filterActive.subscribe = (handler) => storeActive.subscribe(handler);
 filterActive.set = (value) => {
   active = value;
@@ -11512,7 +14859,6 @@ storeStatuses.reset = () => {
 function filterStatuses(row) {
   return storeStatuses.getVisible(row.status) ?? false;
 }
-__name(filterStatuses, "filterStatuses");
 filterStatuses.subscribe = (handler) => storeStatuses.subscribe(handler);
 filterStatuses.getVisible = storeStatuses.getVisible;
 filterStatuses.reset = storeStatuses.reset;
@@ -11531,14 +14877,18 @@ function sortByHeader(a, b) {
   }
   return 0;
 }
-__name(sortByHeader, "sortByHeader");
 sortByHeader.subscribe = (handler) => storeSortBy.subscribe(handler);
 sortByHeader.set = (value) => {
   sortBy = value;
   storeSortBy.set(sortBy);
 };
 class SpreadsheetStore extends DynArrayReducer {
+  /** @type {Map<string, PackageLinkData>} */
   #packageLinks = /* @__PURE__ */ new Map();
+  /**
+   * Stores pie chart data; further data is initialized at runtime
+   * @type {PieChartData}
+   */
   #pieData = {
     datasets: [
       {
@@ -11551,8 +14901,11 @@ class SpreadsheetStore extends DynArrayReducer {
       }
     ]
   };
+  /** @type {string} */
   #version;
+  /** @type {string[]} */
   #versions = [];
+  /** @type {SpreadsheetStores} */
   #stores;
   constructor() {
     super();
@@ -11589,18 +14942,33 @@ class SpreadsheetStore extends DynArrayReducer {
       this.#stores.pieData.set(this.#pieData);
     });
   }
+  /**
+   * @returns {SpreadsheetStores} All child stores
+   */
   get stores() {
     return this.#stores;
   }
+  /**
+   * @returns {string} Current spreadsheet version
+   */
   get version() {
     return this.#version;
   }
+  /**
+   * @param {string} version New spreadsheet version
+   */
   set version(version2) {
     this.#version = version2;
   }
+  /**
+   * @returns {string[]} All spreadsheet versions
+   */
   get versions() {
     return this.#versions;
   }
+  /**
+   * Parses and builds all package data for any links to show on context menu click
+   */
   buildPackageLinks() {
     const packageList = SpreadsheetController.getModuleList();
     for (const data of packageList) {
@@ -11612,9 +14980,17 @@ class SpreadsheetStore extends DynArrayReducer {
       }
     }
   }
+  /**
+   * Returns the package link data for the given package ID
+   * @param {string}	id - Package ID
+   * @returns {PackageLinkData} Any package link data
+   */
   getPackageLinks(id) {
     return this.#packageLinks.get(id);
   }
+  /**
+   * Resets the search and status filters
+   */
   resetFilters() {
     this.#stores.filterSearch.set("");
     this.#stores.statuses.reset();
@@ -11633,7 +15009,6 @@ class SpreadsheetStore extends DynArrayReducer {
     return this.update();
   }
 }
-__name(SpreadsheetStore, "SpreadsheetStore");
 const Loading_svelte_svelte_type_style_lang = "";
 function create_fragment$i(ctx) {
   let main;
@@ -11647,8 +15022,8 @@ function create_fragment$i(ctx) {
       h4.textContent = `${localize("mcc.loading")}`;
       t1 = space();
       progress = element("progress");
-      attr(h4, "class", "svelte-1htrh3z");
-      attr(main, "class", "svelte-1htrh3z");
+      attr(h4, "class", "svelte-mcc-1htrh3z");
+      attr(main, "class", "svelte-mcc-1htrh3z");
     },
     m(target, anchor) {
       insert(target, main, anchor);
@@ -11665,14 +15040,12 @@ function create_fragment$i(ctx) {
     }
   };
 }
-__name(create_fragment$i, "create_fragment$i");
 class Loading extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, null, create_fragment$i, safe_not_equal, {});
   }
 }
-__name(Loading, "Loading");
 const Error_svelte_svelte_type_style_lang = "";
 function create_fragment$h(ctx) {
   let main;
@@ -11694,7 +15067,10 @@ function create_fragment$h(ctx) {
       i0 = element("i");
       t0 = space();
       pre = element("pre");
-      t1 = text(ctx[0]);
+      t1 = text(
+        /*error*/
+        ctx[0]
+      );
       t2 = space();
       p = element("p");
       p.textContent = `${localize("mcc.error")}`;
@@ -11703,11 +15079,11 @@ function create_fragment$h(ctx) {
       t5 = text(t5_value);
       t6 = space();
       i1 = element("i");
-      attr(i0, "class", "fas fa-exclamation-triangle svelte-pmuzal");
-      attr(pre, "class", "svelte-pmuzal");
+      attr(i0, "class", "fas fa-exclamation-triangle svelte-mcc-pmuzal");
+      attr(pre, "class", "svelte-mcc-pmuzal");
       attr(i1, "class", "fas fa-external-link-alt");
       attr(a, "href", game.modules.get("mcc").data.bugs);
-      attr(main, "class", "svelte-pmuzal");
+      attr(main, "class", "svelte-mcc-pmuzal");
     },
     m(target, anchor) {
       insert(target, main, anchor);
@@ -11724,8 +15100,13 @@ function create_fragment$h(ctx) {
       append(a, i1);
     },
     p(ctx2, [dirty]) {
-      if (dirty & 1)
-        set_data(t1, ctx2[0]);
+      if (dirty & /*error*/
+      1)
+        set_data(
+          t1,
+          /*error*/
+          ctx2[0]
+        );
     },
     i: noop$1,
     o: noop$1,
@@ -11735,7 +15116,6 @@ function create_fragment$h(ctx) {
     }
   };
 }
-__name(create_fragment$h, "create_fragment$h");
 function instance$g($$self, $$props, $$invalidate) {
   let { error = "" } = $$props;
   console.error(error);
@@ -11745,14 +15125,12 @@ function instance$g($$self, $$props, $$invalidate) {
   };
   return [error];
 }
-__name(instance$g, "instance$g");
-class Error$1 extends SvelteComponent {
+let Error$1 = class Error2 extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance$g, create_fragment$h, safe_not_equal, { error: 0 });
   }
-}
-__name(Error$1, "Error$1");
+};
 const Reminder_svelte_svelte_type_style_lang = "";
 function create_fragment$g(ctx) {
   let div;
@@ -11760,7 +15138,7 @@ function create_fragment$g(ctx) {
     c() {
       div = element("div");
       div.textContent = `${localize("mcc.reminder")}`;
-      attr(div, "class", "notification svelte-9j81xn");
+      attr(div, "class", "notification svelte-mcc-9j81xn");
     },
     m(target, anchor) {
       insert(target, div, anchor);
@@ -11774,14 +15152,12 @@ function create_fragment$g(ctx) {
     }
   };
 }
-__name(create_fragment$g, "create_fragment$g");
 class Reminder extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, null, create_fragment$g, safe_not_equal, {});
   }
 }
-__name(Reminder, "Reminder");
 /*!
  * Chart.js v3.9.1
  * https://www.chartjs.org
@@ -11790,7 +15166,6 @@ __name(Reminder, "Reminder");
  */
 function noop() {
 }
-__name(noop, "noop");
 const uid = function() {
   let id = 0;
   return function() {
@@ -11800,7 +15175,6 @@ const uid = function() {
 function isNullOrUndef(value) {
   return value === null || typeof value === "undefined";
 }
-__name(isNullOrUndef, "isNullOrUndef");
 function isArray(value) {
   if (Array.isArray && Array.isArray(value)) {
     return true;
@@ -11811,28 +15185,23 @@ function isArray(value) {
   }
   return false;
 }
-__name(isArray, "isArray");
 function isObject(value) {
   return value !== null && Object.prototype.toString.call(value) === "[object Object]";
 }
-__name(isObject, "isObject");
-const isNumberFinite = /* @__PURE__ */ __name((value) => (typeof value === "number" || value instanceof Number) && isFinite(+value), "isNumberFinite");
+const isNumberFinite = (value) => (typeof value === "number" || value instanceof Number) && isFinite(+value);
 function finiteOrDefault(value, defaultValue) {
   return isNumberFinite(value) ? value : defaultValue;
 }
-__name(finiteOrDefault, "finiteOrDefault");
 function valueOrDefault(value, defaultValue) {
   return typeof value === "undefined" ? defaultValue : value;
 }
-__name(valueOrDefault, "valueOrDefault");
-const toPercentage = /* @__PURE__ */ __name((value, dimension) => typeof value === "string" && value.endsWith("%") ? parseFloat(value) / 100 : value / dimension, "toPercentage");
-const toDimension = /* @__PURE__ */ __name((value, dimension) => typeof value === "string" && value.endsWith("%") ? parseFloat(value) / 100 * dimension : +value, "toDimension");
+const toPercentage = (value, dimension) => typeof value === "string" && value.endsWith("%") ? parseFloat(value) / 100 : value / dimension;
+const toDimension = (value, dimension) => typeof value === "string" && value.endsWith("%") ? parseFloat(value) / 100 * dimension : +value;
 function callback(fn, args, thisArg) {
   if (fn && typeof fn.call === "function") {
     return fn.apply(thisArg, args);
   }
 }
-__name(callback, "callback");
 function each(loopable, fn, thisArg, reverse) {
   let i, len, keys;
   if (isArray(loopable)) {
@@ -11854,7 +15223,6 @@ function each(loopable, fn, thisArg, reverse) {
     }
   }
 }
-__name(each, "each");
 function _elementsEqual(a0, a1) {
   let i, ilen, v0, v1;
   if (!a0 || !a1 || a0.length !== a1.length) {
@@ -11869,7 +15237,6 @@ function _elementsEqual(a0, a1) {
   }
   return true;
 }
-__name(_elementsEqual, "_elementsEqual");
 function clone$1(source) {
   if (isArray(source)) {
     return source.map(clone$1);
@@ -11886,11 +15253,9 @@ function clone$1(source) {
   }
   return source;
 }
-__name(clone$1, "clone$1");
 function isValidKey(key) {
   return ["__proto__", "prototype", "constructor"].indexOf(key) === -1;
 }
-__name(isValidKey, "isValidKey");
 function _merger(key, target, source, options) {
   if (!isValidKey(key)) {
     return;
@@ -11903,7 +15268,6 @@ function _merger(key, target, source, options) {
     target[key] = clone$1(sval);
   }
 }
-__name(_merger, "_merger");
 function merge(target, source, options) {
   const sources = isArray(source) ? source : [source];
   const ilen = sources.length;
@@ -11924,11 +15288,9 @@ function merge(target, source, options) {
   }
   return target;
 }
-__name(merge, "merge");
 function mergeIf(target, source) {
   return merge(target, source, { merger: _mergerIf });
 }
-__name(mergeIf, "mergeIf");
 function _mergerIf(key, target, source) {
   if (!isValidKey(key)) {
     return;
@@ -11941,7 +15303,6 @@ function _mergerIf(key, target, source) {
     target[key] = clone$1(sval);
   }
 }
-__name(_mergerIf, "_mergerIf");
 const keyResolvers = {
   "": (v) => v,
   x: (o) => o.x,
@@ -11951,7 +15312,6 @@ function resolveObjectKey(obj, key) {
   const resolver = keyResolvers[key] || (keyResolvers[key] = _getKeyResolver(key));
   return resolver(obj);
 }
-__name(resolveObjectKey, "resolveObjectKey");
 function _getKeyResolver(key) {
   const keys = _splitKey(key);
   return (obj) => {
@@ -11964,7 +15324,6 @@ function _getKeyResolver(key) {
     return obj;
   };
 }
-__name(_getKeyResolver, "_getKeyResolver");
 function _splitKey(key) {
   const parts = key.split(".");
   const keys = [];
@@ -11980,14 +15339,12 @@ function _splitKey(key) {
   }
   return keys;
 }
-__name(_splitKey, "_splitKey");
 function _capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
-__name(_capitalize, "_capitalize");
-const defined = /* @__PURE__ */ __name((value) => typeof value !== "undefined", "defined");
-const isFunction = /* @__PURE__ */ __name((value) => typeof value === "function", "isFunction");
-const setsEqual = /* @__PURE__ */ __name((a, b) => {
+const defined = (value) => typeof value !== "undefined";
+const isFunction = (value) => typeof value === "function";
+const setsEqual = (a, b) => {
   if (a.size !== b.size) {
     return false;
   }
@@ -11997,11 +15354,10 @@ const setsEqual = /* @__PURE__ */ __name((a, b) => {
     }
   }
   return true;
-}, "setsEqual");
+};
 function _isClickEvent(e) {
   return e.type === "mouseup" || e.type === "click" || e.type === "contextmenu";
 }
-__name(_isClickEvent, "_isClickEvent");
 const PI = Math.PI;
 const TAU = 2 * PI;
 const PITAU = TAU + PI;
@@ -12020,7 +15376,6 @@ function niceNum(range) {
   const niceFraction = fraction <= 1 ? 1 : fraction <= 2 ? 2 : fraction <= 5 ? 5 : 10;
   return niceFraction * niceRange;
 }
-__name(niceNum, "niceNum");
 function _factorize(value) {
   const result = [];
   const sqrt = Math.sqrt(value);
@@ -12037,20 +15392,16 @@ function _factorize(value) {
   result.sort((a, b) => a - b).pop();
   return result;
 }
-__name(_factorize, "_factorize");
 function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
-__name(isNumber, "isNumber");
 function almostEquals(x, y, epsilon) {
   return Math.abs(x - y) < epsilon;
 }
-__name(almostEquals, "almostEquals");
 function almostWhole(x, epsilon) {
   const rounded = Math.round(x);
   return rounded - epsilon <= x && rounded + epsilon >= x;
 }
-__name(almostWhole, "almostWhole");
 function _setMinAndMaxByKey(array, target, property) {
   let i, ilen, value;
   for (i = 0, ilen = array.length; i < ilen; i++) {
@@ -12061,15 +15412,12 @@ function _setMinAndMaxByKey(array, target, property) {
     }
   }
 }
-__name(_setMinAndMaxByKey, "_setMinAndMaxByKey");
 function toRadians(degrees) {
   return degrees * (PI / 180);
 }
-__name(toRadians, "toRadians");
 function toDegrees(radians) {
   return radians * (180 / PI);
 }
-__name(toDegrees, "toDegrees");
 function _decimalPlaces(x) {
   if (!isNumberFinite(x)) {
     return;
@@ -12082,7 +15430,6 @@ function _decimalPlaces(x) {
   }
   return p;
 }
-__name(_decimalPlaces, "_decimalPlaces");
 function getAngleFromPoint(centrePoint, anglePoint) {
   const distanceFromXCenter = anglePoint.x - centrePoint.x;
   const distanceFromYCenter = anglePoint.y - centrePoint.y;
@@ -12096,19 +15443,15 @@ function getAngleFromPoint(centrePoint, anglePoint) {
     distance: radialDistanceFromCenter
   };
 }
-__name(getAngleFromPoint, "getAngleFromPoint");
 function distanceBetweenPoints(pt1, pt2) {
   return Math.sqrt(Math.pow(pt2.x - pt1.x, 2) + Math.pow(pt2.y - pt1.y, 2));
 }
-__name(distanceBetweenPoints, "distanceBetweenPoints");
 function _angleDiff(a, b) {
   return (a - b + PITAU) % TAU - PI;
 }
-__name(_angleDiff, "_angleDiff");
 function _normalizeAngle(a) {
   return (a % TAU + TAU) % TAU;
 }
-__name(_normalizeAngle, "_normalizeAngle");
 function _angleBetween(angle, start, end, sameAngleIsFullCircle) {
   const a = _normalizeAngle(angle);
   const s = _normalizeAngle(start);
@@ -12119,19 +15462,15 @@ function _angleBetween(angle, start, end, sameAngleIsFullCircle) {
   const endToAngle = _normalizeAngle(a - e);
   return a === s || a === e || sameAngleIsFullCircle && s === e || angleToStart > angleToEnd && startToAngle < endToAngle;
 }
-__name(_angleBetween, "_angleBetween");
 function _limitValue(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
-__name(_limitValue, "_limitValue");
 function _int16Range(value) {
   return _limitValue(value, -32768, 32767);
 }
-__name(_int16Range, "_int16Range");
 function _isBetween(value, start, end, epsilon = 1e-6) {
   return value >= Math.min(start, end) - epsilon && value <= Math.max(start, end) + epsilon;
 }
-__name(_isBetween, "_isBetween");
 function _lookup(table, value, cmp) {
   cmp = cmp || ((index2) => table[index2] < value);
   let hi = table.length - 1;
@@ -12147,9 +15486,8 @@ function _lookup(table, value, cmp) {
   }
   return { lo, hi };
 }
-__name(_lookup, "_lookup");
-const _lookupByKey = /* @__PURE__ */ __name((table, key, value, last) => _lookup(table, value, last ? (index2) => table[index2][key] <= value : (index2) => table[index2][key] < value), "_lookupByKey");
-const _rlookupByKey = /* @__PURE__ */ __name((table, key, value) => _lookup(table, value, (index2) => table[index2][key] >= value), "_rlookupByKey");
+const _lookupByKey = (table, key, value, last) => _lookup(table, value, last ? (index2) => table[index2][key] <= value : (index2) => table[index2][key] < value);
+const _rlookupByKey = (table, key, value) => _lookup(table, value, (index2) => table[index2][key] >= value);
 function _filterBetween(values, min, max) {
   let start = 0;
   let end = values.length;
@@ -12161,7 +15499,6 @@ function _filterBetween(values, min, max) {
   }
   return start > 0 || end < values.length ? values.slice(start, end) : values;
 }
-__name(_filterBetween, "_filterBetween");
 const arrayEvents = ["push", "pop", "shift", "splice", "unshift"];
 function listenArrayEvents(array, listener) {
   if (array._chartjs) {
@@ -12193,7 +15530,6 @@ function listenArrayEvents(array, listener) {
     });
   });
 }
-__name(listenArrayEvents, "listenArrayEvents");
 function unlistenArrayEvents(array, listener) {
   const stub = array._chartjs;
   if (!stub) {
@@ -12212,7 +15548,6 @@ function unlistenArrayEvents(array, listener) {
   });
   delete array._chartjs;
 }
-__name(unlistenArrayEvents, "unlistenArrayEvents");
 function _arrayUnique(items) {
   const set2 = /* @__PURE__ */ new Set();
   let i, ilen;
@@ -12224,7 +15559,6 @@ function _arrayUnique(items) {
   }
   return Array.from(set2);
 }
-__name(_arrayUnique, "_arrayUnique");
 const requestAnimFrame = function() {
   if (typeof window === "undefined") {
     return function(callback2) {
@@ -12248,7 +15582,6 @@ function throttled(fn, thisArg, updateFn) {
     }
   };
 }
-__name(throttled, "throttled");
 function debounce(fn, delay) {
   let timeout;
   return function(...args) {
@@ -12261,13 +15594,12 @@ function debounce(fn, delay) {
     return delay;
   };
 }
-__name(debounce, "debounce");
-const _toLeftRightCenter = /* @__PURE__ */ __name((align) => align === "start" ? "left" : align === "end" ? "right" : "center", "_toLeftRightCenter");
-const _alignStartEnd = /* @__PURE__ */ __name((align, start, end) => align === "start" ? start : align === "end" ? end : (start + end) / 2, "_alignStartEnd");
-const _textX = /* @__PURE__ */ __name((align, left, right, rtl) => {
+const _toLeftRightCenter = (align) => align === "start" ? "left" : align === "end" ? "right" : "center";
+const _alignStartEnd = (align, start, end) => align === "start" ? start : align === "end" ? end : (start + end) / 2;
+const _textX = (align, left, right, rtl) => {
   const check = rtl ? "left" : "right";
   return align === check ? right : align === "center" ? (left + right) / 2 : left;
-}, "_textX");
+};
 function _getStartAndCountOfVisiblePoints(meta, points, animationsDisabled) {
   const pointCount = points.length;
   let start = 0;
@@ -12301,7 +15633,6 @@ function _getStartAndCountOfVisiblePoints(meta, points, animationsDisabled) {
   }
   return { start, count };
 }
-__name(_getStartAndCountOfVisiblePoints, "_getStartAndCountOfVisiblePoints");
 function _scaleRangesChanged(meta) {
   const { xScale, yScale, _scaleRanges } = meta;
   const newRanges = {
@@ -12318,10 +15649,9 @@ function _scaleRangesChanged(meta) {
   Object.assign(_scaleRanges, newRanges);
   return changed;
 }
-__name(_scaleRangesChanged, "_scaleRangesChanged");
-const atEdge = /* @__PURE__ */ __name((t) => t === 0 || t === 1, "atEdge");
-const elasticIn = /* @__PURE__ */ __name((t, s, p) => -(Math.pow(2, 10 * (t -= 1)) * Math.sin((t - s) * TAU / p)), "elasticIn");
-const elasticOut = /* @__PURE__ */ __name((t, s, p) => Math.pow(2, -10 * t) * Math.sin((t - s) * TAU / p) + 1, "elasticOut");
+const atEdge = (t) => t === 0 || t === 1;
+const elasticIn = (t, s, p) => -(Math.pow(2, 10 * (t -= 1)) * Math.sin((t - s) * TAU / p));
+const elasticOut = (t, s, p) => Math.pow(2, -10 * t) * Math.sin((t - s) * TAU / p) + 1;
 const effects = {
   linear: (t) => t,
   easeInQuad: (t) => t * t,
@@ -12393,30 +15723,25 @@ const effects = {
 function round(v) {
   return v + 0.5 | 0;
 }
-__name(round, "round");
-const lim = /* @__PURE__ */ __name((v, l, h) => Math.max(Math.min(v, h), l), "lim");
+const lim = (v, l, h) => Math.max(Math.min(v, h), l);
 function p2b(v) {
   return lim(round(v * 2.55), 0, 255);
 }
-__name(p2b, "p2b");
 function n2b(v) {
   return lim(round(v * 255), 0, 255);
 }
-__name(n2b, "n2b");
 function b2n(v) {
   return lim(round(v / 2.55) / 100, 0, 1);
 }
-__name(b2n, "b2n");
 function n2p(v) {
   return lim(round(v * 100), 0, 100);
 }
-__name(n2p, "n2p");
 const map$1 = { 0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, A: 10, B: 11, C: 12, D: 13, E: 14, F: 15, a: 10, b: 11, c: 12, d: 13, e: 14, f: 15 };
 const hex = [..."0123456789ABCDEF"];
-const h1 = /* @__PURE__ */ __name((b) => hex[b & 15], "h1");
-const h2 = /* @__PURE__ */ __name((b) => hex[(b & 240) >> 4] + hex[b & 15], "h2");
-const eq = /* @__PURE__ */ __name((b) => (b & 240) >> 4 === (b & 15), "eq");
-const isShort = /* @__PURE__ */ __name((v) => eq(v.r) && eq(v.g) && eq(v.b) && eq(v.a), "isShort");
+const h1 = (b) => hex[b & 15];
+const h2 = (b) => hex[(b & 240) >> 4] + hex[b & 15];
+const eq = (b) => (b & 240) >> 4 === (b & 15);
+const isShort = (v) => eq(v.r) && eq(v.g) && eq(v.b) && eq(v.a);
 function hexParse(str) {
   var len = str.length;
   var ret;
@@ -12439,25 +15764,21 @@ function hexParse(str) {
   }
   return ret;
 }
-__name(hexParse, "hexParse");
-const alpha = /* @__PURE__ */ __name((a, f) => a < 255 ? f(a) : "", "alpha");
+const alpha = (a, f) => a < 255 ? f(a) : "";
 function hexString(v) {
   var f = isShort(v) ? h1 : h2;
   return v ? "#" + f(v.r) + f(v.g) + f(v.b) + alpha(v.a, f) : void 0;
 }
-__name(hexString, "hexString");
 const HUE_RE = /^(hsla?|hwb|hsv)\(\s*([-+.e\d]+)(?:deg)?[\s,]+([-+.e\d]+)%[\s,]+([-+.e\d]+)%(?:[\s,]+([-+.e\d]+)(%)?)?\s*\)$/;
 function hsl2rgbn(h, s, l) {
   const a = s * Math.min(l, 1 - l);
-  const f = /* @__PURE__ */ __name((n, k = (n + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1), "f");
+  const f = (n, k = (n + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
   return [f(0), f(8), f(4)];
 }
-__name(hsl2rgbn, "hsl2rgbn");
 function hsv2rgbn(h, s, v) {
-  const f = /* @__PURE__ */ __name((n, k = (n + h / 60) % 6) => v - v * s * Math.max(Math.min(k, 4 - k, 1), 0), "f");
+  const f = (n, k = (n + h / 60) % 6) => v - v * s * Math.max(Math.min(k, 4 - k, 1), 0);
   return [f(5), f(3), f(1)];
 }
-__name(hsv2rgbn, "hsv2rgbn");
 function hwb2rgbn(h, w, b) {
   const rgb = hsl2rgbn(h, 1, 0.5);
   let i;
@@ -12472,7 +15793,6 @@ function hwb2rgbn(h, w, b) {
   }
   return rgb;
 }
-__name(hwb2rgbn, "hwb2rgbn");
 function hueValue(r, g2, b, d, max) {
   if (r === max) {
     return (g2 - b) / d + (g2 < b ? 6 : 0);
@@ -12482,7 +15802,6 @@ function hueValue(r, g2, b, d, max) {
   }
   return (r - g2) / d + 4;
 }
-__name(hueValue, "hueValue");
 function rgb2hsl(v) {
   const range = 255;
   const r = v.r / range;
@@ -12500,27 +15819,21 @@ function rgb2hsl(v) {
   }
   return [h | 0, s || 0, l];
 }
-__name(rgb2hsl, "rgb2hsl");
 function calln(f, a, b, c) {
   return (Array.isArray(a) ? f(a[0], a[1], a[2]) : f(a, b, c)).map(n2b);
 }
-__name(calln, "calln");
 function hsl2rgb(h, s, l) {
   return calln(hsl2rgbn, h, s, l);
 }
-__name(hsl2rgb, "hsl2rgb");
 function hwb2rgb(h, w, b) {
   return calln(hwb2rgbn, h, w, b);
 }
-__name(hwb2rgb, "hwb2rgb");
 function hsv2rgb(h, s, v) {
   return calln(hsv2rgbn, h, s, v);
 }
-__name(hsv2rgb, "hsv2rgb");
 function hue(h) {
   return (h % 360 + 360) % 360;
 }
-__name(hue, "hue");
 function hueParse(str) {
   const m = HUE_RE.exec(str);
   let a = 255;
@@ -12548,7 +15861,6 @@ function hueParse(str) {
     a
   };
 }
-__name(hueParse, "hueParse");
 function rotate(v, deg) {
   var h = rgb2hsl(v);
   h[0] = hue(h[0] + deg);
@@ -12557,7 +15869,6 @@ function rotate(v, deg) {
   v.g = h[1];
   v.b = h[2];
 }
-__name(rotate, "rotate");
 function hslString(v) {
   if (!v) {
     return;
@@ -12568,7 +15879,6 @@ function hslString(v) {
   const l = n2p(a[2]);
   return v.a < 255 ? `hsla(${h}, ${s}%, ${l}%, ${b2n(v.a)})` : `hsl(${h}, ${s}%, ${l}%)`;
 }
-__name(hslString, "hslString");
 const map$2 = {
   x: "dark",
   Z: "light",
@@ -12764,7 +16074,6 @@ function unpack() {
   }
   return unpacked;
 }
-__name(unpack, "unpack");
 let names;
 function nameParse(str) {
   if (!names) {
@@ -12779,7 +16088,6 @@ function nameParse(str) {
     a: a.length === 4 ? a[3] : 255
   };
 }
-__name(nameParse, "nameParse");
 const RGB_RE = /^rgba?\(\s*([-+.\d]+)(%)?[\s,]+([-+.e\d]+)(%)?[\s,]+([-+.e\d]+)(%)?(?:[\s,/]+([-+.e\d]+)(%)?)?\s*\)$/;
 function rgbParse(str) {
   const m = RGB_RE.exec(str);
@@ -12805,13 +16113,11 @@ function rgbParse(str) {
     a
   };
 }
-__name(rgbParse, "rgbParse");
 function rgbString(v) {
   return v && (v.a < 255 ? `rgba(${v.r}, ${v.g}, ${v.b}, ${b2n(v.a)})` : `rgb(${v.r}, ${v.g}, ${v.b})`);
 }
-__name(rgbString, "rgbString");
-const to = /* @__PURE__ */ __name((v) => v <= 31308e-7 ? v * 12.92 : Math.pow(v, 1 / 2.4) * 1.055 - 0.055, "to");
-const from = /* @__PURE__ */ __name((v) => v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4), "from");
+const to = (v) => v <= 31308e-7 ? v * 12.92 : Math.pow(v, 1 / 2.4) * 1.055 - 0.055;
+const from = (v) => v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
 function interpolate$1(rgb1, rgb2, t) {
   const r = from(b2n(rgb1.r));
   const g2 = from(b2n(rgb1.g));
@@ -12823,7 +16129,6 @@ function interpolate$1(rgb1, rgb2, t) {
     a: rgb1.a + t * (rgb2.a - rgb1.a)
   };
 }
-__name(interpolate$1, "interpolate$1");
 function modHSL(v, i, ratio) {
   if (v) {
     let tmp = rgb2hsl(v);
@@ -12834,11 +16139,9 @@ function modHSL(v, i, ratio) {
     v.b = tmp[2];
   }
 }
-__name(modHSL, "modHSL");
 function clone(v, proto) {
   return v ? Object.assign(proto || {}, v) : v;
 }
-__name(clone, "clone");
 function fromObject(input) {
   var v = { r: 0, g: 0, b: 0, a: 255 };
   if (Array.isArray(input)) {
@@ -12854,14 +16157,12 @@ function fromObject(input) {
   }
   return v;
 }
-__name(fromObject, "fromObject");
 function functionParse(str) {
   if (str.charAt(0) === "r") {
     return rgbParse(str);
   }
   return hueParse(str);
 }
-__name(functionParse, "functionParse");
 class Color {
   constructor(input) {
     if (input instanceof Color) {
@@ -12974,11 +16275,9 @@ class Color {
     return this;
   }
 }
-__name(Color, "Color");
 function index_esm(input) {
   return new Color(input);
 }
-__name(index_esm, "index_esm");
 function isPatternOrGradient(value) {
   if (value && typeof value === "object") {
     const type = value.toString();
@@ -12986,15 +16285,12 @@ function isPatternOrGradient(value) {
   }
   return false;
 }
-__name(isPatternOrGradient, "isPatternOrGradient");
 function color(value) {
   return isPatternOrGradient(value) ? value : index_esm(value);
 }
-__name(color, "color");
 function getHoverColor(value) {
   return isPatternOrGradient(value) ? value : index_esm(value).saturate(0.5).darken(0.1).hexString();
 }
-__name(getHoverColor, "getHoverColor");
 const overrides = /* @__PURE__ */ Object.create(null);
 const descriptors = /* @__PURE__ */ Object.create(null);
 function getScope$1(node, key) {
@@ -13008,14 +16304,12 @@ function getScope$1(node, key) {
   }
   return node;
 }
-__name(getScope$1, "getScope$1");
 function set(root, scope, values) {
   if (typeof scope === "string") {
     return merge(getScope$1(root, scope), values);
   }
   return merge(getScope$1(root, ""), scope);
 }
-__name(set, "set");
 class Defaults {
   constructor(_descriptors2) {
     this.animation = void 0;
@@ -13099,7 +16393,6 @@ class Defaults {
     });
   }
 }
-__name(Defaults, "Defaults");
 var defaults = new Defaults({
   _scriptable: (name) => !name.startsWith("on"),
   _indexable: (name) => name !== "events",
@@ -13117,7 +16410,6 @@ function toFontString(font) {
   }
   return (font.style ? font.style + " " : "") + (font.weight ? font.weight + " " : "") + font.size + "px " + font.family;
 }
-__name(toFontString, "toFontString");
 function _measureText(ctx, data, gc, longest, string) {
   let textWidth = data[string];
   if (!textWidth) {
@@ -13129,7 +16421,6 @@ function _measureText(ctx, data, gc, longest, string) {
   }
   return longest;
 }
-__name(_measureText, "_measureText");
 function _longestText(ctx, font, arrayOfThings, cache) {
   cache = cache || {};
   let data = cache.data = cache.data || {};
@@ -13167,13 +16458,11 @@ function _longestText(ctx, font, arrayOfThings, cache) {
   }
   return longest;
 }
-__name(_longestText, "_longestText");
 function _alignPixel(chart, pixel, width) {
   const devicePixelRatio = chart.currentDevicePixelRatio;
   const halfWidth = width !== 0 ? Math.max(width / 2, 0.5) : 0;
   return Math.round((pixel - halfWidth) * devicePixelRatio) / devicePixelRatio + halfWidth;
 }
-__name(_alignPixel, "_alignPixel");
 function clearCanvas(canvas, ctx) {
   ctx = ctx || canvas.getContext("2d");
   ctx.save();
@@ -13181,11 +16470,9 @@ function clearCanvas(canvas, ctx) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.restore();
 }
-__name(clearCanvas, "clearCanvas");
 function drawPoint(ctx, options, x, y) {
   drawPointLegend(ctx, options, x, y, null);
 }
-__name(drawPoint, "drawPoint");
 function drawPointLegend(ctx, options, x, y, w) {
   let type, xOffset, yOffset, size, cornerRadius, width;
   const style = options.pointStyle;
@@ -13293,23 +16580,19 @@ function drawPointLegend(ctx, options, x, y, w) {
     ctx.stroke();
   }
 }
-__name(drawPointLegend, "drawPointLegend");
 function _isPointInArea(point, area, margin) {
   margin = margin || 0.5;
   return !area || point && point.x > area.left - margin && point.x < area.right + margin && point.y > area.top - margin && point.y < area.bottom + margin;
 }
-__name(_isPointInArea, "_isPointInArea");
 function clipArea(ctx, area) {
   ctx.save();
   ctx.beginPath();
   ctx.rect(area.left, area.top, area.right - area.left, area.bottom - area.top);
   ctx.clip();
 }
-__name(clipArea, "clipArea");
 function unclipArea(ctx) {
   ctx.restore();
 }
-__name(unclipArea, "unclipArea");
 function _steppedLineTo(ctx, previous, target, flip2, mode) {
   if (!previous) {
     return ctx.lineTo(target.x, target.y);
@@ -13325,7 +16608,6 @@ function _steppedLineTo(ctx, previous, target, flip2, mode) {
   }
   ctx.lineTo(target.x, target.y);
 }
-__name(_steppedLineTo, "_steppedLineTo");
 function _bezierCurveTo(ctx, previous, target, flip2) {
   if (!previous) {
     return ctx.lineTo(target.x, target.y);
@@ -13339,7 +16621,6 @@ function _bezierCurveTo(ctx, previous, target, flip2) {
     target.y
   );
 }
-__name(_bezierCurveTo, "_bezierCurveTo");
 function renderText(ctx, text2, x, y, font, opts = {}) {
   const lines = isArray(text2) ? text2 : [text2];
   const stroke = opts.strokeWidth > 0 && opts.strokeColor !== "";
@@ -13364,7 +16645,6 @@ function renderText(ctx, text2, x, y, font, opts = {}) {
   }
   ctx.restore();
 }
-__name(renderText, "renderText");
 function setRenderOpts(ctx, opts) {
   if (opts.translation) {
     ctx.translate(opts.translation[0], opts.translation[1]);
@@ -13382,7 +16662,6 @@ function setRenderOpts(ctx, opts) {
     ctx.textBaseline = opts.textBaseline;
   }
 }
-__name(setRenderOpts, "setRenderOpts");
 function decorateText(ctx, x, y, line, opts) {
   if (opts.strikethrough || opts.underline) {
     const metrics = ctx.measureText(line);
@@ -13399,7 +16678,6 @@ function decorateText(ctx, x, y, line, opts) {
     ctx.stroke();
   }
 }
-__name(decorateText, "decorateText");
 function addRoundedRectPath(ctx, rect) {
   const { x, y, w, h, radius: radius2 } = rect;
   ctx.arc(x + radius2.topLeft, y + radius2.topLeft, radius2.topLeft, -HALF_PI, PI, true);
@@ -13411,7 +16689,6 @@ function addRoundedRectPath(ctx, rect) {
   ctx.arc(x + w - radius2.topRight, y + radius2.topRight, radius2.topRight, 0, -HALF_PI, true);
   ctx.lineTo(x + radius2.topLeft, y);
 }
-__name(addRoundedRectPath, "addRoundedRectPath");
 const LINE_HEIGHT = new RegExp(/^(normal|(\d+(?:\.\d+)?)(px|em|%)?)$/);
 const FONT_STYLE = new RegExp(/^(normal|italic|initial|inherit|unset|(oblique( -?[0-9]?[0-9]deg)?))$/);
 function toLineHeight(value, size) {
@@ -13429,8 +16706,7 @@ function toLineHeight(value, size) {
   }
   return size * value;
 }
-__name(toLineHeight, "toLineHeight");
-const numberOrZero = /* @__PURE__ */ __name((v) => +v || 0, "numberOrZero");
+const numberOrZero = (v) => +v || 0;
 function _readValueToProps(value, props) {
   const ret = {};
   const objProps = isObject(props);
@@ -13441,22 +16717,18 @@ function _readValueToProps(value, props) {
   }
   return ret;
 }
-__name(_readValueToProps, "_readValueToProps");
 function toTRBL(value) {
   return _readValueToProps(value, { top: "y", right: "x", bottom: "y", left: "x" });
 }
-__name(toTRBL, "toTRBL");
 function toTRBLCorners(value) {
   return _readValueToProps(value, ["topLeft", "topRight", "bottomLeft", "bottomRight"]);
 }
-__name(toTRBLCorners, "toTRBLCorners");
 function toPadding(value) {
   const obj = toTRBL(value);
   obj.width = obj.left + obj.right;
   obj.height = obj.top + obj.bottom;
   return obj;
 }
-__name(toPadding, "toPadding");
 function toFont(options, fallback) {
   options = options || {};
   fallback = fallback || defaults.font;
@@ -13480,7 +16752,6 @@ function toFont(options, fallback) {
   font.string = toFontString(font);
   return font;
 }
-__name(toFont, "toFont");
 function resolve(inputs, context, index2, info) {
   let cacheable = true;
   let i, ilen, value;
@@ -13505,21 +16776,18 @@ function resolve(inputs, context, index2, info) {
     }
   }
 }
-__name(resolve, "resolve");
 function _addGrace(minmax, grace, beginAtZero) {
   const { min, max } = minmax;
   const change = toDimension(grace, (max - min) / 2);
-  const keepZero = /* @__PURE__ */ __name((value, add) => beginAtZero && value === 0 ? 0 : value + add, "keepZero");
+  const keepZero = (value, add) => beginAtZero && value === 0 ? 0 : value + add;
   return {
     min: keepZero(min, -Math.abs(change)),
     max: keepZero(max, change)
   };
 }
-__name(_addGrace, "_addGrace");
 function createContext(parentContext, context) {
   return Object.assign(Object.create(parentContext), context);
 }
-__name(createContext, "createContext");
 function _createResolver(scopes, prefixes = [""], rootScopes = scopes, fallback, getTarget = () => scopes[0]) {
   if (!defined(fallback)) {
     fallback = _resolve("_fallback", scopes);
@@ -13567,7 +16835,6 @@ function _createResolver(scopes, prefixes = [""], rootScopes = scopes, fallback,
     }
   });
 }
-__name(_createResolver, "_createResolver");
 function _attachContext(proxy, context, subProxy, descriptorDefaults) {
   const cache = {
     _cacheable: false,
@@ -13611,7 +16878,6 @@ function _attachContext(proxy, context, subProxy, descriptorDefaults) {
     }
   });
 }
-__name(_attachContext, "_attachContext");
 function _descriptors(proxy, defaults2 = { scriptable: true, indexable: true }) {
   const { _scriptable = defaults2.scriptable, _indexable = defaults2.indexable, _allKeys = defaults2.allKeys } = proxy;
   return {
@@ -13622,9 +16888,8 @@ function _descriptors(proxy, defaults2 = { scriptable: true, indexable: true }) 
     isIndexable: isFunction(_indexable) ? _indexable : () => _indexable
   };
 }
-__name(_descriptors, "_descriptors");
-const readKey = /* @__PURE__ */ __name((prefix, name) => prefix ? prefix + _capitalize(name) : name, "readKey");
-const needsSubResolver = /* @__PURE__ */ __name((prop, value) => isObject(value) && prop !== "adapters" && (Object.getPrototypeOf(value) === null || value.constructor === Object), "needsSubResolver");
+const readKey = (prefix, name) => prefix ? prefix + _capitalize(name) : name;
+const needsSubResolver = (prop, value) => isObject(value) && prop !== "adapters" && (Object.getPrototypeOf(value) === null || value.constructor === Object);
 function _cached(target, prop, resolve2) {
   if (Object.prototype.hasOwnProperty.call(target, prop)) {
     return target[prop];
@@ -13633,7 +16898,6 @@ function _cached(target, prop, resolve2) {
   target[prop] = value;
   return value;
 }
-__name(_cached, "_cached");
 function _resolveWithContext(target, prop, receiver) {
   const { _proxy, _context, _subProxy, _descriptors: descriptors2 } = target;
   let value = _proxy[prop];
@@ -13648,7 +16912,6 @@ function _resolveWithContext(target, prop, receiver) {
   }
   return value;
 }
-__name(_resolveWithContext, "_resolveWithContext");
 function _resolveScriptable(prop, value, target, receiver) {
   const { _proxy, _context, _subProxy, _stack } = target;
   if (_stack.has(prop)) {
@@ -13662,7 +16925,6 @@ function _resolveScriptable(prop, value, target, receiver) {
   }
   return value;
 }
-__name(_resolveScriptable, "_resolveScriptable");
 function _resolveArray(prop, value, target, isIndexable) {
   const { _proxy, _context, _subProxy, _descriptors: descriptors2 } = target;
   if (defined(_context.index) && isIndexable(prop)) {
@@ -13678,12 +16940,10 @@ function _resolveArray(prop, value, target, isIndexable) {
   }
   return value;
 }
-__name(_resolveArray, "_resolveArray");
 function resolveFallback(fallback, prop, value) {
   return isFunction(fallback) ? fallback(prop, value) : fallback;
 }
-__name(resolveFallback, "resolveFallback");
-const getScope = /* @__PURE__ */ __name((key, parent) => key === true ? parent : typeof key === "string" ? resolveObjectKey(parent, key) : void 0, "getScope");
+const getScope = (key, parent) => key === true ? parent : typeof key === "string" ? resolveObjectKey(parent, key) : void 0;
 function addScopes(set2, parentScopes, key, parentFallback, value) {
   for (const parent of parentScopes) {
     const scope = getScope(key, parent);
@@ -13699,7 +16959,6 @@ function addScopes(set2, parentScopes, key, parentFallback, value) {
   }
   return false;
 }
-__name(addScopes, "addScopes");
 function createSubResolver(parentScopes, resolver, prop, value) {
   const rootScopes = resolver._rootScopes;
   const fallback = resolveFallback(resolver._fallback, prop, value);
@@ -13724,14 +16983,12 @@ function createSubResolver(parentScopes, resolver, prop, value) {
     () => subGetTarget(resolver, prop, value)
   );
 }
-__name(createSubResolver, "createSubResolver");
 function addScopesFromKey(set2, allScopes, key, fallback, item) {
   while (key) {
     key = addScopes(set2, allScopes, key, fallback, item);
   }
   return key;
 }
-__name(addScopesFromKey, "addScopesFromKey");
 function subGetTarget(resolver, prop, value) {
   const parent = resolver._getTarget();
   if (!(prop in parent)) {
@@ -13743,7 +17000,6 @@ function subGetTarget(resolver, prop, value) {
   }
   return target;
 }
-__name(subGetTarget, "subGetTarget");
 function _resolveWithPrefixes(prop, prefixes, scopes, proxy) {
   let value;
   for (const prefix of prefixes) {
@@ -13753,7 +17009,6 @@ function _resolveWithPrefixes(prop, prefixes, scopes, proxy) {
     }
   }
 }
-__name(_resolveWithPrefixes, "_resolveWithPrefixes");
 function _resolve(key, scopes) {
   for (const scope of scopes) {
     if (!scope) {
@@ -13765,7 +17020,6 @@ function _resolve(key, scopes) {
     }
   }
 }
-__name(_resolve, "_resolve");
 function getKeysFromAllScopes(target) {
   let keys = target._keys;
   if (!keys) {
@@ -13773,7 +17027,6 @@ function getKeysFromAllScopes(target) {
   }
   return keys;
 }
-__name(getKeysFromAllScopes, "getKeysFromAllScopes");
 function resolveKeysFromAllScopes(scopes) {
   const set2 = /* @__PURE__ */ new Set();
   for (const scope of scopes) {
@@ -13783,7 +17036,6 @@ function resolveKeysFromAllScopes(scopes) {
   }
   return Array.from(set2);
 }
-__name(resolveKeysFromAllScopes, "resolveKeysFromAllScopes");
 function _parseObjectDataRadialScale(meta, data, start, count) {
   const { iScale } = meta;
   const { key = "r" } = this._parsing;
@@ -13798,10 +17050,9 @@ function _parseObjectDataRadialScale(meta, data, start, count) {
   }
   return parsed;
 }
-__name(_parseObjectDataRadialScale, "_parseObjectDataRadialScale");
 const EPSILON = Number.EPSILON || 1e-14;
-const getPoint = /* @__PURE__ */ __name((points, i) => i < points.length && !points[i].skip && points[i], "getPoint");
-const getValueAxis = /* @__PURE__ */ __name((indexAxis) => indexAxis === "x" ? "y" : "x", "getValueAxis");
+const getPoint = (points, i) => i < points.length && !points[i].skip && points[i];
+const getValueAxis = (indexAxis) => indexAxis === "x" ? "y" : "x";
 function splineCurve(firstPoint, middlePoint, afterPoint, t) {
   const previous = firstPoint.skip ? middlePoint : firstPoint;
   const current = middlePoint;
@@ -13825,7 +17076,6 @@ function splineCurve(firstPoint, middlePoint, afterPoint, t) {
     }
   };
 }
-__name(splineCurve, "splineCurve");
 function monotoneAdjust(points, deltaK, mK) {
   const pointsLen = points.length;
   let alphaK, betaK, tauK, squaredMagnitude, pointCurrent;
@@ -13851,7 +17101,6 @@ function monotoneAdjust(points, deltaK, mK) {
     mK[i + 1] = betaK * tauK * deltaK[i];
   }
 }
-__name(monotoneAdjust, "monotoneAdjust");
 function monotoneCompute(points, mK, indexAxis = "x") {
   const valueAxis = getValueAxis(indexAxis);
   const pointsLen = points.length;
@@ -13878,7 +17127,6 @@ function monotoneCompute(points, mK, indexAxis = "x") {
     }
   }
 }
-__name(monotoneCompute, "monotoneCompute");
 function splineCurveMonotone(points, indexAxis = "x") {
   const valueAxis = getValueAxis(indexAxis);
   const pointsLen = points.length;
@@ -13902,11 +17150,9 @@ function splineCurveMonotone(points, indexAxis = "x") {
   monotoneAdjust(points, deltaK, mK);
   monotoneCompute(points, mK, indexAxis);
 }
-__name(splineCurveMonotone, "splineCurveMonotone");
 function capControlPoint(pt, min, max) {
   return Math.max(Math.min(pt, max), min);
 }
-__name(capControlPoint, "capControlPoint");
 function capBezierPoints(points, area) {
   let i, ilen, point, inArea, inAreaPrev;
   let inAreaNext = _isPointInArea(points[0], area);
@@ -13928,7 +17174,6 @@ function capBezierPoints(points, area) {
     }
   }
 }
-__name(capBezierPoints, "capBezierPoints");
 function _updateBezierControlPoints(points, options, area, loop2, indexAxis) {
   let i, ilen, point, controlPoints;
   if (options.spanGaps) {
@@ -13957,11 +17202,9 @@ function _updateBezierControlPoints(points, options, area, loop2, indexAxis) {
     capBezierPoints(points, area);
   }
 }
-__name(_updateBezierControlPoints, "_updateBezierControlPoints");
 function _isDomSupported() {
   return typeof window !== "undefined" && typeof document !== "undefined";
 }
-__name(_isDomSupported, "_isDomSupported");
 function _getParentNode(domNode) {
   let parent = domNode.parentNode;
   if (parent && parent.toString() === "[object ShadowRoot]") {
@@ -13969,7 +17212,6 @@ function _getParentNode(domNode) {
   }
   return parent;
 }
-__name(_getParentNode, "_getParentNode");
 function parseMaxStyle(styleValue, node, parentProperty) {
   let valueInPixels;
   if (typeof styleValue === "string") {
@@ -13982,12 +17224,10 @@ function parseMaxStyle(styleValue, node, parentProperty) {
   }
   return valueInPixels;
 }
-__name(parseMaxStyle, "parseMaxStyle");
-const getComputedStyle$1 = /* @__PURE__ */ __name((element2) => window.getComputedStyle(element2, null), "getComputedStyle$1");
+const getComputedStyle$1 = (element2) => window.getComputedStyle(element2, null);
 function getStyle(el, property) {
   return getComputedStyle$1(el).getPropertyValue(property);
 }
-__name(getStyle, "getStyle");
 const positions = ["top", "right", "bottom", "left"];
 function getPositionedStyle(styles, style, suffix) {
   const result = {};
@@ -14000,8 +17240,7 @@ function getPositionedStyle(styles, style, suffix) {
   result.height = result.top + result.bottom;
   return result;
 }
-__name(getPositionedStyle, "getPositionedStyle");
-const useOffsetPos = /* @__PURE__ */ __name((x, y, target) => (x > 0 || y > 0) && (!target || !target.shadowRoot), "useOffsetPos");
+const useOffsetPos = (x, y, target) => (x > 0 || y > 0) && (!target || !target.shadowRoot);
 function getCanvasPosition(e, canvas) {
   const touches = e.touches;
   const source = touches && touches.length ? touches[0] : e;
@@ -14019,7 +17258,6 @@ function getCanvasPosition(e, canvas) {
   }
   return { x, y, box };
 }
-__name(getCanvasPosition, "getCanvasPosition");
 function getRelativePosition(evt, chart) {
   if ("native" in evt) {
     return evt;
@@ -14042,7 +17280,6 @@ function getRelativePosition(evt, chart) {
     y: Math.round((y - yOffset) / height * canvas.height / currentDevicePixelRatio)
   };
 }
-__name(getRelativePosition, "getRelativePosition");
 function getContainerSize(canvas, width, height) {
   let maxWidth, maxHeight;
   if (width === void 0 || height === void 0) {
@@ -14068,8 +17305,7 @@ function getContainerSize(canvas, width, height) {
     maxHeight: maxHeight || INFINITY
   };
 }
-__name(getContainerSize, "getContainerSize");
-const round1 = /* @__PURE__ */ __name((v) => Math.round(v * 10) / 10, "round1");
+const round1 = (v) => Math.round(v * 10) / 10;
 function getMaximumSize(canvas, bbWidth, bbHeight, aspectRatio) {
   const style = getComputedStyle$1(canvas);
   const margins = getPositionedStyle(style, "margin");
@@ -14095,7 +17331,6 @@ function getMaximumSize(canvas, bbWidth, bbHeight, aspectRatio) {
     height
   };
 }
-__name(getMaximumSize, "getMaximumSize");
 function retinaScale(chart, forceRatio, forceStyle) {
   const pixelRatio = forceRatio || 1;
   const deviceHeight = Math.floor(chart.height * pixelRatio);
@@ -14116,7 +17351,6 @@ function retinaScale(chart, forceRatio, forceStyle) {
   }
   return false;
 }
-__name(retinaScale, "retinaScale");
 const supportsEventListenerOptions = function() {
   let passiveSupported = false;
   try {
@@ -14137,21 +17371,18 @@ function readUsedSize(element2, property) {
   const matches = value && value.match(/^(\d+)(\.\d+)?px$/);
   return matches ? +matches[1] : void 0;
 }
-__name(readUsedSize, "readUsedSize");
 function _pointInLine(p1, p2, t, mode) {
   return {
     x: p1.x + t * (p2.x - p1.x),
     y: p1.y + t * (p2.y - p1.y)
   };
 }
-__name(_pointInLine, "_pointInLine");
 function _steppedInterpolation(p1, p2, t, mode) {
   return {
     x: p1.x + t * (p2.x - p1.x),
     y: mode === "middle" ? t < 0.5 ? p1.y : p2.y : mode === "after" ? t < 1 ? p1.y : p2.y : t > 0 ? p2.y : p1.y
   };
 }
-__name(_steppedInterpolation, "_steppedInterpolation");
 function _bezierInterpolation(p1, p2, t, mode) {
   const cp1 = { x: p1.cp2x, y: p1.cp2y };
   const cp2 = { x: p2.cp1x, y: p2.cp1y };
@@ -14162,7 +17393,6 @@ function _bezierInterpolation(p1, p2, t, mode) {
   const e = _pointInLine(b, c, t);
   return _pointInLine(d, e, t);
 }
-__name(_bezierInterpolation, "_bezierInterpolation");
 const intlCache = /* @__PURE__ */ new Map();
 function getNumberFormat(locale, options) {
   options = options || {};
@@ -14174,12 +17404,10 @@ function getNumberFormat(locale, options) {
   }
   return formatter;
 }
-__name(getNumberFormat, "getNumberFormat");
 function formatNumber(num, locale, options) {
   return getNumberFormat(locale, options).format(num);
 }
-__name(formatNumber, "formatNumber");
-const getRightToLeftAdapter = /* @__PURE__ */ __name(function(rectX, width) {
+const getRightToLeftAdapter = function(rectX, width) {
   return {
     x(x) {
       return rectX + rectX + width - x;
@@ -14200,8 +17428,8 @@ const getRightToLeftAdapter = /* @__PURE__ */ __name(function(rectX, width) {
       return x - itemWidth;
     }
   };
-}, "getRightToLeftAdapter");
-const getLeftToRightAdapter = /* @__PURE__ */ __name(function() {
+};
+const getLeftToRightAdapter = function() {
   return {
     x(x) {
       return x;
@@ -14218,11 +17446,10 @@ const getLeftToRightAdapter = /* @__PURE__ */ __name(function() {
       return x;
     }
   };
-}, "getLeftToRightAdapter");
+};
 function getRtlAdapter(rtl, rectX, width) {
   return rtl ? getRightToLeftAdapter(rectX, width) : getLeftToRightAdapter();
 }
-__name(getRtlAdapter, "getRtlAdapter");
 function overrideTextDirection(ctx, direction) {
   let style, original;
   if (direction === "ltr" || direction === "rtl") {
@@ -14235,14 +17462,12 @@ function overrideTextDirection(ctx, direction) {
     ctx.prevTextDirection = original;
   }
 }
-__name(overrideTextDirection, "overrideTextDirection");
 function restoreTextDirection(ctx, original) {
   if (original !== void 0) {
     delete ctx.prevTextDirection;
     ctx.canvas.style.setProperty("direction", original[0], original[1]);
   }
 }
-__name(restoreTextDirection, "restoreTextDirection");
 function propertyFn(property) {
   if (property === "angle") {
     return {
@@ -14257,7 +17482,6 @@ function propertyFn(property) {
     normalize: (x) => x
   };
 }
-__name(propertyFn, "propertyFn");
 function normalizeSegment({ start, end, count, loop: loop2, style }) {
   return {
     start: start % count,
@@ -14266,7 +17490,6 @@ function normalizeSegment({ start, end, count, loop: loop2, style }) {
     style
   };
 }
-__name(normalizeSegment, "normalizeSegment");
 function getSegment(segment, points, bounds) {
   const { property, start: startBound, end: endBound } = bounds;
   const { between, normalize } = propertyFn(property);
@@ -14291,7 +17514,6 @@ function getSegment(segment, points, bounds) {
   }
   return { start, end, loop: loop2, style: segment.style };
 }
-__name(getSegment, "getSegment");
 function _boundSegment(segment, points, bounds) {
   if (!bounds) {
     return [segment];
@@ -14304,10 +17526,10 @@ function _boundSegment(segment, points, bounds) {
   let inside = false;
   let subStart = null;
   let value, point, prevValue;
-  const startIsBefore = /* @__PURE__ */ __name(() => between(startBound, prevValue, value) && compare(startBound, prevValue) !== 0, "startIsBefore");
-  const endIsBefore = /* @__PURE__ */ __name(() => compare(endBound, value) === 0 || between(endBound, prevValue, value), "endIsBefore");
-  const shouldStart = /* @__PURE__ */ __name(() => inside || startIsBefore(), "shouldStart");
-  const shouldStop = /* @__PURE__ */ __name(() => !inside || endIsBefore(), "shouldStop");
+  const startIsBefore = () => between(startBound, prevValue, value) && compare(startBound, prevValue) !== 0;
+  const endIsBefore = () => compare(endBound, value) === 0 || between(endBound, prevValue, value);
+  const shouldStart = () => inside || startIsBefore();
+  const shouldStop = () => !inside || endIsBefore();
   for (let i = start, prev = start; i <= end; ++i) {
     point = points[i % count];
     if (point.skip) {
@@ -14333,7 +17555,6 @@ function _boundSegment(segment, points, bounds) {
   }
   return result;
 }
-__name(_boundSegment, "_boundSegment");
 function _boundSegments(line, bounds) {
   const result = [];
   const segments = line.segments;
@@ -14345,7 +17566,6 @@ function _boundSegments(line, bounds) {
   }
   return result;
 }
-__name(_boundSegments, "_boundSegments");
 function findStartAndEnd(points, count, loop2, spanGaps) {
   let start = 0;
   let end = count - 1;
@@ -14367,7 +17587,6 @@ function findStartAndEnd(points, count, loop2, spanGaps) {
   end %= count;
   return { start, end };
 }
-__name(findStartAndEnd, "findStartAndEnd");
 function solidSegments(points, start, max, loop2) {
   const count = points.length;
   const result = [];
@@ -14395,7 +17614,6 @@ function solidSegments(points, start, max, loop2) {
   }
   return result;
 }
-__name(solidSegments, "solidSegments");
 function _computeSegments(line, segmentOptions) {
   const points = line.points;
   const spanGaps = line.options.spanGaps;
@@ -14412,14 +17630,12 @@ function _computeSegments(line, segmentOptions) {
   const completeLoop = !!line._fullLoop && start === 0 && end === count - 1;
   return splitByStyles(line, solidSegments(points, start, max, completeLoop), points, segmentOptions);
 }
-__name(_computeSegments, "_computeSegments");
 function splitByStyles(line, segments, points, segmentOptions) {
   if (!segmentOptions || !segmentOptions.setContext || !points) {
     return segments;
   }
   return doSplitByStyles(line, segments, points, segmentOptions);
 }
-__name(splitByStyles, "splitByStyles");
 function doSplitByStyles(line, segments, points, segmentOptions) {
   const chartContext = line._chart.getContext();
   const baseStyle = readStyle(line.options);
@@ -14447,7 +17663,6 @@ function doSplitByStyles(line, segments, points, segmentOptions) {
       start = e % count;
     }
   }
-  __name(addStyle, "addStyle");
   for (const segment of segments) {
     start = spanGaps ? start : segment.start;
     let prev = points[start % count];
@@ -14474,7 +17689,6 @@ function doSplitByStyles(line, segments, points, segmentOptions) {
   }
   return result;
 }
-__name(doSplitByStyles, "doSplitByStyles");
 function readStyle(options) {
   return {
     backgroundColor: options.backgroundColor,
@@ -14486,11 +17700,9 @@ function readStyle(options) {
     borderColor: options.borderColor
   };
 }
-__name(readStyle, "readStyle");
 function styleChanged(style, prevStyle) {
   return prevStyle && JSON.stringify(style) !== JSON.stringify(prevStyle);
 }
-__name(styleChanged, "styleChanged");
 /*!
  * Chart.js v3.9.1
  * https://www.chartjs.org
@@ -14632,7 +17844,6 @@ class Animator {
     return this._charts.delete(chart);
   }
 }
-__name(Animator, "Animator");
 var animator = new Animator();
 const transparent = "transparent";
 const interpolators = {
@@ -14726,7 +17937,6 @@ class Animation {
     }
   }
 }
-__name(Animation, "Animation");
 const numbers = ["x", "y", "borderWidth", "radius", "tension"];
 const colors = ["color", "borderColor", "backgroundColor"];
 defaults.set("animation", {
@@ -14883,7 +18093,6 @@ class Animations {
     }
   }
 }
-__name(Animations, "Animations");
 function awaitAll(animations, properties) {
   const running = [];
   const keys = Object.keys(properties);
@@ -14895,7 +18104,6 @@ function awaitAll(animations, properties) {
   }
   return Promise.all(running);
 }
-__name(awaitAll, "awaitAll");
 function resolveTargetOptions(target, newOptions) {
   if (!newOptions) {
     return;
@@ -14910,7 +18118,6 @@ function resolveTargetOptions(target, newOptions) {
   }
   return options;
 }
-__name(resolveTargetOptions, "resolveTargetOptions");
 function scaleClip(scale, allowedOverflow) {
   const opts = scale && scale.options || {};
   const reverse = opts.reverse;
@@ -14921,7 +18128,6 @@ function scaleClip(scale, allowedOverflow) {
     end: reverse ? min : max
   };
 }
-__name(scaleClip, "scaleClip");
 function defaultClip(xScale, yScale, allowedOverflow) {
   if (allowedOverflow === false) {
     return false;
@@ -14935,7 +18141,6 @@ function defaultClip(xScale, yScale, allowedOverflow) {
     left: x.start
   };
 }
-__name(defaultClip, "defaultClip");
 function toClip(value) {
   let t, r, b, l;
   if (isObject(value)) {
@@ -14954,7 +18159,6 @@ function toClip(value) {
     disabled: value === false
   };
 }
-__name(toClip, "toClip");
 function getSortedDatasetIndices(chart, filterVisible) {
   const keys = [];
   const metasets = chart._getSortedDatasetMetas(filterVisible);
@@ -14964,7 +18168,6 @@ function getSortedDatasetIndices(chart, filterVisible) {
   }
   return keys;
 }
-__name(getSortedDatasetIndices, "getSortedDatasetIndices");
 function applyStack(stack, value, dsIndex, options = {}) {
   const keys = stack.keys;
   const singleMode = options.mode === "single";
@@ -14987,7 +18190,6 @@ function applyStack(stack, value, dsIndex, options = {}) {
   }
   return value;
 }
-__name(applyStack, "applyStack");
 function convertObjectDataToArray(data) {
   const keys = Object.keys(data);
   const adata = new Array(keys.length);
@@ -15001,16 +18203,13 @@ function convertObjectDataToArray(data) {
   }
   return adata;
 }
-__name(convertObjectDataToArray, "convertObjectDataToArray");
 function isStacked(scale, meta) {
   const stacked = scale && scale.options.stacked;
   return stacked || stacked === void 0 && meta.stack !== void 0;
 }
-__name(isStacked, "isStacked");
 function getStackKey(indexScale, valueScale, meta) {
   return `${indexScale.id}.${valueScale.id}.${meta.stack || meta.type}`;
 }
-__name(getStackKey, "getStackKey");
 function getUserBounds(scale) {
   const { min, max, minDefined, maxDefined } = scale.getUserBounds();
   return {
@@ -15018,12 +18217,10 @@ function getUserBounds(scale) {
     max: maxDefined ? max : Number.POSITIVE_INFINITY
   };
 }
-__name(getUserBounds, "getUserBounds");
 function getOrCreateStack(stacks, stackKey, indexValue) {
   const subStack = stacks[stackKey] || (stacks[stackKey] = {});
   return subStack[indexValue] || (subStack[indexValue] = {});
 }
-__name(getOrCreateStack, "getOrCreateStack");
 function getLastIndexInStack(stack, vScale, positive, type) {
   for (const meta of vScale.getMatchingVisibleMetas(type).reverse()) {
     const value = stack[meta.index];
@@ -15033,7 +18230,6 @@ function getLastIndexInStack(stack, vScale, positive, type) {
   }
   return null;
 }
-__name(getLastIndexInStack, "getLastIndexInStack");
 function updateStacks(controller, parsed) {
   const { chart, _cachedMeta: meta } = controller;
   const stacks = chart._stacks || (chart._stacks = {});
@@ -15053,12 +18249,10 @@ function updateStacks(controller, parsed) {
     stack._bottom = getLastIndexInStack(stack, vScale, false, meta.type);
   }
 }
-__name(updateStacks, "updateStacks");
 function getFirstScaleId(chart, axis) {
   const scales2 = chart.scales;
   return Object.keys(scales2).filter((key) => scales2[key].axis === axis).shift();
 }
-__name(getFirstScaleId, "getFirstScaleId");
 function createDatasetContext(parent, index2) {
   return createContext(
     parent,
@@ -15072,7 +18266,6 @@ function createDatasetContext(parent, index2) {
     }
   );
 }
-__name(createDatasetContext, "createDatasetContext");
 function createDataContext(parent, index2, element2) {
   return createContext(parent, {
     active: false,
@@ -15085,7 +18278,6 @@ function createDataContext(parent, index2, element2) {
     type: "data"
   });
 }
-__name(createDataContext, "createDataContext");
 function clearStacks(meta, items) {
   const datasetIndex = meta.controller.index;
   const axis = meta.vScale && meta.vScale.axis;
@@ -15101,10 +18293,9 @@ function clearStacks(meta, items) {
     delete stacks[axis][datasetIndex];
   }
 }
-__name(clearStacks, "clearStacks");
-const isDirectUpdateMode = /* @__PURE__ */ __name((mode) => mode === "reset" || mode === "none", "isDirectUpdateMode");
-const cloneIfNotShared = /* @__PURE__ */ __name((cached, shared) => shared ? cached : Object.assign({}, cached), "cloneIfNotShared");
-const createStack = /* @__PURE__ */ __name((canStack, meta, chart) => canStack && !meta.hidden && meta._stacked && { keys: getSortedDatasetIndices(chart, true), values: null }, "createStack");
+const isDirectUpdateMode = (mode) => mode === "reset" || mode === "none";
+const cloneIfNotShared = (cached, shared) => shared ? cached : Object.assign({}, cached);
+const createStack = (canStack, meta, chart) => canStack && !meta.hidden && meta._stacked && { keys: getSortedDatasetIndices(chart, true), values: null };
 class DatasetController {
   constructor(chart, datasetIndex) {
     this.chart = chart;
@@ -15143,7 +18334,7 @@ class DatasetController {
     const chart = this.chart;
     const meta = this._cachedMeta;
     const dataset = this.getDataset();
-    const chooseId = /* @__PURE__ */ __name((axis, x, y, r) => axis === "x" ? x : axis === "r" ? r : y, "chooseId");
+    const chooseId = (axis, x, y, r) => axis === "x" ? x : axis === "r" ? r : y;
     const xid = meta.xAxisID = valueOrDefault(dataset.xAxisID, getFirstScaleId(chart, "x"));
     const yid = meta.yAxisID = valueOrDefault(dataset.yAxisID, getFirstScaleId(chart, "y"));
     const rid = meta.rAxisID = valueOrDefault(dataset.rAxisID, getFirstScaleId(chart, "r"));
@@ -15252,7 +18443,7 @@ class DatasetController {
       } else {
         parsed = this.parsePrimitiveData(meta, data, start, count);
       }
-      const isNotInOrderComparedToPrev = /* @__PURE__ */ __name(() => cur[iAxis] === null || prev && cur[iAxis] < prev[iAxis], "isNotInOrderComparedToPrev");
+      const isNotInOrderComparedToPrev = () => cur[iAxis] === null || prev && cur[iAxis] < prev[iAxis];
       for (i = 0; i < count; ++i) {
         meta._parsed[i + start] = cur = parsed[i];
         if (sorted) {
@@ -15356,7 +18547,6 @@ class DatasetController {
       const otherValue = parsed[otherScale.axis];
       return !isNumberFinite(parsed[scale.axis]) || otherMin > otherValue || otherMax < otherValue;
     }
-    __name(_skip, "_skip");
     for (i = 0; i < ilen; ++i) {
       if (_skip()) {
         continue;
@@ -15480,7 +18670,7 @@ class DatasetController {
     const prefixes = active2 ? [`${elementType}Hover`, "hover", elementType, ""] : [elementType, ""];
     const scopes = config.getOptionScopes(this.getDataset(), scopeKeys);
     const names2 = Object.keys(defaults.elements[elementType]);
-    const context = /* @__PURE__ */ __name(() => this.getContext(index2, active2), "context");
+    const context = () => this.getContext(index2, active2);
     const values = config.resolveNamedOptions(scopes, names2, context, prefixes);
     if (values.$shared) {
       values.$shared = sharing;
@@ -15587,12 +18777,12 @@ class DatasetController {
     const data = meta.data;
     const end = start + count;
     let i;
-    const move = /* @__PURE__ */ __name((arr) => {
+    const move = (arr) => {
       arr.length += count;
       for (i = arr.length - 1; i >= end; i--) {
         arr[i] = arr[i - count];
       }
-    }, "move");
+    };
     move(data);
     for (i = start; i < end; ++i) {
       data[i] = new this.dataElementType();
@@ -15649,7 +18839,6 @@ class DatasetController {
     this._sync(["_insertElements", 0, arguments.length]);
   }
 }
-__name(DatasetController, "DatasetController");
 DatasetController.defaults = {};
 DatasetController.prototype.datasetElementType = null;
 DatasetController.prototype.dataElementType = null;
@@ -15664,13 +18853,12 @@ function getAllScaleValues(scale, type) {
   }
   return scale._cache.$bar;
 }
-__name(getAllScaleValues, "getAllScaleValues");
 function computeMinSampleSize(meta) {
   const scale = meta.iScale;
   const values = getAllScaleValues(scale, meta.type);
   let min = scale._length;
   let i, ilen, curr, prev;
-  const updateMinAndPrev = /* @__PURE__ */ __name(() => {
+  const updateMinAndPrev = () => {
     if (curr === 32767 || curr === -32768) {
       return;
     }
@@ -15678,7 +18866,7 @@ function computeMinSampleSize(meta) {
       min = Math.min(min, Math.abs(curr - prev) || min);
     }
     prev = curr;
-  }, "updateMinAndPrev");
+  };
   for (i = 0, ilen = values.length; i < ilen; ++i) {
     curr = scale.getPixelForValue(values[i]);
     updateMinAndPrev();
@@ -15690,7 +18878,6 @@ function computeMinSampleSize(meta) {
   }
   return min;
 }
-__name(computeMinSampleSize, "computeMinSampleSize");
 function computeFitCategoryTraits(index2, ruler, options, stackCount) {
   const thickness = options.barThickness;
   let size, ratio;
@@ -15707,7 +18894,6 @@ function computeFitCategoryTraits(index2, ruler, options, stackCount) {
     start: ruler.pixels[index2] - size / 2
   };
 }
-__name(computeFitCategoryTraits, "computeFitCategoryTraits");
 function computeFlexCategoryTraits(index2, ruler, options, stackCount) {
   const pixels = ruler.pixels;
   const curr = pixels[index2];
@@ -15728,7 +18914,6 @@ function computeFlexCategoryTraits(index2, ruler, options, stackCount) {
     start
   };
 }
-__name(computeFlexCategoryTraits, "computeFlexCategoryTraits");
 function parseFloatBar(entry, item, vScale, i) {
   const startValue = vScale.parse(entry[0], i);
   const endValue = vScale.parse(entry[1], i);
@@ -15750,7 +18935,6 @@ function parseFloatBar(entry, item, vScale, i) {
     max
   };
 }
-__name(parseFloatBar, "parseFloatBar");
 function parseValue(entry, item, vScale, i) {
   if (isArray(entry)) {
     parseFloatBar(entry, item, vScale, i);
@@ -15759,7 +18943,6 @@ function parseValue(entry, item, vScale, i) {
   }
   return item;
 }
-__name(parseValue, "parseValue");
 function parseArrayOrPrimitive(meta, data, start, count) {
   const iScale = meta.iScale;
   const vScale = meta.vScale;
@@ -15775,18 +18958,15 @@ function parseArrayOrPrimitive(meta, data, start, count) {
   }
   return parsed;
 }
-__name(parseArrayOrPrimitive, "parseArrayOrPrimitive");
 function isFloatBar(custom) {
   return custom && custom.barStart !== void 0 && custom.barEnd !== void 0;
 }
-__name(isFloatBar, "isFloatBar");
 function barSign(size, vScale, actualBase) {
   if (size !== 0) {
     return sign(size);
   }
   return (vScale.isHorizontal() ? 1 : -1) * (vScale.min >= actualBase ? 1 : -1);
 }
-__name(barSign, "barSign");
 function borderProps(properties) {
   let reverse, start, end, top, bottom;
   if (properties.horizontal) {
@@ -15807,7 +18987,6 @@ function borderProps(properties) {
   }
   return { start, end, reverse, top, bottom };
 }
-__name(borderProps, "borderProps");
 function setBorderSkipped(properties, options, stack, index2) {
   let edge = options.borderSkipped;
   const res = {};
@@ -15834,7 +19013,6 @@ function setBorderSkipped(properties, options, stack, index2) {
   res[parseEdge(edge, start, end, reverse)] = true;
   properties.borderSkipped = res;
 }
-__name(setBorderSkipped, "setBorderSkipped");
 function parseEdge(edge, a, b, reverse) {
   if (reverse) {
     edge = swap(edge, a, b);
@@ -15844,19 +19022,15 @@ function parseEdge(edge, a, b, reverse) {
   }
   return edge;
 }
-__name(parseEdge, "parseEdge");
 function swap(orig, v1, v2) {
   return orig === v1 ? v2 : orig === v2 ? v1 : orig;
 }
-__name(swap, "swap");
 function startEnd(v, start, end) {
   return v === "start" ? start : v === "end" ? end : v;
 }
-__name(startEnd, "startEnd");
 function setInflateAmount(properties, { inflateAmount }, ratio) {
   properties.inflateAmount = inflateAmount === "auto" ? ratio === 1 ? 0.33 : 0 : inflateAmount;
 }
-__name(setInflateAmount, "setInflateAmount");
 class BarController extends DatasetController {
   parsePrimitiveData(meta, data, start, count) {
     return parseArrayOrPrimitive(meta, data, start, count);
@@ -15946,13 +19120,13 @@ class BarController extends DatasetController {
     const metasets = iScale.getMatchingVisibleMetas(this._type).filter((meta) => meta.controller.options.grouped);
     const stacked = iScale.options.stacked;
     const stacks = [];
-    const skipNull = /* @__PURE__ */ __name((meta) => {
+    const skipNull = (meta) => {
       const parsed = meta.controller.getParsed(dataIndex);
       const val = parsed && parsed[meta.vScale.axis];
       if (isNullOrUndef(val) || isNaN(val)) {
         return true;
       }
-    }, "skipNull");
+    };
     for (const meta of metasets) {
       if (dataIndex !== void 0 && skipNull(meta)) {
         continue;
@@ -16089,7 +19263,6 @@ class BarController extends DatasetController {
     }
   }
 }
-__name(BarController, "BarController");
 BarController.id = "bar";
 BarController.defaults = {
   datasetElementType: false,
@@ -16207,7 +19380,6 @@ class BubbleController extends DatasetController {
     return values;
   }
 }
-__name(BubbleController, "BubbleController");
 BubbleController.id = "bubble";
 BubbleController.defaults = {
   datasetElementType: false,
@@ -16250,8 +19422,8 @@ function getRatioAndOffset(rotation, circumference, cutout) {
     const startY = Math.sin(startAngle);
     const endX = Math.cos(endAngle);
     const endY = Math.sin(endAngle);
-    const calcMax = /* @__PURE__ */ __name((angle, a, b) => _angleBetween(angle, startAngle, endAngle, true) ? 1 : Math.max(a, a * cutout, b, b * cutout), "calcMax");
-    const calcMin = /* @__PURE__ */ __name((angle, a, b) => _angleBetween(angle, startAngle, endAngle, true) ? -1 : Math.min(a, a * cutout, b, b * cutout), "calcMin");
+    const calcMax = (angle, a, b) => _angleBetween(angle, startAngle, endAngle, true) ? 1 : Math.max(a, a * cutout, b, b * cutout);
+    const calcMin = (angle, a, b) => _angleBetween(angle, startAngle, endAngle, true) ? -1 : Math.min(a, a * cutout, b, b * cutout);
     const maxX = calcMax(0, startX, endX);
     const maxY = calcMax(HALF_PI, startY, endY);
     const minX = calcMin(PI, startX, endX);
@@ -16263,7 +19435,6 @@ function getRatioAndOffset(rotation, circumference, cutout) {
   }
   return { ratioX, ratioY, offsetX, offsetY };
 }
-__name(getRatioAndOffset, "getRatioAndOffset");
 class DoughnutController extends DatasetController {
   constructor(chart, datasetIndex) {
     super(chart, datasetIndex);
@@ -16281,10 +19452,10 @@ class DoughnutController extends DatasetController {
     if (this._parsing === false) {
       meta._parsed = data;
     } else {
-      let getter = /* @__PURE__ */ __name((i2) => +data[i2], "getter");
+      let getter = (i2) => +data[i2];
       if (isObject(data[start])) {
         const { key = "value" } = this._parsing;
-        getter = /* @__PURE__ */ __name((i2) => +resolveObjectKey(data[i2], key), "getter");
+        getter = (i2) => +resolveObjectKey(data[i2], key);
       }
       let i, ilen;
       for (i = start, ilen = start + count; i < ilen; ++i) {
@@ -16463,7 +19634,6 @@ class DoughnutController extends DatasetController {
     return this._getRingWeightOffset(this.chart.data.datasets.length) || 1;
   }
 }
-__name(DoughnutController, "DoughnutController");
 DoughnutController.id = "doughnut";
 DoughnutController.defaults = {
   datasetElementType: false,
@@ -16622,7 +19792,6 @@ class LineController extends DatasetController {
     super.draw();
   }
 }
-__name(LineController, "LineController");
 LineController.id = "line";
 LineController.defaults = {
   datasetElementType: "line",
@@ -16746,7 +19915,6 @@ class PolarAreaController extends DatasetController {
     return this.chart.getDataVisibility(index2) ? toRadians(this.resolveDataElementOptions(index2, mode).angle || defaultAngle) : 0;
   }
 }
-__name(PolarAreaController, "PolarAreaController");
 PolarAreaController.id = "polarArea";
 PolarAreaController.defaults = {
   dataElementType: "arc",
@@ -16824,7 +19992,6 @@ PolarAreaController.overrides = {
 };
 class PieController extends DoughnutController {
 }
-__name(PieController, "PieController");
 PieController.id = "pie";
 PieController.defaults = {
   cutout: 0,
@@ -16884,7 +20051,6 @@ class RadarController extends DatasetController {
     }
   }
 }
-__name(RadarController, "RadarController");
 RadarController.id = "radar";
 RadarController.defaults = {
   datasetElementType: "line",
@@ -16932,7 +20098,6 @@ class Element {
     return ret;
   }
 }
-__name(Element, "Element");
 Element.defaults = {};
 Element.defaultRoutes = void 0;
 const formatters = {
@@ -16977,7 +20142,6 @@ function calculateDelta(tickValue, ticks) {
   }
   return delta;
 }
-__name(calculateDelta, "calculateDelta");
 var Ticks = { formatters };
 defaults.set("scale", {
   display: true,
@@ -17071,7 +20235,6 @@ function autoSkip(scale, ticks) {
   skip(ticks, newTicks, spacing);
   return newTicks;
 }
-__name(autoSkip, "autoSkip");
 function determineMaxTicks(scale) {
   const offset = scale.options.offset;
   const tickLength = scale._tickSize();
@@ -17079,7 +20242,6 @@ function determineMaxTicks(scale) {
   const maxChart = scale._maxLength / tickLength;
   return Math.floor(Math.min(maxScale, maxChart));
 }
-__name(determineMaxTicks, "determineMaxTicks");
 function calculateSpacing(majorIndices, ticks, ticksLimit) {
   const evenMajorSpacing = getEvenSpacing(majorIndices);
   const spacing = ticks.length / ticksLimit;
@@ -17095,7 +20257,6 @@ function calculateSpacing(majorIndices, ticks, ticksLimit) {
   }
   return Math.max(spacing, 1);
 }
-__name(calculateSpacing, "calculateSpacing");
 function getMajorIndices(ticks) {
   const result = [];
   let i, ilen;
@@ -17106,7 +20267,6 @@ function getMajorIndices(ticks) {
   }
   return result;
 }
-__name(getMajorIndices, "getMajorIndices");
 function skipMajors(ticks, newTicks, majorIndices, spacing) {
   let count = 0;
   let next = majorIndices[0];
@@ -17120,7 +20280,6 @@ function skipMajors(ticks, newTicks, majorIndices, spacing) {
     }
   }
 }
-__name(skipMajors, "skipMajors");
 function skip(ticks, newTicks, spacing, majorStart, majorEnd) {
   const start = valueOrDefault(majorStart, 0);
   const end = Math.min(valueOrDefault(majorEnd, ticks.length), ticks.length);
@@ -17144,7 +20303,6 @@ function skip(ticks, newTicks, spacing, majorStart, majorEnd) {
     }
   }
 }
-__name(skip, "skip");
 function getEvenSpacing(arr) {
   const len = arr.length;
   let i, diff;
@@ -17158,9 +20316,8 @@ function getEvenSpacing(arr) {
   }
   return diff;
 }
-__name(getEvenSpacing, "getEvenSpacing");
-const reverseAlign = /* @__PURE__ */ __name((align) => align === "left" ? "right" : align === "right" ? "left" : align, "reverseAlign");
-const offsetFromEdge = /* @__PURE__ */ __name((scale, edge, offset) => edge === "top" || edge === "left" ? scale[edge] + offset : scale[edge] - offset, "offsetFromEdge");
+const reverseAlign = (align) => align === "left" ? "right" : align === "right" ? "left" : align;
+const offsetFromEdge = (scale, edge, offset) => edge === "top" || edge === "left" ? scale[edge] + offset : scale[edge] - offset;
 function sample(arr, numItems) {
   const result = [];
   const increment = arr.length / numItems;
@@ -17171,7 +20328,6 @@ function sample(arr, numItems) {
   }
   return result;
 }
-__name(sample, "sample");
 function getPixelForGridLine(scale, index2, offsetGridLines) {
   const length = scale.ticks.length;
   const validIndex2 = Math.min(index2, length - 1);
@@ -17195,7 +20351,6 @@ function getPixelForGridLine(scale, index2, offsetGridLines) {
   }
   return lineValue;
 }
-__name(getPixelForGridLine, "getPixelForGridLine");
 function garbageCollect(caches, length) {
   each(caches, (cache) => {
     const gc = cache.gc;
@@ -17209,11 +20364,9 @@ function garbageCollect(caches, length) {
     }
   });
 }
-__name(garbageCollect, "garbageCollect");
 function getTickMarkLength(options) {
   return options.drawTicks ? options.tickLength : 0;
 }
-__name(getTickMarkLength, "getTickMarkLength");
 function getTitleHeight(options, fallback) {
   if (!options.display) {
     return 0;
@@ -17223,14 +20376,12 @@ function getTitleHeight(options, fallback) {
   const lines = isArray(options.text) ? options.text.length : 1;
   return lines * font.lineHeight + padding.height;
 }
-__name(getTitleHeight, "getTitleHeight");
 function createScaleContext(parent, scale) {
   return createContext(parent, {
     scale,
     type: "scale"
   });
 }
-__name(createScaleContext, "createScaleContext");
 function createTickContext(parent, index2, tick) {
   return createContext(parent, {
     tick,
@@ -17238,7 +20389,6 @@ function createTickContext(parent, index2, tick) {
     type: "tick"
   });
 }
-__name(createTickContext, "createTickContext");
 function titleAlign(align, position, reverse) {
   let ret = _toLeftRightCenter(align);
   if (reverse && position !== "right" || !reverse && position === "right") {
@@ -17246,7 +20396,6 @@ function titleAlign(align, position, reverse) {
   }
   return ret;
 }
-__name(titleAlign, "titleAlign");
 function titleArgs(scale, offset, position, align) {
   const { top, left, bottom, right, chart } = scale;
   const { chartArea, scales: scales2 } = chart;
@@ -17281,7 +20430,6 @@ function titleArgs(scale, offset, position, align) {
   }
   return { titleX, titleY, maxWidth, rotation };
 }
-__name(titleArgs, "titleArgs");
 class Scale extends Element {
   constructor(cfg) {
     super();
@@ -17727,7 +20875,7 @@ class Scale extends Element {
     garbageCollect(caches, length);
     const widest = widths.indexOf(widestLabelSize);
     const highest = heights.indexOf(highestLabelSize);
-    const valueAt = /* @__PURE__ */ __name((idx) => ({ width: widths[idx] || 0, height: heights[idx] || 0 }), "valueAt");
+    const valueAt = (idx) => ({ width: widths[idx] || 0, height: heights[idx] || 0 });
     return {
       first: valueAt(0),
       last: valueAt(length - 1),
@@ -17810,9 +20958,9 @@ class Scale extends Element {
     const borderOpts = grid.setContext(this.getContext());
     const axisWidth = borderOpts.drawBorder ? borderOpts.borderWidth : 0;
     const axisHalfWidth = axisWidth / 2;
-    const alignBorderValue = /* @__PURE__ */ __name(function(pixel) {
+    const alignBorderValue = function(pixel) {
       return _alignPixel(chart, pixel, axisWidth);
-    }, "alignBorderValue");
+    };
     let borderValue, i, lineValue, alignedLineValue;
     let tx1, ty1, tx2, ty2, x1, y1, x2, y2;
     if (position === "top") {
@@ -18175,7 +21323,7 @@ class Scale extends Element {
     const ctx = this.ctx;
     const items = this._gridLineItems || (this._gridLineItems = this._computeGridLineItems(chartArea));
     let i, ilen;
-    const drawLine = /* @__PURE__ */ __name((p1, p2, style) => {
+    const drawLine = (p1, p2, style) => {
       if (!style.width || !style.color) {
         return;
       }
@@ -18189,7 +21337,7 @@ class Scale extends Element {
       ctx.lineTo(p2.x, p2.y);
       ctx.stroke();
       ctx.restore();
-    }, "drawLine");
+    };
     if (grid.display) {
       for (i = 0, ilen = items.length; i < ilen; ++i) {
         const item = items[i];
@@ -18360,7 +21508,6 @@ class Scale extends Element {
     return (this.isHorizontal() ? this.width : this.height) / fontSize;
   }
 }
-__name(Scale, "Scale");
 class TypedRegistry {
   constructor(type, scope, override) {
     this.type = type;
@@ -18411,7 +21558,6 @@ class TypedRegistry {
     }
   }
 }
-__name(TypedRegistry, "TypedRegistry");
 function registerDefaults(item, scope, parentScope) {
   const itemDefaults = merge(/* @__PURE__ */ Object.create(null), [
     parentScope ? defaults.get(parentScope) : {},
@@ -18426,7 +21572,6 @@ function registerDefaults(item, scope, parentScope) {
     defaults.describe(scope, item.descriptors);
   }
 }
-__name(registerDefaults, "registerDefaults");
 function routeDefaults(scope, routes) {
   Object.keys(routes).forEach((property) => {
     const propertyParts = property.split(".");
@@ -18438,11 +21583,9 @@ function routeDefaults(scope, routes) {
     defaults.route(sourceScope, sourceName, targetScope, targetName);
   });
 }
-__name(routeDefaults, "routeDefaults");
 function isIChartComponent(proto) {
   return "id" in proto && "defaults" in proto;
 }
-__name(isIChartComponent, "isIChartComponent");
 class Registry {
   constructor() {
     this.controllers = new TypedRegistry(DatasetController, "datasets", true);
@@ -18529,7 +21672,6 @@ class Registry {
     return item;
   }
 }
-__name(Registry, "Registry");
 var registry = new Registry();
 class ScatterController extends DatasetController {
   update(mode) {
@@ -18620,7 +21762,6 @@ class ScatterController extends DatasetController {
     return Math.max(border, firstPoint, lastPoint) / 2;
   }
 }
-__name(ScatterController, "ScatterController");
 ScatterController.id = "scatter";
 ScatterController.defaults = {
   datasetElementType: false,
@@ -18667,7 +21808,6 @@ var controllers = /* @__PURE__ */ Object.freeze({
 function abstract() {
   throw new Error("This method is not implemented: Check that a complete date adapter is provided.");
 }
-__name(abstract, "abstract");
 class DateAdapter {
   constructor(options) {
     this.options = options || {};
@@ -18696,7 +21836,6 @@ class DateAdapter {
     return abstract();
   }
 }
-__name(DateAdapter, "DateAdapter");
 DateAdapter.override = function(members) {
   Object.assign(DateAdapter.prototype, members);
 };
@@ -18722,7 +21861,6 @@ function binarySearch(metaset, axis, value, intersect) {
   }
   return { lo: 0, hi: data.length - 1 };
 }
-__name(binarySearch, "binarySearch");
 function evaluateInteractionItems(chart, axis, position, handler, intersect) {
   const metasets = chart.getSortedVisibleDatasetMetas();
   const value = position[axis];
@@ -18737,7 +21875,6 @@ function evaluateInteractionItems(chart, axis, position, handler, intersect) {
     }
   }
 }
-__name(evaluateInteractionItems, "evaluateInteractionItems");
 function getDistanceMetricForAxis(axis) {
   const useX = axis.indexOf("x") !== -1;
   const useY = axis.indexOf("y") !== -1;
@@ -18747,24 +21884,22 @@ function getDistanceMetricForAxis(axis) {
     return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
   };
 }
-__name(getDistanceMetricForAxis, "getDistanceMetricForAxis");
 function getIntersectItems(chart, position, axis, useFinalPosition, includeInvisible) {
   const items = [];
   if (!includeInvisible && !chart.isPointInArea(position)) {
     return items;
   }
-  const evaluationFunc = /* @__PURE__ */ __name(function(element2, datasetIndex, index2) {
+  const evaluationFunc = function(element2, datasetIndex, index2) {
     if (!includeInvisible && !_isPointInArea(element2, chart.chartArea, 0)) {
       return;
     }
     if (element2.inRange(position.x, position.y, useFinalPosition)) {
       items.push({ element: element2, datasetIndex, index: index2 });
     }
-  }, "evaluationFunc");
+  };
   evaluateInteractionItems(chart, axis, position, evaluationFunc, true);
   return items;
 }
-__name(getIntersectItems, "getIntersectItems");
 function getNearestRadialItems(chart, position, axis, useFinalPosition) {
   let items = [];
   function evaluationFunc(element2, datasetIndex, index2) {
@@ -18774,11 +21909,9 @@ function getNearestRadialItems(chart, position, axis, useFinalPosition) {
       items.push({ element: element2, datasetIndex, index: index2 });
     }
   }
-  __name(evaluationFunc, "evaluationFunc");
   evaluateInteractionItems(chart, axis, position, evaluationFunc);
   return items;
 }
-__name(getNearestRadialItems, "getNearestRadialItems");
 function getNearestCartesianItems(chart, position, axis, intersect, useFinalPosition, includeInvisible) {
   let items = [];
   const distanceMetric = getDistanceMetricForAxis(axis);
@@ -18801,18 +21934,15 @@ function getNearestCartesianItems(chart, position, axis, intersect, useFinalPosi
       items.push({ element: element2, datasetIndex, index: index2 });
     }
   }
-  __name(evaluationFunc, "evaluationFunc");
   evaluateInteractionItems(chart, axis, position, evaluationFunc);
   return items;
 }
-__name(getNearestCartesianItems, "getNearestCartesianItems");
 function getNearestItems(chart, position, axis, intersect, useFinalPosition, includeInvisible) {
   if (!includeInvisible && !chart.isPointInArea(position)) {
     return [];
   }
   return axis === "r" && !intersect ? getNearestRadialItems(chart, position, axis, useFinalPosition) : getNearestCartesianItems(chart, position, axis, intersect, useFinalPosition, includeInvisible);
 }
-__name(getNearestItems, "getNearestItems");
 function getAxisItems(chart, position, axis, intersect, useFinalPosition) {
   const items = [];
   const rangeMethod = axis === "x" ? "inXRange" : "inYRange";
@@ -18828,7 +21958,6 @@ function getAxisItems(chart, position, axis, intersect, useFinalPosition) {
   }
   return items;
 }
-__name(getAxisItems, "getAxisItems");
 var Interaction = {
   evaluateInteractionItems,
   modes: {
@@ -18891,11 +22020,9 @@ const STATIC_POSITIONS = ["left", "top", "right", "bottom"];
 function filterByPosition(array, position) {
   return array.filter((v) => v.pos === position);
 }
-__name(filterByPosition, "filterByPosition");
 function filterDynamicPositionByAxis(array, axis) {
   return array.filter((v) => STATIC_POSITIONS.indexOf(v.pos) === -1 && v.box.axis === axis);
 }
-__name(filterDynamicPositionByAxis, "filterDynamicPositionByAxis");
 function sortByWeight(array, reverse) {
   return array.sort((a, b) => {
     const v0 = reverse ? b : a;
@@ -18903,7 +22030,6 @@ function sortByWeight(array, reverse) {
     return v0.weight === v1.weight ? v0.index - v1.index : v0.weight - v1.weight;
   });
 }
-__name(sortByWeight, "sortByWeight");
 function wrapBoxes(boxes) {
   const layoutBoxes = [];
   let i, ilen, box, pos, stack, stackWeight;
@@ -18922,7 +22048,6 @@ function wrapBoxes(boxes) {
   }
   return layoutBoxes;
 }
-__name(wrapBoxes, "wrapBoxes");
 function buildStacks(layouts2) {
   const stacks = {};
   for (const wrap of layouts2) {
@@ -18936,7 +22061,6 @@ function buildStacks(layouts2) {
   }
   return stacks;
 }
-__name(buildStacks, "buildStacks");
 function setLayoutDims(layouts2, params) {
   const stacks = buildStacks(layouts2);
   const { vBoxMaxWidth, hBoxMaxHeight } = params;
@@ -18956,7 +22080,6 @@ function setLayoutDims(layouts2, params) {
   }
   return stacks;
 }
-__name(setLayoutDims, "setLayoutDims");
 function buildLayoutBoxes(boxes) {
   const layoutBoxes = wrapBoxes(boxes);
   const fullSize = sortByWeight(layoutBoxes.filter((wrap) => wrap.box.fullSize), true);
@@ -18975,18 +22098,15 @@ function buildLayoutBoxes(boxes) {
     horizontal: top.concat(bottom).concat(centerHorizontal)
   };
 }
-__name(buildLayoutBoxes, "buildLayoutBoxes");
 function getCombinedMax(maxPadding, chartArea, a, b) {
   return Math.max(maxPadding[a], chartArea[a]) + Math.max(maxPadding[b], chartArea[b]);
 }
-__name(getCombinedMax, "getCombinedMax");
 function updateMaxPadding(maxPadding, boxPadding) {
   maxPadding.top = Math.max(maxPadding.top, boxPadding.top);
   maxPadding.left = Math.max(maxPadding.left, boxPadding.left);
   maxPadding.bottom = Math.max(maxPadding.bottom, boxPadding.bottom);
   maxPadding.right = Math.max(maxPadding.right, boxPadding.right);
 }
-__name(updateMaxPadding, "updateMaxPadding");
 function updateDims(chartArea, params, layout, stacks) {
   const { pos, box } = layout;
   const maxPadding = chartArea.maxPadding;
@@ -19010,7 +22130,6 @@ function updateDims(chartArea, params, layout, stacks) {
   chartArea.h = newHeight;
   return layout.horizontal ? { same: widthChanged, other: heightChanged } : { same: heightChanged, other: widthChanged };
 }
-__name(updateDims, "updateDims");
 function handleMaxPadding(chartArea) {
   const maxPadding = chartArea.maxPadding;
   function updatePos(pos) {
@@ -19018,13 +22137,11 @@ function handleMaxPadding(chartArea) {
     chartArea[pos] += change;
     return change;
   }
-  __name(updatePos, "updatePos");
   chartArea.y += updatePos("top");
   chartArea.x += updatePos("left");
   updatePos("right");
   updatePos("bottom");
 }
-__name(handleMaxPadding, "handleMaxPadding");
 function getMargins(horizontal, chartArea) {
   const maxPadding = chartArea.maxPadding;
   function marginForPositions(positions2) {
@@ -19034,10 +22151,8 @@ function getMargins(horizontal, chartArea) {
     });
     return margin;
   }
-  __name(marginForPositions, "marginForPositions");
   return horizontal ? marginForPositions(["left", "right"]) : marginForPositions(["top", "bottom"]);
 }
-__name(getMargins, "getMargins");
 function fitBoxes(boxes, chartArea, params, stacks) {
   const refitBoxes = [];
   let i, ilen, layout, box, refit, changed;
@@ -19058,7 +22173,6 @@ function fitBoxes(boxes, chartArea, params, stacks) {
   }
   return refit && fitBoxes(refitBoxes, chartArea, params, stacks) || changed;
 }
-__name(fitBoxes, "fitBoxes");
 function setBoxDims(box, left, top, width, height) {
   box.top = top;
   box.left = left;
@@ -19067,7 +22181,6 @@ function setBoxDims(box, left, top, width, height) {
   box.width = width;
   box.height = height;
 }
-__name(setBoxDims, "setBoxDims");
 function placeBoxes(boxes, chartArea, params, stacks) {
   const userPadding = params.padding;
   let { x, y } = chartArea;
@@ -19108,7 +22221,6 @@ function placeBoxes(boxes, chartArea, params, stacks) {
   chartArea.x = x;
   chartArea.y = y;
 }
-__name(placeBoxes, "placeBoxes");
 defaults.set("layout", {
   autoPadding: true,
   padding: {
@@ -19234,7 +22346,6 @@ class BasePlatform {
   updateConfig(config) {
   }
 }
-__name(BasePlatform, "BasePlatform");
 class BasicPlatform extends BasePlatform {
   acquireContext(item) {
     return item && item.getContext && item.getContext("2d") || null;
@@ -19243,7 +22354,6 @@ class BasicPlatform extends BasePlatform {
     config.options.animation = false;
   }
 }
-__name(BasicPlatform, "BasicPlatform");
 const EXPANDO_KEY = "$chartjs";
 const EVENT_TYPES = {
   touchstart: "mousedown",
@@ -19256,7 +22366,7 @@ const EVENT_TYPES = {
   pointerleave: "mouseout",
   pointerout: "mouseout"
 };
-const isNullOrEmpty = /* @__PURE__ */ __name((value) => value === null || value === "", "isNullOrEmpty");
+const isNullOrEmpty = (value) => value === null || value === "";
 function initCanvas(canvas, aspectRatio) {
   const style = canvas.style;
   const renderHeight = canvas.getAttribute("height");
@@ -19292,16 +22402,13 @@ function initCanvas(canvas, aspectRatio) {
   }
   return canvas;
 }
-__name(initCanvas, "initCanvas");
 const eventListenerOptions = supportsEventListenerOptions ? { passive: true } : false;
 function addListener(node, type, listener) {
   node.addEventListener(type, listener, eventListenerOptions);
 }
-__name(addListener, "addListener");
 function removeListener(chart, type, listener) {
   chart.canvas.removeEventListener(type, listener, eventListenerOptions);
 }
-__name(removeListener, "removeListener");
 function fromNativeEvent(event, chart) {
   const type = EVENT_TYPES[event.type] || event.type;
   const { x, y } = getRelativePosition(event, chart);
@@ -19313,7 +22420,6 @@ function fromNativeEvent(event, chart) {
     y: y !== void 0 ? y : null
   };
 }
-__name(fromNativeEvent, "fromNativeEvent");
 function nodeListContains(nodeList, canvas) {
   for (const node of nodeList) {
     if (node === canvas || node.contains(canvas)) {
@@ -19321,7 +22427,6 @@ function nodeListContains(nodeList, canvas) {
     }
   }
 }
-__name(nodeListContains, "nodeListContains");
 function createAttachObserver(chart, type, listener) {
   const canvas = chart.canvas;
   const observer = new MutationObserver((entries) => {
@@ -19337,7 +22442,6 @@ function createAttachObserver(chart, type, listener) {
   observer.observe(document, { childList: true, subtree: true });
   return observer;
 }
-__name(createAttachObserver, "createAttachObserver");
 function createDetachObserver(chart, type, listener) {
   const canvas = chart.canvas;
   const observer = new MutationObserver((entries) => {
@@ -19353,7 +22457,6 @@ function createDetachObserver(chart, type, listener) {
   observer.observe(document, { childList: true, subtree: true });
   return observer;
 }
-__name(createDetachObserver, "createDetachObserver");
 const drpListeningCharts = /* @__PURE__ */ new Map();
 let oldDevicePixelRatio = 0;
 function onWindowResize() {
@@ -19368,21 +22471,18 @@ function onWindowResize() {
     }
   });
 }
-__name(onWindowResize, "onWindowResize");
 function listenDevicePixelRatioChanges(chart, resize) {
   if (!drpListeningCharts.size) {
     window.addEventListener("resize", onWindowResize);
   }
   drpListeningCharts.set(chart, resize);
 }
-__name(listenDevicePixelRatioChanges, "listenDevicePixelRatioChanges");
 function unlistenDevicePixelRatioChanges(chart) {
   drpListeningCharts.delete(chart);
   if (!drpListeningCharts.size) {
     window.removeEventListener("resize", onWindowResize);
   }
 }
-__name(unlistenDevicePixelRatioChanges, "unlistenDevicePixelRatioChanges");
 function createResizeObserver(chart, type, listener) {
   const canvas = chart.canvas;
   const container = canvas && _getParentNode(canvas);
@@ -19409,7 +22509,6 @@ function createResizeObserver(chart, type, listener) {
   listenDevicePixelRatioChanges(chart, resize);
   return observer;
 }
-__name(createResizeObserver, "createResizeObserver");
 function releaseObserver(chart, type, observer) {
   if (observer) {
     observer.disconnect();
@@ -19418,7 +22517,6 @@ function releaseObserver(chart, type, observer) {
     unlistenDevicePixelRatioChanges(chart);
   }
 }
-__name(releaseObserver, "releaseObserver");
 function createProxyAndListen(chart, type, listener) {
   const canvas = chart.canvas;
   const proxy = throttled((event) => {
@@ -19432,7 +22530,6 @@ function createProxyAndListen(chart, type, listener) {
   addListener(canvas, type, proxy);
   return proxy;
 }
-__name(createProxyAndListen, "createProxyAndListen");
 class DomPlatform extends BasePlatform {
   acquireContext(canvas, aspectRatio) {
     const context = canvas && canvas.getContext && canvas.getContext("2d");
@@ -19501,14 +22598,12 @@ class DomPlatform extends BasePlatform {
     return !!(container && container.isConnected);
   }
 }
-__name(DomPlatform, "DomPlatform");
 function _detectPlatform(canvas) {
   if (!_isDomSupported() || typeof OffscreenCanvas !== "undefined" && canvas instanceof OffscreenCanvas) {
     return BasicPlatform;
   }
   return DomPlatform;
 }
-__name(_detectPlatform, "_detectPlatform");
 class PluginService {
   constructor() {
     this._init = [];
@@ -19561,12 +22656,11 @@ class PluginService {
   _notifyStateChanges(chart) {
     const previousDescriptors = this._oldCache || [];
     const descriptors2 = this._cache;
-    const diff = /* @__PURE__ */ __name((a, b) => a.filter((x) => !b.some((y) => x.plugin.id === y.plugin.id)), "diff");
+    const diff = (a, b) => a.filter((x) => !b.some((y) => x.plugin.id === y.plugin.id));
     this._notify(diff(previousDescriptors, descriptors2), chart, "stop");
     this._notify(diff(descriptors2, previousDescriptors), chart, "start");
   }
 }
-__name(PluginService, "PluginService");
 function allPlugins(config) {
   const localIds = {};
   const plugins2 = [];
@@ -19584,7 +22678,6 @@ function allPlugins(config) {
   }
   return { plugins: plugins2, localIds };
 }
-__name(allPlugins, "allPlugins");
 function getOpts(options, all) {
   if (!all && options === false) {
     return null;
@@ -19594,7 +22687,6 @@ function getOpts(options, all) {
   }
   return options;
 }
-__name(getOpts, "getOpts");
 function createDescriptors(chart, { plugins: plugins2, localIds }, options, all) {
   const result = [];
   const context = chart.getContext();
@@ -19611,7 +22703,6 @@ function createDescriptors(chart, { plugins: plugins2, localIds }, options, all)
   }
   return result;
 }
-__name(createDescriptors, "createDescriptors");
 function pluginOpts(config, { plugin, local }, opts, context) {
   const keys = config.pluginScopeKeys(plugin);
   const scopes = config.getOptionScopes(opts, keys);
@@ -19624,13 +22715,11 @@ function pluginOpts(config, { plugin, local }, opts, context) {
     allKeys: true
   });
 }
-__name(pluginOpts, "pluginOpts");
 function getIndexAxis(type, options) {
   const datasetDefaults = defaults.datasets[type] || {};
   const datasetOptions = (options.datasets || {})[type] || {};
   return datasetOptions.indexAxis || options.indexAxis || datasetDefaults.indexAxis || "x";
 }
-__name(getIndexAxis, "getIndexAxis");
 function getAxisFromDefaultScaleID(id, indexAxis) {
   let axis = id;
   if (id === "_index_") {
@@ -19640,11 +22729,9 @@ function getAxisFromDefaultScaleID(id, indexAxis) {
   }
   return axis;
 }
-__name(getAxisFromDefaultScaleID, "getAxisFromDefaultScaleID");
 function getDefaultScaleIDFromAxis(axis, indexAxis) {
   return axis === indexAxis ? "_index_" : "_value_";
 }
-__name(getDefaultScaleIDFromAxis, "getDefaultScaleIDFromAxis");
 function axisFromPosition(position) {
   if (position === "top" || position === "bottom") {
     return "x";
@@ -19653,14 +22740,12 @@ function axisFromPosition(position) {
     return "y";
   }
 }
-__name(axisFromPosition, "axisFromPosition");
 function determineAxis(id, scaleOptions) {
   if (id === "x" || id === "y") {
     return id;
   }
   return scaleOptions.axis || axisFromPosition(scaleOptions.position) || id.charAt(0).toLowerCase();
 }
-__name(determineAxis, "determineAxis");
 function mergeScaleConfig(config, options) {
   const chartDefaults = overrides[config.type] || { scales: {} };
   const configScales = options.scales || {};
@@ -19699,27 +22784,23 @@ function mergeScaleConfig(config, options) {
   });
   return scales2;
 }
-__name(mergeScaleConfig, "mergeScaleConfig");
 function initOptions(config) {
   const options = config.options || (config.options = {});
   options.plugins = valueOrDefault(options.plugins, {});
   options.scales = mergeScaleConfig(config, options);
 }
-__name(initOptions, "initOptions");
 function initData(data) {
   data = data || {};
   data.datasets = data.datasets || [];
   data.labels = data.labels || [];
   return data;
 }
-__name(initData, "initData");
 function initConfig(config) {
   config = config || {};
   config.data = initData(config.data);
   initOptions(config);
   return config;
 }
-__name(initConfig, "initConfig");
 const keyCache = /* @__PURE__ */ new Map();
 const keysCached = /* @__PURE__ */ new Set();
 function cachedKeys(cacheKey, generate) {
@@ -19731,13 +22812,12 @@ function cachedKeys(cacheKey, generate) {
   }
   return keys;
 }
-__name(cachedKeys, "cachedKeys");
-const addIfFound = /* @__PURE__ */ __name((set2, obj, key) => {
+const addIfFound = (set2, obj, key) => {
   const opts = resolveObjectKey(obj, key);
   if (opts !== void 0) {
     set2.add(opts);
   }
-}, "addIfFound");
+};
 class Config {
   constructor(config) {
     this._config = initConfig(config);
@@ -19890,7 +22970,6 @@ class Config {
     return isObject(context) ? _attachContext(resolver, context, void 0, descriptorDefaults) : resolver;
   }
 }
-__name(Config, "Config");
 function getResolver(resolverCache, scopes, prefixes) {
   let cache = resolverCache.get(scopes);
   if (!cache) {
@@ -19909,8 +22988,7 @@ function getResolver(resolverCache, scopes, prefixes) {
   }
   return cached;
 }
-__name(getResolver, "getResolver");
-const hasFunction = /* @__PURE__ */ __name((value) => isObject(value) && Object.getOwnPropertyNames(value).reduce((acc, key) => acc || isFunction(value[key]), false), "hasFunction");
+const hasFunction = (value) => isObject(value) && Object.getOwnPropertyNames(value).reduce((acc, key) => acc || isFunction(value[key]), false);
 function needContext(proxy, names2) {
   const { isScriptable, isIndexable } = _descriptors(proxy);
   for (const prop of names2) {
@@ -19923,32 +23001,27 @@ function needContext(proxy, names2) {
   }
   return false;
 }
-__name(needContext, "needContext");
 var version = "3.9.1";
 const KNOWN_POSITIONS = ["top", "bottom", "left", "right", "chartArea"];
 function positionIsHorizontal(position, axis) {
   return position === "top" || position === "bottom" || KNOWN_POSITIONS.indexOf(position) === -1 && axis === "x";
 }
-__name(positionIsHorizontal, "positionIsHorizontal");
 function compare2Level(l1, l2) {
   return function(a, b) {
     return a[l1] === b[l1] ? a[l2] - b[l2] : a[l1] - b[l1];
   };
 }
-__name(compare2Level, "compare2Level");
 function onAnimationsComplete(context) {
   const chart = context.chart;
   const animationOptions2 = chart.options.animation;
   chart.notifyPlugins("afterRender");
   callback(animationOptions2 && animationOptions2.onComplete, [context], chart);
 }
-__name(onAnimationsComplete, "onAnimationsComplete");
 function onAnimationProgress(context) {
   const chart = context.chart;
   const animationOptions2 = chart.options.animation;
   callback(animationOptions2 && animationOptions2.onProgress, [context], chart);
 }
-__name(onAnimationProgress, "onAnimationProgress");
 function getCanvas(item) {
   if (_isDomSupported() && typeof item === "string") {
     item = document.getElementById(item);
@@ -19960,12 +23033,11 @@ function getCanvas(item) {
   }
   return item;
 }
-__name(getCanvas, "getCanvas");
 const instances = {};
-const getChart = /* @__PURE__ */ __name((key) => {
+const getChart = (key) => {
   const canvas = getCanvas(key);
   return Object.values(instances).filter((c) => c.canvas === canvas).pop();
-}, "getChart");
+};
 function moveNumericKeys(obj, start, move) {
   const keys = Object.keys(obj);
   for (const key of keys) {
@@ -19979,7 +23051,6 @@ function moveNumericKeys(obj, start, move) {
     }
   }
 }
-__name(moveNumericKeys, "moveNumericKeys");
 function determineLastEvent(e, lastEvent, inChartArea, isClick) {
   if (!inChartArea || e.type === "mouseout") {
     return null;
@@ -19989,7 +23060,6 @@ function determineLastEvent(e, lastEvent, inChartArea, isClick) {
   }
   return e;
 }
-__name(determineLastEvent, "determineLastEvent");
 class Chart {
   constructor(item, userConfig) {
     const config = this.config = new Config(userConfig);
@@ -20319,9 +23389,9 @@ class Chart {
     }
     this._dataChanges = [];
     const datasetCount = this.data.datasets.length;
-    const makeSet = /* @__PURE__ */ __name((idx) => new Set(
+    const makeSet = (idx) => new Set(
       _dataChanges.filter((c) => c[0] === idx).map((c, i) => i + "," + c.splice(1).join(","))
-    ), "makeSet");
+    );
     const changeSet = makeSet(0);
     for (let i = 1; i < datasetCount; i++) {
       if (!setsEqual(changeSet, makeSet(i))) {
@@ -20585,15 +23655,15 @@ class Chart {
   bindUserEvents() {
     const listeners = this._listeners;
     const platform = this.platform;
-    const _add = /* @__PURE__ */ __name((type, listener2) => {
+    const _add = (type, listener2) => {
       platform.addEventListener(this, type, listener2);
       listeners[type] = listener2;
-    }, "_add");
-    const listener = /* @__PURE__ */ __name((e, x, y) => {
+    };
+    const listener = (e, x, y) => {
       e.offsetX = x;
       e.offsetY = y;
       this._eventHandler(e);
-    }, "listener");
+    };
     each(this.options.events, (type) => _add(type, listener));
   }
   bindResponsiveEvents() {
@@ -20602,36 +23672,36 @@ class Chart {
     }
     const listeners = this._responsiveListeners;
     const platform = this.platform;
-    const _add = /* @__PURE__ */ __name((type, listener2) => {
+    const _add = (type, listener2) => {
       platform.addEventListener(this, type, listener2);
       listeners[type] = listener2;
-    }, "_add");
-    const _remove = /* @__PURE__ */ __name((type, listener2) => {
+    };
+    const _remove = (type, listener2) => {
       if (listeners[type]) {
         platform.removeEventListener(this, type, listener2);
         delete listeners[type];
       }
-    }, "_remove");
-    const listener = /* @__PURE__ */ __name((width, height) => {
+    };
+    const listener = (width, height) => {
       if (this.canvas) {
         this.resize(width, height);
       }
-    }, "listener");
+    };
     let detached;
-    const attached = /* @__PURE__ */ __name(() => {
+    const attached = () => {
       _remove("attach", attached);
       this.attached = true;
       this.resize();
       _add("resize", listener);
       _add("detach", detached);
-    }, "attached");
-    detached = /* @__PURE__ */ __name(() => {
+    };
+    detached = () => {
       this.attached = false;
       _remove("resize", listener);
       this._stop();
       this._resize(0, 0);
       _add("attach", attached);
-    }, "detached");
+    };
     if (platform.isAttached(this.canvas)) {
       attached();
     } else {
@@ -20691,7 +23761,7 @@ class Chart {
   }
   _updateHoverStyles(active2, lastActive, replay) {
     const hoverOptions = this.options.hover;
-    const diff = /* @__PURE__ */ __name((a, b) => a.filter((x) => !b.some((y) => x.datasetIndex === y.datasetIndex && x.index === y.index)), "diff");
+    const diff = (a, b) => a.filter((x) => !b.some((y) => x.datasetIndex === y.datasetIndex && x.index === y.index));
     const deactivated = diff(lastActive, active2);
     const activated = replay ? active2 : diff(active2, lastActive);
     if (deactivated.length) {
@@ -20708,7 +23778,7 @@ class Chart {
       cancelable: true,
       inChartArea: this.isPointInArea(e)
     };
-    const eventFilter = /* @__PURE__ */ __name((plugin) => (plugin.options.events || this.options.events).includes(e.native.type), "eventFilter");
+    const eventFilter = (plugin) => (plugin.options.events || this.options.events).includes(e.native.type);
     if (this.notifyPlugins("beforeEvent", args, eventFilter) === false) {
       return;
     }
@@ -20752,8 +23822,7 @@ class Chart {
     return this.getElementsAtEventForMode(e, hoverOptions.mode, hoverOptions, useFinalPosition);
   }
 }
-__name(Chart, "Chart");
-const invalidatePlugins = /* @__PURE__ */ __name(() => each(Chart.instances, (chart) => chart._plugins.invalidate()), "invalidatePlugins");
+const invalidatePlugins = () => each(Chart.instances, (chart) => chart._plugins.invalidate());
 const enumerable = true;
 Object.defineProperties(Chart, {
   defaults: {
@@ -20809,19 +23878,17 @@ function clipArc(ctx, element2, endAngle) {
   ctx.closePath();
   ctx.clip();
 }
-__name(clipArc, "clipArc");
 function toRadiusCorners(value) {
   return _readValueToProps(value, ["outerStart", "outerEnd", "innerStart", "innerEnd"]);
 }
-__name(toRadiusCorners, "toRadiusCorners");
 function parseBorderRadius$1(arc, innerRadius, outerRadius, angleDelta) {
   const o = toRadiusCorners(arc.options.borderRadius);
   const halfThickness = (outerRadius - innerRadius) / 2;
   const innerLimit = Math.min(halfThickness, angleDelta * innerRadius / 2);
-  const computeOuterLimit = /* @__PURE__ */ __name((val) => {
+  const computeOuterLimit = (val) => {
     const outerArcLimit = (outerRadius - Math.min(halfThickness, val)) * angleDelta / 2;
     return _limitValue(val, 0, Math.min(halfThickness, outerArcLimit));
-  }, "computeOuterLimit");
+  };
   return {
     outerStart: computeOuterLimit(o.outerStart),
     outerEnd: computeOuterLimit(o.outerEnd),
@@ -20829,14 +23896,12 @@ function parseBorderRadius$1(arc, innerRadius, outerRadius, angleDelta) {
     innerEnd: _limitValue(o.innerEnd, 0, innerLimit)
   };
 }
-__name(parseBorderRadius$1, "parseBorderRadius$1");
 function rThetaToXY(r, theta, x, y) {
   return {
     x: x + r * Math.cos(theta),
     y: y + r * Math.sin(theta)
   };
 }
-__name(rThetaToXY, "rThetaToXY");
 function pathArc(ctx, element2, offset, spacing, end, circular) {
   const { x, y, startAngle: start, pixelMargin, innerRadius: innerR } = element2;
   const outerRadius = Math.max(element2.outerRadius + spacing + offset - pixelMargin, 0);
@@ -20898,7 +23963,6 @@ function pathArc(ctx, element2, offset, spacing, end, circular) {
   }
   ctx.closePath();
 }
-__name(pathArc, "pathArc");
 function drawArc(ctx, element2, offset, spacing, circular) {
   const { fullCircles, startAngle, circumference } = element2;
   let endAngle = element2.endAngle;
@@ -20918,7 +23982,6 @@ function drawArc(ctx, element2, offset, spacing, circular) {
   ctx.fill();
   return endAngle;
 }
-__name(drawArc, "drawArc");
 function drawFullCircleBorders(ctx, element2, inner) {
   const { x, y, startAngle, pixelMargin, fullCircles } = element2;
   const outerRadius = Math.max(element2.outerRadius - pixelMargin, 0);
@@ -20938,7 +24001,6 @@ function drawFullCircleBorders(ctx, element2, inner) {
     ctx.stroke();
   }
 }
-__name(drawFullCircleBorders, "drawFullCircleBorders");
 function drawBorder(ctx, element2, offset, spacing, endAngle, circular) {
   const { options } = element2;
   const { borderWidth, borderJoinStyle } = options;
@@ -20962,7 +24024,6 @@ function drawBorder(ctx, element2, offset, spacing, endAngle, circular) {
   pathArc(ctx, element2, offset, spacing, endAngle, circular);
   ctx.stroke();
 }
-__name(drawBorder, "drawBorder");
 class ArcElement extends Element {
   constructor(cfg) {
     super();
@@ -21042,7 +24103,6 @@ class ArcElement extends Element {
     ctx.restore();
   }
 }
-__name(ArcElement, "ArcElement");
 ArcElement.id = "arc";
 ArcElement.defaults = {
   borderAlign: "center",
@@ -21066,11 +24126,9 @@ function setStyle(ctx, options, style = options) {
   ctx.lineWidth = valueOrDefault(style.borderWidth, options.borderWidth);
   ctx.strokeStyle = valueOrDefault(style.borderColor, options.borderColor);
 }
-__name(setStyle, "setStyle");
 function lineTo(ctx, previous, target) {
   ctx.lineTo(target.x, target.y);
 }
-__name(lineTo, "lineTo");
 function getLineMethod(options) {
   if (options.stepped) {
     return _steppedLineTo;
@@ -21080,7 +24138,6 @@ function getLineMethod(options) {
   }
   return lineTo;
 }
-__name(getLineMethod, "getLineMethod");
 function pathVars(points, segment, params = {}) {
   const count = points.length;
   const { start: paramsStart = 0, end: paramsEnd = count - 1 } = params;
@@ -21095,7 +24152,6 @@ function pathVars(points, segment, params = {}) {
     ilen: end < start && !outside ? count + end - start : end - start
   };
 }
-__name(pathVars, "pathVars");
 function pathSegment(ctx, line, segment, params) {
   const { points, options } = line;
   const { count, start, loop: loop2, ilen } = pathVars(points, segment, params);
@@ -21120,7 +24176,6 @@ function pathSegment(ctx, line, segment, params) {
   }
   return !!loop2;
 }
-__name(pathSegment, "pathSegment");
 function fastPathSegment(ctx, line, segment, params) {
   const points = line.points;
   const { count, start, ilen } = pathVars(points, segment, params);
@@ -21128,14 +24183,14 @@ function fastPathSegment(ctx, line, segment, params) {
   let avgX = 0;
   let countX = 0;
   let i, point, prevX, minY, maxY, lastY;
-  const pointIndex = /* @__PURE__ */ __name((index2) => (start + (reverse ? ilen - index2 : index2)) % count, "pointIndex");
-  const drawX = /* @__PURE__ */ __name(() => {
+  const pointIndex = (index2) => (start + (reverse ? ilen - index2 : index2)) % count;
+  const drawX = () => {
     if (minY !== maxY) {
       ctx.lineTo(avgX, maxY);
       ctx.lineTo(avgX, minY);
       ctx.lineTo(avgX, lastY);
     }
-  }, "drawX");
+  };
   if (move) {
     point = points[pointIndex(0)];
     ctx.moveTo(point.x, point.y);
@@ -21166,14 +24221,12 @@ function fastPathSegment(ctx, line, segment, params) {
   }
   drawX();
 }
-__name(fastPathSegment, "fastPathSegment");
 function _getSegmentMethod(line) {
   const opts = line.options;
   const borderDash = opts.borderDash && opts.borderDash.length;
   const useFastPath = !line._decimated && !line._loop && !opts.tension && opts.cubicInterpolationMode !== "monotone" && !opts.stepped && !borderDash;
   return useFastPath ? fastPathSegment : pathSegment;
 }
-__name(_getSegmentMethod, "_getSegmentMethod");
 function _getInterpolationMethod(options) {
   if (options.stepped) {
     return _steppedInterpolation;
@@ -21183,7 +24236,6 @@ function _getInterpolationMethod(options) {
   }
   return _pointInLine;
 }
-__name(_getInterpolationMethod, "_getInterpolationMethod");
 function strokePathWithCache(ctx, line, start, count) {
   let path = line._path;
   if (!path) {
@@ -21195,7 +24247,6 @@ function strokePathWithCache(ctx, line, start, count) {
   setStyle(ctx, line.options);
   ctx.stroke(path);
 }
-__name(strokePathWithCache, "strokePathWithCache");
 function strokePathDirect(ctx, line, start, count) {
   const { segments, options } = line;
   const segmentMethod = _getSegmentMethod(line);
@@ -21208,7 +24259,6 @@ function strokePathDirect(ctx, line, start, count) {
     ctx.stroke();
   }
 }
-__name(strokePathDirect, "strokePathDirect");
 const usePath2D = typeof Path2D === "function";
 function draw(ctx, line, start, count) {
   if (usePath2D && !line.options.segment) {
@@ -21217,7 +24267,6 @@ function draw(ctx, line, start, count) {
     strokePathDirect(ctx, line, start, count);
   }
 }
-__name(draw, "draw");
 class LineElement extends Element {
   constructor(cfg) {
     super();
@@ -21322,7 +24371,6 @@ class LineElement extends Element {
     }
   }
 }
-__name(LineElement, "LineElement");
 LineElement.id = "line";
 LineElement.defaults = {
   borderCapStyle: "butt",
@@ -21350,7 +24398,6 @@ function inRange$1(el, pos, axis, useFinalPosition) {
   const { [axis]: value } = el.getProps([axis], useFinalPosition);
   return Math.abs(pos - value) < options.radius + options.hitRadius;
 }
-__name(inRange$1, "inRange$1");
 class PointElement extends Element {
   constructor(cfg) {
     super();
@@ -21399,7 +24446,6 @@ class PointElement extends Element {
     return options.radius + options.hitRadius;
   }
 }
-__name(PointElement, "PointElement");
 PointElement.id = "point";
 PointElement.defaults = {
   borderWidth: 1,
@@ -21432,11 +24478,9 @@ function getBarBounds(bar, useFinalPosition) {
   }
   return { left, top, right, bottom };
 }
-__name(getBarBounds, "getBarBounds");
 function skipOrLimit(skip2, value, min, max) {
   return skip2 ? 0 : _limitValue(value, min, max);
 }
-__name(skipOrLimit, "skipOrLimit");
 function parseBorderWidth(bar, maxW, maxH) {
   const value = bar.options.borderWidth;
   const skip2 = bar.borderSkipped;
@@ -21448,7 +24492,6 @@ function parseBorderWidth(bar, maxW, maxH) {
     l: skipOrLimit(skip2.left, o.left, 0, maxW)
   };
 }
-__name(parseBorderWidth, "parseBorderWidth");
 function parseBorderRadius(bar, maxW, maxH) {
   const { enableBorderRadius } = bar.getProps(["enableBorderRadius"]);
   const value = bar.options.borderRadius;
@@ -21463,7 +24506,6 @@ function parseBorderRadius(bar, maxW, maxH) {
     bottomRight: skipOrLimit(!enableBorder || skip2.bottom || skip2.right, o.bottomRight, 0, maxR)
   };
 }
-__name(parseBorderRadius, "parseBorderRadius");
 function boundingRects(bar) {
   const bounds = getBarBounds(bar);
   const width = bounds.right - bounds.left;
@@ -21492,7 +24534,6 @@ function boundingRects(bar) {
     }
   };
 }
-__name(boundingRects, "boundingRects");
 function inRange(bar, x, y, useFinalPosition) {
   const skipX = x === null;
   const skipY = y === null;
@@ -21500,15 +24541,12 @@ function inRange(bar, x, y, useFinalPosition) {
   const bounds = bar && !skipBoth && getBarBounds(bar, useFinalPosition);
   return bounds && (skipX || _isBetween(x, bounds.left, bounds.right)) && (skipY || _isBetween(y, bounds.top, bounds.bottom));
 }
-__name(inRange, "inRange");
 function hasRadius(radius2) {
   return radius2.topLeft || radius2.topRight || radius2.bottomLeft || radius2.bottomRight;
 }
-__name(hasRadius, "hasRadius");
 function addNormalRectPath(ctx, rect) {
   ctx.rect(rect.x, rect.y, rect.w, rect.h);
 }
-__name(addNormalRectPath, "addNormalRectPath");
 function inflateRect(rect, amount, refRect = {}) {
   const x = rect.x !== refRect.x ? -amount : 0;
   const y = rect.y !== refRect.y ? -amount : 0;
@@ -21522,7 +24560,6 @@ function inflateRect(rect, amount, refRect = {}) {
     radius: rect.radius
   };
 }
-__name(inflateRect, "inflateRect");
 class BarElement extends Element {
   constructor(cfg) {
     super();
@@ -21575,7 +24612,6 @@ class BarElement extends Element {
     return axis === "x" ? this.width / 2 : this.height / 2;
   }
 }
-__name(BarElement, "BarElement");
 BarElement.id = "bar";
 BarElement.defaults = {
   borderSkipped: "start",
@@ -21640,7 +24676,6 @@ function lttbDecimation(data, start, count, availableWidth, options) {
   decimated[sampledIndex++] = data[endIndex];
   return decimated;
 }
-__name(lttbDecimation, "lttbDecimation");
 function minMaxDecimation(data, start, count, availableWidth) {
   let avgX = 0;
   let countX = 0;
@@ -21694,7 +24729,6 @@ function minMaxDecimation(data, start, count, availableWidth) {
   }
   return decimated;
 }
-__name(minMaxDecimation, "minMaxDecimation");
 function cleanDecimatedDataset(dataset) {
   if (dataset._decimated) {
     const data = dataset._data;
@@ -21703,13 +24737,11 @@ function cleanDecimatedDataset(dataset) {
     Object.defineProperty(dataset, "data", { value: data });
   }
 }
-__name(cleanDecimatedDataset, "cleanDecimatedDataset");
 function cleanDecimatedData(chart) {
   chart.data.datasets.forEach((dataset) => {
     cleanDecimatedDataset(dataset);
   });
 }
-__name(cleanDecimatedData, "cleanDecimatedData");
 function getStartAndCountOfVisiblePointsSimplified(meta, points) {
   const pointCount = points.length;
   let start = 0;
@@ -21726,7 +24758,6 @@ function getStartAndCountOfVisiblePointsSimplified(meta, points) {
   }
   return { start, count };
 }
-__name(getStartAndCountOfVisiblePointsSimplified, "getStartAndCountOfVisiblePointsSimplified");
 var plugin_decimation = {
   id: "decimation",
   defaults: {
@@ -21832,7 +24863,6 @@ function _segments(line, target, property) {
   }
   return parts;
 }
-__name(_segments, "_segments");
 function _getBounds(property, first, last, loop2) {
   if (loop2) {
     return;
@@ -21845,7 +24875,6 @@ function _getBounds(property, first, last, loop2) {
   }
   return { property, start, end };
 }
-__name(_getBounds, "_getBounds");
 function _pointsFromSegments(boundary, line) {
   const { x = null, y = null } = boundary || {};
   const linePoints = line.points;
@@ -21864,7 +24893,6 @@ function _pointsFromSegments(boundary, line) {
   });
   return points;
 }
-__name(_pointsFromSegments, "_pointsFromSegments");
 function _findSegmentEnd(start, end, points) {
   for (; end > start; end--) {
     const point = points[end];
@@ -21874,14 +24902,12 @@ function _findSegmentEnd(start, end, points) {
   }
   return end;
 }
-__name(_findSegmentEnd, "_findSegmentEnd");
 function _getEdge(a, b, prop, fn) {
   if (a && b) {
     return fn(a[prop], b[prop]);
   }
   return a ? a[prop] : b ? b[prop] : 0;
 }
-__name(_getEdge, "_getEdge");
 function _createBoundaryLine(boundary, line) {
   let points = [];
   let _loop = false;
@@ -21898,11 +24924,9 @@ function _createBoundaryLine(boundary, line) {
     _fullLoop: _loop
   }) : null;
 }
-__name(_createBoundaryLine, "_createBoundaryLine");
 function _shouldApplyFill(source) {
   return source && source.fill !== false;
 }
-__name(_shouldApplyFill, "_shouldApplyFill");
 function _resolveTarget(sources, index2, propagate) {
   const source = sources[index2];
   let fill2 = source.fill;
@@ -21927,7 +24951,6 @@ function _resolveTarget(sources, index2, propagate) {
   }
   return false;
 }
-__name(_resolveTarget, "_resolveTarget");
 function _decodeFill(line, index2, count) {
   const fill2 = parseFillOption(line);
   if (isObject(fill2)) {
@@ -21939,7 +24962,6 @@ function _decodeFill(line, index2, count) {
   }
   return ["origin", "start", "end", "stack", "shape"].indexOf(fill2) >= 0 && fill2;
 }
-__name(_decodeFill, "_decodeFill");
 function decodeTargetIndex(firstCh, index2, target, count) {
   if (firstCh === "-" || firstCh === "+") {
     target = index2 + target;
@@ -21949,7 +24971,6 @@ function decodeTargetIndex(firstCh, index2, target, count) {
   }
   return target;
 }
-__name(decodeTargetIndex, "decodeTargetIndex");
 function _getTargetPixel(fill2, scale) {
   let pixel = null;
   if (fill2 === "start") {
@@ -21963,7 +24984,6 @@ function _getTargetPixel(fill2, scale) {
   }
   return pixel;
 }
-__name(_getTargetPixel, "_getTargetPixel");
 function _getTargetValue(fill2, scale, startValue) {
   let value;
   if (fill2 === "start") {
@@ -21977,7 +24997,6 @@ function _getTargetValue(fill2, scale, startValue) {
   }
   return value;
 }
-__name(_getTargetValue, "_getTargetValue");
 function parseFillOption(line) {
   const options = line.options;
   const fillOption = options.fill;
@@ -21993,7 +25012,6 @@ function parseFillOption(line) {
   }
   return fill2;
 }
-__name(parseFillOption, "parseFillOption");
 function _buildStackLine(source) {
   const { scale, index: index2, line } = source;
   const points = [];
@@ -22009,7 +25027,6 @@ function _buildStackLine(source) {
   }
   return new LineElement({ points, options: {} });
 }
-__name(_buildStackLine, "_buildStackLine");
 function getLinesBelow(scale, index2) {
   const below = [];
   const metas = scale.getMatchingVisibleMetas("line");
@@ -22024,7 +25041,6 @@ function getLinesBelow(scale, index2) {
   }
   return below;
 }
-__name(getLinesBelow, "getLinesBelow");
 function addPointsBelow(points, sourcePoint, linesBelow) {
   const postponed = [];
   for (let j = 0; j < linesBelow.length; j++) {
@@ -22044,7 +25060,6 @@ function addPointsBelow(points, sourcePoint, linesBelow) {
   }
   points.push(...postponed);
 }
-__name(addPointsBelow, "addPointsBelow");
 function findPoint(line, sourcePoint, property) {
   const point = line.interpolate(sourcePoint, property);
   if (!point) {
@@ -22067,7 +25082,6 @@ function findPoint(line, sourcePoint, property) {
   }
   return { first, last, point };
 }
-__name(findPoint, "findPoint");
 class simpleArc {
   constructor(opts) {
     this.x = opts.x;
@@ -22090,7 +25104,6 @@ class simpleArc {
     };
   }
 }
-__name(simpleArc, "simpleArc");
 function _getTarget(source) {
   const { chart, fill: fill2, line } = source;
   if (isNumberFinite(fill2)) {
@@ -22108,13 +25121,11 @@ function _getTarget(source) {
   }
   return _createBoundaryLine(boundary, line);
 }
-__name(_getTarget, "_getTarget");
 function getLineByIndex(chart, index2) {
   const meta = chart.getDatasetMeta(index2);
   const visible = meta && chart.isDatasetVisible(index2);
   return visible ? meta.dataset : null;
 }
-__name(getLineByIndex, "getLineByIndex");
 function computeBoundary(source) {
   const scale = source.scale || {};
   if (scale.getPointPositionForValue) {
@@ -22122,7 +25133,6 @@ function computeBoundary(source) {
   }
   return computeLinearBoundary(source);
 }
-__name(computeBoundary, "computeBoundary");
 function computeLinearBoundary(source) {
   const { scale = {}, fill: fill2 } = source;
   const pixel = _getTargetPixel(fill2, scale);
@@ -22135,7 +25145,6 @@ function computeLinearBoundary(source) {
   }
   return null;
 }
-__name(computeLinearBoundary, "computeLinearBoundary");
 function computeCircularBoundary(source) {
   const { scale, fill: fill2 } = source;
   const options = scale.options;
@@ -22156,7 +25165,6 @@ function computeCircularBoundary(source) {
   }
   return target;
 }
-__name(computeCircularBoundary, "computeCircularBoundary");
 function _drawfill(ctx, source, area) {
   const target = _getTarget(source);
   const { line, scale, axis } = source;
@@ -22170,7 +25178,6 @@ function _drawfill(ctx, source, area) {
     unclipArea(ctx);
   }
 }
-__name(_drawfill, "_drawfill");
 function doFill(ctx, cfg) {
   const { line, target, above, below, area, scale } = cfg;
   const property = line._loop ? "angle" : cfg.axis;
@@ -22185,7 +25192,6 @@ function doFill(ctx, cfg) {
   fill(ctx, { line, target, color: below, scale, property });
   ctx.restore();
 }
-__name(doFill, "doFill");
 function clipVertical(ctx, target, clipY) {
   const { segments, points } = target;
   let first = true;
@@ -22213,7 +25219,6 @@ function clipVertical(ctx, target, clipY) {
   ctx.closePath();
   ctx.clip();
 }
-__name(clipVertical, "clipVertical");
 function fill(ctx, cfg) {
   const { line, target, property, color: color2, scale } = cfg;
   const segments = _segments(line, target, property);
@@ -22243,7 +25248,6 @@ function fill(ctx, cfg) {
     ctx.restore();
   }
 }
-__name(fill, "fill");
 function clipBounds(ctx, scale, bounds) {
   const { top, bottom } = scale.chart.chartArea;
   const { property, start, end } = bounds || {};
@@ -22253,14 +25257,12 @@ function clipBounds(ctx, scale, bounds) {
     ctx.clip();
   }
 }
-__name(clipBounds, "clipBounds");
 function interpolatedLineTo(ctx, target, point, property) {
   const interpolatedPoint = target.interpolate(point, property);
   if (interpolatedPoint) {
     ctx.lineTo(interpolatedPoint.x, interpolatedPoint.y);
   }
 }
-__name(interpolatedLineTo, "interpolatedLineTo");
 var index = {
   id: "filler",
   afterDatasetsUpdate(chart, _args, options) {
@@ -22332,7 +25334,7 @@ var index = {
     drawTime: "beforeDatasetDraw"
   }
 };
-const getBoxSize = /* @__PURE__ */ __name((labelOpts, fontSize) => {
+const getBoxSize = (labelOpts, fontSize) => {
   let { boxHeight = fontSize, boxWidth = fontSize } = labelOpts;
   if (labelOpts.usePointStyle) {
     boxHeight = Math.min(boxHeight, fontSize);
@@ -22343,8 +25345,8 @@ const getBoxSize = /* @__PURE__ */ __name((labelOpts, fontSize) => {
     boxHeight,
     itemHeight: Math.max(fontSize, boxHeight)
   };
-}, "getBoxSize");
-const itemsEqual = /* @__PURE__ */ __name((a, b) => a !== null && b !== null && a.datasetIndex === b.datasetIndex && a.index === b.index, "itemsEqual");
+};
+const itemsEqual = (a, b) => a !== null && b !== null && a.datasetIndex === b.datasetIndex && a.index === b.index;
 class Legend extends Element {
   constructor(config) {
     super();
@@ -22538,7 +25540,7 @@ class Legend extends Element {
     ctx.lineWidth = 0.5;
     ctx.font = labelFont.string;
     const { boxWidth, boxHeight, itemHeight } = getBoxSize(labelOpts, fontSize);
-    const drawLegendBox = /* @__PURE__ */ __name(function(x, y, legendItem) {
+    const drawLegendBox = function(x, y, legendItem) {
       if (isNaN(boxWidth) || boxWidth <= 0 || isNaN(boxHeight) || boxHeight < 0) {
         return;
       }
@@ -22583,13 +25585,13 @@ class Legend extends Element {
         }
       }
       ctx.restore();
-    }, "drawLegendBox");
-    const fillText = /* @__PURE__ */ __name(function(x, y, legendItem) {
+    };
+    const fillText = function(x, y, legendItem) {
       renderText(ctx, legendItem.text, x, y + itemHeight / 2, labelFont, {
         strikethrough: legendItem.hidden,
         textAlign: rtlHelper.textAlign(legendItem.textAlign)
       });
-    }, "fillText");
+    };
     const isHorizontal = this.isHorizontal();
     const titleHeight = this._computeTitleHeight();
     if (isHorizontal) {
@@ -22711,7 +25713,6 @@ class Legend extends Element {
     }
   }
 }
-__name(Legend, "Legend");
 function isListened(type, opts) {
   if ((type === "mousemove" || type === "mouseout") && (opts.onHover || opts.onLeave)) {
     return true;
@@ -22721,7 +25722,6 @@ function isListened(type, opts) {
   }
   return false;
 }
-__name(isListened, "isListened");
 var plugin_legend = {
   id: "legend",
   _element: Legend,
@@ -22896,7 +25896,6 @@ class Title extends Element {
     });
   }
 }
-__name(Title, "Title");
 function createTitle(chart, titleOpts) {
   const title = new Title({
     ctx: chart.ctx,
@@ -22907,7 +25906,6 @@ function createTitle(chart, titleOpts) {
   layouts.addBox(chart, title);
   chart.titleBlock = title;
 }
-__name(createTitle, "createTitle");
 var plugin_title = {
   id: "title",
   _element: Title,
@@ -23049,14 +26047,12 @@ function pushOrConcat(base, toPush) {
   }
   return base;
 }
-__name(pushOrConcat, "pushOrConcat");
 function splitNewlines(str) {
   if ((typeof str === "string" || str instanceof String) && str.indexOf("\n") > -1) {
     return str.split("\n");
   }
   return str;
 }
-__name(splitNewlines, "splitNewlines");
 function createTooltipItem(chart, item) {
   const { element: element2, datasetIndex, index: index2 } = item;
   const controller = chart.getDatasetMeta(datasetIndex).controller;
@@ -23073,7 +26069,6 @@ function createTooltipItem(chart, item) {
     element: element2
   };
 }
-__name(createTooltipItem, "createTooltipItem");
 function getTooltipSize(tooltip, options) {
   const ctx = tooltip.chart.ctx;
   const { body, footer, title } = tooltip;
@@ -23100,9 +26095,9 @@ function getTooltipSize(tooltip, options) {
     height += options.footerMarginTop + footerLineCount * footerFont.lineHeight + (footerLineCount - 1) * options.footerSpacing;
   }
   let widthPadding = 0;
-  const maxLineWidth = /* @__PURE__ */ __name(function(line) {
+  const maxLineWidth = function(line) {
     width = Math.max(width, ctx.measureText(line).width + widthPadding);
-  }, "maxLineWidth");
+  };
   ctx.save();
   ctx.font = titleFont.string;
   each(tooltip.title, maxLineWidth);
@@ -23121,7 +26116,6 @@ function getTooltipSize(tooltip, options) {
   width += padding.width;
   return { width, height };
 }
-__name(getTooltipSize, "getTooltipSize");
 function determineYAlign(chart, size) {
   const { y, height } = size;
   if (y < height / 2) {
@@ -23131,7 +26125,6 @@ function determineYAlign(chart, size) {
   }
   return "center";
 }
-__name(determineYAlign, "determineYAlign");
 function doesNotFitWithAlign(xAlign, chart, options, size) {
   const { x, width } = size;
   const caret = options.caretSize + options.caretPadding;
@@ -23142,7 +26135,6 @@ function doesNotFitWithAlign(xAlign, chart, options, size) {
     return true;
   }
 }
-__name(doesNotFitWithAlign, "doesNotFitWithAlign");
 function determineXAlign(chart, options, size, yAlign) {
   const { x, width } = size;
   const { width: chartWidth, chartArea: { left, right } } = chart;
@@ -23159,7 +26151,6 @@ function determineXAlign(chart, options, size, yAlign) {
   }
   return xAlign;
 }
-__name(determineXAlign, "determineXAlign");
 function determineAlignment(chart, options, size) {
   const yAlign = size.yAlign || options.yAlign || determineYAlign(chart, size);
   return {
@@ -23167,7 +26158,6 @@ function determineAlignment(chart, options, size) {
     yAlign
   };
 }
-__name(determineAlignment, "determineAlignment");
 function alignX(size, xAlign) {
   let { x, width } = size;
   if (xAlign === "right") {
@@ -23177,7 +26167,6 @@ function alignX(size, xAlign) {
   }
   return x;
 }
-__name(alignX, "alignX");
 function alignY(size, yAlign, paddingAndSize) {
   let { y, height } = size;
   if (yAlign === "top") {
@@ -23189,7 +26178,6 @@ function alignY(size, yAlign, paddingAndSize) {
   }
   return y;
 }
-__name(alignY, "alignY");
 function getBackgroundPoint(options, size, alignment, chart) {
   const { caretSize, caretPadding, cornerRadius } = options;
   const { xAlign, yAlign } = alignment;
@@ -23213,16 +26201,13 @@ function getBackgroundPoint(options, size, alignment, chart) {
     y: _limitValue(y, 0, chart.height - size.height)
   };
 }
-__name(getBackgroundPoint, "getBackgroundPoint");
 function getAlignedX(tooltip, align, options) {
   const padding = toPadding(options.padding);
   return align === "center" ? tooltip.x + tooltip.width / 2 : align === "right" ? tooltip.x + tooltip.width - padding.right : tooltip.x + padding.left;
 }
-__name(getAlignedX, "getAlignedX");
 function getBeforeAfterBodyLines(callback2) {
   return pushOrConcat([], splitNewlines(callback2));
 }
-__name(getBeforeAfterBodyLines, "getBeforeAfterBodyLines");
 function createTooltipContext(parent, tooltip, tooltipItems) {
   return createContext(parent, {
     tooltip,
@@ -23230,12 +26215,10 @@ function createTooltipContext(parent, tooltip, tooltipItems) {
     type: "tooltip"
   });
 }
-__name(createTooltipContext, "createTooltipContext");
 function overrideCallbacks(callbacks, context) {
   const override = context && context.dataset && context.dataset.tooltip && context.dataset.tooltip.callbacks;
   return override ? callbacks.override(override) : callbacks;
 }
-__name(overrideCallbacks, "overrideCallbacks");
 class Tooltip extends Element {
   constructor(config) {
     super();
@@ -23551,10 +26534,10 @@ class Tooltip extends Element {
     let bodyLineHeight = bodyFont.lineHeight;
     let xLinePadding = 0;
     const rtlHelper = getRtlAdapter(options.rtl, this.x, this.width);
-    const fillLineOfText = /* @__PURE__ */ __name(function(line) {
+    const fillLineOfText = function(line) {
       ctx.fillText(line, rtlHelper.x(pt.x + xLinePadding), pt.y + bodyLineHeight / 2);
       pt.y += bodyLineHeight + bodySpacing;
-    }, "fillLineOfText");
+    };
     const bodyAlignForCalculation = rtlHelper.textAlign(bodyAlign);
     let bodyItem, textColor, lines, i, j, ilen, jlen;
     ctx.textAlign = bodyAlign;
@@ -23766,7 +26749,6 @@ class Tooltip extends Element {
     return position !== false && (caretX !== position.x || caretY !== position.y);
   }
 }
-__name(Tooltip, "Tooltip");
 Tooltip.positioners = positioners;
 var plugin_tooltip = {
   id: "tooltip",
@@ -23950,7 +26932,7 @@ var plugins = /* @__PURE__ */ Object.freeze({
   Title: plugin_title,
   Tooltip: plugin_tooltip
 });
-const addIfString = /* @__PURE__ */ __name((labels, raw, index2, addedLabels) => {
+const addIfString = (labels, raw, index2, addedLabels) => {
   if (typeof raw === "string") {
     index2 = labels.push(raw) - 1;
     addedLabels.unshift({ index: index2, label: raw });
@@ -23958,7 +26940,7 @@ const addIfString = /* @__PURE__ */ __name((labels, raw, index2, addedLabels) =>
     index2 = null;
   }
   return index2;
-}, "addIfString");
+};
 function findOrAddLabel(labels, raw, index2, addedLabels) {
   const first = labels.indexOf(raw);
   if (first === -1) {
@@ -23967,8 +26949,7 @@ function findOrAddLabel(labels, raw, index2, addedLabels) {
   const last = labels.lastIndexOf(raw);
   return first !== last ? index2 : first;
 }
-__name(findOrAddLabel, "findOrAddLabel");
-const validIndex = /* @__PURE__ */ __name((index2, max) => index2 === null ? null : _limitValue(Math.round(index2), 0, max), "validIndex");
+const validIndex = (index2, max) => index2 === null ? null : _limitValue(Math.round(index2), 0, max);
 class CategoryScale extends Scale {
   constructor(cfg) {
     super(cfg);
@@ -24058,7 +27039,6 @@ class CategoryScale extends Scale {
     return this.bottom;
   }
 }
-__name(CategoryScale, "CategoryScale");
 CategoryScale.id = "category";
 CategoryScale.defaults = {
   ticks: {
@@ -24149,14 +27129,12 @@ function generateTicks$1(generationOptions, dataRange) {
   }
   return ticks;
 }
-__name(generateTicks$1, "generateTicks$1");
 function relativeLabelSize(value, minSpacing, { horizontal, minRotation }) {
   const rad = toRadians(minRotation);
   const ratio = (horizontal ? Math.sin(rad) : Math.cos(rad)) || 1e-3;
   const length = 0.75 * minSpacing * ("" + value).length;
   return Math.min(minSpacing / ratio, length);
 }
-__name(relativeLabelSize, "relativeLabelSize");
 class LinearScaleBase extends Scale {
   constructor(cfg) {
     super(cfg);
@@ -24179,8 +27157,8 @@ class LinearScaleBase extends Scale {
     const { beginAtZero } = this.options;
     const { minDefined, maxDefined } = this.getUserBounds();
     let { min, max } = this;
-    const setMin = /* @__PURE__ */ __name((v) => min = minDefined ? min : v, "setMin");
-    const setMax = /* @__PURE__ */ __name((v) => max = maxDefined ? max : v, "setMax");
+    const setMin = (v) => min = minDefined ? min : v;
+    const setMax = (v) => max = maxDefined ? max : v;
     if (beginAtZero) {
       const minSign = sign(min);
       const maxSign = sign(max);
@@ -24276,7 +27254,6 @@ class LinearScaleBase extends Scale {
     return formatNumber(value, this.chart.options.locale, this.options.ticks.format);
   }
 }
-__name(LinearScaleBase, "LinearScaleBase");
 class LinearScale extends LinearScaleBase {
   determineDataLimits() {
     const { min, max } = this.getMinMax(true);
@@ -24299,7 +27276,6 @@ class LinearScale extends LinearScaleBase {
     return this._startValue + this.getDecimalForPixel(pixel) * this._valueRange;
   }
 }
-__name(LinearScale, "LinearScale");
 LinearScale.id = "linear";
 LinearScale.defaults = {
   ticks: {
@@ -24310,7 +27286,6 @@ function isMajor(tickVal) {
   const remain = tickVal / Math.pow(10, Math.floor(log10(tickVal)));
   return remain === 1;
 }
-__name(isMajor, "isMajor");
 function generateTicks(generationOptions, dataRange) {
   const endExp = Math.floor(log10(dataRange.max));
   const endSignificand = Math.ceil(dataRange.max / Math.pow(10, endExp));
@@ -24333,7 +27308,6 @@ function generateTicks(generationOptions, dataRange) {
   ticks.push({ value: lastTick, major: isMajor(tickVal) });
   return ticks;
 }
-__name(generateTicks, "generateTicks");
 class LogarithmicScale extends Scale {
   constructor(cfg) {
     super(cfg);
@@ -24363,9 +27337,9 @@ class LogarithmicScale extends Scale {
     const { minDefined, maxDefined } = this.getUserBounds();
     let min = this.min;
     let max = this.max;
-    const setMin = /* @__PURE__ */ __name((v) => min = minDefined ? min : v, "setMin");
-    const setMax = /* @__PURE__ */ __name((v) => max = maxDefined ? max : v, "setMax");
-    const exp = /* @__PURE__ */ __name((v, m) => Math.pow(10, Math.floor(log10(v)) + m), "exp");
+    const setMin = (v) => min = minDefined ? min : v;
+    const setMax = (v) => max = maxDefined ? max : v;
+    const exp = (v, m) => Math.pow(10, Math.floor(log10(v)) + m);
     if (min === max) {
       if (min <= 0) {
         setMin(1);
@@ -24430,7 +27404,6 @@ class LogarithmicScale extends Scale {
     return Math.pow(10, this._startValue + decimal * this._valueRange);
   }
 }
-__name(LogarithmicScale, "LogarithmicScale");
 LogarithmicScale.id = "logarithmic";
 LogarithmicScale.defaults = {
   ticks: {
@@ -24448,7 +27421,6 @@ function getTickBackdropHeight(opts) {
   }
   return 0;
 }
-__name(getTickBackdropHeight, "getTickBackdropHeight");
 function measureLabelSize(ctx, font, label) {
   label = isArray(label) ? label : [label];
   return {
@@ -24456,7 +27428,6 @@ function measureLabelSize(ctx, font, label) {
     h: label.length * font.lineHeight
   };
 }
-__name(measureLabelSize, "measureLabelSize");
 function determineLimits(angle, pos, size, min, max) {
   if (angle === min || angle === max) {
     return {
@@ -24474,7 +27445,6 @@ function determineLimits(angle, pos, size, min, max) {
     end: pos + size
   };
 }
-__name(determineLimits, "determineLimits");
 function fitWithPointLabels(scale) {
   const orig = {
     l: scale.left + scale._padding.left,
@@ -24509,7 +27479,6 @@ function fitWithPointLabels(scale) {
   );
   scale._pointLabelItems = buildPointLabelItems(scale, labelSizes, padding);
 }
-__name(fitWithPointLabels, "fitWithPointLabels");
 function updateLimits(limits, orig, angle, hLimits, vLimits) {
   const sin = Math.abs(Math.sin(angle));
   const cos = Math.abs(Math.cos(angle));
@@ -24530,7 +27499,6 @@ function updateLimits(limits, orig, angle, hLimits, vLimits) {
     limits.b = Math.max(limits.b, orig.b + y);
   }
 }
-__name(updateLimits, "updateLimits");
 function buildPointLabelItems(scale, labelSizes, padding) {
   const items = [];
   const valueCount = scale._pointLabels.length;
@@ -24557,7 +27525,6 @@ function buildPointLabelItems(scale, labelSizes, padding) {
   }
   return items;
 }
-__name(buildPointLabelItems, "buildPointLabelItems");
 function getTextAlignForAngle(angle) {
   if (angle === 0 || angle === 180) {
     return "center";
@@ -24566,7 +27533,6 @@ function getTextAlignForAngle(angle) {
   }
   return "right";
 }
-__name(getTextAlignForAngle, "getTextAlignForAngle");
 function leftForTextAlign(x, w, align) {
   if (align === "right") {
     x -= w;
@@ -24575,7 +27541,6 @@ function leftForTextAlign(x, w, align) {
   }
   return x;
 }
-__name(leftForTextAlign, "leftForTextAlign");
 function yForAngle(y, h, angle) {
   if (angle === 90 || angle === 270) {
     y -= h / 2;
@@ -24584,7 +27549,6 @@ function yForAngle(y, h, angle) {
   }
   return y;
 }
-__name(yForAngle, "yForAngle");
 function drawPointLabels(scale, labelCount) {
   const { ctx, options: { pointLabels } } = scale;
   for (let i = labelCount - 1; i >= 0; i--) {
@@ -24628,7 +27592,6 @@ function drawPointLabels(scale, labelCount) {
     );
   }
 }
-__name(drawPointLabels, "drawPointLabels");
 function pathRadiusLine(scale, radius2, circular, labelCount) {
   const { ctx } = scale;
   if (circular) {
@@ -24642,7 +27605,6 @@ function pathRadiusLine(scale, radius2, circular, labelCount) {
     }
   }
 }
-__name(pathRadiusLine, "pathRadiusLine");
 function drawRadiusLine(scale, gridLineOpts, radius2, labelCount) {
   const ctx = scale.ctx;
   const circular = gridLineOpts.circular;
@@ -24661,7 +27623,6 @@ function drawRadiusLine(scale, gridLineOpts, radius2, labelCount) {
   ctx.stroke();
   ctx.restore();
 }
-__name(drawRadiusLine, "drawRadiusLine");
 function createPointLabelContext(parent, index2, label) {
   return createContext(parent, {
     label,
@@ -24669,7 +27630,6 @@ function createPointLabelContext(parent, index2, label) {
     type: "pointLabel"
   });
 }
-__name(createPointLabelContext, "createPointLabelContext");
 class RadialLinearScale extends LinearScaleBase {
   constructor(cfg) {
     super(cfg);
@@ -24865,7 +27825,6 @@ class RadialLinearScale extends LinearScaleBase {
   drawTitle() {
   }
 }
-__name(RadialLinearScale, "RadialLinearScale");
 RadialLinearScale.id = "radialLinear";
 RadialLinearScale.defaults = {
   display: true,
@@ -24924,7 +27883,6 @@ const UNITS = Object.keys(INTERVALS);
 function sorter(a, b) {
   return a - b;
 }
-__name(sorter, "sorter");
 function parse(scale, input) {
   if (isNullOrUndef(input)) {
     return null;
@@ -24946,7 +27904,6 @@ function parse(scale, input) {
   }
   return +value;
 }
-__name(parse, "parse");
 function determineUnitForAutoTicks(minUnit, min, max, capacity) {
   const ilen = UNITS.length;
   for (let i = UNITS.indexOf(minUnit); i < ilen - 1; ++i) {
@@ -24958,7 +27915,6 @@ function determineUnitForAutoTicks(minUnit, min, max, capacity) {
   }
   return UNITS[ilen - 1];
 }
-__name(determineUnitForAutoTicks, "determineUnitForAutoTicks");
 function determineUnitForFormatting(scale, numTicks, minUnit, min, max) {
   for (let i = UNITS.length - 1; i >= UNITS.indexOf(minUnit); i--) {
     const unit = UNITS[i];
@@ -24968,7 +27924,6 @@ function determineUnitForFormatting(scale, numTicks, minUnit, min, max) {
   }
   return UNITS[minUnit ? UNITS.indexOf(minUnit) : 0];
 }
-__name(determineUnitForFormatting, "determineUnitForFormatting");
 function determineMajorUnit(unit) {
   for (let i = UNITS.indexOf(unit) + 1, ilen = UNITS.length; i < ilen; ++i) {
     if (INTERVALS[UNITS[i]].common) {
@@ -24976,7 +27931,6 @@ function determineMajorUnit(unit) {
     }
   }
 }
-__name(determineMajorUnit, "determineMajorUnit");
 function addTick(ticks, time, timestamps) {
   if (!timestamps) {
     ticks[time] = true;
@@ -24986,7 +27940,6 @@ function addTick(ticks, time, timestamps) {
     ticks[timestamp] = true;
   }
 }
-__name(addTick, "addTick");
 function setMajorTicks(scale, ticks, map2, majorUnit) {
   const adapter = scale._adapter;
   const first = +adapter.startOf(ticks[0].value, majorUnit);
@@ -25000,7 +27953,6 @@ function setMajorTicks(scale, ticks, map2, majorUnit) {
   }
   return ticks;
 }
-__name(setMajorTicks, "setMajorTicks");
 function ticksFromTimestamps(scale, values, majorUnit) {
   const ticks = [];
   const map2 = {};
@@ -25016,7 +27968,6 @@ function ticksFromTimestamps(scale, values, majorUnit) {
   }
   return ilen === 0 || !majorUnit ? ticks : setMajorTicks(scale, ticks, map2, majorUnit);
 }
-__name(ticksFromTimestamps, "ticksFromTimestamps");
 class TimeScale extends Scale {
   constructor(props) {
     super(props);
@@ -25071,7 +28022,6 @@ class TimeScale extends Scale {
         max = Math.max(max, bounds.max);
       }
     }
-    __name(_applyBounds, "_applyBounds");
     if (!minDefined || !maxDefined) {
       _applyBounds(this._getLabelBounds());
       if (options.bounds !== "ticks" || options.ticks.source !== "labels") {
@@ -25263,7 +28213,6 @@ class TimeScale extends Scale {
     return _arrayUnique(values.sort(sorter));
   }
 }
-__name(TimeScale, "TimeScale");
 TimeScale.id = "time";
 TimeScale.defaults = {
   bounds: "data",
@@ -25303,7 +28252,6 @@ function interpolate(table, val, reverse) {
   const span = nextSource - prevSource;
   return span ? prevTarget + (nextTarget - prevTarget) * (val - prevSource) / span : prevTarget;
 }
-__name(interpolate, "interpolate");
 class TimeSeriesScale extends TimeScale {
   constructor(props) {
     super(props);
@@ -25369,7 +28317,6 @@ class TimeSeriesScale extends TimeScale {
     return interpolate(this._table, decimal * this._tableRange + this._minPos, true);
   }
 }
-__name(TimeSeriesScale, "TimeSeriesScale");
 TimeSeriesScale.id = "timeseries";
 TimeSeriesScale.defaults = TimeScale.defaults;
 var scales = /* @__PURE__ */ Object.freeze({
@@ -25395,25 +28342,44 @@ function get_each_context$3(ctx, list, i) {
   child_ctx[10] = i;
   return child_ctx;
 }
-__name(get_each_context$3, "get_each_context$3");
 function create_each_block$3(key_1, ctx) {
   let div;
   let span;
-  let t0_value = ctx[1].datasets[0].data[ctx[10]] + "";
+  let t0_value = (
+    /*$pieData*/
+    ctx[1].datasets[0].data[
+      /*i*/
+      ctx[10]
+    ] + ""
+  );
   let t0;
   let t1;
-  let t2_value = ctx[2].index.length + "";
+  let t2_value = (
+    /*$spreadsheetStore*/
+    ctx[2].index.length + ""
+  );
   let t2;
   let t3;
   let a;
-  let t4_value = ctx[1].labels[ctx[10]] + "";
+  let t4_value = (
+    /*$pieData*/
+    ctx[1].labels[
+      /*i*/
+      ctx[10]
+    ] + ""
+  );
   let t4;
   let mounted;
   let dispose;
   function click_handler() {
-    return ctx[6](ctx[8]);
+    return (
+      /*click_handler*/
+      ctx[6](
+        /*status*/
+        ctx[8]
+      )
+    );
   }
-  __name(click_handler, "click_handler");
   return {
     key: key_1,
     first: null,
@@ -25426,11 +28392,20 @@ function create_each_block$3(key_1, ctx) {
       t3 = space();
       a = element("a");
       t4 = text(t4_value);
-      attr(span, "class", "svelte-hgkg6b");
-      set_style(span, "background-color", ctx[1].datasets[0].backgroundColor[ctx[10]]);
-      attr(a, "class", "svelte-hgkg6b");
-      attr(div, "class", "entry svelte-hgkg6b");
-      toggle_class(div, "line-through", !ctx[8].value);
+      attr(span, "class", "svelte-mcc-hgkg6b");
+      set_style(
+        span,
+        "background-color",
+        /*$pieData*/
+        ctx[1].datasets[0].backgroundColor[
+          /*i*/
+          ctx[10]
+        ]
+      );
+      attr(a, "class", "svelte-mcc-hgkg6b");
+      attr(div, "class", "entry svelte-mcc-hgkg6b");
+      toggle_class(div, "line-through", !/*status*/
+      ctx[8].value);
       this.first = div;
     },
     m(target, anchor) {
@@ -25449,17 +28424,40 @@ function create_each_block$3(key_1, ctx) {
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
-      if (dirty & 3 && t0_value !== (t0_value = ctx[1].datasets[0].data[ctx[10]] + ""))
+      if (dirty & /*$pieData, $statuses*/
+      3 && t0_value !== (t0_value = /*$pieData*/
+      ctx[1].datasets[0].data[
+        /*i*/
+        ctx[10]
+      ] + ""))
         set_data(t0, t0_value);
-      if (dirty & 4 && t2_value !== (t2_value = ctx[2].index.length + ""))
+      if (dirty & /*$spreadsheetStore*/
+      4 && t2_value !== (t2_value = /*$spreadsheetStore*/
+      ctx[2].index.length + ""))
         set_data(t2, t2_value);
-      if (dirty & 3) {
-        set_style(span, "background-color", ctx[1].datasets[0].backgroundColor[ctx[10]]);
+      if (dirty & /*$pieData, $statuses*/
+      3) {
+        set_style(
+          span,
+          "background-color",
+          /*$pieData*/
+          ctx[1].datasets[0].backgroundColor[
+            /*i*/
+            ctx[10]
+          ]
+        );
       }
-      if (dirty & 3 && t4_value !== (t4_value = ctx[1].labels[ctx[10]] + ""))
+      if (dirty & /*$pieData, $statuses*/
+      3 && t4_value !== (t4_value = /*$pieData*/
+      ctx[1].labels[
+        /*i*/
+        ctx[10]
+      ] + ""))
         set_data(t4, t4_value);
-      if (dirty & 1) {
-        toggle_class(div, "line-through", !ctx[8].value);
+      if (dirty & /*$statuses*/
+      1) {
+        toggle_class(div, "line-through", !/*status*/
+        ctx[8].value);
       }
     },
     d(detaching) {
@@ -25470,7 +28468,6 @@ function create_each_block$3(key_1, ctx) {
     }
   };
 }
-__name(create_each_block$3, "create_each_block$3");
 function create_fragment$f(ctx) {
   let section;
   let each_blocks = [];
@@ -25492,8 +28489,14 @@ function create_fragment$f(ctx) {
   let t6;
   let mounted;
   let dispose;
-  let each_value = ctx[0];
-  const get_key = /* @__PURE__ */ __name((ctx2) => ctx2[8].key, "get_key");
+  let each_value = (
+    /*$statuses*/
+    ctx[0]
+  );
+  const get_key = (ctx2) => (
+    /*status*/
+    ctx2[8].key
+  );
   for (let i = 0; i < each_value.length; i += 1) {
     let child_ctx = get_each_context$3(ctx, each_value, i);
     let key = get_key(child_ctx);
@@ -25518,11 +28521,11 @@ function create_fragment$f(ctx) {
       i1 = element("i");
       t5 = space();
       t6 = text(t6_value);
-      attr(hr, "class", "svelte-hgkg6b");
+      attr(hr, "class", "svelte-mcc-hgkg6b");
       attr(i0, "class", "fas fa-thumbs-up");
       attr(i1, "class", "fas fa-trash");
-      attr(div, "class", "links svelte-hgkg6b");
-      attr(section, "class", "svelte-hgkg6b");
+      attr(div, "class", "links svelte-mcc-hgkg6b");
+      attr(section, "class", "svelte-mcc-hgkg6b");
     },
     m(target, anchor) {
       insert(target, section, anchor);
@@ -25544,15 +28547,27 @@ function create_fragment$f(ctx) {
       append(a1, t6);
       if (!mounted) {
         dispose = [
-          listen(a0, "click", ctx[5].setCompatibleVisible),
-          listen(a1, "click", ctx[7])
+          listen(
+            a0,
+            "click",
+            /*statuses*/
+            ctx[5].setCompatibleVisible
+          ),
+          listen(
+            a1,
+            "click",
+            /*click_handler_1*/
+            ctx[7]
+          )
         ];
         mounted = true;
       }
     },
     p(ctx2, [dirty]) {
-      if (dirty & 39) {
-        each_value = ctx2[0];
+      if (dirty & /*$statuses, statuses, $pieData, $spreadsheetStore*/
+      39) {
+        each_value = /*$statuses*/
+        ctx2[0];
         each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, section, destroy_block, create_each_block$3, t0, get_each_context$3);
       }
     },
@@ -25569,7 +28584,6 @@ function create_fragment$f(ctx) {
     }
   };
 }
-__name(create_fragment$f, "create_fragment$f");
 function instance$f($$self, $$props, $$invalidate) {
   let $statuses;
   let $pieData;
@@ -25579,8 +28593,8 @@ function instance$f($$self, $$props, $$invalidate) {
   const { pieData, statuses: statuses2 } = spreadsheetStore.stores;
   component_subscribe($$self, pieData, (value) => $$invalidate(1, $pieData = value));
   component_subscribe($$self, statuses2, (value) => $$invalidate(0, $statuses = value));
-  const click_handler = /* @__PURE__ */ __name((status) => statuses2.toggleVisible(status.key), "click_handler");
-  const click_handler_12 = /* @__PURE__ */ __name(() => spreadsheetStore.resetFilters(), "click_handler_1");
+  const click_handler = (status) => statuses2.toggleVisible(status.key);
+  const click_handler_1 = () => spreadsheetStore.resetFilters();
   return [
     $statuses,
     $pieData,
@@ -25589,17 +28603,15 @@ function instance$f($$self, $$props, $$invalidate) {
     pieData,
     statuses2,
     click_handler,
-    click_handler_12
+    click_handler_1
   ];
 }
-__name(instance$f, "instance$f");
 class PieChartLegend extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance$f, create_fragment$f, safe_not_equal, {});
   }
 }
-__name(PieChartLegend, "PieChartLegend");
 const PieChart_svelte_svelte_type_style_lang = "";
 function create_fragment$e(ctx) {
   let section;
@@ -25620,8 +28632,8 @@ function create_fragment$e(ctx) {
       create_component(piechartlegend.$$.fragment);
       attr(canvas, "width", radius * 2);
       attr(canvas, "height", radius * 2);
-      attr(div, "class", "svelte-18qyuj6");
-      attr(section, "class", "svelte-18qyuj6");
+      attr(div, "class", "svelte-mcc-18qyuj6");
+      attr(section, "class", "svelte-mcc-18qyuj6");
     },
     m(target, anchor) {
       insert(target, section, anchor);
@@ -25632,7 +28644,12 @@ function create_fragment$e(ctx) {
       mount_component(piechartlegend, section, null);
       current = true;
       if (!mounted) {
-        dispose = listen(canvas, "click", ctx[3]);
+        dispose = listen(
+          canvas,
+          "click",
+          /*onClick*/
+          ctx[3]
+        );
         mounted = true;
       }
     },
@@ -25657,12 +28674,10 @@ function create_fragment$e(ctx) {
     }
   };
 }
-__name(create_fragment$e, "create_fragment$e");
 const radius = 125;
 function isInsideChart(x, y) {
   return Math.sqrt((x - radius) ** 2 + (-y + radius) ** 2) < radius;
 }
-__name(isInsideChart, "isInsideChart");
 function instance$e($$self, $$props, $$invalidate) {
   let $statuses;
   let $pieData;
@@ -25676,7 +28691,6 @@ function instance$e($$self, $$props, $$invalidate) {
       chart[statusEntries[i].value ? "show" : "hide"](0, i);
     }
   }
-  __name(updateDataVisibility, "updateDataVisibility");
   onMount(() => {
     $$invalidate(4, chart = new Chart(
       canvasEl,
@@ -25722,22 +28736,22 @@ function instance$e($$self, $$props, $$invalidate) {
       statuses2.setExclusive(firstPoint.index);
     }
   }
-  __name(onClick, "onClick");
   function canvas_binding($$value) {
     binding_callbacks[$$value ? "unshift" : "push"](() => {
       canvasEl = $$value;
       $$invalidate(0, canvasEl);
     });
   }
-  __name(canvas_binding, "canvas_binding");
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & 80) {
+    if ($$self.$$.dirty & /*chart, $pieData*/
+    80) {
       if (chart) {
         $$invalidate(4, chart.data = $pieData, chart);
         chart.update();
       }
     }
-    if ($$self.$$.dirty & 48) {
+    if ($$self.$$.dirty & /*chart, $statuses*/
+    48) {
       if (chart) {
         updateDataVisibility($statuses);
       }
@@ -25754,25 +28768,26 @@ function instance$e($$self, $$props, $$invalidate) {
     canvas_binding
   ];
 }
-__name(instance$e, "instance$e");
 class PieChart extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance$e, create_fragment$e, safe_not_equal, {});
   }
 }
-__name(PieChart, "PieChart");
 const s_STYLE_KEY = "#__tjs-root-styles";
-const cssVariables = new StyleManager({ docKey: s_STYLE_KEY });
+const cssVariables = new StyleManager({ docKey: s_STYLE_KEY, version: 1 });
 class FoundryStyles {
   static #sheet = void 0;
   static #sheetMap = /* @__PURE__ */ new Map();
   static #initialized = false;
+  /**
+   * Called once on initialization / first usage. Parses the core foundry style sheet.
+   */
   static #initialize() {
     this.#initialized = true;
-    const styleSheets = Array.from(document.styleSheets).filter((sheet2) => sheet2.href !== null);
+    const styleSheets = Array.from(document.styleSheets).filter((entry) => entry.href !== null);
     let sheet;
-    const foundryStyleSheet = foundry.utils.getRoute("/css/style.css");
+    const foundryStyleSheet = globalThis.foundry.utils.getRoute("/css/style.css");
     for (const styleSheet of styleSheets) {
       let url;
       try {
@@ -25803,6 +28818,14 @@ class FoundryStyles {
       this.#sheetMap.set(rule.selectorText, obj);
     }
   }
+  /**
+   * Gets the properties object associated with the selector. Try and use a direct match otherwise all keys
+   * are iterated to find a selector string that includes the `selector`.
+   *
+   * @param {string}   selector - Selector to find.
+   *
+   * @returns {Object<string, string>} Properties object.
+   */
   static getProperties(selector) {
     if (!this.#initialized) {
       this.#initialize();
@@ -25817,6 +28840,16 @@ class FoundryStyles {
     }
     return void 0;
   }
+  /**
+   * Gets a specific property value from the given `selector` and `property` key. Try and use a direct selector
+   * match otherwise all keys are iterated to find a selector string that includes `selector`.
+   *
+   * @param {string}   selector - Selector to find.
+   *
+   * @param {string}   property - Specific property to locate.
+   *
+   * @returns {string|undefined} Property value.
+   */
   static getProperty(selector, property) {
     if (!this.#initialized) {
       this.#initialize();
@@ -25836,14 +28869,13 @@ class FoundryStyles {
     return void 0;
   }
 }
-__name(FoundryStyles, "FoundryStyles");
 const TJSIconButton_svelte_svelte_type_style_lang = "";
 function create_fragment$d(ctx) {
   let div;
   let a;
   let i;
   let i_class_value;
-  let div_title_value;
+  let a_title_value;
   let applyStyles_action;
   let mounted;
   let dispose;
@@ -25852,12 +28884,18 @@ function create_fragment$d(ctx) {
       div = element("div");
       a = element("a");
       i = element("i");
-      attr(i, "class", i_class_value = null_to_empty(ctx[0]) + " svelte-su3d4z");
-      attr(a, "role", "presentation");
-      attr(a, "class", "svelte-su3d4z");
-      attr(div, "title", div_title_value = localize(ctx[1]));
-      attr(div, "role", "presentation");
-      attr(div, "class", "svelte-su3d4z");
+      attr(i, "class", i_class_value = null_to_empty(
+        /*icon*/
+        ctx[0]
+      ) + " svelte-mcc-f8994r");
+      attr(a, "role", "button");
+      attr(a, "tabindex", "0");
+      attr(a, "title", a_title_value = localize(
+        /*title*/
+        ctx[1]
+      ));
+      attr(a, "class", "svelte-mcc-f8994r");
+      attr(div, "class", "tjs-icon-button svelte-mcc-f8994r");
     },
     m(target, anchor) {
       insert(target, div, anchor);
@@ -25865,23 +28903,78 @@ function create_fragment$d(ctx) {
       append(a, i);
       if (!mounted) {
         dispose = [
-          listen(a, "click", ctx[7]),
-          action_destroyer(ctx[3].call(null, a)),
-          listen(div, "click", ctx[4]),
-          action_destroyer(applyStyles_action = applyStyles.call(null, div, ctx[2]))
+          listen(
+            a,
+            "click",
+            /*onClick*/
+            ctx[4]
+          ),
+          listen(
+            a,
+            "contextmenu",
+            /*onContextMenuPress*/
+            ctx[5]
+          ),
+          listen(
+            a,
+            "keydown",
+            /*onKeydown*/
+            ctx[6]
+          ),
+          listen(
+            a,
+            "keyup",
+            /*onKeyup*/
+            ctx[7]
+          ),
+          listen(
+            a,
+            "click",
+            /*click_handler*/
+            ctx[13]
+          ),
+          listen(
+            a,
+            "contextmenu",
+            /*contextmenu_handler*/
+            ctx[14]
+          ),
+          action_destroyer(
+            /*efx*/
+            ctx[3].call(null, a)
+          ),
+          action_destroyer(applyStyles_action = applyStyles.call(
+            null,
+            div,
+            /*styles*/
+            ctx[2]
+          ))
         ];
         mounted = true;
       }
     },
     p(ctx2, [dirty]) {
-      if (dirty & 1 && i_class_value !== (i_class_value = null_to_empty(ctx2[0]) + " svelte-su3d4z")) {
+      if (dirty & /*icon*/
+      1 && i_class_value !== (i_class_value = null_to_empty(
+        /*icon*/
+        ctx2[0]
+      ) + " svelte-mcc-f8994r")) {
         attr(i, "class", i_class_value);
       }
-      if (dirty & 2 && div_title_value !== (div_title_value = localize(ctx2[1]))) {
-        attr(div, "title", div_title_value);
+      if (dirty & /*title*/
+      2 && a_title_value !== (a_title_value = localize(
+        /*title*/
+        ctx2[1]
+      ))) {
+        attr(a, "title", a_title_value);
       }
-      if (applyStyles_action && is_function(applyStyles_action.update) && dirty & 4)
-        applyStyles_action.update.call(null, ctx2[2]);
+      if (applyStyles_action && is_function(applyStyles_action.update) && dirty & /*styles*/
+      4)
+        applyStyles_action.update.call(
+          null,
+          /*styles*/
+          ctx2[2]
+        );
     },
     i: noop$1,
     o: noop$1,
@@ -25893,28 +28986,61 @@ function create_fragment$d(ctx) {
     }
   };
 }
-__name(create_fragment$d, "create_fragment$d");
 function instance$d($$self, $$props, $$invalidate) {
   let { button = void 0 } = $$props;
   let { icon = void 0 } = $$props;
   let { title = void 0 } = $$props;
   let { styles = void 0 } = $$props;
   let { efx = void 0 } = $$props;
+  let { keyCode = void 0 } = $$props;
+  let { onPress = void 0 } = $$props;
+  let { onContextMenu = void 0 } = $$props;
   let { onClickPropagate = void 0 } = $$props;
+  const dispatch2 = createEventDispatcher();
   function onClick(event) {
+    if (typeof onPress === "function") {
+      onPress();
+    }
+    dispatch2("press");
     if (!onClickPropagate) {
       event.preventDefault();
       event.stopPropagation();
     }
   }
-  __name(onClick, "onClick");
+  function onContextMenuPress(event) {
+    if (typeof onContextMenu === "function") {
+      onContextMenu();
+    }
+    if (!onClickPropagate) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+  function onKeydown(event) {
+    if (event.code === keyCode) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+  function onKeyup(event) {
+    if (event.code === keyCode) {
+      if (typeof onPress === "function") {
+        onPress();
+      }
+      dispatch2("press");
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
   function click_handler(event) {
     bubble.call(this, $$self, event);
   }
-  __name(click_handler, "click_handler");
+  function contextmenu_handler(event) {
+    bubble.call(this, $$self, event);
+  }
   $$self.$$set = ($$props2) => {
     if ("button" in $$props2)
-      $$invalidate(6, button = $$props2.button);
+      $$invalidate(12, button = $$props2.button);
     if ("icon" in $$props2)
       $$invalidate(0, icon = $$props2.icon);
     if ("title" in $$props2)
@@ -25923,49 +29049,98 @@ function instance$d($$self, $$props, $$invalidate) {
       $$invalidate(2, styles = $$props2.styles);
     if ("efx" in $$props2)
       $$invalidate(3, efx = $$props2.efx);
+    if ("keyCode" in $$props2)
+      $$invalidate(8, keyCode = $$props2.keyCode);
+    if ("onPress" in $$props2)
+      $$invalidate(9, onPress = $$props2.onPress);
+    if ("onContextMenu" in $$props2)
+      $$invalidate(10, onContextMenu = $$props2.onContextMenu);
     if ("onClickPropagate" in $$props2)
-      $$invalidate(5, onClickPropagate = $$props2.onClickPropagate);
+      $$invalidate(11, onClickPropagate = $$props2.onClickPropagate);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & 65) {
-      $$invalidate(0, icon = typeof button === "object" && typeof button.icon === "string" ? button.icon : typeof icon === "string" ? icon : "");
+    if ($$self.$$.dirty & /*button, icon*/
+    4097) {
+      $$invalidate(0, icon = isObject$1(button) && typeof button.icon === "string" ? button.icon : typeof icon === "string" ? icon : "");
     }
-    if ($$self.$$.dirty & 66) {
-      $$invalidate(1, title = typeof button === "object" && typeof button.title === "string" ? button.title : typeof title === "string" ? title : "");
+    if ($$self.$$.dirty & /*button, title*/
+    4098) {
+      $$invalidate(1, title = isObject$1(button) && typeof button.title === "string" ? button.title : typeof title === "string" ? title : "");
     }
-    if ($$self.$$.dirty & 68) {
-      $$invalidate(2, styles = typeof button === "object" && typeof button.styles === "object" ? button.styles : typeof styles === "object" ? styles : void 0);
+    if ($$self.$$.dirty & /*button, styles*/
+    4100) {
+      $$invalidate(2, styles = isObject$1(button) && typeof button.styles === "object" ? button.styles : typeof styles === "object" ? styles : void 0);
     }
-    if ($$self.$$.dirty & 72) {
-      $$invalidate(3, efx = typeof button === "object" && typeof button.efx === "function" ? button.efx : typeof efx === "function" ? efx : () => {
+    if ($$self.$$.dirty & /*button, efx*/
+    4104) {
+      $$invalidate(3, efx = isObject$1(button) && typeof button.efx === "function" ? button.efx : typeof efx === "function" ? efx : () => {
       });
     }
-    if ($$self.$$.dirty & 96) {
-      $$invalidate(5, onClickPropagate = typeof button === "object" && typeof button.onClickPropagate === "boolean" ? button.onClickPropagate : typeof onClickPropagate === "boolean" ? onClickPropagate : true);
+    if ($$self.$$.dirty & /*button, keyCode*/
+    4352) {
+      $$invalidate(8, keyCode = isObject$1(button) && typeof button.keyCode === "string" ? button.keyCode : typeof keyCode === "string" ? keyCode : "Enter");
+    }
+    if ($$self.$$.dirty & /*button, onPress*/
+    4608) {
+      $$invalidate(9, onPress = isObject$1(button) && typeof button.onPress === "function" ? button.onPress : typeof onPress === "function" ? onPress : void 0);
+    }
+    if ($$self.$$.dirty & /*button, onContextMenu*/
+    5120) {
+      $$invalidate(10, onContextMenu = isObject$1(button) && typeof button.onContextMenu === "function" ? button.onContextMenu : typeof onContextMenu === "function" ? onContextMenu : void 0);
+    }
+    if ($$self.$$.dirty & /*button, onClickPropagate*/
+    6144) {
+      $$invalidate(11, onClickPropagate = isObject$1(button) && typeof button.onClickPropagate === "boolean" ? button.onClickPropagate : typeof onClickPropagate === "boolean" ? onClickPropagate : false);
     }
   };
-  return [icon, title, styles, efx, onClick, onClickPropagate, button, click_handler];
+  return [
+    icon,
+    title,
+    styles,
+    efx,
+    onClick,
+    onContextMenuPress,
+    onKeydown,
+    onKeyup,
+    keyCode,
+    onPress,
+    onContextMenu,
+    onClickPropagate,
+    button,
+    click_handler,
+    contextmenu_handler
+  ];
 }
-__name(instance$d, "instance$d");
 class TJSIconButton extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance$d, create_fragment$d, safe_not_equal, {
-      button: 6,
+      button: 12,
       icon: 0,
       title: 1,
       styles: 2,
       efx: 3,
-      onClickPropagate: 5
+      keyCode: 8,
+      onPress: 9,
+      onContextMenu: 10,
+      onClickPropagate: 11
     });
   }
 }
-__name(TJSIconButton, "TJSIconButton");
 const TJSToggleIconButton_svelte_svelte_type_style_lang = "";
-function create_if_block$3(ctx) {
+function create_if_block$4(ctx) {
   let current;
-  const default_slot_template = ctx[16].default;
-  const default_slot = create_slot(default_slot_template, ctx, ctx[15], null);
+  const default_slot_template = (
+    /*#slots*/
+    ctx[23].default
+  );
+  const default_slot = create_slot(
+    default_slot_template,
+    ctx,
+    /*$$scope*/
+    ctx[22],
+    null
+  );
   return {
     c() {
       if (default_slot)
@@ -25979,13 +29154,24 @@ function create_if_block$3(ctx) {
     },
     p(ctx2, dirty) {
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & 32768)) {
+        if (default_slot.p && (!current || dirty & /*$$scope*/
+        4194304)) {
           update_slot_base(
             default_slot,
             default_slot_template,
             ctx2,
-            ctx2[15],
-            !current ? get_all_dirty_from_scope(ctx2[15]) : get_slot_changes(default_slot_template, ctx2[15], dirty, null),
+            /*$$scope*/
+            ctx2[22],
+            !current ? get_all_dirty_from_scope(
+              /*$$scope*/
+              ctx2[22]
+            ) : get_slot_changes(
+              default_slot_template,
+              /*$$scope*/
+              ctx2[22],
+              dirty,
+              null
+            ),
             null
           );
         }
@@ -26007,19 +29193,21 @@ function create_if_block$3(ctx) {
     }
   };
 }
-__name(create_if_block$3, "create_if_block$3");
 function create_fragment$c(ctx) {
   let div;
   let a;
   let i;
   let i_class_value;
+  let a_title_value;
   let t;
-  let div_title_value;
   let applyStyles_action;
   let current;
   let mounted;
   let dispose;
-  let if_block = ctx[4] && create_if_block$3(ctx);
+  let if_block = (
+    /*selected*/
+    ctx[4] && create_if_block$4(ctx)
+  );
   return {
     c() {
       div = element("div");
@@ -26028,52 +29216,149 @@ function create_fragment$c(ctx) {
       t = space();
       if (if_block)
         if_block.c();
-      attr(i, "class", i_class_value = null_to_empty(ctx[0]) + " svelte-qlfxx4");
-      toggle_class(i, "selected", ctx[4]);
-      attr(a, "role", "presentation");
-      attr(a, "class", "svelte-qlfxx4");
-      toggle_class(a, "selected", ctx[4]);
-      attr(div, "title", div_title_value = localize(ctx[5]));
-      attr(div, "role", "presentation");
-      attr(div, "class", "svelte-qlfxx4");
+      attr(i, "class", i_class_value = null_to_empty(
+        /*icon*/
+        ctx[0]
+      ) + " svelte-mcc-1pmmjvy");
+      toggle_class(
+        i,
+        "selected",
+        /*selected*/
+        ctx[4]
+      );
+      attr(a, "role", "button");
+      attr(a, "tabindex", "0");
+      attr(a, "title", a_title_value = localize(
+        /*titleCurrent*/
+        ctx[6]
+      ));
+      attr(a, "class", "svelte-mcc-1pmmjvy");
+      toggle_class(
+        a,
+        "selected",
+        /*selected*/
+        ctx[4]
+      );
+      attr(div, "class", "tjs-toggle-icon-button svelte-mcc-1pmmjvy");
     },
     m(target, anchor) {
       insert(target, div, anchor);
       append(div, a);
       append(a, i);
+      ctx[26](a);
       append(div, t);
       if (if_block)
         if_block.m(div, null);
       current = true;
       if (!mounted) {
         dispose = [
-          listen(a, "click", ctx[6]),
-          action_destroyer(ctx[3].call(null, a)),
-          listen(div, "click", ctx[7]),
-          listen(div, "close", ctx[8]),
-          action_destroyer(applyStyles_action = applyStyles.call(null, div, ctx[2]))
+          listen(
+            a,
+            "click",
+            /*onClick*/
+            ctx[7]
+          ),
+          listen(
+            a,
+            "contextmenu",
+            /*onContextMenuPress*/
+            ctx[8]
+          ),
+          listen(
+            a,
+            "keydown",
+            /*onKeydown*/
+            ctx[11]
+          ),
+          listen(
+            a,
+            "keyup",
+            /*onKeyup*/
+            ctx[12]
+          ),
+          listen(
+            a,
+            "click",
+            /*click_handler*/
+            ctx[24]
+          ),
+          listen(
+            a,
+            "contextmenu",
+            /*contextmenu_handler*/
+            ctx[25]
+          ),
+          action_destroyer(
+            /*efx*/
+            ctx[3].call(null, a)
+          ),
+          listen(
+            div,
+            "click",
+            /*onClickDiv*/
+            ctx[9]
+          ),
+          listen(
+            div,
+            "close:popup",
+            /*onClosePopup*/
+            ctx[10]
+          ),
+          action_destroyer(applyStyles_action = applyStyles.call(
+            null,
+            div,
+            /*styles*/
+            ctx[2]
+          ))
         ];
         mounted = true;
       }
     },
     p(ctx2, [dirty]) {
-      if (!current || dirty & 1 && i_class_value !== (i_class_value = null_to_empty(ctx2[0]) + " svelte-qlfxx4")) {
+      if (!current || dirty & /*icon*/
+      1 && i_class_value !== (i_class_value = null_to_empty(
+        /*icon*/
+        ctx2[0]
+      ) + " svelte-mcc-1pmmjvy")) {
         attr(i, "class", i_class_value);
       }
-      if (!current || dirty & 17) {
-        toggle_class(i, "selected", ctx2[4]);
+      if (!current || dirty & /*icon, selected*/
+      17) {
+        toggle_class(
+          i,
+          "selected",
+          /*selected*/
+          ctx2[4]
+        );
       }
-      if (!current || dirty & 16) {
-        toggle_class(a, "selected", ctx2[4]);
+      if (!current || dirty & /*titleCurrent*/
+      64 && a_title_value !== (a_title_value = localize(
+        /*titleCurrent*/
+        ctx2[6]
+      ))) {
+        attr(a, "title", a_title_value);
       }
-      if (ctx2[4]) {
+      if (!current || dirty & /*selected*/
+      16) {
+        toggle_class(
+          a,
+          "selected",
+          /*selected*/
+          ctx2[4]
+        );
+      }
+      if (
+        /*selected*/
+        ctx2[4]
+      ) {
         if (if_block) {
           if_block.p(ctx2, dirty);
-          if (dirty & 16) {
+          if (dirty & /*selected*/
+          16) {
             transition_in(if_block, 1);
           }
         } else {
-          if_block = create_if_block$3(ctx2);
+          if_block = create_if_block$4(ctx2);
           if_block.c();
           transition_in(if_block, 1);
           if_block.m(div, null);
@@ -26085,11 +29370,13 @@ function create_fragment$c(ctx) {
         });
         check_outros();
       }
-      if (!current || dirty & 32 && div_title_value !== (div_title_value = localize(ctx2[5]))) {
-        attr(div, "title", div_title_value);
-      }
-      if (applyStyles_action && is_function(applyStyles_action.update) && dirty & 4)
-        applyStyles_action.update.call(null, ctx2[2]);
+      if (applyStyles_action && is_function(applyStyles_action.update) && dirty & /*styles*/
+      4)
+        applyStyles_action.update.call(
+          null,
+          /*styles*/
+          ctx2[2]
+        );
     },
     i(local) {
       if (current)
@@ -26104,6 +29391,7 @@ function create_fragment$c(ctx) {
     d(detaching) {
       if (detaching)
         detach(div);
+      ctx[26](null);
       if (if_block)
         if_block.d();
       mounted = false;
@@ -26111,10 +29399,9 @@ function create_fragment$c(ctx) {
     }
   };
 }
-__name(create_fragment$c, "create_fragment$c");
 function instance$c($$self, $$props, $$invalidate) {
   let titleCurrent;
-  let $store, $$unsubscribe_store = noop$1, $$subscribe_store = /* @__PURE__ */ __name(() => ($$unsubscribe_store(), $$unsubscribe_store = subscribe(store, ($$value) => $$invalidate(14, $store = $$value)), store), "$$subscribe_store");
+  let $store, $$unsubscribe_store = noop$1, $$subscribe_store = () => ($$unsubscribe_store(), $$unsubscribe_store = subscribe(store, ($$value) => $$invalidate(21, $store = $$value)), store);
   $$self.$$.on_destroy.push(() => $$unsubscribe_store());
   let { $$slots: slots = {}, $$scope } = $$props;
   let { button = void 0 } = $$props;
@@ -26125,93 +29412,172 @@ function instance$c($$self, $$props, $$invalidate) {
   $$subscribe_store();
   let { styles = void 0 } = $$props;
   let { efx = void 0 } = $$props;
+  let { keyCode = void 0 } = $$props;
+  let { onPress = void 0 } = $$props;
+  let { onClose = void 0 } = $$props;
+  let { onContextMenu = void 0 } = $$props;
   let { onClickPropagate = void 0 } = $$props;
-  let { onClosePropagate = void 0 } = $$props;
+  const dispatch2 = createEventDispatcher();
+  let anchorEl;
   let selected = false;
   function onClick(event) {
     $$invalidate(4, selected = !selected);
     if (store) {
       store.set(selected);
     }
+    if (typeof onPress === "function") {
+      onPress(selected);
+    }
+    dispatch2("press", { selected });
     if (!onClickPropagate) {
       event.preventDefault();
       event.stopPropagation();
     }
   }
-  __name(onClick, "onClick");
+  function onContextMenuPress(event) {
+    if (typeof onContextMenu === "function") {
+      onContextMenu();
+    }
+    if (!onClickPropagate) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
   function onClickDiv(event) {
     if (!onClickPropagate) {
       event.preventDefault();
       event.stopPropagation();
     }
   }
-  __name(onClickDiv, "onClickDiv");
-  function onClose(event) {
+  function onClosePopup(event) {
     $$invalidate(4, selected = false);
     if (store) {
       store.set(false);
     }
-    if (!onClosePropagate) {
+    if (typeof onClose === "function") {
+      onClose(selected);
+    }
+    if (typeof event?.detail?.keyboardFocus === "boolean" && event.detail.keyboardFocus && anchorEl?.isConnected) {
+      anchorEl.focus();
+      event.stopPropagation();
+      event.preventDefault();
+    }
+  }
+  function onKeydown(event) {
+    if (event.code === keyCode) {
       event.preventDefault();
       event.stopPropagation();
     }
   }
-  __name(onClose, "onClose");
+  function onKeyup(event) {
+    if (event.code === keyCode) {
+      $$invalidate(4, selected = !selected);
+      if (store) {
+        store.set(selected);
+      }
+      if (typeof onPress === "function") {
+        onPress(selected);
+      }
+      dispatch2("press", { selected });
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+  function click_handler(event) {
+    bubble.call(this, $$self, event);
+  }
+  function contextmenu_handler(event) {
+    bubble.call(this, $$self, event);
+  }
+  function a_binding($$value) {
+    binding_callbacks[$$value ? "unshift" : "push"](() => {
+      anchorEl = $$value;
+      $$invalidate(5, anchorEl);
+    });
+  }
   $$self.$$set = ($$props2) => {
     if ("button" in $$props2)
-      $$invalidate(13, button = $$props2.button);
+      $$invalidate(20, button = $$props2.button);
     if ("icon" in $$props2)
       $$invalidate(0, icon = $$props2.icon);
     if ("title" in $$props2)
-      $$invalidate(9, title = $$props2.title);
+      $$invalidate(13, title = $$props2.title);
     if ("titleSelected" in $$props2)
-      $$invalidate(10, titleSelected = $$props2.titleSelected);
+      $$invalidate(14, titleSelected = $$props2.titleSelected);
     if ("store" in $$props2)
       $$subscribe_store($$invalidate(1, store = $$props2.store));
     if ("styles" in $$props2)
       $$invalidate(2, styles = $$props2.styles);
     if ("efx" in $$props2)
       $$invalidate(3, efx = $$props2.efx);
+    if ("keyCode" in $$props2)
+      $$invalidate(15, keyCode = $$props2.keyCode);
+    if ("onPress" in $$props2)
+      $$invalidate(16, onPress = $$props2.onPress);
+    if ("onClose" in $$props2)
+      $$invalidate(17, onClose = $$props2.onClose);
+    if ("onContextMenu" in $$props2)
+      $$invalidate(18, onContextMenu = $$props2.onContextMenu);
     if ("onClickPropagate" in $$props2)
-      $$invalidate(11, onClickPropagate = $$props2.onClickPropagate);
-    if ("onClosePropagate" in $$props2)
-      $$invalidate(12, onClosePropagate = $$props2.onClosePropagate);
+      $$invalidate(19, onClickPropagate = $$props2.onClickPropagate);
     if ("$$scope" in $$props2)
-      $$invalidate(15, $$scope = $$props2.$$scope);
+      $$invalidate(22, $$scope = $$props2.$$scope);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & 8193) {
-      $$invalidate(0, icon = typeof button === "object" && typeof button.icon === "string" ? button.icon : typeof icon === "string" ? icon : "");
+    if ($$self.$$.dirty & /*button, icon*/
+    1048577) {
+      $$invalidate(0, icon = isObject$1(button) && typeof button.icon === "string" ? button.icon : typeof icon === "string" ? icon : "");
     }
-    if ($$self.$$.dirty & 8704) {
-      $$invalidate(9, title = typeof button === "object" && typeof button.title === "string" ? button.title : typeof title === "string" ? title : "");
+    if ($$self.$$.dirty & /*button, title*/
+    1056768) {
+      $$invalidate(13, title = isObject$1(button) && typeof button.title === "string" ? button.title : typeof title === "string" ? title : "");
     }
-    if ($$self.$$.dirty & 9216) {
-      $$invalidate(10, titleSelected = typeof button === "object" && typeof button.titleSelected === "string" ? button.titleSelected : typeof titleSelected === "string" ? titleSelected : "");
+    if ($$self.$$.dirty & /*button, titleSelected*/
+    1064960) {
+      $$invalidate(14, titleSelected = isObject$1(button) && typeof button.titleSelected === "string" ? button.titleSelected : typeof titleSelected === "string" ? titleSelected : "");
     }
-    if ($$self.$$.dirty & 8194) {
-      $$subscribe_store($$invalidate(1, store = typeof button === "object" && isWritableStore(button.store) ? button.store : isWritableStore(store) ? store : void 0));
+    if ($$self.$$.dirty & /*button, store*/
+    1048578) {
+      $$subscribe_store($$invalidate(1, store = isObject$1(button) && isWritableStore(button.store) ? button.store : isWritableStore(store) ? store : void 0));
     }
-    if ($$self.$$.dirty & 8196) {
-      $$invalidate(2, styles = typeof button === "object" && typeof button.styles === "object" ? button.styles : typeof styles === "object" ? styles : void 0);
+    if ($$self.$$.dirty & /*button, styles*/
+    1048580) {
+      $$invalidate(2, styles = isObject$1(button) && typeof button.styles === "object" ? button.styles : typeof styles === "object" ? styles : void 0);
     }
-    if ($$self.$$.dirty & 8200) {
-      $$invalidate(3, efx = typeof button === "object" && typeof button.efx === "function" ? button.efx : typeof efx === "function" ? efx : () => {
+    if ($$self.$$.dirty & /*button, efx*/
+    1048584) {
+      $$invalidate(3, efx = isObject$1(button) && typeof button.efx === "function" ? button.efx : typeof efx === "function" ? efx : () => {
       });
     }
-    if ($$self.$$.dirty & 12288) {
-      $$invalidate(12, onClosePropagate = typeof button === "object" && typeof button.onClosePropagate === "boolean" ? button.onClosePropagate : typeof onClosePropagate === "boolean" ? onClosePropagate : false);
+    if ($$self.$$.dirty & /*button, keyCode*/
+    1081344) {
+      $$invalidate(15, keyCode = isObject$1(button) && typeof button.keyCode === "string" ? button.keyCode : typeof keyCode === "string" ? keyCode : "Enter");
     }
-    if ($$self.$$.dirty & 10240) {
-      $$invalidate(11, onClickPropagate = typeof button === "object" && typeof button.onClickPropagate === "boolean" ? button.onClickPropagate : typeof onClickPropagate === "boolean" ? onClickPropagate : false);
+    if ($$self.$$.dirty & /*button, onPress*/
+    1114112) {
+      $$invalidate(16, onPress = isObject$1(button) && typeof button.onPress === "function" ? button.onPress : typeof onPress === "function" ? onPress : void 0);
     }
-    if ($$self.$$.dirty & 16386) {
+    if ($$self.$$.dirty & /*button, onClose*/
+    1179648) {
+      $$invalidate(17, onClose = isObject$1(button) && typeof button.onClose === "function" ? button.onClose : typeof onClose === "function" ? onClose : void 0);
+    }
+    if ($$self.$$.dirty & /*button, onContextMenu*/
+    1310720) {
+      $$invalidate(18, onContextMenu = isObject$1(button) && typeof button.onContextMenu === "function" ? button.onContextMenu : typeof onContextMenu === "function" ? onContextMenu : void 0);
+    }
+    if ($$self.$$.dirty & /*button, onClickPropagate*/
+    1572864) {
+      $$invalidate(19, onClickPropagate = isObject$1(button) && typeof button.onClickPropagate === "boolean" ? button.onClickPropagate : typeof onClickPropagate === "boolean" ? onClickPropagate : false);
+    }
+    if ($$self.$$.dirty & /*store, $store*/
+    2097154) {
       if (store) {
         $$invalidate(4, selected = $store);
       }
     }
-    if ($$self.$$.dirty & 1552) {
-      $$invalidate(5, titleCurrent = selected && titleSelected !== "" ? titleSelected : title);
+    if ($$self.$$.dirty & /*selected, titleSelected, title*/
+    24592) {
+      $$invalidate(6, titleCurrent = selected && titleSelected !== "" ? titleSelected : title);
     }
   };
   return [
@@ -26220,40 +29586,52 @@ function instance$c($$self, $$props, $$invalidate) {
     styles,
     efx,
     selected,
+    anchorEl,
     titleCurrent,
     onClick,
+    onContextMenuPress,
     onClickDiv,
-    onClose,
+    onClosePopup,
+    onKeydown,
+    onKeyup,
     title,
     titleSelected,
+    keyCode,
+    onPress,
+    onClose,
+    onContextMenu,
     onClickPropagate,
-    onClosePropagate,
     button,
     $store,
     $$scope,
-    slots
+    slots,
+    click_handler,
+    contextmenu_handler,
+    a_binding
   ];
 }
-__name(instance$c, "instance$c");
 class TJSToggleIconButton extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance$c, create_fragment$c, safe_not_equal, {
-      button: 13,
+      button: 20,
       icon: 0,
-      title: 9,
-      titleSelected: 10,
+      title: 13,
+      titleSelected: 14,
       store: 1,
       styles: 2,
       efx: 3,
-      onClickPropagate: 11,
-      onClosePropagate: 12
+      keyCode: 15,
+      onPress: 16,
+      onClose: 17,
+      onContextMenu: 18,
+      onClickPropagate: 19
     });
   }
 }
-__name(TJSToggleIconButton, "TJSToggleIconButton");
+const TJSScrollContainer_svelte_svelte_type_style_lang = "";
 Hooks.once("init", () => {
-  !foundry.utils.isNewerVersion(10, game.version ?? game?.data?.version);
+  !globalThis.foundry.utils.isNewerVersion(10, globalThis.game.version ?? globalThis.game?.data?.version);
 });
 const TJSContentEdit_svelte_svelte_type_style_lang = "";
 function findDiffStart(a, b, pos) {
@@ -26280,7 +29658,6 @@ function findDiffStart(a, b, pos) {
     pos += childA.nodeSize;
   }
 }
-__name(findDiffStart, "findDiffStart");
 function findDiffEnd(a, b, posA, posB) {
   for (let iA = a.childCount, iB = b.childCount; ; ) {
     if (iA == 0 || iB == 0)
@@ -26311,8 +29688,10 @@ function findDiffEnd(a, b, posA, posB) {
     posB -= size;
   }
 }
-__name(findDiffEnd, "findDiffEnd");
 class Fragment {
+  /**
+  @internal
+  */
   constructor(content, size) {
     this.content = content;
     this.size = size || 0;
@@ -26320,6 +29699,11 @@ class Fragment {
       for (let i = 0; i < content.length; i++)
         this.size += content[i].nodeSize;
   }
+  /**
+  Invoke a callback for all descendant nodes between the given two
+  positions (relative to start of this fragment). Doesn't descend
+  into a node when the callback returns `false`.
+  */
   nodesBetween(from2, to2, f, nodeStart = 0, parent) {
     for (let i = 0, pos = 0; pos < to2; i++) {
       let child = this.content[i], end = pos + child.nodeSize;
@@ -26330,9 +29714,18 @@ class Fragment {
       pos = end;
     }
   }
+  /**
+  Call the given callback for every descendant node. `pos` will be
+  relative to the start of the fragment. The callback may return
+  `false` to prevent traversal of a given node's children.
+  */
   descendants(f) {
     this.nodesBetween(0, this.size, f);
   }
+  /**
+  Extract the text between `from` and `to`. See the same method on
+  [`Node`](https://prosemirror.net/docs/ref/#model.Node.textBetween).
+  */
   textBetween(from2, to2, blockSeparator, leafText) {
     let text2 = "", separated = true;
     this.nodesBetween(from2, to2, (node, pos) => {
@@ -26353,6 +29746,10 @@ class Fragment {
     }, 0);
     return text2;
   }
+  /**
+  Create a new fragment containing the combined content of this
+  fragment and the other.
+  */
   append(other) {
     if (!other.size)
       return this;
@@ -26367,6 +29764,9 @@ class Fragment {
       content.push(other.content[i]);
     return new Fragment(content, this.size + other.size);
   }
+  /**
+  Cut out the sub-fragment between the two given positions.
+  */
   cut(from2, to2 = this.size) {
     if (from2 == 0 && to2 == this.size)
       return this;
@@ -26388,6 +29788,9 @@ class Fragment {
       }
     return new Fragment(result, size);
   }
+  /**
+  @internal
+  */
   cutByIndex(from2, to2) {
     if (from2 == to2)
       return Fragment.empty;
@@ -26395,6 +29798,10 @@ class Fragment {
       return this;
     return new Fragment(this.content.slice(from2, to2));
   }
+  /**
+  Create a new fragment in which the node at the given index is
+  replaced by the given node.
+  */
   replaceChild(index2, node) {
     let current = this.content[index2];
     if (current == node)
@@ -26404,12 +29811,23 @@ class Fragment {
     copy[index2] = node;
     return new Fragment(copy, size);
   }
+  /**
+  Create a new fragment by prepending the given node to this
+  fragment.
+  */
   addToStart(node) {
     return new Fragment([node].concat(this.content), this.size + node.nodeSize);
   }
+  /**
+  Create a new fragment by appending the given node to this
+  fragment.
+  */
   addToEnd(node) {
     return new Fragment(this.content.concat(node), this.size + node.nodeSize);
   }
+  /**
+  Compare this fragment to another one.
+  */
   eq(other) {
     if (this.content.length != other.content.length)
       return false;
@@ -26418,24 +29836,44 @@ class Fragment {
         return false;
     return true;
   }
+  /**
+  The first child of the fragment, or `null` if it is empty.
+  */
   get firstChild() {
     return this.content.length ? this.content[0] : null;
   }
+  /**
+  The last child of the fragment, or `null` if it is empty.
+  */
   get lastChild() {
     return this.content.length ? this.content[this.content.length - 1] : null;
   }
+  /**
+  The number of child nodes in this fragment.
+  */
   get childCount() {
     return this.content.length;
   }
+  /**
+  Get the child node at the given index. Raise an error when the
+  index is out of range.
+  */
   child(index2) {
     let found2 = this.content[index2];
     if (!found2)
       throw new RangeError("Index " + index2 + " out of range for " + this);
     return found2;
   }
+  /**
+  Get the child node at the given index, if it exists.
+  */
   maybeChild(index2) {
     return this.content[index2] || null;
   }
+  /**
+  Call `f` for every child node, passing the node, its offset
+  into this parent node, and its index.
+  */
   forEach(f) {
     for (let i = 0, p = 0; i < this.content.length; i++) {
       let child = this.content[i];
@@ -26443,12 +29881,27 @@ class Fragment {
       p += child.nodeSize;
     }
   }
+  /**
+  Find the first position at which this fragment and another
+  fragment differ, or `null` if they are the same.
+  */
   findDiffStart(other, pos = 0) {
     return findDiffStart(this, other, pos);
   }
+  /**
+  Find the first position, searching from the end, at which this
+  fragment and the given fragment differ, or `null` if they are
+  the same. Since this position will not be the same in both
+  nodes, an object with two separate positions is returned.
+  */
   findDiffEnd(other, pos = this.size, otherPos = other.size) {
     return findDiffEnd(this, other, pos, otherPos);
   }
+  /**
+  Find the index and inner offset corresponding to a given relative
+  position in this fragment. The result object will be reused
+  (overwritten) the next time the function is called. (Not public.)
+  */
   findIndex(pos, round2 = -1) {
     if (pos == 0)
       return retIndex(0, pos);
@@ -26466,15 +29919,27 @@ class Fragment {
       curPos = end;
     }
   }
+  /**
+  Return a debugging string that describes this fragment.
+  */
   toString() {
     return "<" + this.toStringInner() + ">";
   }
+  /**
+  @internal
+  */
   toStringInner() {
     return this.content.join(", ");
   }
+  /**
+  Create a JSON-serializeable representation of this fragment.
+  */
   toJSON() {
     return this.content.length ? this.content.map((n) => n.toJSON()) : null;
   }
+  /**
+  Deserialize a fragment from its JSON representation.
+  */
   static fromJSON(schema, value) {
     if (!value)
       return Fragment.empty;
@@ -26482,6 +29947,10 @@ class Fragment {
       throw new RangeError("Invalid input for Fragment.fromJSON");
     return new Fragment(value.map(schema.nodeFromJSON));
   }
+  /**
+  Build a fragment from an array of nodes. Ensures that adjacent
+  text nodes with the same marks are joined together.
+  */
   static fromArray(array) {
     if (!array.length)
       return Fragment.empty;
@@ -26499,6 +29968,12 @@ class Fragment {
     }
     return new Fragment(joined || array, size);
   }
+  /**
+  Create a fragment from something that can be interpreted as a
+  set of nodes. For `null`, it returns the empty fragment. For a
+  fragment, the fragment itself. For a node or array of nodes, a
+  fragment containing those nodes.
+  */
   static from(nodes) {
     if (!nodes)
       return Fragment.empty;
@@ -26511,7 +29986,6 @@ class Fragment {
     throw new RangeError("Can not convert " + nodes + " to a Fragment" + (nodes.nodesBetween ? " (looks like multiple versions of prosemirror-model were loaded)" : ""));
   }
 }
-__name(Fragment, "Fragment");
 Fragment.empty = new Fragment([], 0);
 const found = { index: 0, offset: 0 };
 function retIndex(index2, offset) {
@@ -26519,32 +29993,60 @@ function retIndex(index2, offset) {
   found.offset = offset;
   return found;
 }
-__name(retIndex, "retIndex");
 class ReplaceError extends Error {
 }
-__name(ReplaceError, "ReplaceError");
 class Slice {
+  /**
+  Create a slice. When specifying a non-zero open depth, you must
+  make sure that there are nodes of at least that depth at the
+  appropriate side of the fragment—i.e. if the fragment is an
+  empty paragraph node, `openStart` and `openEnd` can't be greater
+  than 1.
+  
+  It is not necessary for the content of open nodes to conform to
+  the schema's content constraints, though it should be a valid
+  start/end/middle for such a node, depending on which sides are
+  open.
+  */
   constructor(content, openStart, openEnd) {
     this.content = content;
     this.openStart = openStart;
     this.openEnd = openEnd;
   }
+  /**
+  The size this slice would add when inserted into a document.
+  */
   get size() {
     return this.content.size - this.openStart - this.openEnd;
   }
+  /**
+  @internal
+  */
   insertAt(pos, fragment) {
     let content = insertInto(this.content, pos + this.openStart, fragment);
     return content && new Slice(content, this.openStart, this.openEnd);
   }
+  /**
+  @internal
+  */
   removeBetween(from2, to2) {
     return new Slice(removeRange(this.content, from2 + this.openStart, to2 + this.openStart), this.openStart, this.openEnd);
   }
+  /**
+  Tests whether this slice is equal to another slice.
+  */
   eq(other) {
     return this.content.eq(other.content) && this.openStart == other.openStart && this.openEnd == other.openEnd;
   }
+  /**
+  @internal
+  */
   toString() {
     return this.content + "(" + this.openStart + "," + this.openEnd + ")";
   }
+  /**
+  Convert a slice to a JSON-serializable representation.
+  */
   toJSON() {
     if (!this.content.size)
       return null;
@@ -26555,6 +30057,9 @@ class Slice {
       json.openEnd = this.openEnd;
     return json;
   }
+  /**
+  Deserialize a slice from its JSON representation.
+  */
   static fromJSON(schema, json) {
     if (!json)
       return Slice.empty;
@@ -26563,6 +30068,10 @@ class Slice {
       throw new RangeError("Invalid input for Slice.fromJSON");
     return new Slice(Fragment.fromJSON(schema, json.content), openStart, openEnd);
   }
+  /**
+  Create a slice from a fragment by taking the maximum possible
+  open value on both side of the fragment.
+  */
   static maxOpen(fragment, openIsolating = true) {
     let openStart = 0, openEnd = 0;
     for (let n = fragment.firstChild; n && !n.isLeaf && (openIsolating || !n.type.spec.isolating); n = n.firstChild)
@@ -26572,7 +30081,6 @@ class Slice {
     return new Slice(fragment, openStart, openEnd);
   }
 }
-__name(Slice, "Slice");
 Slice.empty = new Slice(Fragment.empty, 0, 0);
 function removeRange(content, from2, to2) {
   let { index: index2, offset } = content.findIndex(from2), child = content.maybeChild(index2);
@@ -26586,7 +30094,6 @@ function removeRange(content, from2, to2) {
     throw new RangeError("Removing non-flat range");
   return content.replaceChild(index2, child.copy(removeRange(child.content, from2 - offset - 1, to2 - offset - 1)));
 }
-__name(removeRange, "removeRange");
 function insertInto(content, dist, insert2, parent) {
   let { index: index2, offset } = content.findIndex(dist), child = content.maybeChild(index2);
   if (offset == dist || child.isText) {
@@ -26597,49 +30104,71 @@ function insertInto(content, dist, insert2, parent) {
   let inner = insertInto(child.content, dist - offset - 1, insert2);
   return inner && content.replaceChild(index2, child.copy(inner));
 }
-__name(insertInto, "insertInto");
 const lower16 = 65535;
 const factor16 = Math.pow(2, 16);
 function makeRecover(index2, offset) {
   return index2 + offset * factor16;
 }
-__name(makeRecover, "makeRecover");
 function recoverIndex(value) {
   return value & lower16;
 }
-__name(recoverIndex, "recoverIndex");
 function recoverOffset(value) {
   return (value - (value & lower16)) / factor16;
 }
-__name(recoverOffset, "recoverOffset");
 const DEL_BEFORE = 1, DEL_AFTER = 2, DEL_ACROSS = 4, DEL_SIDE = 8;
 class MapResult {
+  /**
+  @internal
+  */
   constructor(pos, delInfo, recover) {
     this.pos = pos;
     this.delInfo = delInfo;
     this.recover = recover;
   }
+  /**
+  Tells you whether the position was deleted, that is, whether the
+  step removed the token on the side queried (via the `assoc`)
+  argument from the document.
+  */
   get deleted() {
     return (this.delInfo & DEL_SIDE) > 0;
   }
+  /**
+  Tells you whether the token before the mapped position was deleted.
+  */
   get deletedBefore() {
     return (this.delInfo & (DEL_BEFORE | DEL_ACROSS)) > 0;
   }
+  /**
+  True when the token after the mapped position was deleted.
+  */
   get deletedAfter() {
     return (this.delInfo & (DEL_AFTER | DEL_ACROSS)) > 0;
   }
+  /**
+  Tells whether any of the steps mapped through deletes across the
+  position (including both the token before and after the
+  position).
+  */
   get deletedAcross() {
     return (this.delInfo & DEL_ACROSS) > 0;
   }
 }
-__name(MapResult, "MapResult");
 class StepMap {
+  /**
+  Create a position map. The modifications to the document are
+  represented as an array of numbers, in which each group of three
+  represents a modified chunk as `[start, oldSize, newSize]`.
+  */
   constructor(ranges, inverted = false) {
     this.ranges = ranges;
     this.inverted = inverted;
     if (!ranges.length && StepMap.empty)
       return StepMap.empty;
   }
+  /**
+  @internal
+  */
   recover(value) {
     let diff = 0, index2 = recoverIndex(value);
     if (!this.inverted)
@@ -26653,6 +30182,9 @@ class StepMap {
   map(pos, assoc = 1) {
     return this._map(pos, assoc, true);
   }
+  /**
+  @internal
+  */
   _map(pos, assoc, simple) {
     let diff = 0, oldIndex = this.inverted ? 2 : 1, newIndex = this.inverted ? 1 : 2;
     for (let i = 0; i < this.ranges.length; i += 3) {
@@ -26675,6 +30207,9 @@ class StepMap {
     }
     return simple ? pos + diff : new MapResult(pos + diff, 0, null);
   }
+  /**
+  @internal
+  */
   touches(pos, recover) {
     let diff = 0, index2 = recoverIndex(recover);
     let oldIndex = this.inverted ? 2 : 1, newIndex = this.inverted ? 1 : 2;
@@ -26689,6 +30224,10 @@ class StepMap {
     }
     return false;
   }
+  /**
+  Calls the given function on each of the changed ranges included in
+  this map.
+  */
   forEach(f) {
     let oldIndex = this.inverted ? 2 : 1, newIndex = this.inverted ? 1 : 2;
     for (let i = 0, diff = 0; i < this.ranges.length; i += 3) {
@@ -26698,26 +30237,51 @@ class StepMap {
       diff += newSize - oldSize;
     }
   }
+  /**
+  Create an inverted version of this map. The result can be used to
+  map positions in the post-step document to the pre-step document.
+  */
   invert() {
     return new StepMap(this.ranges, !this.inverted);
   }
+  /**
+  @internal
+  */
   toString() {
     return (this.inverted ? "-" : "") + JSON.stringify(this.ranges);
   }
+  /**
+  Create a map that moves all positions by offset `n` (which may be
+  negative). This can be useful when applying steps meant for a
+  sub-document to a larger document, or vice-versa.
+  */
   static offset(n) {
     return n == 0 ? StepMap.empty : new StepMap(n < 0 ? [0, -n, 0] : [0, 0, n]);
   }
 }
-__name(StepMap, "StepMap");
 StepMap.empty = new StepMap([]);
 const stepsByID = /* @__PURE__ */ Object.create(null);
 class Step {
+  /**
+  Get the step map that represents the changes made by this step,
+  and which can be used to transform between positions in the old
+  and the new document.
+  */
   getMap() {
     return StepMap.empty;
   }
+  /**
+  Try to merge this step with another one, to be applied directly
+  after it. Returns the merged step when possible, null if the
+  steps can't be merged.
+  */
   merge(other) {
     return null;
   }
+  /**
+  Deserialize a step from its JSON representation. Will call
+  through to the step class' own implementation of this method.
+  */
   static fromJSON(schema, json) {
     if (!json || !json.stepType)
       throw new RangeError("Invalid input for Step.fromJSON");
@@ -26726,6 +30290,12 @@ class Step {
       throw new RangeError(`No step type ${json.stepType} defined`);
     return type.fromJSON(schema, json);
   }
+  /**
+  To be able to serialize steps to JSON, each step needs a string
+  ID to attach to its JSON representation. Use this method to
+  register an ID for your step classes. Try to pick something
+  that's unlikely to clash with steps from other modules.
+  */
   static jsonID(id, stepClass) {
     if (id in stepsByID)
       throw new RangeError("Duplicate use of step JSON ID " + id);
@@ -26734,18 +30304,31 @@ class Step {
     return stepClass;
   }
 }
-__name(Step, "Step");
 class StepResult {
+  /**
+  @internal
+  */
   constructor(doc, failed) {
     this.doc = doc;
     this.failed = failed;
   }
+  /**
+  Create a successful step result.
+  */
   static ok(doc) {
     return new StepResult(doc, null);
   }
+  /**
+  Create a failed step result.
+  */
   static fail(message) {
     return new StepResult(null, message);
   }
+  /**
+  Call [`Node.replace`](https://prosemirror.net/docs/ref/#model.Node.replace) with the given
+  arguments. Create a successful result if it succeeds, and a
+  failed one if it throws a `ReplaceError`.
+  */
   static fromReplace(doc, from2, to2, slice) {
     try {
       return StepResult.ok(doc.replace(from2, to2, slice));
@@ -26756,7 +30339,6 @@ class StepResult {
     }
   }
 }
-__name(StepResult, "StepResult");
 function mapFragment(fragment, f, parent) {
   let mapped = [];
   for (let i = 0; i < fragment.childCount; i++) {
@@ -26769,8 +30351,10 @@ function mapFragment(fragment, f, parent) {
   }
   return Fragment.fromArray(mapped);
 }
-__name(mapFragment, "mapFragment");
 class AddMarkStep extends Step {
+  /**
+  Create a mark step.
+  */
   constructor(from2, to2, mark) {
     super();
     this.from = from2;
@@ -26809,15 +30393,20 @@ class AddMarkStep extends Step {
       to: this.to
     };
   }
+  /**
+  @internal
+  */
   static fromJSON(schema, json) {
     if (typeof json.from != "number" || typeof json.to != "number")
       throw new RangeError("Invalid input for AddMarkStep.fromJSON");
     return new AddMarkStep(json.from, json.to, schema.markFromJSON(json.mark));
   }
 }
-__name(AddMarkStep, "AddMarkStep");
 Step.jsonID("addMark", AddMarkStep);
 class RemoveMarkStep extends Step {
+  /**
+  Create a mark-removing step.
+  */
   constructor(from2, to2, mark) {
     super();
     this.from = from2;
@@ -26853,15 +30442,20 @@ class RemoveMarkStep extends Step {
       to: this.to
     };
   }
+  /**
+  @internal
+  */
   static fromJSON(schema, json) {
     if (typeof json.from != "number" || typeof json.to != "number")
       throw new RangeError("Invalid input for RemoveMarkStep.fromJSON");
     return new RemoveMarkStep(json.from, json.to, schema.markFromJSON(json.mark));
   }
 }
-__name(RemoveMarkStep, "RemoveMarkStep");
 Step.jsonID("removeMark", RemoveMarkStep);
 class AddNodeMarkStep extends Step {
+  /**
+  Create a node mark step.
+  */
   constructor(pos, mark) {
     super();
     this.pos = pos;
@@ -26894,15 +30488,20 @@ class AddNodeMarkStep extends Step {
   toJSON() {
     return { stepType: "addNodeMark", pos: this.pos, mark: this.mark.toJSON() };
   }
+  /**
+  @internal
+  */
   static fromJSON(schema, json) {
     if (typeof json.pos != "number")
       throw new RangeError("Invalid input for AddNodeMarkStep.fromJSON");
     return new AddNodeMarkStep(json.pos, schema.markFromJSON(json.mark));
   }
 }
-__name(AddNodeMarkStep, "AddNodeMarkStep");
 Step.jsonID("addNodeMark", AddNodeMarkStep);
 class RemoveNodeMarkStep extends Step {
+  /**
+  Create a mark-removing step.
+  */
   constructor(pos, mark) {
     super();
     this.pos = pos;
@@ -26928,15 +30527,26 @@ class RemoveNodeMarkStep extends Step {
   toJSON() {
     return { stepType: "removeNodeMark", pos: this.pos, mark: this.mark.toJSON() };
   }
+  /**
+  @internal
+  */
   static fromJSON(schema, json) {
     if (typeof json.pos != "number")
       throw new RangeError("Invalid input for RemoveNodeMarkStep.fromJSON");
     return new RemoveNodeMarkStep(json.pos, schema.markFromJSON(json.mark));
   }
 }
-__name(RemoveNodeMarkStep, "RemoveNodeMarkStep");
 Step.jsonID("removeNodeMark", RemoveNodeMarkStep);
 class ReplaceStep extends Step {
+  /**
+  The given `slice` should fit the 'gap' between `from` and
+  `to`—the depths must line up, and the surrounding nodes must be
+  able to be joined with the open sides of the slice. When
+  `structure` is true, the step will fail if the content between
+  from and to is not just a sequence of closing and then opening
+  tokens (this is to guard against rebased replace steps
+  overwriting something they weren't supposed to).
+  */
   constructor(from2, to2, slice, structure = false) {
     super();
     this.from = from2;
@@ -26982,15 +30592,23 @@ class ReplaceStep extends Step {
       json.structure = true;
     return json;
   }
+  /**
+  @internal
+  */
   static fromJSON(schema, json) {
     if (typeof json.from != "number" || typeof json.to != "number")
       throw new RangeError("Invalid input for ReplaceStep.fromJSON");
     return new ReplaceStep(json.from, json.to, Slice.fromJSON(schema, json.slice), !!json.structure);
   }
 }
-__name(ReplaceStep, "ReplaceStep");
 Step.jsonID("replace", ReplaceStep);
 class ReplaceAroundStep extends Step {
+  /**
+  Create a replace-around step with the given range and gap.
+  `insert` should be the point in the slice into which the content
+  of the gap should be moved. `structure` has the same meaning as
+  it has in the [`ReplaceStep`](https://prosemirror.net/docs/ref/#transform.ReplaceStep) class.
+  */
   constructor(from2, to2, gapFrom, gapTo, slice, insert2, structure = false) {
     super();
     this.from = from2;
@@ -27048,13 +30666,15 @@ class ReplaceAroundStep extends Step {
       json.structure = true;
     return json;
   }
+  /**
+  @internal
+  */
   static fromJSON(schema, json) {
     if (typeof json.from != "number" || typeof json.to != "number" || typeof json.gapFrom != "number" || typeof json.gapTo != "number" || typeof json.insert != "number")
       throw new RangeError("Invalid input for ReplaceAroundStep.fromJSON");
     return new ReplaceAroundStep(json.from, json.to, json.gapFrom, json.gapTo, Slice.fromJSON(schema, json.slice), json.insert, !!json.structure);
   }
 }
-__name(ReplaceAroundStep, "ReplaceAroundStep");
 Step.jsonID("replaceAround", ReplaceAroundStep);
 function contentBetween(doc, from2, to2) {
   let $from = doc.resolve(from2), dist = to2 - from2, depth = $from.depth;
@@ -27073,8 +30693,10 @@ function contentBetween(doc, from2, to2) {
   }
   return false;
 }
-__name(contentBetween, "contentBetween");
 class AttrStep extends Step {
+  /**
+  Construct an attribute step.
+  */
   constructor(pos, attr2, value) {
     super();
     this.pos = pos;
@@ -27111,43 +30733,68 @@ class AttrStep extends Step {
     return new AttrStep(json.pos, json.attr, json.value);
   }
 }
-__name(AttrStep, "AttrStep");
 Step.jsonID("attr", AttrStep);
-let TransformError = /* @__PURE__ */ __name(class extends Error {
-}, "TransformError");
-TransformError = /* @__PURE__ */ __name(function TransformError2(message) {
+let TransformError = class extends Error {
+};
+TransformError = function TransformError2(message) {
   let err = Error.call(this, message);
   err.__proto__ = TransformError2.prototype;
   return err;
-}, "TransformError");
+};
 TransformError.prototype = Object.create(Error.prototype);
 TransformError.prototype.constructor = TransformError;
 TransformError.prototype.name = "TransformError";
 const classesById = /* @__PURE__ */ Object.create(null);
 class Selection {
+  /**
+  Initialize a selection with the head and anchor and ranges. If no
+  ranges are given, constructs a single range across `$anchor` and
+  `$head`.
+  */
   constructor($anchor, $head, ranges) {
     this.$anchor = $anchor;
     this.$head = $head;
     this.ranges = ranges || [new SelectionRange($anchor.min($head), $anchor.max($head))];
   }
+  /**
+  The selection's anchor, as an unresolved position.
+  */
   get anchor() {
     return this.$anchor.pos;
   }
+  /**
+  The selection's head.
+  */
   get head() {
     return this.$head.pos;
   }
+  /**
+  The lower bound of the selection's main range.
+  */
   get from() {
     return this.$from.pos;
   }
+  /**
+  The upper bound of the selection's main range.
+  */
   get to() {
     return this.$to.pos;
   }
+  /**
+  The resolved lower  bound of the selection's main range.
+  */
   get $from() {
     return this.ranges[0].$from;
   }
+  /**
+  The resolved upper bound of the selection's main range.
+  */
   get $to() {
     return this.ranges[0].$to;
   }
+  /**
+  Indicates whether the selection contains any content.
+  */
   get empty() {
     let ranges = this.ranges;
     for (let i = 0; i < ranges.length; i++)
@@ -27155,9 +30802,16 @@ class Selection {
         return false;
     return true;
   }
+  /**
+  Get the content of this selection as a slice.
+  */
   content() {
     return this.$from.doc.slice(this.from, this.to, true);
   }
+  /**
+  Replace the selection with a slice or, if no slice is given,
+  delete the selection. Will append to the given transaction.
+  */
   replace(tr, content = Slice.empty) {
     let lastNode = content.content.lastChild, lastParent = null;
     for (let i = 0; i < content.openEnd; i++) {
@@ -27172,6 +30826,10 @@ class Selection {
         selectionToInsertionEnd(tr, mapFrom, (lastNode ? lastNode.isInline : lastParent && lastParent.isTextblock) ? -1 : 1);
     }
   }
+  /**
+  Replace the selection with the given node, appending the changes
+  to the given transaction.
+  */
   replaceWith(tr, node) {
     let mapFrom = tr.steps.length, ranges = this.ranges;
     for (let i = 0; i < ranges.length; i++) {
@@ -27185,6 +30843,13 @@ class Selection {
       }
     }
   }
+  /**
+  Find a valid cursor or leaf node selection starting at the given
+  position and searching back if `dir` is negative, and forward if
+  positive. When `textOnly` is true, only consider cursor
+  selections. Will return null when no valid selection position is
+  found.
+  */
   static findFrom($pos, dir, textOnly = false) {
     let inner = $pos.parent.inlineContent ? new TextSelection($pos) : findSelectionIn($pos.node(0), $pos.parent, $pos.pos, $pos.index(), dir, textOnly);
     if (inner)
@@ -27196,15 +30861,34 @@ class Selection {
     }
     return null;
   }
+  /**
+  Find a valid cursor or leaf node selection near the given
+  position. Searches forward first by default, but if `bias` is
+  negative, it will search backwards first.
+  */
   static near($pos, bias = 1) {
     return this.findFrom($pos, bias) || this.findFrom($pos, -bias) || new AllSelection($pos.node(0));
   }
+  /**
+  Find the cursor or leaf node selection closest to the start of
+  the given document. Will return an
+  [`AllSelection`](https://prosemirror.net/docs/ref/#state.AllSelection) if no valid position
+  exists.
+  */
   static atStart(doc) {
     return findSelectionIn(doc, doc, 0, 0, 1) || new AllSelection(doc);
   }
+  /**
+  Find the cursor or leaf node selection closest to the end of the
+  given document.
+  */
   static atEnd(doc) {
     return findSelectionIn(doc, doc, doc.content.size, doc.childCount, -1) || new AllSelection(doc);
   }
+  /**
+  Deserialize the JSON representation of a selection. Must be
+  implemented for custom classes (as a static class method).
+  */
   static fromJSON(doc, json) {
     if (!json || !json.type)
       throw new RangeError("Invalid input for Selection.fromJSON");
@@ -27213,6 +30897,12 @@ class Selection {
       throw new RangeError(`No selection type ${json.type} defined`);
     return cls.fromJSON(doc, json);
   }
+  /**
+  To be able to deserialize selections from JSON, custom selection
+  classes must register themselves with an ID string, so that they
+  can be disambiguated. Try to pick something that's unlikely to
+  clash with classes from other modules.
+  */
   static jsonID(id, selectionClass) {
     if (id in classesById)
       throw new RangeError("Duplicate use of selection JSON ID " + id);
@@ -27220,19 +30910,29 @@ class Selection {
     selectionClass.prototype.jsonID = id;
     return selectionClass;
   }
+  /**
+  Get a [bookmark](https://prosemirror.net/docs/ref/#state.SelectionBookmark) for this selection,
+  which is a value that can be mapped without having access to a
+  current document, and later resolved to a real selection for a
+  given document again. (This is used mostly by the history to
+  track and restore old selections.) The default implementation of
+  this method just converts the selection to a text selection and
+  returns the bookmark for that.
+  */
   getBookmark() {
     return TextSelection.between(this.$anchor, this.$head).getBookmark();
   }
 }
-__name(Selection, "Selection");
 Selection.prototype.visible = true;
 class SelectionRange {
+  /**
+  Create a range.
+  */
   constructor($from, $to) {
     this.$from = $from;
     this.$to = $to;
   }
 }
-__name(SelectionRange, "SelectionRange");
 let warnedAboutTextSelection = false;
 function checkTextSelection($pos) {
   if (!warnedAboutTextSelection && !$pos.parent.inlineContent) {
@@ -27240,13 +30940,19 @@ function checkTextSelection($pos) {
     console["warn"]("TextSelection endpoint not pointing into a node with inline content (" + $pos.parent.type.name + ")");
   }
 }
-__name(checkTextSelection, "checkTextSelection");
 class TextSelection extends Selection {
+  /**
+  Construct a text selection between the given points.
+  */
   constructor($anchor, $head = $anchor) {
     checkTextSelection($anchor);
     checkTextSelection($head);
     super($anchor, $head);
   }
+  /**
+  Returns a resolved position if this is a cursor selection (an
+  empty text selection), and null otherwise.
+  */
   get $cursor() {
     return this.$anchor.pos == this.$head.pos ? this.$head : null;
   }
@@ -27274,15 +30980,29 @@ class TextSelection extends Selection {
   toJSON() {
     return { type: "text", anchor: this.anchor, head: this.head };
   }
+  /**
+  @internal
+  */
   static fromJSON(doc, json) {
     if (typeof json.anchor != "number" || typeof json.head != "number")
       throw new RangeError("Invalid input for TextSelection.fromJSON");
     return new TextSelection(doc.resolve(json.anchor), doc.resolve(json.head));
   }
+  /**
+  Create a text selection from non-resolved positions.
+  */
   static create(doc, anchor, head = anchor) {
     let $anchor = doc.resolve(anchor);
     return new this($anchor, head == anchor ? $anchor : doc.resolve(head));
   }
+  /**
+  Return a text selection that spans the given positions or, if
+  they aren't text positions, find a text selection near them.
+  `bias` determines whether the method searches forward (default)
+  or backwards (negative number) first. Will fall back to calling
+  [`Selection.near`](https://prosemirror.net/docs/ref/#state.Selection^near) when the document
+  doesn't contain a valid text position.
+  */
   static between($anchor, $head, bias) {
     let dPos = $anchor.pos - $head.pos;
     if (!bias || dPos)
@@ -27306,7 +31026,6 @@ class TextSelection extends Selection {
     return new TextSelection($anchor, $head);
   }
 }
-__name(TextSelection, "TextSelection");
 Selection.jsonID("text", TextSelection);
 class TextBookmark {
   constructor(anchor, head) {
@@ -27320,8 +31039,11 @@ class TextBookmark {
     return TextSelection.between(doc.resolve(this.anchor), doc.resolve(this.head));
   }
 }
-__name(TextBookmark, "TextBookmark");
 class NodeSelection extends Selection {
+  /**
+  Create a node selection. Does not verify the validity of its
+  argument.
+  */
   constructor($pos) {
     let node = $pos.nodeAfter;
     let $end = $pos.node(0).resolve($pos.pos + node.nodeSize);
@@ -27347,19 +31069,28 @@ class NodeSelection extends Selection {
   getBookmark() {
     return new NodeBookmark(this.anchor);
   }
+  /**
+  @internal
+  */
   static fromJSON(doc, json) {
     if (typeof json.anchor != "number")
       throw new RangeError("Invalid input for NodeSelection.fromJSON");
     return new NodeSelection(doc.resolve(json.anchor));
   }
+  /**
+  Create a node selection from non-resolved positions.
+  */
   static create(doc, from2) {
     return new NodeSelection(doc.resolve(from2));
   }
+  /**
+  Determines whether the given node may be selected as a node
+  selection.
+  */
   static isSelectable(node) {
     return !node.isText && node.type.spec.selectable !== false;
   }
 }
-__name(NodeSelection, "NodeSelection");
 NodeSelection.prototype.visible = false;
 Selection.jsonID("node", NodeSelection);
 class NodeBookmark {
@@ -27377,8 +31108,10 @@ class NodeBookmark {
     return Selection.near($pos);
   }
 }
-__name(NodeBookmark, "NodeBookmark");
 class AllSelection extends Selection {
+  /**
+  Create an all-selection over the given document.
+  */
   constructor(doc) {
     super(doc.resolve(0), doc.resolve(doc.content.size));
   }
@@ -27395,6 +31128,9 @@ class AllSelection extends Selection {
   toJSON() {
     return { type: "all" };
   }
+  /**
+  @internal
+  */
   static fromJSON(doc) {
     return new AllSelection(doc);
   }
@@ -27408,7 +31144,6 @@ class AllSelection extends Selection {
     return AllBookmark;
   }
 }
-__name(AllSelection, "AllSelection");
 Selection.jsonID("all", AllSelection);
 const AllBookmark = {
   map() {
@@ -27434,7 +31169,6 @@ function findSelectionIn(doc, node, pos, index2, dir, text2 = false) {
   }
   return null;
 }
-__name(findSelectionIn, "findSelectionIn");
 function selectionToInsertionEnd(tr, startLen, bias) {
   let last = tr.steps.length - 1;
   if (last < startLen)
@@ -27449,11 +31183,9 @@ function selectionToInsertionEnd(tr, startLen, bias) {
   });
   tr.setSelection(Selection.near(tr.doc.resolve(end), bias));
 }
-__name(selectionToInsertionEnd, "selectionToInsertionEnd");
 function bind(f, self) {
   return !self || !f ? f : f.bind(self);
 }
-__name(bind, "bind");
 class FieldDesc {
   constructor(name, desc, self) {
     this.name = name;
@@ -27461,7 +31193,6 @@ class FieldDesc {
     this.apply = bind(desc.apply, self);
   }
 }
-__name(FieldDesc, "FieldDesc");
 [
   new FieldDesc("doc", {
     init(config) {
@@ -27496,12 +31227,13 @@ __name(FieldDesc, "FieldDesc");
     }
   })
 ];
-globalThis.ProseMirror ? ProseMirror.ProseMirrorKeyMaps : class {
+globalThis.ProseMirror ? globalThis.ProseMirror.ProseMirrorKeyMaps : class {
 };
 const TJSProseMirror_svelte_svelte_type_style_lang = "";
 const TJSTinyMCE_svelte_svelte_type_style_lang = "";
 const TJSSvgFolder_svelte_svelte_type_style_lang = "";
 const TJSIconFolder_svelte_svelte_type_style_lang = "";
+const TJSInputNumber_svelte_svelte_type_style_lang = "";
 const TJSInputText_svelte_svelte_type_style_lang = "";
 function create_fragment$b(ctx) {
   let div;
@@ -27511,9 +31243,18 @@ function create_fragment$b(ctx) {
   let dispose;
   let input_1_levels = [
     { class: "tjs-input" },
-    { type: ctx[0] },
-    { placeholder: ctx[2] },
-    { disabled: ctx[1] }
+    { type: (
+      /*type*/
+      ctx[0]
+    ) },
+    { placeholder: (
+      /*placeholder*/
+      ctx[2]
+    ) },
+    { disabled: (
+      /*disabled*/
+      ctx[1]
+    ) }
   ];
   let input_1_data = {};
   for (let i = 0; i < input_1_levels.length; i += 1) {
@@ -27524,24 +31265,52 @@ function create_fragment$b(ctx) {
       div = element("div");
       input_1 = element("input");
       set_attributes(input_1, input_1_data);
-      toggle_class(input_1, "svelte-173wftf", true);
-      attr(div, "class", "tjs-input-container svelte-173wftf");
+      toggle_class(input_1, "is-value-invalid", !/*$storeIsValid*/
+      ctx[8]);
+      toggle_class(input_1, "svelte-mcc-dc9eoa", true);
+      attr(div, "class", "tjs-input-container svelte-mcc-dc9eoa");
     },
     m(target, anchor) {
       insert(target, div, anchor);
       append(div, input_1);
       if (input_1.autofocus)
         input_1.focus();
-      ctx[12](input_1);
-      set_input_value(input_1, ctx[7]);
+      ctx[14](input_1);
+      set_input_value(
+        input_1,
+        /*$store*/
+        ctx[9]
+      );
       if (!mounted) {
         dispose = [
-          listen(input_1, "input", ctx[13]),
-          action_destroyer(autoBlur.call(null, input_1)),
-          listen(input_1, "focusin", ctx[8]),
-          listen(input_1, "keydown", ctx[9]),
-          action_destroyer(ctx[5].call(null, div)),
-          action_destroyer(applyStyles_action = applyStyles.call(null, div, ctx[4]))
+          listen(
+            input_1,
+            "input",
+            /*input_1_input_handler*/
+            ctx[15]
+          ),
+          listen(
+            input_1,
+            "focusin",
+            /*onFocusIn*/
+            ctx[10]
+          ),
+          listen(
+            input_1,
+            "keydown",
+            /*onKeyDown*/
+            ctx[11]
+          ),
+          action_destroyer(
+            /*efx*/
+            ctx[6].call(null, div)
+          ),
+          action_destroyer(applyStyles_action = applyStyles.call(
+            null,
+            div,
+            /*styles*/
+            ctx[5]
+          ))
         ];
         mounted = true;
       }
@@ -27549,31 +31318,57 @@ function create_fragment$b(ctx) {
     p(ctx2, [dirty]) {
       set_attributes(input_1, input_1_data = get_spread_update(input_1_levels, [
         { class: "tjs-input" },
-        dirty & 1 && { type: ctx2[0] },
-        dirty & 4 && { placeholder: ctx2[2] },
-        dirty & 2 && { disabled: ctx2[1] }
+        dirty & /*type*/
+        1 && { type: (
+          /*type*/
+          ctx2[0]
+        ) },
+        dirty & /*placeholder*/
+        4 && { placeholder: (
+          /*placeholder*/
+          ctx2[2]
+        ) },
+        dirty & /*disabled*/
+        2 && { disabled: (
+          /*disabled*/
+          ctx2[1]
+        ) }
       ]));
-      if (dirty & 128 && input_1.value !== ctx2[7]) {
-        set_input_value(input_1, ctx2[7]);
+      if (dirty & /*$store*/
+      512 && input_1.value !== /*$store*/
+      ctx2[9]) {
+        set_input_value(
+          input_1,
+          /*$store*/
+          ctx2[9]
+        );
       }
-      toggle_class(input_1, "svelte-173wftf", true);
-      if (applyStyles_action && is_function(applyStyles_action.update) && dirty & 16)
-        applyStyles_action.update.call(null, ctx2[4]);
+      toggle_class(input_1, "is-value-invalid", !/*$storeIsValid*/
+      ctx2[8]);
+      toggle_class(input_1, "svelte-mcc-dc9eoa", true);
+      if (applyStyles_action && is_function(applyStyles_action.update) && dirty & /*styles*/
+      32)
+        applyStyles_action.update.call(
+          null,
+          /*styles*/
+          ctx2[5]
+        );
     },
     i: noop$1,
     o: noop$1,
     d(detaching) {
       if (detaching)
         detach(div);
-      ctx[12](null);
+      ctx[14](null);
       mounted = false;
       run_all(dispose);
     }
   };
 }
-__name(create_fragment$b, "create_fragment$b");
 function instance$b($$self, $$props, $$invalidate) {
-  let $store, $$unsubscribe_store = noop$1, $$subscribe_store = /* @__PURE__ */ __name(() => ($$unsubscribe_store(), $$unsubscribe_store = subscribe(store, ($$value) => $$invalidate(7, $store = $$value)), store), "$$subscribe_store");
+  let $storeIsValid, $$unsubscribe_storeIsValid = noop$1, $$subscribe_storeIsValid = () => ($$unsubscribe_storeIsValid(), $$unsubscribe_storeIsValid = subscribe(storeIsValid, ($$value) => $$invalidate(8, $storeIsValid = $$value)), storeIsValid);
+  let $store, $$unsubscribe_store = noop$1, $$subscribe_store = () => ($$unsubscribe_store(), $$unsubscribe_store = subscribe(store, ($$value) => $$invalidate(9, $store = $$value)), store);
+  $$self.$$.on_destroy.push(() => $$unsubscribe_storeIsValid());
   $$self.$$.on_destroy.push(() => $$unsubscribe_store());
   let { input = void 0 } = $$props;
   let { type = void 0 } = $$props;
@@ -27582,6 +31377,8 @@ function instance$b($$self, $$props, $$invalidate) {
   let { placeholder = void 0 } = $$props;
   let { store = void 0 } = $$props;
   $$subscribe_store();
+  let { storeIsValid = void 0 } = $$props;
+  $$subscribe_storeIsValid();
   let { styles = void 0 } = $$props;
   let { efx = void 0 } = $$props;
   const localOptions = {
@@ -27594,77 +31391,83 @@ function instance$b($$self, $$props, $$invalidate) {
   function onFocusIn(event) {
     initialValue = localOptions.cancelOnEscKey ? inputEl.value : void 0;
   }
-  __name(onFocusIn, "onFocusIn");
   function onKeyDown(event) {
-    if (localOptions.blurOnEnterKey && event.key === "Enter") {
+    if (localOptions.blurOnEnterKey && event.code === "Enter") {
+      event.preventDefault();
+      event.stopPropagation();
       inputEl.blur();
       return;
     }
-    if (event.key === "Escape") {
+    if (event.code === "Escape") {
       if (localOptions.cancelOnEscKey && typeof initialValue === "string") {
+        event.preventDefault();
+        event.stopPropagation();
         store.set(initialValue);
         initialValue = void 0;
         inputEl.blur();
       } else if (localOptions.clearOnEscKey) {
+        event.preventDefault();
+        event.stopPropagation();
         store.set("");
         inputEl.blur();
       }
     }
   }
-  __name(onKeyDown, "onKeyDown");
   function input_1_binding($$value) {
     binding_callbacks[$$value ? "unshift" : "push"](() => {
       inputEl = $$value;
-      $$invalidate(6, inputEl);
+      $$invalidate(7, inputEl);
     });
   }
-  __name(input_1_binding, "input_1_binding");
   function input_1_input_handler() {
     $store = this.value;
     store.set($store);
   }
-  __name(input_1_input_handler, "input_1_input_handler");
   $$self.$$set = ($$props2) => {
     if ("input" in $$props2)
-      $$invalidate(11, input = $$props2.input);
+      $$invalidate(13, input = $$props2.input);
     if ("type" in $$props2)
       $$invalidate(0, type = $$props2.type);
     if ("disabled" in $$props2)
       $$invalidate(1, disabled = $$props2.disabled);
     if ("options" in $$props2)
-      $$invalidate(10, options = $$props2.options);
+      $$invalidate(12, options = $$props2.options);
     if ("placeholder" in $$props2)
       $$invalidate(2, placeholder = $$props2.placeholder);
     if ("store" in $$props2)
       $$subscribe_store($$invalidate(3, store = $$props2.store));
+    if ("storeIsValid" in $$props2)
+      $$subscribe_storeIsValid($$invalidate(4, storeIsValid = $$props2.storeIsValid));
     if ("styles" in $$props2)
-      $$invalidate(4, styles = $$props2.styles);
+      $$invalidate(5, styles = $$props2.styles);
     if ("efx" in $$props2)
-      $$invalidate(5, efx = $$props2.efx);
+      $$invalidate(6, efx = $$props2.efx);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & 2049) {
+    if ($$self.$$.dirty & /*input, type*/
+    8193) {
       {
         $$invalidate(0, type = isObject$1(input) && typeof input.type === "string" ? input.type : typeof type === "string" ? type : "text");
         switch (type) {
           case "email":
-          case "number":
           case "password":
           case "search":
           case "text":
           case "url":
             break;
           default:
-            throw new Error(`'TJSInputText only supports text input types: 'email', 'number', 'password', 'search', 'text', 'url'.`);
+            throw new Error(`'TJSInputText only supports text input types: 'email', 'password', 'search', 'text', 'url'.`);
         }
       }
     }
-    if ($$self.$$.dirty & 2050) {
+    if ($$self.$$.dirty & /*input, disabled*/
+    8194) {
       $$invalidate(1, disabled = isObject$1(input) && typeof input.disabled === "boolean" ? input.disabled : typeof disabled === "boolean" ? disabled : false);
     }
-    if ($$self.$$.dirty & 3072) {
+    if ($$self.$$.dirty & /*input, options*/
+    12288) {
       {
-        $$invalidate(10, options = isObject$1(input) && isObject$1(input.options) ? input.options : isObject$1(options) ? options : {});
+        $$invalidate(12, options = isObject$1(input) && isObject$1(input.options) ? input.options : isObject$1(options) ? options : {});
         if (typeof options?.blurOnEnterKey === "boolean") {
           localOptions.blurOnEnterKey = options.blurOnEnterKey;
         }
@@ -27676,17 +31479,25 @@ function instance$b($$self, $$props, $$invalidate) {
         }
       }
     }
-    if ($$self.$$.dirty & 2052) {
+    if ($$self.$$.dirty & /*input, placeholder*/
+    8196) {
       $$invalidate(2, placeholder = isObject$1(input) && typeof input.placeholder === "string" ? localize(input.placeholder) : typeof placeholder === "string" ? localize(placeholder) : void 0);
     }
-    if ($$self.$$.dirty & 2056) {
+    if ($$self.$$.dirty & /*input, store*/
+    8200) {
       $$subscribe_store($$invalidate(3, store = isObject$1(input) && isWritableStore(input.store) ? input.store : isWritableStore(store) ? store : writable$1(void 0)));
     }
-    if ($$self.$$.dirty & 2064) {
-      $$invalidate(4, styles = isObject$1(input) && isObject$1(input.styles) ? input.styles : typeof styles === "object" ? styles : void 0);
+    if ($$self.$$.dirty & /*input, storeIsValid*/
+    8208) {
+      $$subscribe_storeIsValid($$invalidate(4, storeIsValid = isObject$1(input) && isReadableStore(input.storeIsValid) ? input.storeIsValid : isReadableStore(storeIsValid) ? storeIsValid : writable$1(true)));
     }
-    if ($$self.$$.dirty & 2080) {
-      $$invalidate(5, efx = isObject$1(input) && typeof input.efx === "function" ? input.efx : typeof efx === "function" ? efx : () => {
+    if ($$self.$$.dirty & /*input, styles*/
+    8224) {
+      $$invalidate(5, styles = isObject$1(input) && isObject$1(input.styles) ? input.styles : typeof styles === "object" ? styles : void 0);
+    }
+    if ($$self.$$.dirty & /*input, efx*/
+    8256) {
+      $$invalidate(6, efx = isObject$1(input) && typeof input.efx === "function" ? input.efx : typeof efx === "function" ? efx : () => {
       });
     }
   };
@@ -27695,9 +31506,11 @@ function instance$b($$self, $$props, $$invalidate) {
     disabled,
     placeholder,
     store,
+    storeIsValid,
     styles,
     efx,
     inputEl,
+    $storeIsValid,
     $store,
     onFocusIn,
     onKeyDown,
@@ -27707,33 +31520,34 @@ function instance$b($$self, $$props, $$invalidate) {
     input_1_input_handler
   ];
 }
-__name(instance$b, "instance$b");
 class TJSInputText extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance$b, create_fragment$b, safe_not_equal, {
-      input: 11,
+      input: 13,
       type: 0,
       disabled: 1,
-      options: 10,
+      options: 12,
       placeholder: 2,
       store: 3,
-      styles: 4,
-      efx: 5
+      storeIsValid: 4,
+      styles: 5,
+      efx: 6
     });
   }
 }
-__name(TJSInputText, "TJSInputText");
 const TJSSelect_svelte_svelte_type_style_lang = "";
 function get_each_context$2(ctx, list, i) {
   const child_ctx = ctx.slice();
   child_ctx[10] = list[i];
   return child_ctx;
 }
-__name(get_each_context$2, "get_each_context$2");
 function create_each_block$2(ctx) {
   let option;
-  let t0_value = ctx[10].label + "";
+  let t0_value = (
+    /*option*/
+    ctx[10].label + ""
+  );
   let t0;
   let t1;
   let option_value_value;
@@ -27742,8 +31556,9 @@ function create_each_block$2(ctx) {
       option = element("option");
       t0 = text(t0_value);
       t1 = space();
-      attr(option, "class", "tjs-select-option svelte-rt6859");
-      option.__value = option_value_value = ctx[10].value;
+      attr(option, "class", "tjs-select-option svelte-mcc-1q83byg");
+      option.__value = option_value_value = /*option*/
+      ctx[10].value;
       option.value = option.__value;
     },
     m(target, anchor) {
@@ -27752,9 +31567,13 @@ function create_each_block$2(ctx) {
       append(option, t1);
     },
     p(ctx2, dirty) {
-      if (dirty & 1 && t0_value !== (t0_value = ctx2[10].label + ""))
+      if (dirty & /*options*/
+      1 && t0_value !== (t0_value = /*option*/
+      ctx2[10].label + ""))
         set_data(t0, t0_value);
-      if (dirty & 1 && option_value_value !== (option_value_value = ctx2[10].value)) {
+      if (dirty & /*options*/
+      1 && option_value_value !== (option_value_value = /*option*/
+      ctx2[10].value)) {
         option.__value = option_value_value;
         option.value = option.__value;
       }
@@ -27765,14 +31584,16 @@ function create_each_block$2(ctx) {
     }
   };
 }
-__name(create_each_block$2, "create_each_block$2");
 function create_fragment$a(ctx) {
   let div;
   let select_1;
   let applyStyles_action;
   let mounted;
   let dispose;
-  let each_value = ctx[0];
+  let each_value = (
+    /*options*/
+    ctx[0]
+  );
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
     each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
@@ -27784,10 +31605,16 @@ function create_fragment$a(ctx) {
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      attr(select_1, "class", "tjs-select svelte-rt6859");
-      if (ctx[4] === void 0)
-        add_render_callback(() => ctx[9].call(select_1));
-      attr(div, "class", "tjs-select-container svelte-rt6859");
+      attr(select_1, "class", "tjs-select svelte-mcc-1q83byg");
+      if (
+        /*$store*/
+        ctx[4] === void 0
+      )
+        add_render_callback(() => (
+          /*select_1_change_handler*/
+          ctx[9].call(select_1)
+        ));
+      attr(div, "class", "tjs-select-container svelte-mcc-1q83byg");
     },
     m(target, anchor) {
       insert(target, div, anchor);
@@ -27795,22 +31622,50 @@ function create_fragment$a(ctx) {
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].m(select_1, null);
       }
-      select_option(select_1, ctx[4]);
+      select_option(
+        select_1,
+        /*$store*/
+        ctx[4]
+      );
       if (!mounted) {
         dispose = [
-          listen(select_1, "change", ctx[8]),
-          listen(select_1, "change", ctx[9]),
-          action_destroyer(autoBlur.call(null, select_1)),
-          listen(div, "change", ctx[7]),
-          action_destroyer(ctx[3].call(null, div)),
-          action_destroyer(applyStyles_action = applyStyles.call(null, div, ctx[2]))
+          listen(
+            select_1,
+            "change",
+            /*change_handler_1*/
+            ctx[8]
+          ),
+          listen(
+            select_1,
+            "change",
+            /*select_1_change_handler*/
+            ctx[9]
+          ),
+          listen(
+            div,
+            "change",
+            /*change_handler*/
+            ctx[7]
+          ),
+          action_destroyer(
+            /*efx*/
+            ctx[3].call(null, div)
+          ),
+          action_destroyer(applyStyles_action = applyStyles.call(
+            null,
+            div,
+            /*styles*/
+            ctx[2]
+          ))
         ];
         mounted = true;
       }
     },
     p(ctx2, [dirty]) {
-      if (dirty & 1) {
-        each_value = ctx2[0];
+      if (dirty & /*options*/
+      1) {
+        each_value = /*options*/
+        ctx2[0];
         let i;
         for (i = 0; i < each_value.length; i += 1) {
           const child_ctx = get_each_context$2(ctx2, each_value, i);
@@ -27827,11 +31682,21 @@ function create_fragment$a(ctx) {
         }
         each_blocks.length = each_value.length;
       }
-      if (dirty & 17) {
-        select_option(select_1, ctx2[4]);
+      if (dirty & /*$store, options*/
+      17) {
+        select_option(
+          select_1,
+          /*$store*/
+          ctx2[4]
+        );
       }
-      if (applyStyles_action && is_function(applyStyles_action.update) && dirty & 4)
-        applyStyles_action.update.call(null, ctx2[2]);
+      if (applyStyles_action && is_function(applyStyles_action.update) && dirty & /*styles*/
+      4)
+        applyStyles_action.update.call(
+          null,
+          /*styles*/
+          ctx2[2]
+        );
     },
     i: noop$1,
     o: noop$1,
@@ -27844,9 +31709,8 @@ function create_fragment$a(ctx) {
     }
   };
 }
-__name(create_fragment$a, "create_fragment$a");
 function instance$a($$self, $$props, $$invalidate) {
-  let $store, $$unsubscribe_store = noop$1, $$subscribe_store = /* @__PURE__ */ __name(() => ($$unsubscribe_store(), $$unsubscribe_store = subscribe(store, ($$value) => $$invalidate(4, $store = $$value)), store), "$$subscribe_store");
+  let $store, $$unsubscribe_store = noop$1, $$subscribe_store = () => ($$unsubscribe_store(), $$unsubscribe_store = subscribe(store, ($$value) => $$invalidate(4, $store = $$value)), store);
   $$self.$$.on_destroy.push(() => $$unsubscribe_store());
   let { select = void 0 } = $$props;
   let { selected = void 0 } = $$props;
@@ -27863,17 +31727,14 @@ function instance$a($$self, $$props, $$invalidate) {
   function change_handler(event) {
     bubble.call(this, $$self, event);
   }
-  __name(change_handler, "change_handler");
   function change_handler_1(event) {
     bubble.call(this, $$self, event);
   }
-  __name(change_handler_1, "change_handler_1");
   function select_1_change_handler() {
     $store = select_value(this);
     store.set($store);
     $$invalidate(0, options), $$invalidate(6, select);
   }
-  __name(select_1_change_handler, "select_1_change_handler");
   $$self.$$set = ($$props2) => {
     if ("select" in $$props2)
       $$invalidate(6, select = $$props2.select);
@@ -27889,19 +31750,24 @@ function instance$a($$self, $$props, $$invalidate) {
       $$invalidate(3, efx = $$props2.efx);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & 96) {
+    if ($$self.$$.dirty & /*select, selected*/
+    96) {
       $$invalidate(5, selected = typeof select === "object" && typeof select.selected === "string" ? select.selected : typeof selected === "string" ? selected : void 0);
     }
-    if ($$self.$$.dirty & 65) {
+    if ($$self.$$.dirty & /*select, options*/
+    65) {
       $$invalidate(0, options = typeof select === "object" && Array.isArray(select.options) ? select.options : Array.isArray(options) ? options : []);
     }
-    if ($$self.$$.dirty & 66) {
+    if ($$self.$$.dirty & /*select, store*/
+    66) {
       $$subscribe_store($$invalidate(1, store = typeof select === "object" && isWritableStore(select.store) ? select.store : isWritableStore(store) ? store : writable$1(void 0)));
     }
-    if ($$self.$$.dirty & 68) {
+    if ($$self.$$.dirty & /*select, styles*/
+    68) {
       $$invalidate(2, styles = typeof select === "object" && typeof select.styles === "object" ? select.styles : typeof styles === "object" ? styles : void 0);
     }
-    if ($$self.$$.dirty & 72) {
+    if ($$self.$$.dirty & /*select, efx*/
+    72) {
       $$invalidate(3, efx = typeof select === "object" && typeof select.efx === "function" ? select.efx : typeof efx === "function" ? efx : () => {
       });
     }
@@ -27919,7 +31785,6 @@ function instance$a($$self, $$props, $$invalidate) {
     select_1_change_handler
   ];
 }
-__name(instance$a, "instance$a");
 class TJSSelect extends SvelteComponent {
   constructor(options) {
     super();
@@ -27933,205 +31798,662 @@ class TJSSelect extends SvelteComponent {
     });
   }
 }
-__name(TJSSelect, "TJSSelect");
 const TJSToggleLabel_svelte_svelte_type_style_lang = "";
 const ResizeHitBox_svelte_svelte_type_style_lang = "";
 const SelectedBorder_svelte_svelte_type_style_lang = "";
 const PositionControl_svelte_svelte_type_style_lang = "";
 const TJSPositionControlLayer_svelte_svelte_type_style_lang = "";
 const TJSMenu_svelte_svelte_type_style_lang = "";
-const TJSContextMenu_svelte_svelte_type_style_lang = "";
+const TJSContextMenuImpl_svelte_svelte_type_style_lang = "";
 const { document: document_1 } = globals;
-const get_after_slot_changes = /* @__PURE__ */ __name((dirty) => ({}), "get_after_slot_changes");
-const get_after_slot_context = /* @__PURE__ */ __name((ctx) => ({}), "get_after_slot_context");
 function get_each_context$1(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[19] = list[i];
+  child_ctx[30] = list[i];
   return child_ctx;
 }
-__name(get_each_context$1, "get_each_context$1");
-const get_before_slot_changes = /* @__PURE__ */ __name((dirty) => ({}), "get_before_slot_changes");
-const get_before_slot_context = /* @__PURE__ */ __name((ctx) => ({}), "get_before_slot_context");
-function create_each_block$1(ctx) {
+function create_if_block_3(ctx) {
+  let hr;
+  return {
+    c() {
+      hr = element("hr");
+      attr(hr, "class", "svelte-mcc-1ykv97a");
+    },
+    m(target, anchor) {
+      insert(target, hr, anchor);
+    },
+    p: noop$1,
+    i: noop$1,
+    o: noop$1,
+    d(detaching) {
+      if (detaching)
+        detach(hr);
+    }
+  };
+}
+function create_if_block_2(ctx) {
   let li;
-  let i;
-  let i_class_value;
-  let t_value = localize(ctx[19].label) + "";
-  let t;
+  let span0;
+  let t0;
+  let img;
+  let img_src_value;
+  let img_alt_value;
+  let t1;
+  let span1;
+  let t2_value = localize(
+    /*item*/
+    ctx[30].label
+  ) + "";
+  let t2;
+  let t3;
   let mounted;
   let dispose;
-  function click_handler() {
-    return ctx[14](ctx[19]);
+  function click_handler_2() {
+    return (
+      /*click_handler_2*/
+      ctx[23](
+        /*item*/
+        ctx[30]
+      )
+    );
   }
-  __name(click_handler, "click_handler");
+  function keyup_handler_2(...args) {
+    return (
+      /*keyup_handler_2*/
+      ctx[24](
+        /*item*/
+        ctx[30],
+        ...args
+      )
+    );
+  }
   return {
     c() {
       li = element("li");
-      i = element("i");
-      t = text(t_value);
-      attr(i, "class", i_class_value = null_to_empty(ctx[19].icon) + " svelte-ugn418");
-      attr(li, "class", "tjs-context-item svelte-ugn418");
-      attr(li, "role", "presentation");
+      span0 = element("span");
+      t0 = space();
+      img = element("img");
+      t1 = space();
+      span1 = element("span");
+      t2 = text(t2_value);
+      t3 = space();
+      attr(span0, "class", "tjs-context-menu-focus-indicator svelte-mcc-1ykv97a");
+      if (!src_url_equal(img.src, img_src_value = /*item*/
+      ctx[30].image))
+        attr(img, "src", img_src_value);
+      attr(img, "alt", img_alt_value = /*item*/
+      ctx[30].imageAlt);
+      attr(img, "class", "svelte-mcc-1ykv97a");
+      attr(span1, "class", "tjs-context-menu-item-label svelte-mcc-1ykv97a");
+      attr(li, "class", "tjs-context-menu-item tjs-context-menu-item-button svelte-mcc-1ykv97a");
+      attr(li, "role", "menuitem");
+      attr(li, "tabindex", "0");
     },
     m(target, anchor) {
       insert(target, li, anchor);
-      append(li, i);
-      append(li, t);
+      append(li, span0);
+      append(li, t0);
+      append(li, img);
+      append(li, t1);
+      append(li, span1);
+      append(span1, t2);
+      append(li, t3);
       if (!mounted) {
-        dispose = listen(li, "click", stop_propagation(prevent_default(click_handler)));
+        dispose = [
+          listen(li, "click", click_handler_2),
+          listen(li, "keyup", keyup_handler_2)
+        ];
         mounted = true;
       }
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
-      if (dirty & 2 && i_class_value !== (i_class_value = null_to_empty(ctx[19].icon) + " svelte-ugn418")) {
-        attr(i, "class", i_class_value);
+      if (dirty[0] & /*items*/
+      4 && !src_url_equal(img.src, img_src_value = /*item*/
+      ctx[30].image)) {
+        attr(img, "src", img_src_value);
       }
-      if (dirty & 2 && t_value !== (t_value = localize(ctx[19].label) + ""))
-        set_data(t, t_value);
+      if (dirty[0] & /*items*/
+      4 && img_alt_value !== (img_alt_value = /*item*/
+      ctx[30].imageAlt)) {
+        attr(img, "alt", img_alt_value);
+      }
+      if (dirty[0] & /*items*/
+      4 && t2_value !== (t2_value = localize(
+        /*item*/
+        ctx[30].label
+      ) + ""))
+        set_data(t2, t2_value);
     },
+    i: noop$1,
+    o: noop$1,
     d(detaching) {
       if (detaching)
         detach(li);
       mounted = false;
-      dispose();
+      run_all(dispose);
     }
   };
 }
-__name(create_each_block$1, "create_each_block$1");
-function create_fragment$9(ctx) {
+function create_if_block_1(ctx) {
+  let li;
+  let span0;
   let t0;
-  let nav;
-  let ol;
+  let i;
+  let i_class_value;
   let t1;
+  let span1;
+  let t2_value = localize(
+    /*item*/
+    ctx[30].label
+  ) + "";
   let t2;
-  let nav_transition;
-  let current;
+  let t3;
   let mounted;
   let dispose;
-  const before_slot_template = ctx[12].before;
-  const before_slot = create_slot(before_slot_template, ctx, ctx[11], get_before_slot_context);
-  let each_value = ctx[1];
-  let each_blocks = [];
-  for (let i = 0; i < each_value.length; i += 1) {
-    each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+  function click_handler_1() {
+    return (
+      /*click_handler_1*/
+      ctx[21](
+        /*item*/
+        ctx[30]
+      )
+    );
   }
-  const after_slot_template = ctx[12].after;
-  const after_slot = create_slot(after_slot_template, ctx, ctx[11], get_after_slot_context);
+  function keyup_handler_1(...args) {
+    return (
+      /*keyup_handler_1*/
+      ctx[22](
+        /*item*/
+        ctx[30],
+        ...args
+      )
+    );
+  }
   return {
     c() {
+      li = element("li");
+      span0 = element("span");
       t0 = space();
-      nav = element("nav");
-      ol = element("ol");
-      if (before_slot)
-        before_slot.c();
+      i = element("i");
       t1 = space();
-      for (let i = 0; i < each_blocks.length; i += 1) {
-        each_blocks[i].c();
-      }
-      t2 = space();
-      if (after_slot)
-        after_slot.c();
-      attr(ol, "class", "tjs-context-items svelte-ugn418");
-      attr(nav, "id", ctx[0]);
-      attr(nav, "class", "tjs-context-menu svelte-ugn418");
-      set_style(nav, "z-index", ctx[2]);
+      span1 = element("span");
+      t2 = text(t2_value);
+      t3 = space();
+      attr(span0, "class", "tjs-context-menu-focus-indicator svelte-mcc-1ykv97a");
+      attr(i, "class", i_class_value = null_to_empty(
+        /*item*/
+        ctx[30].icon
+      ) + " svelte-mcc-1ykv97a");
+      attr(span1, "class", "tjs-context-menu-item-label svelte-mcc-1ykv97a");
+      attr(li, "class", "tjs-context-menu-item tjs-context-menu-item-button svelte-mcc-1ykv97a");
+      attr(li, "role", "menuitem");
+      attr(li, "tabindex", "0");
     },
     m(target, anchor) {
-      insert(target, t0, anchor);
-      insert(target, nav, anchor);
-      append(nav, ol);
-      if (before_slot) {
-        before_slot.m(ol, null);
-      }
-      append(ol, t1);
-      for (let i = 0; i < each_blocks.length; i += 1) {
-        each_blocks[i].m(ol, null);
-      }
-      append(ol, t2);
-      if (after_slot) {
-        after_slot.m(ol, null);
-      }
-      ctx[15](nav);
-      current = true;
+      insert(target, li, anchor);
+      append(li, span0);
+      append(li, t0);
+      append(li, i);
+      append(li, t1);
+      append(li, span1);
+      append(span1, t2);
+      append(li, t3);
       if (!mounted) {
         dispose = [
-          listen(window, "blur", ctx[7]),
-          listen(document_1.body, "pointerdown", ctx[6]),
-          listen(document_1.body, "wheel", ctx[13]),
-          listen(nav, "click", stop_propagation(prevent_default(click_handler_1))),
-          listen(nav, "keydown", stop_propagation(prevent_default(keydown_handler)))
+          listen(li, "click", click_handler_1),
+          listen(li, "keyup", keyup_handler_1)
         ];
         mounted = true;
       }
     },
-    p(ctx2, [dirty]) {
-      if (before_slot) {
-        if (before_slot.p && (!current || dirty & 2048)) {
-          update_slot_base(
-            before_slot,
-            before_slot_template,
-            ctx2,
-            ctx2[11],
-            !current ? get_all_dirty_from_scope(ctx2[11]) : get_slot_changes(before_slot_template, ctx2[11], dirty, get_before_slot_changes),
-            get_before_slot_context
-          );
-        }
+    p(new_ctx, dirty) {
+      ctx = new_ctx;
+      if (dirty[0] & /*items*/
+      4 && i_class_value !== (i_class_value = null_to_empty(
+        /*item*/
+        ctx[30].icon
+      ) + " svelte-mcc-1ykv97a")) {
+        attr(i, "class", i_class_value);
       }
-      if (dirty & 34) {
-        each_value = ctx2[1];
-        let i;
-        for (i = 0; i < each_value.length; i += 1) {
-          const child_ctx = get_each_context$1(ctx2, each_value, i);
-          if (each_blocks[i]) {
-            each_blocks[i].p(child_ctx, dirty);
-          } else {
-            each_blocks[i] = create_each_block$1(child_ctx);
-            each_blocks[i].c();
-            each_blocks[i].m(ol, t2);
-          }
-        }
-        for (; i < each_blocks.length; i += 1) {
-          each_blocks[i].d(1);
-        }
-        each_blocks.length = each_value.length;
+      if (dirty[0] & /*items*/
+      4 && t2_value !== (t2_value = localize(
+        /*item*/
+        ctx[30].label
+      ) + ""))
+        set_data(t2, t2_value);
+    },
+    i: noop$1,
+    o: noop$1,
+    d(detaching) {
+      if (detaching)
+        detach(li);
+      mounted = false;
+      run_all(dispose);
+    }
+  };
+}
+function create_if_block$3(ctx) {
+  let li;
+  let span;
+  let t0;
+  let switch_instance;
+  let t1;
+  let current;
+  let mounted;
+  let dispose;
+  const switch_instance_spread_levels = [
+    isObject$1(
+      /*item*/
+      ctx[30].props
+    ) ? (
+      /*item*/
+      ctx[30].props
+    ) : {}
+  ];
+  var switch_value = (
+    /*item*/
+    ctx[30].class
+  );
+  function switch_props(ctx2) {
+    let switch_instance_props = {};
+    for (let i = 0; i < switch_instance_spread_levels.length; i += 1) {
+      switch_instance_props = assign(switch_instance_props, switch_instance_spread_levels[i]);
+    }
+    return { props: switch_instance_props };
+  }
+  if (switch_value) {
+    switch_instance = construct_svelte_component(switch_value, switch_props());
+  }
+  function click_handler() {
+    return (
+      /*click_handler*/
+      ctx[19](
+        /*item*/
+        ctx[30]
+      )
+    );
+  }
+  function keyup_handler(...args) {
+    return (
+      /*keyup_handler*/
+      ctx[20](
+        /*item*/
+        ctx[30],
+        ...args
+      )
+    );
+  }
+  return {
+    c() {
+      li = element("li");
+      span = element("span");
+      t0 = space();
+      if (switch_instance)
+        create_component(switch_instance.$$.fragment);
+      t1 = space();
+      attr(span, "class", "tjs-context-menu-focus-indicator svelte-mcc-1ykv97a");
+      attr(li, "class", "tjs-context-menu-item svelte-mcc-1ykv97a");
+      attr(li, "role", "menuitem");
+      attr(li, "tabindex", "0");
+    },
+    m(target, anchor) {
+      insert(target, li, anchor);
+      append(li, span);
+      append(li, t0);
+      if (switch_instance)
+        mount_component(switch_instance, li, null);
+      append(li, t1);
+      current = true;
+      if (!mounted) {
+        dispose = [listen(li, "click", click_handler), listen(li, "keyup", keyup_handler)];
+        mounted = true;
       }
-      if (after_slot) {
-        if (after_slot.p && (!current || dirty & 2048)) {
-          update_slot_base(
-            after_slot,
-            after_slot_template,
-            ctx2,
-            ctx2[11],
-            !current ? get_all_dirty_from_scope(ctx2[11]) : get_slot_changes(after_slot_template, ctx2[11], dirty, get_after_slot_changes),
-            get_after_slot_context
-          );
+    },
+    p(new_ctx, dirty) {
+      ctx = new_ctx;
+      const switch_instance_changes = dirty[0] & /*items*/
+      4 ? get_spread_update(switch_instance_spread_levels, [
+        get_spread_object(isObject$1(
+          /*item*/
+          ctx[30].props
+        ) ? (
+          /*item*/
+          ctx[30].props
+        ) : {})
+      ]) : {};
+      if (switch_value !== (switch_value = /*item*/
+      ctx[30].class)) {
+        if (switch_instance) {
+          group_outros();
+          const old_component = switch_instance;
+          transition_out(old_component.$$.fragment, 1, 0, () => {
+            destroy_component(old_component, 1);
+          });
+          check_outros();
         }
-      }
-      if (!current || dirty & 1) {
-        attr(nav, "id", ctx2[0]);
-      }
-      if (!current || dirty & 4) {
-        set_style(nav, "z-index", ctx2[2]);
+        if (switch_value) {
+          switch_instance = construct_svelte_component(switch_value, switch_props());
+          create_component(switch_instance.$$.fragment);
+          transition_in(switch_instance.$$.fragment, 1);
+          mount_component(switch_instance, li, t1);
+        } else {
+          switch_instance = null;
+        }
+      } else if (switch_value) {
+        switch_instance.$set(switch_instance_changes);
       }
     },
     i(local) {
       if (current)
         return;
-      transition_in(before_slot, local);
-      transition_in(after_slot, local);
+      if (switch_instance)
+        transition_in(switch_instance.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      if (switch_instance)
+        transition_out(switch_instance.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(li);
+      if (switch_instance)
+        destroy_component(switch_instance);
+      mounted = false;
+      run_all(dispose);
+    }
+  };
+}
+function create_each_block$1(ctx) {
+  let current_block_type_index;
+  let if_block;
+  let if_block_anchor;
+  let current;
+  const if_block_creators = [create_if_block$3, create_if_block_1, create_if_block_2, create_if_block_3];
+  const if_blocks = [];
+  function select_block_type(ctx2, dirty) {
+    if (
+      /*item*/
+      ctx2[30]["#type"] === "class"
+    )
+      return 0;
+    if (
+      /*item*/
+      ctx2[30]["#type"] === "icon"
+    )
+      return 1;
+    if (
+      /*item*/
+      ctx2[30]["#type"] === "image"
+    )
+      return 2;
+    if (
+      /*item*/
+      ctx2[30]["#type"] === "separator-hr"
+    )
+      return 3;
+    return -1;
+  }
+  if (~(current_block_type_index = select_block_type(ctx))) {
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  }
+  return {
+    c() {
+      if (if_block)
+        if_block.c();
+      if_block_anchor = empty();
+    },
+    m(target, anchor) {
+      if (~current_block_type_index) {
+        if_blocks[current_block_type_index].m(target, anchor);
+      }
+      insert(target, if_block_anchor, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type(ctx2);
+      if (current_block_type_index === previous_block_index) {
+        if (~current_block_type_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        }
+      } else {
+        if (if_block) {
+          group_outros();
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
+          });
+          check_outros();
+        }
+        if (~current_block_type_index) {
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        } else {
+          if_block = null;
+        }
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(if_block);
+      current = true;
+    },
+    o(local) {
+      transition_out(if_block);
+      current = false;
+    },
+    d(detaching) {
+      if (~current_block_type_index) {
+        if_blocks[current_block_type_index].d(detaching);
+      }
+      if (detaching)
+        detach(if_block_anchor);
+    }
+  };
+}
+function create_fragment$9(ctx) {
+  let t0;
+  let nav;
+  let ol;
+  let t1;
+  let tjsfocuswrap;
+  let applyStyles_action;
+  let nav_transition;
+  let current;
+  let mounted;
+  let dispose;
+  let each_value = (
+    /*items*/
+    ctx[2]
+  );
+  let each_blocks = [];
+  for (let i = 0; i < each_value.length; i += 1) {
+    each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+  }
+  const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
+    each_blocks[i] = null;
+  });
+  tjsfocuswrap = new TJSFocusWrap({
+    props: { elementRoot: (
+      /*menuEl*/
+      ctx[4]
+    ) }
+  });
+  return {
+    c() {
+      t0 = space();
+      nav = element("nav");
+      ol = element("ol");
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        each_blocks[i].c();
+      }
+      t1 = space();
+      create_component(tjsfocuswrap.$$.fragment);
+      attr(ol, "class", "tjs-context-menu-items svelte-mcc-1ykv97a");
+      attr(
+        nav,
+        "id",
+        /*id*/
+        ctx[1]
+      );
+      attr(nav, "class", "tjs-context-menu svelte-mcc-1ykv97a");
+      attr(nav, "tabindex", "-1");
+      set_style(
+        nav,
+        "z-index",
+        /*zIndex*/
+        ctx[3]
+      );
+    },
+    m(target, anchor) {
+      insert(target, t0, anchor);
+      insert(target, nav, anchor);
+      append(nav, ol);
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        each_blocks[i].m(ol, null);
+      }
+      append(nav, t1);
+      mount_component(tjsfocuswrap, nav, null);
+      ctx[25](nav);
+      current = true;
+      if (!mounted) {
+        dispose = [
+          listen(
+            window,
+            "blur",
+            /*onWindowBlur*/
+            ctx[11]
+          ),
+          listen(
+            document_1.body,
+            "pointerdown",
+            /*onClose*/
+            ctx[7]
+          ),
+          listen(
+            document_1.body,
+            "wheel",
+            /*wheel_handler*/
+            ctx[18]
+          ),
+          listen(nav, "click", stop_propagation(prevent_default(click_handler_3))),
+          listen(nav, "keydown", stop_propagation(
+            /*onKeydownMenu*/
+            ctx[8]
+          )),
+          listen(nav, "keyup", stop_propagation(prevent_default(
+            /*onKeyupMenu*/
+            ctx[9]
+          ))),
+          action_destroyer(applyStyles_action = applyStyles.call(
+            null,
+            nav,
+            /*styles*/
+            ctx[0]
+          ))
+        ];
+        mounted = true;
+      }
+    },
+    p(ctx2, dirty) {
+      if (dirty[0] & /*onClick, items, onKeyupItem*/
+      1092) {
+        each_value = /*items*/
+        ctx2[2];
+        let i;
+        for (i = 0; i < each_value.length; i += 1) {
+          const child_ctx = get_each_context$1(ctx2, each_value, i);
+          if (each_blocks[i]) {
+            each_blocks[i].p(child_ctx, dirty);
+            transition_in(each_blocks[i], 1);
+          } else {
+            each_blocks[i] = create_each_block$1(child_ctx);
+            each_blocks[i].c();
+            transition_in(each_blocks[i], 1);
+            each_blocks[i].m(ol, null);
+          }
+        }
+        group_outros();
+        for (i = each_value.length; i < each_blocks.length; i += 1) {
+          out(i);
+        }
+        check_outros();
+      }
+      const tjsfocuswrap_changes = {};
+      if (dirty[0] & /*menuEl*/
+      16)
+        tjsfocuswrap_changes.elementRoot = /*menuEl*/
+        ctx2[4];
+      tjsfocuswrap.$set(tjsfocuswrap_changes);
+      if (!current || dirty[0] & /*id*/
+      2) {
+        attr(
+          nav,
+          "id",
+          /*id*/
+          ctx2[1]
+        );
+      }
+      if (applyStyles_action && is_function(applyStyles_action.update) && dirty[0] & /*styles*/
+      1)
+        applyStyles_action.update.call(
+          null,
+          /*styles*/
+          ctx2[0]
+        );
+      if (dirty[0] & /*zIndex*/
+      8) {
+        set_style(
+          nav,
+          "z-index",
+          /*zIndex*/
+          ctx2[3]
+        );
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      for (let i = 0; i < each_value.length; i += 1) {
+        transition_in(each_blocks[i]);
+      }
+      transition_in(tjsfocuswrap.$$.fragment, local);
       add_render_callback(() => {
         if (!nav_transition)
-          nav_transition = create_bidirectional_transition(nav, ctx[4], {}, true);
+          nav_transition = create_bidirectional_transition(
+            nav,
+            /*animate*/
+            ctx[5],
+            {},
+            true
+          );
         nav_transition.run(1);
       });
       current = true;
     },
     o(local) {
-      transition_out(before_slot, local);
-      transition_out(after_slot, local);
+      each_blocks = each_blocks.filter(Boolean);
+      for (let i = 0; i < each_blocks.length; i += 1) {
+        transition_out(each_blocks[i]);
+      }
+      transition_out(tjsfocuswrap.$$.fragment, local);
       if (!nav_transition)
-        nav_transition = create_bidirectional_transition(nav, ctx[4], {}, false);
+        nav_transition = create_bidirectional_transition(
+          nav,
+          /*animate*/
+          ctx[5],
+          {},
+          false
+        );
       nav_transition.run(0);
       current = false;
     },
@@ -28140,12 +32462,9 @@ function create_fragment$9(ctx) {
         detach(t0);
       if (detaching)
         detach(nav);
-      if (before_slot)
-        before_slot.d(detaching);
       destroy_each(each_blocks, detaching);
-      if (after_slot)
-        after_slot.d(detaching);
-      ctx[15](null);
+      destroy_component(tjsfocuswrap);
+      ctx[25](null);
       if (detaching && nav_transition)
         nav_transition.end();
       mounted = false;
@@ -28153,21 +32472,36 @@ function create_fragment$9(ctx) {
     }
   };
 }
-__name(create_fragment$9, "create_fragment$9");
-const click_handler_1 = /* @__PURE__ */ __name(() => null, "click_handler_1");
-const keydown_handler = /* @__PURE__ */ __name(() => null, "keydown_handler");
+const click_handler_3 = () => null;
 function instance$9($$self, $$props, $$invalidate) {
-  let { $$slots: slots = {}, $$scope } = $$props;
+  let { menu = void 0 } = $$props;
   let { id = "" } = $$props;
   let { x = 0 } = $$props;
   let { y = 0 } = $$props;
   let { items = [] } = $$props;
-  let { zIndex = 1e4 } = $$props;
+  let { zIndex = Number.MAX_SAFE_INTEGER - 100 } = $$props;
+  let { styles = void 0 } = $$props;
+  let { keyCode = void 0 } = $$props;
+  let { focusSource = void 0 } = $$props;
   let { transitionOptions = void 0 } = $$props;
-  let menuEl;
+  const s_IGNORE_CLASSES = { ignoreClasses: ["tjs-focus-wrap"] };
   const local = current_component;
   const dispatch2 = createEventDispatcher();
+  let menuEl;
   let closed = false;
+  onMount(() => {
+    const keyboardFocus = focusSource?.source === "keyboard";
+    if (keyboardFocus) {
+      const firstFocusEl = A11yHelper.getFirstFocusableElement(menuEl);
+      if (firstFocusEl instanceof HTMLElement && !firstFocusEl.classList.contains("tjs-focus-wrap")) {
+        firstFocusEl.focus();
+      } else {
+        menuEl.focus();
+      }
+    } else {
+      menuEl.focus();
+    }
+  });
   function animate(node) {
     const expandUp = y + node.clientHeight > document.body.clientHeight;
     const expandLeft = x + node.clientWidth > document.body.clientWidth;
@@ -28177,10 +32511,13 @@ function instance$9($$self, $$props, $$invalidate) {
     node.style.right = expandLeft ? `${document.body.clientWidth - x}px` : null;
     return slideFade(node, transitionOptions);
   }
-  __name(animate, "animate");
-  function onClick(callback2) {
+  function onClick(item) {
+    const callback2 = item?.onPress;
     if (typeof callback2 === "function") {
-      callback2();
+      callback2(item, { focusSource });
+    } else {
+      A11yHelper.applyFocusSource(focusSource);
+      $$invalidate(13, focusSource = void 0);
     }
     if (!closed) {
       dispatch2("close");
@@ -28188,7 +32525,6 @@ function instance$9($$self, $$props, $$invalidate) {
       outroAndDestroy(local);
     }
   }
-  __name(onClick, "onClick");
   function onClose(event, isWheel = false) {
     if (event.target === menuEl || menuEl.contains(event.target)) {
       return;
@@ -28202,41 +32538,121 @@ function instance$9($$self, $$props, $$invalidate) {
       outroAndDestroy(local);
     }
   }
-  __name(onClose, "onClose");
+  function onKeydownMenu(event) {
+    if (event.code === keyCode) {
+      event.stopPropagation();
+      return;
+    }
+    switch (event.code) {
+      case "Tab":
+        event.stopPropagation();
+        if (event.shiftKey) {
+          const allFocusable = A11yHelper.getFocusableElements(menuEl, s_IGNORE_CLASSES);
+          const firstFocusEl = allFocusable.length > 0 ? allFocusable[0] : void 0;
+          const lastFocusEl = allFocusable.length > 0 ? allFocusable[allFocusable.length - 1] : void 0;
+          if (menuEl === document.activeElement || firstFocusEl === document.activeElement) {
+            if (lastFocusEl instanceof HTMLElement && firstFocusEl !== lastFocusEl) {
+              lastFocusEl.focus();
+            }
+            event.preventDefault();
+          }
+        }
+        break;
+      default:
+        event.stopPropagation();
+        break;
+    }
+  }
+  function onKeyupMenu(event) {
+    switch (event.code) {
+      case "ContextMenu":
+      case "Escape":
+        event.preventDefault();
+        event.stopPropagation();
+        if (!closed) {
+          closed = true;
+          dispatch2("close");
+          outroAndDestroy(local);
+          A11yHelper.applyFocusSource(focusSource);
+          $$invalidate(13, focusSource = void 0);
+        }
+        break;
+    }
+  }
+  function onKeyupItem(event, item) {
+    if (event.code === keyCode) {
+      if (!closed) {
+        closed = true;
+        dispatch2("close");
+        outroAndDestroy(local);
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      const callback2 = item?.onPress;
+      if (typeof callback2 === "function") {
+        callback2(item, { focusSource });
+      } else {
+        A11yHelper.applyFocusSource(focusSource);
+        $$invalidate(13, focusSource = void 0);
+      }
+    }
+  }
   function onWindowBlur() {
     if (!closed) {
       dispatch2("close");
       closed = true;
       outroAndDestroy(local);
+      A11yHelper.applyFocusSource(focusSource);
+      $$invalidate(13, focusSource = void 0);
     }
   }
-  __name(onWindowBlur, "onWindowBlur");
-  const wheel_handler = /* @__PURE__ */ __name((event) => onClose(event, true), "wheel_handler");
-  const click_handler = /* @__PURE__ */ __name((item) => onClick(item.onclick), "click_handler");
+  const wheel_handler = (event) => onClose(event, true);
+  const click_handler = (item) => onClick(item);
+  const keyup_handler = (item, event) => onKeyupItem(event, item);
+  const click_handler_1 = (item) => onClick(item);
+  const keyup_handler_1 = (item, event) => onKeyupItem(event, item);
+  const click_handler_2 = (item) => onClick(item);
+  const keyup_handler_2 = (item, event) => onKeyupItem(event, item);
   function nav_binding($$value) {
     binding_callbacks[$$value ? "unshift" : "push"](() => {
       menuEl = $$value;
-      $$invalidate(3, menuEl);
+      $$invalidate(4, menuEl);
     });
   }
-  __name(nav_binding, "nav_binding");
   $$self.$$set = ($$props2) => {
+    if ("menu" in $$props2)
+      $$invalidate(14, menu = $$props2.menu);
     if ("id" in $$props2)
-      $$invalidate(0, id = $$props2.id);
+      $$invalidate(1, id = $$props2.id);
     if ("x" in $$props2)
-      $$invalidate(8, x = $$props2.x);
+      $$invalidate(15, x = $$props2.x);
     if ("y" in $$props2)
-      $$invalidate(9, y = $$props2.y);
+      $$invalidate(16, y = $$props2.y);
     if ("items" in $$props2)
-      $$invalidate(1, items = $$props2.items);
+      $$invalidate(2, items = $$props2.items);
     if ("zIndex" in $$props2)
-      $$invalidate(2, zIndex = $$props2.zIndex);
+      $$invalidate(3, zIndex = $$props2.zIndex);
+    if ("styles" in $$props2)
+      $$invalidate(0, styles = $$props2.styles);
+    if ("keyCode" in $$props2)
+      $$invalidate(12, keyCode = $$props2.keyCode);
+    if ("focusSource" in $$props2)
+      $$invalidate(13, focusSource = $$props2.focusSource);
     if ("transitionOptions" in $$props2)
-      $$invalidate(10, transitionOptions = $$props2.transitionOptions);
-    if ("$$scope" in $$props2)
-      $$invalidate(11, $$scope = $$props2.$$scope);
+      $$invalidate(17, transitionOptions = $$props2.transitionOptions);
+  };
+  $$self.$$.update = () => {
+    if ($$self.$$.dirty[0] & /*menu, styles*/
+    16385) {
+      $$invalidate(0, styles = isObject$1(menu) && isObject$1(menu.styles) ? menu.styles : isObject$1(styles) ? styles : void 0);
+    }
+    if ($$self.$$.dirty[0] & /*menu, keyCode*/
+    20480) {
+      $$invalidate(12, keyCode = isObject$1(menu) && typeof menu.keyCode === "string" ? menu.keyCode : typeof keyCode === "string" ? keyCode : "Enter");
+    }
   };
   return [
+    styles,
     id,
     items,
     zIndex,
@@ -28244,45 +32660,65 @@ function instance$9($$self, $$props, $$invalidate) {
     animate,
     onClick,
     onClose,
+    onKeydownMenu,
+    onKeyupMenu,
+    onKeyupItem,
     onWindowBlur,
+    keyCode,
+    focusSource,
+    menu,
     x,
     y,
     transitionOptions,
-    $$scope,
-    slots,
     wheel_handler,
     click_handler,
+    keyup_handler,
+    click_handler_1,
+    keyup_handler_1,
+    click_handler_2,
+    keyup_handler_2,
     nav_binding
   ];
 }
-__name(instance$9, "instance$9");
-class TJSContextMenu$1 extends SvelteComponent {
+class TJSContextMenuImpl extends SvelteComponent {
   constructor(options) {
     super();
-    init$1(this, options, instance$9, create_fragment$9, safe_not_equal, {
-      id: 0,
-      x: 8,
-      y: 9,
-      items: 1,
-      zIndex: 2,
-      transitionOptions: 10
-    });
+    init$1(
+      this,
+      options,
+      instance$9,
+      create_fragment$9,
+      safe_not_equal,
+      {
+        menu: 14,
+        id: 1,
+        x: 15,
+        y: 16,
+        items: 2,
+        zIndex: 3,
+        styles: 0,
+        keyCode: 12,
+        focusSource: 13,
+        transitionOptions: 17
+      },
+      null,
+      [-1, -1]
+    );
   }
 }
-__name(TJSContextMenu$1, "TJSContextMenu$1");
 const SettingEntry_svelte_svelte_type_style_lang = "";
 const TJSSettingsEdit_svelte_svelte_type_style_lang = "";
+cssVariables.setProperties({
+  // For components w/ transparent background checkered pattern.
+  "--tjs-checkerboard-background-dark": "rgb(205, 205, 205)",
+  "--tjs-checkerboard-background-10": `url('data:image/svg+xml;utf8,<svg preserveAspectRatio="none"  viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="5" height="5" fill="transparent" /><rect x="5" y="5" width="5" height="5" fill="transparent" /><rect x="5" y="0" width="5" height="5" fill="white" /><rect x="0" y="5" width="5" height="5" fill="white" /></svg>') 0 0 / 10px 10px, var(--tjs-checkerboard-background-dark, rgb(205, 205, 205))`
+}, false);
 cssVariables.setProperties({
   "--tjs-action-ripple-background": "rgba(0, 0, 0, 0.35)"
 }, false);
 cssVariables.setProperties({
-  "--tjs-icon-button-background": "none",
   "--tjs-icon-button-background-hover": "rgba(0, 0, 0, 0.10)",
-  "--tjs-icon-button-background-selected": "rgba(0, 0, 0, 0.20)",
-  "--tjs-icon-button-border-radius": "50%",
-  "--tjs-icon-button-clip-path": "none",
-  "--tjs-icon-button-diameter": "2em",
-  "--tjs-icon-button-transition": "background 200ms linear, clip-path 200ms linear"
+  "--tjs-icon-button-background-selected": "rgba(0, 0, 0, 0.20)"
 }, false);
 {
   const props = FoundryStyles.getProperties('input[type="text"], input[type="number"]');
@@ -28294,26 +32730,25 @@ cssVariables.setProperties({
       "--tjs-input-height": "height" in props ? props.height : "var(--form-field-height)",
       "--tjs-input-min-width": "min-width" in props ? props["min-width"] : "20px",
       "--tjs-input-padding": "padding" in props ? props["padding"] : "1px 3px",
-      "--tjs-input-width": "width" in props ? props.width : "calc(100% - 2px)"
-    }, false);
-  }
-}
-{
-  const props = FoundryStyles.getProperties("option, optgroup");
-  if (typeof props === "object") {
-    cssVariables.setProperties({
-      "--tjs-select-option-background": "background" in props ? props.background : "var(--color-bg-option)"
+      "--tjs-input-width": "width" in props ? props.width : "calc(100% - 2px)",
+      // Set default values that are only to be referenced and not set.
+      "--_tjs-default-input-height": "height" in props ? props.height : "var(--form-field-height)",
+      // Set directly / no lookup:
+      "--tjs-input-border-color": "var(--color-border-light-tertiary)"
     }, false);
   }
 }
 cssVariables.setProperties({
-  "--tjs-label-transition": "background 200ms linear"
-}, false);
-cssVariables.setProperties({
-  "--tjs-menu-border": "1px solid var(--color-border-dark, #000)",
-  "--tjs-menu-box-shadow": "0 0 2px var(--color-shadow-dark, #000)",
-  "--tjs-menu-color": "var(--color-text-light-primary, #EEE)",
-  "--tjs-menu-item-hover-text-shadow-color": "var(--color-text-hyperlink, red)"
+  // `popup` is for components that are slightly elevated, but connected to an application;
+  // see: TJSMenu / TJSContextMenu / TJSColordPicker
+  "--tjs-default-popup-background": "var(--color-text-dark-header, #23221d)",
+  "--tjs-default-popup-border": "1px solid var(--color-border-dark, #000)",
+  "--tjs-default-popup-box-shadow": "0 0 2px var(--color-shadow-dark, #000)",
+  "--tjs-default-popup-primary-color": "var(--color-text-light-primary, #b5b3a4)",
+  "--tjs-default-popup-highlight-color": "var(--color-text-light-highlight, #f0f0e0)",
+  // `popover` is for components that are elevated and independent; see: TJSContextMenu
+  "--tjs-default-popover-border": "1px solid var(--color-border-dark, #000)",
+  "--tjs-default-popover-box-shadow": "0 0 10px var(--color-shadow-dark, #000)"
 }, false);
 Hooks.on("PopOut:loading", (app, popout) => {
   if (app instanceof SvelteApplication) {
@@ -28327,14 +32762,17 @@ function create_if_block$2(ctx) {
   let div_transition;
   let current;
   tjsiconbutton = new TJSIconButton({
-    props: { button: ctx[6] }
+    props: { button: (
+      /*buttonScrollTop*/
+      ctx[6]
+    ) }
   });
   tjsiconbutton.$on("click", scrollSmooth$1);
   return {
     c() {
       div = element("div");
       create_component(tjsiconbutton.$$.fragment);
-      attr(div, "class", "scrollTop iconButton svelte-1dhbvj9");
+      attr(div, "class", "scrollTop iconButton svelte-mcc-1dhbvj9");
     },
     m(target, anchor) {
       insert(target, div, anchor);
@@ -28369,7 +32807,6 @@ function create_if_block$2(ctx) {
     }
   };
 }
-__name(create_if_block$2, "create_if_block$2");
 function create_fragment$8(ctx) {
   let nav;
   let label;
@@ -28386,15 +32823,30 @@ function create_fragment$8(ctx) {
   let t5;
   let if_block_anchor;
   let current;
-  tjsselect = new TJSSelect({ props: { select: ctx[2] } });
-  tjsinputtext = new TJSInputText({ props: { input: ctx[3] } });
+  tjsselect = new TJSSelect({ props: { select: (
+    /*select*/
+    ctx[2]
+  ) } });
+  tjsinputtext = new TJSInputText({ props: { input: (
+    /*input*/
+    ctx[3]
+  ) } });
   tjstoggleiconbutton0 = new TJSToggleIconButton({
-    props: { button: ctx[4] }
+    props: { button: (
+      /*buttonDetails*/
+      ctx[4]
+    ) }
   });
   tjstoggleiconbutton1 = new TJSToggleIconButton({
-    props: { button: ctx[5] }
+    props: { button: (
+      /*buttonActive*/
+      ctx[5]
+    ) }
   });
-  let if_block = ctx[0] > 300 && create_if_block$2(ctx);
+  let if_block = (
+    /*$scrollTop*/
+    ctx[0] > 300 && create_if_block$2(ctx)
+  );
   return {
     c() {
       nav = element("nav");
@@ -28414,10 +32866,10 @@ function create_fragment$8(ctx) {
       if (if_block)
         if_block.c();
       if_block_anchor = empty();
-      attr(label, "class", "svelte-1dhbvj9");
-      attr(div0, "class", "iconButton svelte-1dhbvj9");
-      attr(div1, "class", "iconButton svelte-1dhbvj9");
-      attr(nav, "class", "svelte-1dhbvj9");
+      attr(label, "class", "svelte-mcc-1dhbvj9");
+      attr(div0, "class", "iconButton svelte-mcc-1dhbvj9");
+      attr(div1, "class", "iconButton svelte-mcc-1dhbvj9");
+      attr(nav, "class", "svelte-mcc-1dhbvj9");
     },
     m(target, anchor) {
       insert(target, nav, anchor);
@@ -28439,10 +32891,14 @@ function create_fragment$8(ctx) {
       current = true;
     },
     p(ctx2, [dirty]) {
-      if (ctx2[0] > 300) {
+      if (
+        /*$scrollTop*/
+        ctx2[0] > 300
+      ) {
         if (if_block) {
           if_block.p(ctx2, dirty);
-          if (dirty & 1) {
+          if (dirty & /*$scrollTop*/
+          1) {
             transition_in(if_block, 1);
           }
         } else {
@@ -28493,11 +32949,9 @@ function create_fragment$8(ctx) {
     }
   };
 }
-__name(create_fragment$8, "create_fragment$8");
 function scrollSmooth$1(event) {
   event.target.dispatchEvent(new CustomEvent("scrollTop:smooth", { bubbles: true }));
 }
-__name(scrollSmooth$1, "scrollSmooth$1");
 function instance$8($$self, $$props, $$invalidate) {
   let $scrollTop;
   const spreadsheetStore = getContext("spreadsheetStore");
@@ -28544,18 +32998,17 @@ function instance$8($$self, $$props, $$invalidate) {
     buttonScrollTop
   ];
 }
-__name(instance$8, "instance$8");
 class Controls extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance$8, create_fragment$8, safe_not_equal, {});
   }
 }
-__name(Controls, "Controls");
 const Heading_svelte_svelte_type_style_lang = "";
 function create_fragment$7(ctx) {
   let th;
-  let t0_value = localize(`mcc.${ctx[0]}`) + "";
+  let t0_value = localize(`mcc.${/*name*/
+  ctx[0]}`) + "";
   let t0;
   let t1;
   let i;
@@ -28568,8 +33021,13 @@ function create_fragment$7(ctx) {
       t0 = text(t0_value);
       t1 = space();
       i = element("i");
-      attr(i, "class", i_class_value = "fas fa-sort" + (ctx[1] !== ctx[0] ? "" : ctx[2] ? "-up" : "-down") + " svelte-g8xeip");
-      attr(th, "class", "svelte-g8xeip");
+      attr(i, "class", i_class_value = "fas fa-sort" + /*$sortBy*/
+      (ctx[1] !== /*name*/
+      ctx[0] ? "" : (
+        /*direction*/
+        ctx[2] ? "-up" : "-down"
+      )) + " svelte-mcc-g8xeip");
+      attr(th, "class", "svelte-mcc-g8xeip");
     },
     m(target, anchor) {
       insert(target, th, anchor);
@@ -28577,14 +33035,27 @@ function create_fragment$7(ctx) {
       append(th, t1);
       append(th, i);
       if (!mounted) {
-        dispose = listen(th, "click", ctx[6]);
+        dispose = listen(
+          th,
+          "click",
+          /*click_handler*/
+          ctx[6]
+        );
         mounted = true;
       }
     },
     p(ctx2, [dirty]) {
-      if (dirty & 1 && t0_value !== (t0_value = localize(`mcc.${ctx2[0]}`) + ""))
+      if (dirty & /*name*/
+      1 && t0_value !== (t0_value = localize(`mcc.${/*name*/
+      ctx2[0]}`) + ""))
         set_data(t0, t0_value);
-      if (dirty & 7 && i_class_value !== (i_class_value = "fas fa-sort" + (ctx2[1] !== ctx2[0] ? "" : ctx2[2] ? "-up" : "-down") + " svelte-g8xeip")) {
+      if (dirty & /*$sortBy, name, direction*/
+      7 && i_class_value !== (i_class_value = "fas fa-sort" + /*$sortBy*/
+      (ctx2[1] !== /*name*/
+      ctx2[0] ? "" : (
+        /*direction*/
+        ctx2[2] ? "-up" : "-down"
+      )) + " svelte-mcc-g8xeip")) {
         attr(i, "class", i_class_value);
       }
     },
@@ -28598,7 +33069,6 @@ function create_fragment$7(ctx) {
     }
   };
 }
-__name(create_fragment$7, "create_fragment$7");
 function instance$7($$self, $$props, $$invalidate) {
   let $reversed;
   let $sortBy;
@@ -28613,14 +33083,14 @@ function instance$7($$self, $$props, $$invalidate) {
     $$invalidate(2, direction = !direction);
     set_store_value(reversed, $reversed = direction, $reversed);
   }
-  __name(setSortBy, "setSortBy");
-  const click_handler = /* @__PURE__ */ __name(() => setSortBy(name), "click_handler");
+  const click_handler = () => setSortBy(name);
   $$self.$$set = ($$props2) => {
     if ("name" in $$props2)
       $$invalidate(0, name = $$props2.name);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & 3) {
+    if ($$self.$$.dirty & /*$sortBy, name*/
+    3) {
       if ($sortBy !== name) {
         $$invalidate(2, direction = true);
       }
@@ -28628,14 +33098,12 @@ function instance$7($$self, $$props, $$invalidate) {
   };
   return [name, $sortBy, direction, sortBy2, reversed, setSortBy, click_handler];
 }
-__name(instance$7, "instance$7");
 class Heading extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance$7, create_fragment$7, safe_not_equal, { name: 0 });
   }
 }
-__name(Heading, "Heading");
 const Header_svelte_svelte_type_style_lang = "";
 function create_if_block$1(ctx) {
   let heading0;
@@ -28700,7 +33168,6 @@ function create_if_block$1(ctx) {
     }
   };
 }
-__name(create_if_block$1, "create_if_block$1");
 function create_key_block$1(ctx) {
   let tr;
   let heading0;
@@ -28709,7 +33176,10 @@ function create_key_block$1(ctx) {
   let heading1;
   let current;
   heading0 = new Heading({ props: { name: "title" } });
-  let if_block = ctx[0] && create_if_block$1();
+  let if_block = (
+    /*$details*/
+    ctx[0] && create_if_block$1()
+  );
   heading1 = new Heading({ props: { name: "notes" } });
   return {
     c() {
@@ -28720,7 +33190,7 @@ function create_key_block$1(ctx) {
         if_block.c();
       t1 = space();
       create_component(heading1.$$.fragment);
-      attr(tr, "class", "svelte-130xaph");
+      attr(tr, "class", "svelte-mcc-130xaph");
     },
     m(target, anchor) {
       insert(target, tr, anchor);
@@ -28733,9 +33203,13 @@ function create_key_block$1(ctx) {
       current = true;
     },
     p(ctx2, dirty) {
-      if (ctx2[0]) {
+      if (
+        /*$details*/
+        ctx2[0]
+      ) {
         if (if_block) {
-          if (dirty & 1) {
+          if (dirty & /*$details*/
+          1) {
             transition_in(if_block, 1);
           }
         } else {
@@ -28776,17 +33250,19 @@ function create_key_block$1(ctx) {
     }
   };
 }
-__name(create_key_block$1, "create_key_block$1");
 function create_fragment$6(ctx) {
   let thead;
-  let previous_key = ctx[0];
+  let previous_key = (
+    /*$details*/
+    ctx[0]
+  );
   let current;
   let key_block = create_key_block$1(ctx);
   return {
     c() {
       thead = element("thead");
       key_block.c();
-      attr(thead, "class", "svelte-130xaph");
+      attr(thead, "class", "svelte-mcc-130xaph");
     },
     m(target, anchor) {
       insert(target, thead, anchor);
@@ -28794,7 +33270,9 @@ function create_fragment$6(ctx) {
       current = true;
     },
     p(ctx2, [dirty]) {
-      if (dirty & 1 && safe_not_equal(previous_key, previous_key = ctx2[0])) {
+      if (dirty & /*$details*/
+      1 && safe_not_equal(previous_key, previous_key = /*$details*/
+      ctx2[0])) {
         group_outros();
         transition_out(key_block, 1, 1, noop$1);
         check_outros();
@@ -28823,28 +33301,25 @@ function create_fragment$6(ctx) {
     }
   };
 }
-__name(create_fragment$6, "create_fragment$6");
 function instance$6($$self, $$props, $$invalidate) {
   let $details;
   const { details } = getContext("spreadsheetStore").stores;
   component_subscribe($$self, details, (value) => $$invalidate(0, $details = value));
   return [$details, details];
 }
-__name(instance$6, "instance$6");
 class Header extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance$6, create_fragment$6, safe_not_equal, {});
   }
 }
-__name(Header, "Header");
 function flip(node, { from: from2, to: to2 }, params = {}) {
   const style = getComputedStyle(node);
   const transform = style.transform === "none" ? "" : style.transform;
   const [ox, oy] = style.transformOrigin.split(" ").map(parseFloat);
   const dx = from2.left + from2.width * ox / to2.width - (to2.left + ox);
   const dy = from2.top + from2.height * oy / to2.height - (to2.top + oy);
-  const { delay = 0, duration = /* @__PURE__ */ __name((d) => Math.sqrt(d) * 120, "duration"), easing = cubicOut } = params;
+  const { delay = 0, duration = (d) => Math.sqrt(d) * 120, easing = cubicOut } = params;
   return {
     delay,
     duration: is_function(duration) ? duration(Math.sqrt(dx * dx + dy * dy)) : duration,
@@ -28858,47 +33333,169 @@ function flip(node, { from: from2, to: to2 }, params = {}) {
     }
   };
 }
-__name(flip, "flip");
 class TJSContextMenu {
+  /**
+   * Stores any active context menu.
+   */
   static #contextMenu = void 0;
-  static create({ id = "", x = 0, y = 0, items = [], zIndex = 1e4, ...transitionOptions } = {}) {
+  /**
+   * Creates and manages a browser wide context menu. The best way to create the context menu is to pass in the source
+   * DOM event as it is processed for the location of the context menu to display. Likewise, a A11yFocusSource object
+   * is generated that allows focus to be returned to the source location. You may supply a default focus target as a
+   * fallback via `focusEl`.
+   *
+   * @param {object}      opts - Optional parameters.
+   *
+   * @param {string}      [opts.id] - A custom CSS ID to add to the menu. This allows CSS style targeting.
+   *
+   * @param {KeyboardEvent|MouseEvent}  [opts.event] - The source MouseEvent or KeyboardEvent.
+   *
+   * @param {number}      [opts.x] - X position override for the top / left of the menu.
+   *
+   * @param {number}      [opts.y] - Y position override for the top / left of the menu.
+   *
+   * @param {Iterable<TJSContextMenuItemData>} [opts.items] - Menu items to display.
+   *
+   * @param {boolean}     [opts.focusDebug] - When true the associated A11yFocusSource object will log focus target
+   *        data when applied.
+   *
+   * @param {HTMLElement|string} [opts.focusEl] - A specific HTMLElement or selector string as the default focus
+   *        target.
+   *
+   * @param {string}      [opts.keyCode='Enter'] - Key to select menu items.
+   *
+   * @param {Record<string, string>}  [opts.styles] - Optional inline styles to apply.
+   *
+   * @param {number}      [opts.zIndex=Number.MAX_SAFE_INTEGER - 100] - Z-index for context menu.
+   *
+   * @param {number}      [opts.duration] - Transition option for duration of transition.
+   *
+   * @param {Function}    [opts.easing] - Transition option for easing function.
+   */
+  static create({
+    id = "",
+    event,
+    x,
+    y,
+    items,
+    focusDebug = false,
+    focusEl,
+    keyCode = "Enter",
+    styles,
+    zIndex = Number.MAX_SAFE_INTEGER - 100,
+    duration = 200,
+    easing
+  } = {}) {
     if (this.#contextMenu !== void 0) {
       return;
     }
-    const filteredItems = items.filter((item) => item.condition === void 0 ? true : typeof item.condition === "function" ? item.condition() : item.condition);
-    this.#contextMenu = new TJSContextMenu$1({
+    if (!event && (typeof x !== "number" || typeof y !== "number")) {
+      throw new Error(`TJSContextMenu.create error: No event or absolute X / Y position not defined.`);
+    }
+    if (event !== void 0 && !(event instanceof KeyboardEvent) && !(event instanceof MouseEvent)) {
+      throw new TypeError(`TJSContextMenu.create error: 'event' is not a KeyboardEvent or MouseEvent.`);
+    }
+    const focusSource = A11yHelper.getFocusSource({ event, x, y, focusEl, debug: focusDebug });
+    this.#contextMenu = new TJSContextMenuImpl({
       target: document.body,
       intro: true,
-      props: { id, x, y, items: filteredItems, zIndex, transitionOptions: { duration: 200, ...transitionOptions } }
+      props: {
+        id,
+        x: focusSource.x,
+        y: focusSource.y,
+        items: this.#processItems(items),
+        focusSource,
+        keyCode,
+        styles,
+        transitionOptions: { duration, easing },
+        zIndex
+      }
     });
     this.#contextMenu.$on("close", () => {
       this.#contextMenu = void 0;
     });
   }
+  /**
+   * Processes menu item data for conditions and evaluating the type of menu item.
+   *
+   * @param {Iterable<TJSContextMenuItemData>} items - Menu item data.
+   *
+   * @returns {object[]} Processed menu items.
+   */
+  static #processItems(items) {
+    if (!isIterable(items)) {
+      throw new TypeError(`TJSContextMenu error: 'items' is not an iterable list.`);
+    }
+    const tempList = items;
+    const tempItems = [];
+    let cntr = -1;
+    for (const item of tempList) {
+      cntr++;
+      if (!isObject$1(item)) {
+        throw new TypeError(`TJSContextMenu error: 'item[${cntr}]' is not an object.`);
+      }
+      if (typeof item.condition === "function" && !item.condition()) {
+        continue;
+      }
+      if (typeof item.condition === "boolean" && !item.condition) {
+        continue;
+      }
+      let type;
+      if (isSvelteComponent(item.class)) {
+        type = "class";
+      } else if (typeof item.icon === "string") {
+        type = "icon";
+      } else if (typeof item.image === "string") {
+        type = "image";
+      } else if (typeof item.separator === "string") {
+        if (item.separator !== "hr") {
+          throw new Error(
+            `TJSContextMenu error: 'item[${cntr}]' has unknown separator type; only 'hr' is currently supported.`
+          );
+        }
+        type = "separator-hr";
+      }
+      if (type === void 0) {
+        throw new TypeError(`TJSContextMenu error: Unknown type for 'item[${cntr}]'.`);
+      }
+      tempItems.push({ ...item, "#type": type });
+    }
+    return tempItems;
+  }
 }
-__name(TJSContextMenu, "TJSContextMenu");
 const Rows_svelte_svelte_type_style_lang = "";
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
   child_ctx[7] = list[i];
   return child_ctx;
 }
-__name(get_each_context, "get_each_context");
 function create_if_block(ctx) {
   let td0;
-  let t0_value = ctx[7].type + "";
+  let t0_value = (
+    /*row*/
+    ctx[7].type + ""
+  );
   let t0;
   let t1;
   let td1;
-  let t2_value = ctx[7].id + "";
+  let t2_value = (
+    /*row*/
+    ctx[7].id + ""
+  );
   let t2;
   let t3;
   let td2;
-  let t4_value = ctx[7].version + "";
+  let t4_value = (
+    /*row*/
+    ctx[7].version + ""
+  );
   let t4;
   let t5;
   let td3;
-  let t6_value = ctx[7].status + "";
+  let t6_value = (
+    /*row*/
+    ctx[7].status + ""
+  );
   let t6;
   return {
     c() {
@@ -28913,10 +33510,10 @@ function create_if_block(ctx) {
       t5 = space();
       td3 = element("td");
       t6 = text(t6_value);
-      attr(td0, "class", "svelte-xqr2v2");
-      attr(td1, "class", "svelte-xqr2v2");
-      attr(td2, "class", "center svelte-xqr2v2");
-      attr(td3, "class", "center svelte-xqr2v2");
+      attr(td0, "class", "svelte-mcc-xqr2v2");
+      attr(td1, "class", "svelte-mcc-xqr2v2");
+      attr(td2, "class", "center svelte-mcc-xqr2v2");
+      attr(td3, "class", "center svelte-mcc-xqr2v2");
     },
     m(target, anchor) {
       insert(target, td0, anchor);
@@ -28932,13 +33529,21 @@ function create_if_block(ctx) {
       append(td3, t6);
     },
     p(ctx2, dirty) {
-      if (dirty & 1 && t0_value !== (t0_value = ctx2[7].type + ""))
+      if (dirty & /*$spreadsheetStore*/
+      1 && t0_value !== (t0_value = /*row*/
+      ctx2[7].type + ""))
         set_data(t0, t0_value);
-      if (dirty & 1 && t2_value !== (t2_value = ctx2[7].id + ""))
+      if (dirty & /*$spreadsheetStore*/
+      1 && t2_value !== (t2_value = /*row*/
+      ctx2[7].id + ""))
         set_data(t2, t2_value);
-      if (dirty & 1 && t4_value !== (t4_value = ctx2[7].version + ""))
+      if (dirty & /*$spreadsheetStore*/
+      1 && t4_value !== (t4_value = /*row*/
+      ctx2[7].version + ""))
         set_data(t4, t4_value);
-      if (dirty & 1 && t6_value !== (t6_value = ctx2[7].status + ""))
+      if (dirty & /*$spreadsheetStore*/
+      1 && t6_value !== (t6_value = /*row*/
+      ctx2[7].status + ""))
         set_data(t6, t6_value);
     },
     d(detaching) {
@@ -28959,16 +33564,21 @@ function create_if_block(ctx) {
     }
   };
 }
-__name(create_if_block, "create_if_block");
 function create_each_block(key_1, ctx) {
   let tr;
   let td0;
-  let t0_value = ctx[7].title + "";
+  let t0_value = (
+    /*row*/
+    ctx[7].title + ""
+  );
   let t0;
   let t1;
   let t2;
   let td1;
-  let t3_value = ctx[7].notes + "";
+  let t3_value = (
+    /*row*/
+    ctx[7].notes + ""
+  );
   let t3;
   let t4;
   let tr_title_value;
@@ -28976,11 +33586,20 @@ function create_each_block(key_1, ctx) {
   let stop_animation = noop$1;
   let mounted;
   let dispose;
-  let if_block = ctx[1] && create_if_block(ctx);
+  let if_block = (
+    /*$details*/
+    ctx[1] && create_if_block(ctx)
+  );
   function contextmenu_handler(...args) {
-    return ctx[6](ctx[7], ...args);
+    return (
+      /*contextmenu_handler*/
+      ctx[6](
+        /*row*/
+        ctx[7],
+        ...args
+      )
+    );
   }
-  __name(contextmenu_handler, "contextmenu_handler");
   return {
     key: key_1,
     first: null,
@@ -28995,11 +33614,22 @@ function create_each_block(key_1, ctx) {
       td1 = element("td");
       t3 = text(t3_value);
       t4 = space();
-      attr(td0, "class", "svelte-xqr2v2");
-      attr(td1, "class", "svelte-xqr2v2");
-      attr(tr, "title", tr_title_value = statusData[ctx[7].status].explanation);
-      attr(tr, "class", "svelte-xqr2v2");
-      set_style(tr, "background-color", ctx[5](ctx[7].status));
+      attr(td0, "class", "svelte-mcc-xqr2v2");
+      attr(td1, "class", "svelte-mcc-xqr2v2");
+      attr(tr, "title", tr_title_value = statusData[
+        /*row*/
+        ctx[7].status
+      ].explanation);
+      attr(tr, "class", "svelte-mcc-xqr2v2");
+      set_style(
+        tr,
+        "background-color",
+        /*getColor*/
+        ctx[5](
+          /*row*/
+          ctx[7].status
+        )
+      );
       this.first = tr;
     },
     m(target, anchor) {
@@ -29020,9 +33650,14 @@ function create_each_block(key_1, ctx) {
     },
     p(new_ctx, dirty) {
       ctx = new_ctx;
-      if (dirty & 1 && t0_value !== (t0_value = ctx[7].title + ""))
+      if (dirty & /*$spreadsheetStore*/
+      1 && t0_value !== (t0_value = /*row*/
+      ctx[7].title + ""))
         set_data(t0, t0_value);
-      if (ctx[1]) {
+      if (
+        /*$details*/
+        ctx[1]
+      ) {
         if (if_block) {
           if_block.p(ctx, dirty);
         } else {
@@ -29034,13 +33669,28 @@ function create_each_block(key_1, ctx) {
         if_block.d(1);
         if_block = null;
       }
-      if (dirty & 1 && t3_value !== (t3_value = ctx[7].notes + ""))
+      if (dirty & /*$spreadsheetStore*/
+      1 && t3_value !== (t3_value = /*row*/
+      ctx[7].notes + ""))
         set_data(t3, t3_value);
-      if (dirty & 1 && tr_title_value !== (tr_title_value = statusData[ctx[7].status].explanation)) {
+      if (dirty & /*$spreadsheetStore*/
+      1 && tr_title_value !== (tr_title_value = statusData[
+        /*row*/
+        ctx[7].status
+      ].explanation)) {
         attr(tr, "title", tr_title_value);
       }
-      if (dirty & 1) {
-        set_style(tr, "background-color", ctx[5](ctx[7].status));
+      if (dirty & /*$spreadsheetStore*/
+      1) {
+        set_style(
+          tr,
+          "background-color",
+          /*getColor*/
+          ctx[5](
+            /*row*/
+            ctx[7].status
+          )
+        );
       }
     },
     r() {
@@ -29064,13 +33714,16 @@ function create_each_block(key_1, ctx) {
     }
   };
 }
-__name(create_each_block, "create_each_block");
 function create_fragment$5(ctx) {
   let tbody;
   let each_blocks = [];
   let each_1_lookup = /* @__PURE__ */ new Map();
-  let each_value = [...ctx[0]];
-  const get_key = /* @__PURE__ */ __name((ctx2) => ctx2[7].id, "get_key");
+  let each_value = [.../*$spreadsheetStore*/
+  ctx[0]];
+  const get_key = (ctx2) => (
+    /*row*/
+    ctx2[7].id
+  );
   for (let i = 0; i < each_value.length; i += 1) {
     let child_ctx = get_each_context(ctx, each_value, i);
     let key = get_key(child_ctx);
@@ -29082,7 +33735,7 @@ function create_fragment$5(ctx) {
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      attr(tbody, "class", "svelte-xqr2v2");
+      attr(tbody, "class", "svelte-mcc-xqr2v2");
     },
     m(target, anchor) {
       insert(target, tbody, anchor);
@@ -29091,8 +33744,10 @@ function create_fragment$5(ctx) {
       }
     },
     p(ctx2, [dirty]) {
-      if (dirty & 51) {
-        each_value = [...ctx2[0]];
+      if (dirty & /*statusData, $spreadsheetStore, getColor, onContextMenu, $details*/
+      51) {
+        each_value = [.../*$spreadsheetStore*/
+        ctx2[0]];
         for (let i = 0; i < each_blocks.length; i += 1)
           each_blocks[i].r();
         each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, tbody, fix_and_destroy_block, create_each_block, null, get_each_context);
@@ -29111,7 +33766,6 @@ function create_fragment$5(ctx) {
     }
   };
 }
-__name(create_fragment$5, "create_fragment$5");
 function instance$5($$self, $$props, $$invalidate) {
   let $spreadsheetStore;
   let $details;
@@ -29128,19 +33782,19 @@ function instance$5($$self, $$props, $$invalidate) {
           {
             label: "mcc.packageListingURL",
             icon: "fas fa-external-link",
-            onclick: () => window.open(`https://foundryvtt.com/packages/${linkData.id}`, "_blank")
+            onPress: () => window.open(`https://foundryvtt.com/packages/${linkData.id}`, "_blank")
           },
           {
             label: "mcc.foundryHubURL",
             icon: "fas fa-external-link",
             image: "https://www.foundryvtt-hub.com/wp-content/uploads/2021/08/foundryhublogo4-verysmall.webp",
-            onclick: () => window.open(`https://www.foundryvtt-hub.com/package/${linkData.id}`, "_blank")
+            onPress: () => window.open(`https://www.foundryvtt-hub.com/package/${linkData.id}`, "_blank")
           },
           {
             label: "mcc.bazaarURL",
             icon: "fas fa-external-link",
             image: "https://forge-vtt.com/images/the-forge-logo-48x48.png",
-            onclick: () => window.open(`https://forge-vtt.com/bazaar/package/${linkData.id}`, "_blank")
+            onPress: () => window.open(`https://forge-vtt.com/bazaar/package/${linkData.id}`, "_blank")
           }
         );
       }
@@ -29148,7 +33802,7 @@ function instance$5($$self, $$props, $$invalidate) {
         items.push({
           label: "mcc.projectURL",
           icon: "fas fa-code",
-          onclick: () => window.open(linkData.url, "_blank")
+          onPress: () => window.open(linkData.url, "_blank")
         });
       }
       TJSContextMenu.create({
@@ -29160,13 +33814,11 @@ function instance$5($$self, $$props, $$invalidate) {
       });
     }
   }
-  __name(onContextMenu, "onContextMenu");
   function getColor(status) {
     const { hsl } = statusData[status];
     return `hsla(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%, 60%)`;
   }
-  __name(getColor, "getColor");
-  const contextmenu_handler = /* @__PURE__ */ __name((row, event) => onContextMenu(event, row.id, row.official), "contextmenu_handler");
+  const contextmenu_handler = (row, event) => onContextMenu(event, row.id, row.official);
   return [
     $spreadsheetStore,
     $details,
@@ -29177,14 +33829,12 @@ function instance$5($$self, $$props, $$invalidate) {
     contextmenu_handler
   ];
 }
-__name(instance$5, "instance$5");
 class Rows extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance$5, create_fragment$5, safe_not_equal, {});
   }
 }
-__name(Rows, "Rows");
 const Footer_svelte_svelte_type_style_lang = "";
 function create_fragment$4(ctx) {
   let footer;
@@ -29192,10 +33842,16 @@ function create_fragment$4(ctx) {
   let t0_value = localize("mcc.report.visible") + "";
   let t0;
   let t1;
-  let t2_value = ctx[0].index.length + "";
+  let t2_value = (
+    /*$spreadsheetStore*/
+    ctx[0].index.length + ""
+  );
   let t2;
   let t3;
-  let t4_value = ctx[0].data.length + "";
+  let t4_value = (
+    /*$spreadsheetStore*/
+    ctx[0].data.length + ""
+  );
   let t4;
   let t5;
   let p1;
@@ -29225,7 +33881,10 @@ function create_fragment$4(ctx) {
       p1 = element("p");
       t6 = text(t6_value);
       t7 = text(": ");
-      t8 = text(ctx[1]);
+      t8 = text(
+        /*$filteredPercentage*/
+        ctx[1]
+      );
       t9 = text("%");
       t10 = space();
       p2 = element("p");
@@ -29238,8 +33897,8 @@ function create_fragment$4(ctx) {
       attr(p1, "title", localize("mcc.percentageTooltip"));
       attr(i, "class", "fas fa-external-link-alt");
       attr(a, "href", `https://docs.google.com/spreadsheets/d/${SpreadsheetController.spreadsheetID}/pubhtml`);
-      attr(a, "class", "svelte-m3ll1t");
-      attr(footer, "class", "svelte-m3ll1t");
+      attr(a, "class", "svelte-mcc-m3ll1t");
+      attr(footer, "class", "svelte-mcc-m3ll1t");
     },
     m(target, anchor) {
       insert(target, footer, anchor);
@@ -29264,12 +33923,21 @@ function create_fragment$4(ctx) {
       append(a, i);
     },
     p(ctx2, [dirty]) {
-      if (dirty & 1 && t2_value !== (t2_value = ctx2[0].index.length + ""))
+      if (dirty & /*$spreadsheetStore*/
+      1 && t2_value !== (t2_value = /*$spreadsheetStore*/
+      ctx2[0].index.length + ""))
         set_data(t2, t2_value);
-      if (dirty & 1 && t4_value !== (t4_value = ctx2[0].data.length + ""))
+      if (dirty & /*$spreadsheetStore*/
+      1 && t4_value !== (t4_value = /*$spreadsheetStore*/
+      ctx2[0].data.length + ""))
         set_data(t4, t4_value);
-      if (dirty & 2)
-        set_data(t8, ctx2[1]);
+      if (dirty & /*$filteredPercentage*/
+      2)
+        set_data(
+          t8,
+          /*$filteredPercentage*/
+          ctx2[1]
+        );
     },
     i: noop$1,
     o: noop$1,
@@ -29279,7 +33947,6 @@ function create_fragment$4(ctx) {
     }
   };
 }
-__name(create_fragment$4, "create_fragment$4");
 function instance$4($$self, $$props, $$invalidate) {
   let $spreadsheetStore;
   let $filteredPercentage;
@@ -29289,14 +33956,12 @@ function instance$4($$self, $$props, $$invalidate) {
   component_subscribe($$self, filteredPercentage, (value) => $$invalidate(1, $filteredPercentage = value));
   return [$spreadsheetStore, $filteredPercentage, spreadsheetStore, filteredPercentage];
 }
-__name(instance$4, "instance$4");
 class Footer extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance$4, create_fragment$4, safe_not_equal, {});
   }
 }
-__name(Footer, "Footer");
 const Table_svelte_svelte_type_style_lang = "";
 function create_fragment$3(ctx) {
   let main;
@@ -29338,9 +34003,9 @@ function create_fragment$3(ctx) {
       create_component(rows.$$.fragment);
       t4 = space();
       create_component(footer.$$.fragment);
-      attr(table, "class", "svelte-1hj39xm");
-      attr(div, "class", "svelte-1hj39xm");
-      attr(main, "class", "svelte-1hj39xm");
+      attr(table, "class", "svelte-mcc-1hj39xm");
+      attr(div, "class", "svelte-mcc-1hj39xm");
+      attr(main, "class", "svelte-mcc-1hj39xm");
     },
     m(target, anchor) {
       insert(target, main, anchor);
@@ -29360,7 +34025,12 @@ function create_fragment$3(ctx) {
       current = true;
       if (!mounted) {
         dispose = [
-          action_destroyer(applyScrolltop.call(null, main, ctx[0])),
+          action_destroyer(applyScrolltop.call(
+            null,
+            main,
+            /*scrollTop*/
+            ctx[0]
+          )),
           listen(main, "scrollTop:smooth", scrollSmooth)
         ];
         mounted = true;
@@ -29403,29 +34073,28 @@ function create_fragment$3(ctx) {
     }
   };
 }
-__name(create_fragment$3, "create_fragment$3");
 function scrollSmooth(event) {
   event.currentTarget.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   event.preventDefault();
   event.stopPropagation();
 }
-__name(scrollSmooth, "scrollSmooth");
 function instance$3($$self) {
   const { scrollTop } = getContext("spreadsheetStore").stores;
   return [scrollTop];
 }
-__name(instance$3, "instance$3");
 class Table extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance$3, create_fragment$3, safe_not_equal, {});
   }
 }
-__name(Table, "Table");
 function create_catch_block(ctx) {
   let error;
   let current;
-  error = new Error$1({ props: { error: ctx[11] } });
+  error = new Error$1({ props: { error: (
+    /*error*/
+    ctx[11]
+  ) } });
   return {
     c() {
       create_component(error.$$.fragment);
@@ -29450,7 +34119,6 @@ function create_catch_block(ctx) {
     }
   };
 }
-__name(create_catch_block, "create_catch_block");
 function create_then_block(ctx) {
   let table;
   let current;
@@ -29479,7 +34147,6 @@ function create_then_block(ctx) {
     }
   };
 }
-__name(create_then_block, "create_then_block");
 function create_pending_block(ctx) {
   let loading;
   let current;
@@ -29508,7 +34175,6 @@ function create_pending_block(ctx) {
     }
   };
 }
-__name(create_pending_block, "create_pending_block");
 function create_key_block(ctx) {
   let await_block_anchor;
   let current;
@@ -29523,7 +34189,11 @@ function create_key_block(ctx) {
     error: 11,
     blocks: [, , ,]
   };
-  handle_promise(ctx[2].initialize(), info);
+  handle_promise(
+    /*spreadsheetStore*/
+    ctx[2].initialize(),
+    info
+  );
   return {
     c() {
       await_block_anchor = empty();
@@ -29562,9 +34232,11 @@ function create_key_block(ctx) {
     }
   };
 }
-__name(create_key_block, "create_key_block");
 function create_default_slot(ctx) {
-  let previous_key = ctx[1];
+  let previous_key = (
+    /*$version*/
+    ctx[1]
+  );
   let key_block_anchor;
   let current;
   let key_block = create_key_block(ctx);
@@ -29579,7 +34251,9 @@ function create_default_slot(ctx) {
       current = true;
     },
     p(ctx2, dirty) {
-      if (dirty & 2 && safe_not_equal(previous_key, previous_key = ctx2[1])) {
+      if (dirty & /*$version*/
+      2 && safe_not_equal(previous_key, previous_key = /*$version*/
+      ctx2[1])) {
         group_outros();
         transition_out(key_block, 1, 1, noop$1);
         check_outros();
@@ -29608,7 +34282,6 @@ function create_default_slot(ctx) {
     }
   };
 }
-__name(create_default_slot, "create_default_slot");
 function create_fragment$2(ctx) {
   let applicationshell;
   let updating_elementRoot;
@@ -29616,13 +34289,16 @@ function create_fragment$2(ctx) {
   function applicationshell_elementRoot_binding(value) {
     ctx[7](value);
   }
-  __name(applicationshell_elementRoot_binding, "applicationshell_elementRoot_binding");
   let applicationshell_props = {
     $$slots: { default: [create_default_slot] },
     $$scope: { ctx }
   };
-  if (ctx[0] !== void 0) {
-    applicationshell_props.elementRoot = ctx[0];
+  if (
+    /*elementRoot*/
+    ctx[0] !== void 0
+  ) {
+    applicationshell_props.elementRoot = /*elementRoot*/
+    ctx[0];
   }
   applicationshell = new ApplicationShell({ props: applicationshell_props });
   binding_callbacks.push(() => bind$1(applicationshell, "elementRoot", applicationshell_elementRoot_binding));
@@ -29636,12 +34312,15 @@ function create_fragment$2(ctx) {
     },
     p(ctx2, [dirty]) {
       const applicationshell_changes = {};
-      if (dirty & 4098) {
+      if (dirty & /*$$scope, $version*/
+      4098) {
         applicationshell_changes.$$scope = { dirty, ctx: ctx2 };
       }
-      if (!updating_elementRoot && dirty & 1) {
+      if (!updating_elementRoot && dirty & /*elementRoot*/
+      1) {
         updating_elementRoot = true;
-        applicationshell_changes.elementRoot = ctx2[0];
+        applicationshell_changes.elementRoot = /*elementRoot*/
+        ctx2[0];
         add_flush_callback(() => updating_elementRoot = false);
       }
       applicationshell.$set(applicationshell_changes);
@@ -29661,7 +34340,6 @@ function create_fragment$2(ctx) {
     }
   };
 }
-__name(create_fragment$2, "create_fragment$2");
 function instance$2($$self, $$props, $$invalidate) {
   let $position;
   let $stateStore;
@@ -29669,7 +34347,7 @@ function instance$2($$self, $$props, $$invalidate) {
   const spreadsheetStore = new SpreadsheetStore();
   setContext("spreadsheetStore", spreadsheetStore);
   let { elementRoot } = $$props;
-  const { application } = getContext("external");
+  const { application } = getContext("#external");
   const stateStore = mccSessionStorage.getStore(`mcc.appState`);
   component_subscribe($$self, stateStore, (value) => $$invalidate(8, $stateStore = value));
   const position = application.position;
@@ -29681,13 +34359,13 @@ function instance$2($$self, $$props, $$invalidate) {
     elementRoot = value;
     $$invalidate(0, elementRoot);
   }
-  __name(applicationshell_elementRoot_binding, "applicationshell_elementRoot_binding");
   $$self.$$set = ($$props2) => {
     if ("elementRoot" in $$props2)
       $$invalidate(0, elementRoot = $$props2.elementRoot);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & 64) {
+    if ($$self.$$.dirty & /*$position*/
+    64) {
       storePosition($position);
     }
   };
@@ -29702,7 +34380,6 @@ function instance$2($$self, $$props, $$invalidate) {
     applicationshell_elementRoot_binding
   ];
 }
-__name(instance$2, "instance$2");
 class ModuleCompatibilityCheckerShell extends SvelteComponent {
   constructor(options) {
     super();
@@ -29716,8 +34393,8 @@ class ModuleCompatibilityCheckerShell extends SvelteComponent {
     flush();
   }
 }
-__name(ModuleCompatibilityCheckerShell, "ModuleCompatibilityCheckerShell");
 class ModuleCompatibilityChecker extends SvelteApplication {
+  /** @inheritDoc */
   constructor(options = {}) {
     super(options);
     try {
@@ -29725,6 +34402,7 @@ class ModuleCompatibilityChecker extends SvelteApplication {
     } catch (err) {
     }
   }
+  /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       id: "mcc",
@@ -29742,7 +34420,6 @@ class ModuleCompatibilityChecker extends SvelteApplication {
     });
   }
 }
-__name(ModuleCompatibilityChecker, "ModuleCompatibilityChecker");
 globalThis.ModuleCompatibilityChecker = ModuleCompatibilityChecker;
 function create_fragment$1(ctx) {
   let button;
@@ -29757,7 +34434,12 @@ function create_fragment$1(ctx) {
     m(target, anchor) {
       insert(target, button, anchor);
       if (!mounted) {
-        dispose = listen(button, "click", ctx[1]);
+        dispose = listen(
+          button,
+          "click",
+          /*click_handler*/
+          ctx[1]
+        );
         mounted = true;
       }
     },
@@ -29772,20 +34454,17 @@ function create_fragment$1(ctx) {
     }
   };
 }
-__name(create_fragment$1, "create_fragment$1");
 function instance$1($$self) {
   const mccMainApp = new ModuleCompatibilityChecker();
-  const click_handler = /* @__PURE__ */ __name(() => mccMainApp.render(true, { focus: true }), "click_handler");
+  const click_handler = () => mccMainApp.render(true, { focus: true });
   return [mccMainApp, click_handler];
 }
-__name(instance$1, "instance$1");
 class ModuleManagementButton extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance$1, create_fragment$1, safe_not_equal, {});
   }
 }
-__name(ModuleManagementButton, "ModuleManagementButton");
 const PatreonButton_svelte_svelte_type_style_lang = "";
 function create_fragment(ctx) {
   let span;
@@ -29802,7 +34481,7 @@ function create_fragment(ctx) {
       t0 = space();
       t1 = text(t1_value);
       attr(i, "class", "fab fa-patreon");
-      attr(span, "class", "tag patreon svelte-1mk0d2n");
+      attr(span, "class", "tag patreon svelte-mcc-1mk0d2n");
     },
     m(target, anchor) {
       insert(target, span, anchor);
@@ -29810,7 +34489,12 @@ function create_fragment(ctx) {
       append(span, t0);
       append(span, t1);
       if (!mounted) {
-        dispose = listen(span, "click", ctx[0]);
+        dispose = listen(
+          span,
+          "click",
+          /*click_handler*/
+          ctx[0]
+        );
         mounted = true;
       }
     },
@@ -29825,19 +34509,16 @@ function create_fragment(ctx) {
     }
   };
 }
-__name(create_fragment, "create_fragment");
 function instance($$self) {
-  const click_handler = /* @__PURE__ */ __name(() => window.open("https://www.patreon.com/bePatron?u=15896855", "_blank"), "click_handler");
+  const click_handler = () => window.open("https://www.patreon.com/bePatron?u=15896855", "_blank");
   return [click_handler];
 }
-__name(instance, "instance");
 class PatreonButton extends SvelteComponent {
   constructor(options) {
     super();
     init$1(this, options, instance, create_fragment, safe_not_equal, {});
   }
 }
-__name(PatreonButton, "PatreonButton");
 const init = "";
 Hooks.on("renderModuleManagement", (app, [html]) => {
   applyModuleManagementColors(app, html);
@@ -29869,5 +34550,4 @@ async function applyModuleManagementColors(app, html) {
     el.style.backgroundColor = `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%, 15%)`;
   });
 }
-__name(applyModuleManagementColors, "applyModuleManagementColors");
 //# sourceMappingURL=index.js.map

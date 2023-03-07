@@ -302,8 +302,7 @@
       },
       "SimilaritiesEditor": {
         "Title": "Editor de Similitudes de Item Piles",
-        "Explanation_P1": "Aquí puedes definir múltiples tipos de identificadores que ayudan a Item Piles a diferenciar entre artículos similares. En casi todos los sistemas, los artículos se pueden diferenciar por su \"nombre\" y \"tipo\".",
-        "Explanation_P2": "Pero en algunos casos, como en Pathfinder 2ª Edición, los artículos temporales pueden compartir los artículos permanentes. Entonces, al agregar \"system.temporary.value\", sus artículos temporales se consideran \"únicos\" y separados de los permanentes.",
+        "Explanation": "Aquí puedes definir múltiples tipos de identificadores que ayudan a Item Piles a diferenciar entre artículos similares. En casi todos los sistemas, los artículos se pueden diferenciar por su \"nombre\" y \"tipo\". Pero en algunos casos, como en Pathfinder 2ª Edición, los artículos temporales pueden compartir los artículos permanentes. Entonces, al agregar \"system.temporary.value\", sus artículos temporales se consideran \"únicos\" y separados de los permanentes.",
         "Path": "Ruta de atributo",
         "AddNew": "Agregar nueva ruta de atributo",
         "Submit": "Enviar similitudes de artículos"
@@ -412,7 +411,7 @@
           "PurchaseOnly": "Solo Compra",
           "PurchaseOnlyExplanation": "Cuando está habilitado, los personajes no pueden vender artículos a este mercader.",
           "HideNewItems": "Ocultar Nuevos Artículos",
-          "OnyAcceptBasePrice": "Solo Acepta Precio Base",
+          "OnlyAcceptBasePrice": "Solo Acepta Precio Base",
           "OpenTimes": "Horario de Apertura",
           "OpenTimesExplanation": "Cuando está habilitado, los jugadores solo pueden interactuar con el comerciante en ciertos momentos del día.",
           "OpenStatus": "Estado Abierto",
@@ -429,7 +428,7 @@
           "ConfigureActorPriceModifiers": "Configurar Modificadores de Precio de Actor.",
           "DisplayQuantityNoAlways": "No, ocultar siempre la cantidad",
           "HideNewItemsExplanation": "Cuando está habilitado, se ocultarán todos los artículos vendidos a este comerciante.",
-          "OnyAcceptBasePriceExplanation": "Cuando está habilitado, todos los artículos vendidos a este comerciante deben usar el precio base y no precios personalizados.",
+          "OnlyAcceptBasePriceExplanation": "Cuando está habilitado, todos los artículos vendidos a este comerciante deben usar el precio base y no precios personalizados.",
           "OpenStatusOpen": "Abierto",
           "PriceModifierExplanation": "Esto configura los modificadores para el costo de cada artículo en la tienda. También puedes configurar modificadores por tipo de artículo, e incluso para personajes específicos (como los bardos lengua-plateada). No está limitado al 200%, escriba en el campo para ir aún.",
           "ActorPriceModifiersExplanation": "Aquí puede configurar si ciertos actores deben tener modificadores de precio diferentes a los modificadores de precio anteriores."

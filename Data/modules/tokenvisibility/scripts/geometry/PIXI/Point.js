@@ -14,6 +14,21 @@ export function registerPIXIPointMethods() {
   if ( CONFIG.GeometryLib.Registered.PIXIPoint ) return;
   CONFIG.GeometryLib.Registered.PIXIPoint = true;
 
+  // ----- Getters/Setters ----- //
+
+  // Add key as a getter to
+  if ( !Object.hasOwn(PIXI.Point.prototype, "key") ) {
+    Object.defineProperty(PIXI.Point.prototype, "key", {
+      get: function() { return key(this.x, this.y); }
+    });
+  }
+
+  if ( !Object.hasOwn(PIXI.Point.prototype, "sortKey") ) {
+    Object.defineProperty(PIXI.Point.prototype, "sortKey", {
+      get: function() { return sortKey(this.x, this.y); }
+    });
+  }
+
   // ----- Static Methods ----- //
   Object.defineProperty(PIXI.Point, "midPoint", {
     value: midPoint,
@@ -162,12 +177,6 @@ export function registerPIXIPointMethods() {
     configurable: true
   });
 
-  Object.defineProperty(PIXI.Point.prototype, "key", {
-    value: key,
-    writable: true,
-    configurable: true
-  });
-
   Object.defineProperty(PIXI.Point.prototype, "roundDecimals", {
     value: roundDecimals,
     writable: true,
@@ -236,9 +245,9 @@ function distanceSquaredBetween(a, b) {
  * Ordered, so sortable.
  * @returns {number}
  */
-function key() {
-  const x = Math.round(this.x);
-  const y = Math.round(this.y);
+function key(x, y) {
+  x = Math.round(x);
+  y = Math.round(y);
   return (x << 16) ^ y;
 }
 
@@ -527,4 +536,18 @@ function translate(dx, dy, outPoint) {
   outPoint.y = this.y + dy;
 
   return outPoint;
+}
+
+/**
+ * The effective maximum texture size that Foundry VTT "ever" has to worry about.
+ * @type {number}
+ */
+const MAX_TEXTURE_SIZE = Math.pow(2, 16);
+
+/**
+ * Sort key, arranging points from north-west to south-east
+ * @returns {number}
+ */
+function sortKey(x, y) {
+  return (MAX_TEXTURE_SIZE * Math.roundFast(x)) + Math.roundFast(y);
 }

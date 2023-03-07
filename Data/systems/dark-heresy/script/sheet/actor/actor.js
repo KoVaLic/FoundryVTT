@@ -226,12 +226,13 @@ export class DarkHeresySheet extends ActorSheet {
   _extractWeaponTraits(traits) {
     //These weapon traits never go above 9 or below 2 
     return {
-        rfFace : this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, traits), // The alternativ die face Righteous Fury is triggered on
-        proven : this._extractNumberedTrait(/Proven.*\(\d\)/gi, traits),
-        primitive : this._extractNumberedTrait(/Primitive.*\(\d\)/gi, traits),
-        razorSharp : this._hasNamedTrait(/Razor.*Sharp/gi, traits),
-        skipAttackRoll : this._hasNamedTrait(/Spray/gi, traits),
-        tearing : this._hasNamedTrait(/Tearing/gi, traits)
+        rfFace : this._extractNumberedTrait(/Отмщающее.*\(\d\)/gi, traits), // The alternativ die face Righteous Fury is triggered on
+        proven : this._extractNumberedTrait(/Проверенное.*\(\d\)/gi, traits),
+        primitive : this._extractNumberedTrait(/Примитивное.*\(\d\)/gi, traits),
+        razorSharp : this._hasNamedTrait(/Острое/gi, traits),
+        skipAttackRoll : this._hasNamedTrait(/Распыляющее/gi, traits),
+        accurate : this._hasNamedTrait(/Точное/gi, traits),
+        tearing : this._hasNamedTrait(/Разрывное/gi, traits)
     }
   }
 

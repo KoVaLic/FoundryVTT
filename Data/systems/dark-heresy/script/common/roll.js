@@ -79,6 +79,9 @@ async function _rollDamage(rollData) {
     if (rollData.damageFormula) {
         formula = rollData.damageFormula;
         
+        if(rollData.weaponTraits.accurate) {
+            formula = _appendAccurate(formula, rollData.dos);
+        }
         if(rollData.weaponTraits.tearing) {
             formula = _appendTearing(formula);
         }
@@ -165,7 +168,7 @@ async function  _rollPenetration(rollData) {
             penetration = penetration.replace(/\d+.*\(\d+\)/gi, rsValue) // Replace construct BaseValue(RazorsharpValue) with the extracted data
         }
             
-    } else if(rollData.razorsharp) {
+    } else if(rollData.razorSharp) {
         if(rollData.dos >= 3) {
             multiplier = 2;
         }
@@ -350,6 +353,20 @@ function _appendTearing(formula) {
     return formula;
 }
 
+function _appendAccurate(formula, degreeofsuccess) {
+    let diceRegex = /\d+d\d+/;
+    let match = formula.match(/\d+/g, formula)
+    let numDice = parseInt(match[0]);
+    if(degreeofsuccess > 2)
+        numDice += 1;
+    if(degreeofsuccess > 4)
+        numDice += 1;
+    let faces = parseInt(match[1]);
+    let diceTerm = `${numDice}d${faces}`;
+    formula = formula.replace(diceRegex, diceTerm);
+    return formula;
+}
+
 async function _sendToChat(rollData) {
     let chatData = {};       
     
@@ -378,7 +395,8 @@ async function _emptyClipToChat(rollData) {
         content: `
           <div class="dark-heresy chat roll">
               <div class="background border">
-                  <p><strong>Reload! Out of Ammo!</strong></p>
+                  <p><strong style="font-size: 125%">Боезапас на нуле!</strong></p>
+                  <p><strong style="font-size: 125%">Нужна перезарядка!</strong></p>
               </div>
           </div>
         `

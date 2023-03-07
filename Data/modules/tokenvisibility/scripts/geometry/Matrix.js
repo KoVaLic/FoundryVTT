@@ -97,32 +97,6 @@ export class Matrix {
   }
 
   /**
-   * Rotation matrix for a given angle, rotating around X axis.
-   * @param {number} angle
-   * @returns {Matrix}
-   */
-  static rotationX(angle) {
-    if ( !angle ) return Matrix.identity(4, 4);
-
-    let c = Math.cos(angle);
-    let s = Math.sin(angle);
-
-    // Math.cos(Math.PI / 2) ~ 0 but not quite.
-    // Same for Math.sin(Math.PI).
-    if ( c.almostEqual(0) ) c = 0;
-    if ( s.almostEqual(0) ) s = 0;
-
-    const rotX = [
-      [1, 0, 0, 0],
-      [0, c, s, 0],
-      [0, -s, c, 0],
-      [0, 0, 0, 1]
-    ];
-
-    return new Matrix(rotX);
-  }
-
-  /**
    * See https://webglfundamentals.org/webgl/lessons/webgl-3d-camera.html
    * https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/lookat-function
    * https://www.geertarien.com/blog/2017/07/30/breakdown-of-the-lookAt-function-in-OpenGL/
@@ -173,12 +147,13 @@ export class Matrix {
   }
 
   /**
-   * Rotation matrix for a given angle, rotating around Y axis.
-   * @param {number} angle
+   * Rotation matrix for a given angle, rotating around X axis.
+   * @param {number} angle          Radians
+   * @param {boolean} [d3 = true]    If d3, use a 4-d matrix. Otherwise, 3-d matrix.
    * @returns {Matrix}
    */
-  static rotationY(angle) {
-    if ( !angle ) return Matrix.identity(4, 4);
+  static rotationX(angle, d3 = true) {
+    if ( !angle ) return d3 ? dimMatrix.identity(4, 4) : dimMatrix.identity(3, 3);
 
     let c = Math.cos(angle);
     let s = Math.sin(angle);
@@ -188,12 +163,51 @@ export class Matrix {
     if ( c.almostEqual(0) ) c = 0;
     if ( s.almostEqual(0) ) s = 0;
 
-    const rotY = [
+    const rotX = d3
+    ? [
+      [1, 0, 0, 0],
+      [0, c, s, 0],
+      [0, -s, c, 0],
+      [0, 0, 0, 1]
+    ]
+      : [
+      [1, 0, 0],
+      [0, c, s],
+      [0, -s, c]
+    ] ;
+
+    return new Matrix(rotX);
+  }
+
+  /**
+   * Rotation matrix for a given angle, rotating around Y axis.
+   * @param {number} angle          Radians
+   * @param {boolean} [d3 = true]    If d3, use a 4-d matrix. Otherwise, 3-d matrix.
+   * @returns {Matrix}
+   */
+  static rotationY(angle, d3 = true) {
+    if ( !angle ) return d3 ? Matrix.identity(4, 4) : Matrix.identity(3, 3);
+
+    let c = Math.cos(angle);
+    let s = Math.sin(angle);
+
+    // Math.cos(Math.PI / 2) ~ 0 but not quite.
+    // Same for Math.sin(Math.PI).
+    if ( c.almostEqual(0) ) c = 0;
+    if ( s.almostEqual(0) ) s = 0;
+
+    const rotY = d3
+    ? [
       [c, 0, s, 0],
       [0, 1, 0, 0],
       [-s, 0, c, 0],
       [0, 0, 0, 1]
-    ];
+    ]
+      : [
+      [c, 0, s],
+      [0, 1, 0],
+      [-s, 0, c]
+    ]
 
     return new Matrix(rotY);
   }
@@ -201,10 +215,11 @@ export class Matrix {
   /**
    * Rotation matrix for a given angle, rotating around Z axis.
    * @param {number} angle
+   * @param {boolean} [d3 = true]    If d3, use a 4-d matrix. Otherwise, 3-d matrix.
    * @returns {Matrix}
    */
-  static rotationZ(angle) {
-    if ( !angle ) return Matrix.identity(4, 4);
+  static rotationZ(angle, d3 = true) {
+    if ( !angle ) return d3 ? Matrix.identity(4, 4) : Matrix.identity(3, 3);
 
     let c = Math.cos(angle);
     let s = Math.sin(angle);
@@ -214,41 +229,78 @@ export class Matrix {
     if ( c.almostEqual(0) ) c = 0;
     if ( s.almostEqual(0) ) s = 0;
 
-    const rotZ = [
+    const rotZ = d3
+    ? [
       [c, s, 0, 0],
       [-s, c, 0, 0],
       [0, 0, 1, 0],
       [0, 0, 0, 1]
+    ]
+      : [
+      [c, s, 0],
+      [-s, c, 0],
+      [0, 0, 1]
     ];
 
     return new Matrix(rotZ);
   }
 
+  /**
+   * Combine rotation matrixes for x, y, and z.
+   * @param {number} angleX   Radians
+   * @param {number} angleY   Radians
+   * @param {number} angleZ   Radians
+   * @param {boolean} [d3 = true]    If d3, use a 4-d matrix. Otherwise, 3-d matrix.
+   * @returns {Matrix}
+   */
   static rotationXYZ(angleX, angleY, angleZ) {
-    let rot = angleX ? Matrix.rotationX(angleX) : angleY
-      ? Matrix.rotationY(angleY) : angleZ
-        ? Matrix.rotationZ(angleZ) : Matrix.identity(4, 4);
+    let rot = angleX ? Matrix.rotationX(angleX, d3) : angleY
+      ? Matrix.rotationY(angleY, d3) : angleZ
+        ? Matrix.rotationZ(angleZ, d3) : d3
+        ? Matrix.identity(4, 4) : Matrix.identity(3, 3);
+
+    const multFn = d3 ? "multiply4x4" : "multiply3x3";
 
     if ( angleX && angleY ) {
-      const rotY = Matrix.rotationY(angleY);
-      rot = rot.multiply4x4(rotY);
+      const rotY = Matrix.rotationY(angleY, d3);
+      rot = rot["multFn"](rotY, d3);
     }
 
     if ( (angleX || angleY) && angleZ ) {
-      const rotZ = Matrix.rotationZ(angleZ);
-      rot = rot.multiply4x4(rotZ);
+      const rotZ = Matrix.rotationZ(angleZ, d3);
+      rot = rot["multFn"](rotZ, d3);
     }
 
     return rot;
   }
 
-  static translation(x = 0, y = 0, z = 0) {
-    const t = [
-      [1, 0, 0, 0],
-      [0, 1, 0, 0],
-      [0, 0, 1, 0],
-      [x, y, z, 1]
-    ];
+  static translation(x = 0, y = 0, z) {
+    const t = typeof z === "undefined"
+    ? [
+      [1, 0, 0],
+      [0, 1, 0],
+      [x, y, 1]]
+      : [
+        [1, 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 0, 1, 0],
+        [x, y, z, 1]];
+
+    return new Matrix(t);
+  }
+
+  static scale(x = 1, y = 1, z) {
+    const t = typeof z === "undefined"
+    ? [
+      [x, 0, 0],
+      [0, y, 0],
+      [0, 0, 1]]
+      : [
+        [x, 0, 0, 0],
+        [0, y, 0, 0],
+        [0, 0, z, 0],
+        [0, 0, 0, 1]];
+
     return new Matrix(t);
   }
 
@@ -500,6 +552,76 @@ export class Matrix {
       }
     }
     return multiplication;
+  }
+
+  /**
+   * Faster 1x3 multiplication
+   * @param {Matrix} other    A 1x3 matrix, like Matrix.prototype.fromPoint2d
+   * @returns Matrix
+   */
+  multiply1x3(other, outMatrix = Matrix.empty(1, 3)) {
+    const a0 = other.arr[0];
+    const a1 = other.arr[1];
+    const a2 = other.arr[2];
+
+    const a00 = a0[0];
+    const a01 = a0[1];
+    const a02 = a0[2];
+    const a10 = a1[0];
+    const a11 = a1[1];
+    const a12 = a1[2];
+    const a20 = a2[0];
+    const a21 = a2[1];
+    const a22 = a2[2];
+
+    const b0 = this.arr[0];
+    const b00 = b0[0];
+    const b01 = b0[1];
+    const b02 = b0[2];
+
+    outMatrix.arr[0][0] = a00 * b00 + a10 * b01 + a20 * b02;
+    outMatrix.arr[0][1] = a01 * b00 + a11 * b01 + a21 * b02;
+    outMatrix.arr[0][2] = a02 * b00 + a12 * b01 + a22 * b02;
+
+    return outMatrix;
+  }
+
+  /**
+   * Multiply a Point2d by this matrix and output a different Point3d.
+   * For speed, the input is not checked against the matrix for correct dimensionality.
+   * Foundry bench puts this at ~ 68% of multiply.
+   * @param {Point3d} point    The point to multiply
+   * @param {Point3d} outPoint Optional point in which to store the result.
+   * @returns {Point3d}
+   */
+  multiplyPoint2d(point, outPoint = new PIXI.Point()) {
+    const a0 = this.arr[0];
+    const a1 = this.arr[1];
+    const a2 = this.arr[2];
+
+    const a00 = a0[0];
+    const a01 = a0[1];
+    const a02 = a0[2];
+    const a10 = a1[0];
+    const a11 = a1[1];
+    const a12 = a1[2];
+    const a20 = a2[0];
+    const a21 = a2[1];
+    const a22 = a2[2];
+
+    const b0 = this.arr[0];
+    const b00 = point.x;
+    const b01 = point.y;
+    const b02 = 1;
+
+    outPoint.x = a00 * b00 + a10 * b01 + a20 * b02;
+    outPoint.y = a01 * b00 + a11 * b01 + a21 * b02;
+    const w = a02 * b00 + a12 * b01 + a22 * b02;
+
+    outPoint.x /= w;
+    outPoint.y /= w;
+
+    return outPoint;
   }
 
   /**

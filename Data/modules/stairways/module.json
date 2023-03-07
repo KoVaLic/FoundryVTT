@@ -4,16 +4,15 @@
   "description": "Easily create stairways (teleporter) within one scene or between two scenes.",
   "version": "0.9.1",
   "compatibility": {
-    "minimum": 10,
-    "verified": "10.286"
+    "minimum": "10",
+    "verified": "10.288"
   },
-  "manifestPlusVersion": "1.2.0",
   "authors": [
     {
       "name": "Simon Wörner",
       "email": "git@simon-woerner.de",
       "discord": "SWW13#0799",
-      "ko-fi": "SWW13"
+      "flags": {}
     }
   ],
   "socket": true,
@@ -24,22 +23,26 @@
     {
       "lang": "en",
       "name": "English",
-      "path": "lang/en.json"
+      "path": "lang/en.json",
+      "flags": {}
     },
     {
       "lang": "es",
       "name": "Español",
-      "path": "lang/es.json"
+      "path": "lang/es.json",
+      "flags": {}
     },
     {
       "lang": "fr",
       "name": "Français",
-      "path": "lang/fr.json"
+      "path": "lang/fr.json",
+      "flags": {}
     },
     {
       "lang": "de",
       "name": "Deutsch",
-      "path": "lang/de.json"
+      "path": "lang/de.json",
+      "flags": {}
     }
   ],
   "url": "https://gitlab.com/SWW13/foundryvtt-stairways",
@@ -48,41 +51,50 @@
   "readme": "https://gitlab.com/SWW13/foundryvtt-stairways/blob/main/README.md",
   "changelog": "https://gitlab.com/SWW13/foundryvtt-stairways/blob/main/CHANGELOG.md",
   "bugs": "https://gitlab.com/SWW13/foundryvtt-stairways/issues",
-  "allowBugReporter": true,
   "media": [
     {
       "type": "screenshot",
       "url": "https://gitlab.com/SWW13/foundryvtt-stairways/-/raw/media/stairways-player-3.thumb.webp",
-      "caption": "Sairways (Player)"
+      "caption": "Sairways (Player)",
+      "loop": false,
+      "flags": {}
     },
     {
       "type": "screenshot",
       "url": "https://gitlab.com/SWW13/foundryvtt-stairways/-/raw/media/stairways-gm-3.thumb.webp",
-      "caption": "Sairways (GM)"
+      "caption": "Sairways (GM)",
+      "loop": false,
+      "flags": {}
     },
     {
       "type": "screenshot",
       "url": "https://gitlab.com/SWW13/foundryvtt-stairways/-/raw/media/stairway-configuration-4-main.webp",
-      "caption": "Sairways configuration"
+      "caption": "Sairways configuration",
+      "loop": false,
+      "flags": {}
     },
     {
       "type": "screenshot",
       "url": "https://gitlab.com/SWW13/foundryvtt-stairways/-/raw/media/stairway-configuration-4-label.webp",
-      "caption": "Sairways label configuration"
+      "caption": "Sairways label configuration",
+      "loop": false,
+      "flags": {}
     },
     {
       "type": "video",
       "url": "https://gitlab.com/SWW13/foundryvtt-stairways/-/raw/media/stairways-player-3.mp4",
       "loop": true,
       "thumbnail": "https://gitlab.com/SWW13/foundryvtt-stairways/-/raw/media/stairways-player-3.thumb.webp",
-      "caption": "Stairways usage for players"
+      "caption": "Stairways usage for players",
+      "flags": {}
     },
     {
       "type": "video",
       "url": "https://gitlab.com/SWW13/foundryvtt-stairways/-/raw/media/stairways-gm-3.mp4",
       "loop": true,
       "thumbnail": "https://gitlab.com/SWW13/foundryvtt-stairways/-/raw/media/stairways-gm-3.thumb.webp",
-      "caption": "Stairways set up for GM"
+      "caption": "Stairways set up for GM",
+      "flags": {}
     }
   ]
 }

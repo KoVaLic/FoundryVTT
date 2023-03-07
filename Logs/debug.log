@@ -18669,3 +18669,1397 @@
 {"level":"info","message":"FoundryVTT | Created Item with id [wpDpXkONNzUV3F38] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-06 00:50:46"}
 {"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-06 00:54:42"}
 {"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-06 00:54:42"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-07 21:34:27"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-07 21:34:27"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-07 21:34:27"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-07 21:34:27"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-07 21:34:27"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-07 21:34:27"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-07 21:34:27"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-07 21:34:29"}
+{"level":"info","message":"Created client session 2967aa2732befed9da2c1218","timestamp":"2023-03-07 21:34:32"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"2967aa2732befed9da2c1218","timestamp":"2023-03-07 21:34:34"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 21:34:36"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 21:34:36"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-07 21:34:36"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-07 21:34:37"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1634ms","timestamp":"2023-03-07 21:34:37"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-07 21:35:15"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-07 21:35:15"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-07 21:37:35"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-07 21:37:35"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-07 21:37:35"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-07 21:37:35"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-07 21:37:35"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-07 21:37:35"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-07 21:37:35"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-07 21:37:36"}
+{"level":"info","message":"Created client session bc9e930fb8d963113ae95803","timestamp":"2023-03-07 21:37:39"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"bc9e930fb8d963113ae95803","timestamp":"2023-03-07 21:37:42"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 21:37:43"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 21:37:43"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-07 21:37:43"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-07 21:37:44"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1589ms","timestamp":"2023-03-07 21:37:44"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-07 21:40:14"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-07 21:40:14"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-07 21:41:38"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-07 21:41:38"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-07 21:41:38"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-07 21:41:38"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-07 21:41:38"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-07 21:41:38"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-07 21:41:38"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-07 21:41:39"}
+{"level":"info","message":"Created client session 8ea7a420a0206238c4cec1f8","timestamp":"2023-03-07 21:41:42"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"8ea7a420a0206238c4cec1f8","timestamp":"2023-03-07 21:41:45"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 21:41:47"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 21:41:47"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-07 21:41:47"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-07 21:41:48"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1681ms","timestamp":"2023-03-07 21:41:48"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-07 21:49:08"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-07 21:49:08"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-07 21:49:11"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-07 21:49:11"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-07 21:49:11"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-07 21:49:11"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-07 21:49:11"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-07 21:49:11"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-07 21:49:11"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-07 21:49:12"}
+{"level":"info","message":"Created client session 7ece2e8736436a28a4c74e91","timestamp":"2023-03-07 21:49:15"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"7ece2e8736436a28a4c74e91","timestamp":"2023-03-07 21:49:18"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 21:49:20"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 21:49:20"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-07 21:49:20"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-07 21:49:20"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1775ms","timestamp":"2023-03-07 21:49:21"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-07 21:49:51"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-07 21:49:51"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-07 21:49:54"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-07 21:49:54"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-07 21:49:54"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-07 21:49:54"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-07 21:49:54"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-07 21:49:54"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-07 21:49:54"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-07 21:49:56"}
+{"level":"info","message":"Created client session 2d3198ce1ac4b12008a10fa7","timestamp":"2023-03-07 21:49:58"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"2d3198ce1ac4b12008a10fa7","timestamp":"2023-03-07 21:50:03"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 21:50:04"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 21:50:04"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-07 21:50:04"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-07 21:50:05"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1652ms","timestamp":"2023-03-07 21:50:05"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-07 21:55:31"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-07 21:55:31"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-07 21:55:31"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-07 21:55:31"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-07 21:55:31"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-07 21:55:31"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-07 21:55:31"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-07 21:55:32"}
+{"level":"info","message":"Created client session 21bd4d70f79487ecd9bc53a8","timestamp":"2023-03-07 21:55:35"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"21bd4d70f79487ecd9bc53a8","timestamp":"2023-03-07 21:55:38"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 21:55:39"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 21:55:39"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-07 21:55:39"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-07 21:55:40"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1578ms","timestamp":"2023-03-07 21:55:40"}
+{"level":"info","message":"FoundryVTT | Created Item with id [tuezrq6sewxT9bXo] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-07 21:56:18"}
+{"level":"error","message":"You may not modify the world.boepripasy Compendium which is currently locked.","stack":"Error: You may not modify the world.boepripasy Compendium which is currently locked.\n    at #t (file:///D:/Eeone/Programms/Foundry%20VTT/Foundry%20Virtual%20Tabletop/resources/app/dist/database/backend/server-compendium.mjs:1:871)\n    at o.canUserModify (file:///D:/Eeone/Programms/Foundry%20VTT/Foundry%20Virtual%20Tabletop/resources/app/common/abstract/document.mjs:223:44)\n    at o.canUserModify (file:///D:/Eeone/Programms/Foundry%20VTT/Foundry%20Virtual%20Tabletop/resources/app/common/documents/item.mjs:99:18)\n    at ServerDatabaseBackend._createDocuments (file:///D:/Eeone/Programms/Foundry%20VTT/Foundry%20Virtual%20Tabletop/resources/app/dist/database/backend/server-backend.mjs:1:2013)\n    at process.processTicksAndRejections (node:internal/process/task_queues:96:5)\n    at async Semaphore._try (file:///D:/Eeone/Programms/Foundry%20VTT/Foundry%20Virtual%20Tabletop/resources/app/common/utils/semaphore.mjs:101:17)","timestamp":"2023-03-07 21:56:38"}
+{"level":"info","message":"FoundryVTT | Created Item with id [oNXnXcMGO70QDIkz] in Compendium world.boepripasy","timestamp":"2023-03-07 21:56:46"}
+{"level":"info","message":"FoundryVTT | Deleted Item with id [tuezrq6sewxT9bXo] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-07 21:57:39"}
+{"level":"info","message":"FoundryVTT | Created Item with id [ElEyISNP0VMMbDvg] in Compendium world.boepripasy","timestamp":"2023-03-07 21:57:47"}
+{"level":"info","message":"FoundryVTT | Deleted Item with id [ElEyISNP0VMMbDvg] in Compendium world.boepripasy","timestamp":"2023-03-07 21:57:54"}
+{"level":"info","message":"FoundryVTT | Deleted Item with id [EfGLxP1WoH1IMQrv] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-07 21:59:06"}
+{"level":"info","message":"FoundryVTT | Created Item with id [ONkAFFOUFBy9RTVH] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-07 21:59:14"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [TdsxHxuvl8ThVdMO]","timestamp":"2023-03-07 21:59:26"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [PCFsIFp1WImiq2ep]","timestamp":"2023-03-07 22:00:04"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [TdsxHxuvl8ThVdMO]","timestamp":"2023-03-07 22:00:21"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [PCFsIFp1WImiq2ep]","timestamp":"2023-03-07 22:00:22"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [zD2zxEwBncpXEQRY]","timestamp":"2023-03-07 22:00:56"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [kzSIf8qSKckucgO9]","timestamp":"2023-03-07 22:03:26"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [hDKWQxjIhEH8gHPZ]","timestamp":"2023-03-07 22:05:09"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [p9SYGyVWYDt5J5y5]","timestamp":"2023-03-07 22:05:21"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [xM5nb9PvW9QxZfED]","timestamp":"2023-03-07 22:05:54"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [Jj86uujTKG9yQiHw]","timestamp":"2023-03-07 22:07:30"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [FDbBLKhg7vv0EAfe]","timestamp":"2023-03-07 22:08:24"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [8HPUG7VcI3lmjENh]","timestamp":"2023-03-07 22:11:07"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [4fjyFtnxtofAMrXE]","timestamp":"2023-03-07 22:11:08"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [JLOfOL6s5um1htAN]","timestamp":"2023-03-07 22:11:09"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [4fjyFtnxtofAMrXE]","timestamp":"2023-03-07 22:11:11"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [JLOfOL6s5um1htAN]","timestamp":"2023-03-07 22:11:12"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [8HPUG7VcI3lmjENh]","timestamp":"2023-03-07 22:11:13"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [FDbBLKhg7vv0EAfe]","timestamp":"2023-03-07 22:11:14"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [Jj86uujTKG9yQiHw]","timestamp":"2023-03-07 22:11:15"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [xM5nb9PvW9QxZfED]","timestamp":"2023-03-07 22:11:17"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [p9SYGyVWYDt5J5y5]","timestamp":"2023-03-07 22:11:17"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [hDKWQxjIhEH8gHPZ]","timestamp":"2023-03-07 22:11:18"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [kzSIf8qSKckucgO9]","timestamp":"2023-03-07 22:11:19"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [zD2zxEwBncpXEQRY]","timestamp":"2023-03-07 22:11:21"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [2sI91bpDJSn594qK]","timestamp":"2023-03-07 22:12:18"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [WSl2sVPRicUpjOex]","timestamp":"2023-03-07 22:13:54"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [WSl2sVPRicUpjOex]","timestamp":"2023-03-07 22:14:00"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [2sI91bpDJSn594qK]","timestamp":"2023-03-07 22:14:01"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [00SmddM55svuBrjY]","timestamp":"2023-03-07 22:18:15"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [D9zFP2UszZxn8XK1]","timestamp":"2023-03-07 22:20:23"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [2lBZZ983JoYzMCB0]","timestamp":"2023-03-07 22:20:44"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [yc6sD9Mse8ydzowj]","timestamp":"2023-03-07 22:23:10"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [KtfU3cGxPx7zcFFq]","timestamp":"2023-03-07 22:27:05"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [bAyHun4EGpaGrTt8]","timestamp":"2023-03-07 22:30:07"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [3Zdji6nkeNlm9Y0C]","timestamp":"2023-03-07 22:30:10"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [O9QIet6PfTo2J7Gn]","timestamp":"2023-03-07 22:33:47"}
+{"level":"info","message":"Compacted database file for world.oruzhie","timestamp":"2023-03-07 22:36:37"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [OkgzFv8EISTMbDC0]","timestamp":"2023-03-07 22:41:39"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [tarukmnl4ckSpIM6]","timestamp":"2023-03-07 22:41:46"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [bjRQGCzf2o49bK3x]","timestamp":"2023-03-07 22:42:04"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [Iw40Gv0HWEHCDfNS]","timestamp":"2023-03-07 22:43:17"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [m5pI2hQfondJIn6H]","timestamp":"2023-03-07 22:43:19"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [E2XXKlNMocWwF2UO]","timestamp":"2023-03-07 22:43:27"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [XRnn6MMFaqx8DQC2]","timestamp":"2023-03-07 22:45:10"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [pAVOZyH4ZTt9tLKQ]","timestamp":"2023-03-07 22:45:16"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [8rQOz6f2pTzytSM8]","timestamp":"2023-03-07 22:46:28"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [6C3gL82PTWSVqKmR]","timestamp":"2023-03-07 22:46:36"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [6C3gL82PTWSVqKmR]","timestamp":"2023-03-07 22:46:39"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [8rQOz6f2pTzytSM8]","timestamp":"2023-03-07 22:46:40"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [pAVOZyH4ZTt9tLKQ]","timestamp":"2023-03-07 22:46:41"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [XRnn6MMFaqx8DQC2]","timestamp":"2023-03-07 22:46:43"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [E2XXKlNMocWwF2UO]","timestamp":"2023-03-07 22:46:44"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [m5pI2hQfondJIn6H]","timestamp":"2023-03-07 22:46:45"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [Iw40Gv0HWEHCDfNS]","timestamp":"2023-03-07 22:46:46"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [bjRQGCzf2o49bK3x]","timestamp":"2023-03-07 22:46:47"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [tarukmnl4ckSpIM6]","timestamp":"2023-03-07 22:46:48"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [OkgzFv8EISTMbDC0]","timestamp":"2023-03-07 22:46:49"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [O9QIet6PfTo2J7Gn]","timestamp":"2023-03-07 22:46:51"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [3Zdji6nkeNlm9Y0C]","timestamp":"2023-03-07 22:46:52"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [bAyHun4EGpaGrTt8]","timestamp":"2023-03-07 22:46:53"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [KtfU3cGxPx7zcFFq]","timestamp":"2023-03-07 22:46:55"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [yc6sD9Mse8ydzowj]","timestamp":"2023-03-07 22:46:56"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [2lBZZ983JoYzMCB0]","timestamp":"2023-03-07 22:46:57"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [D9zFP2UszZxn8XK1]","timestamp":"2023-03-07 22:46:58"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [00SmddM55svuBrjY]","timestamp":"2023-03-07 22:46:59"}
+{"level":"info","message":"Compacted database file for messages","timestamp":"2023-03-07 22:47:01"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-07 22:55:57"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-07 22:55:57"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-07 22:56:01"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-07 22:56:01"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-07 22:56:01"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-07 22:56:01"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-07 22:56:01"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-07 22:56:01"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-07 22:56:01"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-07 22:56:03"}
+{"level":"info","message":"Created client session 0951a55aadfd69633eb7e64f","timestamp":"2023-03-07 22:56:06"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"0951a55aadfd69633eb7e64f","timestamp":"2023-03-07 22:56:09"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 22:56:11"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 22:56:11"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-07 22:56:11"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-07 22:56:11"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1574ms","timestamp":"2023-03-07 22:56:11"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [GoeNkKS3Y2ncUrsZ]","timestamp":"2023-03-07 22:56:25"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-07 22:56:56"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-07 22:56:56"}
+{"code":"ECOMPROMISED","errno":-4058,"level":"error","message":"ENOENT: no such file or directory, stat 'D:\\Eeone\\Programms\\Foundry VTT\\WorldData\\Config\\options.json.lock'","path":"D:\\Eeone\\Programms\\Foundry VTT\\WorldData\\Config\\options.json.lock","stack":"Error: ENOENT: no such file or directory, stat 'D:\\Eeone\\Programms\\Foundry VTT\\WorldData\\Config\\options.json.lock'","syscall":"stat","timestamp":"2023-03-07 22:56:56"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-07 22:56:59"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-07 22:56:59"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-07 22:56:59"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-07 22:56:59"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-07 22:56:59"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-07 22:56:59"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-07 22:56:59"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-07 22:57:01"}
+{"level":"info","message":"Created client session dfd797984630fe0f6f38b93d","timestamp":"2023-03-07 22:57:03"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"dfd797984630fe0f6f38b93d","timestamp":"2023-03-07 22:57:06"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 22:57:08"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 22:57:08"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-07 22:57:08"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-07 22:57:08"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1643ms","timestamp":"2023-03-07 22:57:08"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [R0eegOgtK9ZRCYOL]","timestamp":"2023-03-07 22:57:16"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-07 22:57:26"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-07 22:57:26"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-07 23:12:06"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-07 23:12:06"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-07 23:12:06"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-07 23:12:06"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-07 23:12:06"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-07 23:12:06"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-07 23:12:06"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-07 23:12:08"}
+{"level":"info","message":"Created client session d8fe3a083f676e5b5fb1be09","timestamp":"2023-03-07 23:12:11"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Delhior","session":"d8fe3a083f676e5b5fb1be09","timestamp":"2023-03-07 23:12:18"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 23:12:20"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 23:12:20"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-07 23:12:20"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-07 23:12:21"}
+{"level":"info","message":"Vended World data to User [x5ucr8WgVnspfhAW] in 1547ms","timestamp":"2023-03-07 23:12:21"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"d8fe3a083f676e5b5fb1be09","timestamp":"2023-03-07 23:12:33"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 23:12:34"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 23:12:34"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-07 23:12:34"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 244ms","timestamp":"2023-03-07 23:12:34"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [fnnXp4L0IGpjzCZS]","timestamp":"2023-03-07 23:13:09"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [BQxkEbGn4iOfxNjM]","timestamp":"2023-03-07 23:21:39"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [e72NTHuCeRJVOc5S]","timestamp":"2023-03-07 23:27:08"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [GlAVuUQiWKvVR7JV]","timestamp":"2023-03-07 23:27:30"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [Va6ORD184UsZxtqj]","timestamp":"2023-03-07 23:27:40"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [vkmzsiAkNAaaxmmh]","timestamp":"2023-03-07 23:32:43"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [JoxYiNpLTORQoM2h]","timestamp":"2023-03-07 23:33:37"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [TZ6Rpk6Lxed0RbRj]","timestamp":"2023-03-07 23:34:59"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [7kkiGfY0oSC4k20E]","timestamp":"2023-03-07 23:35:08"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [DwaGdOZe4p5sZh4l]","timestamp":"2023-03-07 23:35:13"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [ld0tfUQzi9nWJwhs]","timestamp":"2023-03-07 23:35:18"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [eHgy60gIiQYONtGW]","timestamp":"2023-03-07 23:35:23"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-07 23:47:42"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-07 23:47:42"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-07 23:47:45"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-07 23:47:45"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-07 23:47:45"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-07 23:47:45"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-07 23:47:45"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-07 23:47:45"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-07 23:47:45"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-07 23:47:47"}
+{"level":"info","message":"Created client session 773ec5e7a52bfbc7e0ba6b35","timestamp":"2023-03-07 23:47:49"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"773ec5e7a52bfbc7e0ba6b35","timestamp":"2023-03-07 23:47:52"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 23:47:54"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 23:47:54"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-07 23:47:54"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-07 23:47:55"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1661ms","timestamp":"2023-03-07 23:47:55"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [yDHycMA1knVLYqdC]","timestamp":"2023-03-07 23:48:21"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [2i5eMbie4rUV5vr5]","timestamp":"2023-03-07 23:48:24"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [yQcr8sbRACzevytw]","timestamp":"2023-03-07 23:48:26"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [yDHycMA1knVLYqdC]","timestamp":"2023-03-07 23:48:36"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [yQcr8sbRACzevytw]","timestamp":"2023-03-07 23:48:38"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [2i5eMbie4rUV5vr5]","timestamp":"2023-03-07 23:48:38"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [eHgy60gIiQYONtGW]","timestamp":"2023-03-07 23:48:39"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [ld0tfUQzi9nWJwhs]","timestamp":"2023-03-07 23:48:39"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [DwaGdOZe4p5sZh4l]","timestamp":"2023-03-07 23:48:39"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [7kkiGfY0oSC4k20E]","timestamp":"2023-03-07 23:48:40"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [TZ6Rpk6Lxed0RbRj]","timestamp":"2023-03-07 23:48:40"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [JoxYiNpLTORQoM2h]","timestamp":"2023-03-07 23:48:41"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [Va6ORD184UsZxtqj]","timestamp":"2023-03-07 23:48:43"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [vkmzsiAkNAaaxmmh]","timestamp":"2023-03-07 23:48:44"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [GlAVuUQiWKvVR7JV]","timestamp":"2023-03-07 23:48:46"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [e72NTHuCeRJVOc5S]","timestamp":"2023-03-07 23:48:47"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [BQxkEbGn4iOfxNjM]","timestamp":"2023-03-07 23:48:48"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [fnnXp4L0IGpjzCZS]","timestamp":"2023-03-07 23:48:49"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [sBDIz1eVKc61HDUX]","timestamp":"2023-03-07 23:48:55"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [ZdaGA4uHBfI9nbsH]","timestamp":"2023-03-07 23:48:58"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [sBDIz1eVKc61HDUX]","timestamp":"2023-03-07 23:49:03"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [ZdaGA4uHBfI9nbsH]","timestamp":"2023-03-07 23:49:04"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [I2hvcxZIV9BILyfr]","timestamp":"2023-03-07 23:49:06"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [GWCQlpZEf06H4SWR]","timestamp":"2023-03-07 23:49:08"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [QHFl6kzIv08DagpV]","timestamp":"2023-03-07 23:49:16"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [vePApHqN0dDBeSMh]","timestamp":"2023-03-07 23:51:14"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [q7xGV3m4sWJILbwZ]","timestamp":"2023-03-07 23:51:17"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [QJt1holHJE4NIgx3]","timestamp":"2023-03-07 23:51:19"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [oanInRobcxjQnWeu]","timestamp":"2023-03-07 23:51:21"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [dhGPykROrX0msfjb]","timestamp":"2023-03-07 23:51:34"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [gHS8DN1a1y5RZweg]","timestamp":"2023-03-07 23:51:37"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [gHS8DN1a1y5RZweg]","timestamp":"2023-03-07 23:51:50"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [dhGPykROrX0msfjb]","timestamp":"2023-03-07 23:51:50"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [oanInRobcxjQnWeu]","timestamp":"2023-03-07 23:51:51"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [QJt1holHJE4NIgx3]","timestamp":"2023-03-07 23:51:51"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [q7xGV3m4sWJILbwZ]","timestamp":"2023-03-07 23:51:52"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [vePApHqN0dDBeSMh]","timestamp":"2023-03-07 23:51:52"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [QHFl6kzIv08DagpV]","timestamp":"2023-03-07 23:51:54"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [GWCQlpZEf06H4SWR]","timestamp":"2023-03-07 23:51:55"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [I2hvcxZIV9BILyfr]","timestamp":"2023-03-07 23:51:55"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [2v1w22odalFVmrji]","timestamp":"2023-03-07 23:51:57"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [MfGjvTV9KznGuXzV]","timestamp":"2023-03-07 23:51:59"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [pFT6E1JldiGJBzLm]","timestamp":"2023-03-07 23:52:03"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [Ml7eLOhLf7V3qh9T]","timestamp":"2023-03-07 23:52:05"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [6rDMt6u2n3PtRJyJ]","timestamp":"2023-03-07 23:52:10"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [qPW6E1fQa19c4YlL]","timestamp":"2023-03-07 23:52:12"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [YiGu3j9KGNBKdzFw]","timestamp":"2023-03-07 23:52:16"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [ZYaypZLAfKOPmJam]","timestamp":"2023-03-07 23:52:40"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [ZYaypZLAfKOPmJam]","timestamp":"2023-03-07 23:52:42"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [YiGu3j9KGNBKdzFw]","timestamp":"2023-03-07 23:52:42"}
+{"level":"info","message":"Compacted database file for messages","timestamp":"2023-03-07 23:52:44"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [ihhIKDvBNI511CT3]","timestamp":"2023-03-07 23:52:46"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-07 23:55:04"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-07 23:55:04"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-07 23:55:07"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-07 23:55:07"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-07 23:55:07"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-07 23:55:07"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-07 23:55:07"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-07 23:55:07"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-07 23:55:07"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-07 23:55:16"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-07 23:55:16"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-07 23:55:16"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-07 23:55:16"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-07 23:55:16"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-07 23:55:16"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-07 23:55:16"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-07 23:55:18"}
+{"level":"info","message":"Created client session 6c99607baebb6db73e0092b7","timestamp":"2023-03-07 23:55:20"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-07 23:55:26"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-07 23:55:26"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-07 23:55:38"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-07 23:55:38"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-07 23:55:38"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-07 23:55:38"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-07 23:55:38"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-07 23:55:38"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-07 23:55:38"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-07 23:55:40"}
+{"level":"info","message":"Created client session 365da125eaeaa4ed45c93c5c","timestamp":"2023-03-07 23:55:42"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"365da125eaeaa4ed45c93c5c","timestamp":"2023-03-07 23:55:45"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 23:55:47"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 23:55:47"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-07 23:55:47"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-07 23:55:48"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1585ms","timestamp":"2023-03-07 23:55:48"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [YThZofi3I8uyINGW]","timestamp":"2023-03-07 23:56:04"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [wo2jRphh7zlOPRjl]","timestamp":"2023-03-07 23:56:15"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [DEQ4hCwwHmIv2DfJ]","timestamp":"2023-03-07 23:56:20"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-07 23:57:35"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-07 23:57:38"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-07 23:57:38"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-07 23:57:38"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-07 23:57:38"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-07 23:57:38"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-07 23:57:38"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-07 23:57:38"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-07 23:57:40"}
+{"level":"info","message":"Created client session 3b64e30bd0097fff8b75d0a5","timestamp":"2023-03-07 23:57:42"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"3b64e30bd0097fff8b75d0a5","timestamp":"2023-03-07 23:57:45"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 23:57:47"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-07 23:57:47"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-07 23:57:47"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-07 23:57:48"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1559ms","timestamp":"2023-03-07 23:57:48"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [ssxDYbRb1UCdSOwg]","timestamp":"2023-03-07 23:58:02"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [GjjjZmd9mRADiVut]","timestamp":"2023-03-07 23:58:11"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [kni4tDFUeCbiiBqx]","timestamp":"2023-03-07 23:58:17"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [PhxBBOsl2QUh8g3q]","timestamp":"2023-03-08 00:00:03"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 00:17:44"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 00:17:44"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 00:17:47"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 00:17:47"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 00:17:47"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 00:17:47"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 00:17:47"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 00:17:47"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 00:17:47"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 00:17:49"}
+{"level":"info","message":"Created client session 052402ef3e516b4948f2ebc3","timestamp":"2023-03-08 00:17:52"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"052402ef3e516b4948f2ebc3","timestamp":"2023-03-08 00:17:54"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 00:17:56"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 00:17:56"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 00:17:56"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 00:17:57"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1634ms","timestamp":"2023-03-08 00:17:57"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [3qWV8zXc6gjsMf0N]","timestamp":"2023-03-08 00:18:05"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 00:32:48"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 00:32:48"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 00:32:51"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 00:32:51"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 00:32:51"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 00:32:51"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 00:32:51"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 00:32:51"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 00:32:51"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 00:32:53"}
+{"level":"info","message":"Created client session 6bc17126f0614359c7a5dfbd","timestamp":"2023-03-08 00:32:55"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"6bc17126f0614359c7a5dfbd","timestamp":"2023-03-08 00:32:58"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 00:33:00"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 00:33:00"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 00:33:00"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 00:33:00"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1524ms","timestamp":"2023-03-08 00:33:01"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [WKTUbO4vgKOdFB2N]","timestamp":"2023-03-08 00:33:07"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [jDmecoq6ejGseeEG]","timestamp":"2023-03-08 00:33:28"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 00:35:36"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 00:35:36"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 00:35:39"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 00:35:39"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 00:35:39"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 00:35:39"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 00:35:39"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 00:35:39"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 00:35:39"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 00:35:41"}
+{"level":"info","message":"Created client session c1c8a9d9e8185fe492695d69","timestamp":"2023-03-08 00:35:43"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"c1c8a9d9e8185fe492695d69","timestamp":"2023-03-08 00:35:47"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 00:35:49"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 00:35:49"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 00:35:49"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 00:35:49"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1596ms","timestamp":"2023-03-08 00:35:50"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [IIciYtJQnklDQLed]","timestamp":"2023-03-08 00:36:07"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 00:36:47"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 00:36:47"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 00:36:50"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 00:36:50"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 00:36:50"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 00:36:50"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 00:36:50"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 00:36:50"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 00:36:50"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 00:36:52"}
+{"level":"info","message":"Created client session b94ae211c73efd10c508c7cd","timestamp":"2023-03-08 00:36:55"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"b94ae211c73efd10c508c7cd","timestamp":"2023-03-08 00:36:57"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 00:36:58"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 00:36:58"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 00:36:58"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 00:36:59"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1548ms","timestamp":"2023-03-08 00:36:59"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [7TDjaKVxqLatQ72k]","timestamp":"2023-03-08 00:37:07"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [0VO5JL0CEB4KIirg]","timestamp":"2023-03-08 00:37:13"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 00:40:21"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 00:40:21"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 00:40:24"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 00:40:24"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 00:40:24"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 00:40:24"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 00:40:24"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 00:40:24"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 00:40:24"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 00:40:26"}
+{"level":"info","message":"Created client session 8e1710db978e9918b850aac8","timestamp":"2023-03-08 00:40:28"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"8e1710db978e9918b850aac8","timestamp":"2023-03-08 00:40:31"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 00:40:32"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 00:40:32"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 00:40:32"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 00:40:33"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1553ms","timestamp":"2023-03-08 00:40:33"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [FiFQrf8M1BZPtOLR]","timestamp":"2023-03-08 00:40:44"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [fO6jvqzIIHhHguJu]","timestamp":"2023-03-08 00:40:49"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [lLvTI9ZFLmlasfgA]","timestamp":"2023-03-08 00:40:51"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [u7YKuCXs3z5uWg6F]","timestamp":"2023-03-08 00:40:57"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [jPQ7hauFkhmjjxTY]","timestamp":"2023-03-08 00:41:09"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [HhRtAhDHT80NiMua]","timestamp":"2023-03-08 00:41:12"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [DGZdxvDWK3MeFzFr]","timestamp":"2023-03-08 00:46:48"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [fTmZXfa0CVuvWLB2]","timestamp":"2023-03-08 00:46:50"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 00:47:46"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 00:47:46"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 00:47:58"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 00:47:58"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 00:47:58"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 00:47:58"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 00:47:58"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 00:47:58"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 00:47:58"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 00:48:00"}
+{"level":"info","message":"Created client session 2d57a4d468cd1ed115f8c254","timestamp":"2023-03-08 00:48:02"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"2d57a4d468cd1ed115f8c254","timestamp":"2023-03-08 00:48:05"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 00:48:07"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 00:48:07"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 00:48:07"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 00:48:07"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1674ms","timestamp":"2023-03-08 00:48:08"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [tunL7sGRSV13oys5]","timestamp":"2023-03-08 00:48:25"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 01:01:40"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 01:01:40"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 01:01:43"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 01:01:43"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 01:01:43"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 01:01:43"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 01:01:43"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 01:01:43"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 01:01:43"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 01:01:45"}
+{"level":"info","message":"Created client session 3cfd588907dbd5647c9b82bb","timestamp":"2023-03-08 01:01:48"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"3cfd588907dbd5647c9b82bb","timestamp":"2023-03-08 01:01:51"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:01:53"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:01:53"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 01:01:53"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 01:01:53"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1600ms","timestamp":"2023-03-08 01:01:53"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 01:02:14"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 01:02:14"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 01:05:43"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 01:05:43"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 01:05:43"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 01:05:43"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 01:05:43"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 01:05:43"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 01:05:43"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 01:05:45"}
+{"level":"info","message":"Created client session f9627d60c8234a9207447c44","timestamp":"2023-03-08 01:05:48"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"f9627d60c8234a9207447c44","timestamp":"2023-03-08 01:05:51"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:05:52"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:05:52"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 01:05:52"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 01:05:53"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1553ms","timestamp":"2023-03-08 01:05:53"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 01:07:55"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 01:07:55"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 01:07:57"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 01:07:57"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 01:07:57"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 01:07:57"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 01:07:57"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 01:07:57"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 01:07:57"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 01:07:59"}
+{"level":"info","message":"Created client session 0296bc842f228b3cbf24a701","timestamp":"2023-03-08 01:08:01"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"0296bc842f228b3cbf24a701","timestamp":"2023-03-08 01:08:04"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:08:05"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:08:05"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 01:08:05"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 01:08:06"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1546ms","timestamp":"2023-03-08 01:08:06"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 01:08:11"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 01:08:11"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 01:08:28"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 01:08:28"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 01:08:28"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 01:08:28"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 01:08:28"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 01:08:28"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 01:08:28"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 01:08:30"}
+{"level":"info","message":"Created client session 9a24c0375091b91ad5138a4e","timestamp":"2023-03-08 01:08:32"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"9a24c0375091b91ad5138a4e","timestamp":"2023-03-08 01:08:35"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:08:36"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:08:36"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 01:08:36"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 01:08:37"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1623ms","timestamp":"2023-03-08 01:08:37"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 01:08:42"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 01:08:42"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 01:10:20"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 01:10:20"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 01:10:20"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 01:10:20"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 01:10:20"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 01:10:20"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 01:10:20"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 01:10:22"}
+{"level":"info","message":"Created client session 65274b3d918b117fcc0d160e","timestamp":"2023-03-08 01:10:24"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"65274b3d918b117fcc0d160e","timestamp":"2023-03-08 01:10:27"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:10:28"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:10:28"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 01:10:28"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 01:10:29"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1524ms","timestamp":"2023-03-08 01:10:29"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 01:10:33"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 01:10:33"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 01:11:00"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 01:11:00"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 01:11:00"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 01:11:00"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 01:11:00"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 01:11:00"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 01:11:00"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 01:11:02"}
+{"level":"info","message":"Created client session 1fc340854589810124f4bbb2","timestamp":"2023-03-08 01:11:04"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 01:11:06"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 01:11:06"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 01:11:29"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 01:11:29"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 01:11:29"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 01:11:29"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 01:11:29"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 01:11:29"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 01:11:29"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 01:11:31"}
+{"level":"info","message":"Created client session bec2e48dd305ed3c103cb14c","timestamp":"2023-03-08 01:11:34"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"bec2e48dd305ed3c103cb14c","timestamp":"2023-03-08 01:11:38"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:11:39"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:11:39"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 01:11:39"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 01:11:40"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1574ms","timestamp":"2023-03-08 01:11:40"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 01:11:49"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 01:11:49"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 01:13:17"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 01:13:17"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 01:13:17"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 01:13:17"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 01:13:17"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 01:13:17"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 01:13:17"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 01:13:19"}
+{"level":"info","message":"Created client session 21adb1b4de01512d9345fca8","timestamp":"2023-03-08 01:13:21"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"21adb1b4de01512d9345fca8","timestamp":"2023-03-08 01:13:24"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:13:25"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:13:25"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 01:13:25"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 01:13:26"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1709ms","timestamp":"2023-03-08 01:13:26"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 01:13:34"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 01:13:34"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 01:15:01"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 01:15:01"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 01:15:01"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 01:15:01"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 01:15:01"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 01:15:01"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 01:15:01"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 01:15:03"}
+{"level":"info","message":"Created client session 685e789ece6011356dcb9d3d","timestamp":"2023-03-08 01:15:05"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"685e789ece6011356dcb9d3d","timestamp":"2023-03-08 01:15:08"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:15:09"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:15:09"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 01:15:09"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 01:15:10"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1581ms","timestamp":"2023-03-08 01:15:10"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 01:15:15"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 01:15:15"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 01:16:11"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 01:16:11"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 01:16:11"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 01:16:11"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 01:16:11"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 01:16:11"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 01:16:11"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 01:16:12"}
+{"level":"info","message":"Created client session f2af2db2ee700ce096923a83","timestamp":"2023-03-08 01:16:15"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"f2af2db2ee700ce096923a83","timestamp":"2023-03-08 01:16:17"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:16:18"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:16:18"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 01:16:18"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 01:16:19"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1504ms","timestamp":"2023-03-08 01:16:19"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [p2JoaqLpgVjCqE43]","timestamp":"2023-03-08 01:16:47"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 01:17:29"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 01:17:29"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 01:17:34"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 01:17:34"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 01:17:34"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 01:17:34"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 01:17:34"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 01:17:34"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 01:17:34"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 01:17:36"}
+{"level":"info","message":"Created client session a7e5f8276b3b067be6695a29","timestamp":"2023-03-08 01:17:38"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"a7e5f8276b3b067be6695a29","timestamp":"2023-03-08 01:17:41"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:17:42"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:17:42"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 01:17:42"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 01:17:43"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1663ms","timestamp":"2023-03-08 01:17:43"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [BtdlfUlO8KoeA75C]","timestamp":"2023-03-08 01:17:52"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 01:17:57"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 01:17:57"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 01:20:19"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 01:20:19"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 01:20:19"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 01:20:19"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 01:20:19"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 01:20:19"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 01:20:19"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 01:20:21"}
+{"level":"info","message":"Created client session 660f6a825cb9b83bb64b3edd","timestamp":"2023-03-08 01:20:23"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"660f6a825cb9b83bb64b3edd","timestamp":"2023-03-08 01:20:25"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:20:27"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:20:27"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 01:20:27"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 01:20:28"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1594ms","timestamp":"2023-03-08 01:20:28"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [eOWZQzjwUB6Bmjbe]","timestamp":"2023-03-08 01:20:35"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [FjMdKkTUbl0u2xKj]","timestamp":"2023-03-08 01:20:38"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [SHBHNr1HfiOeAbS5]","timestamp":"2023-03-08 01:20:40"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 01:21:30"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 01:21:30"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 01:21:33"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 01:21:33"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 01:21:33"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 01:21:33"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 01:21:33"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 01:21:33"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 01:21:33"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 01:21:34"}
+{"level":"info","message":"Created client session f1a77f0aba7eee07111aeee5","timestamp":"2023-03-08 01:21:37"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"f1a77f0aba7eee07111aeee5","timestamp":"2023-03-08 01:21:44"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:21:46"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 01:21:46"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 01:21:46"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 01:21:47"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1700ms","timestamp":"2023-03-08 01:21:47"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [cq0Zc4EJFgfb66Ha]","timestamp":"2023-03-08 01:21:52"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [9ywbIxxr6i8EFXsM]","timestamp":"2023-03-08 01:23:21"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [vzaJraBtmZmNTyXe]","timestamp":"2023-03-08 01:23:23"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [ztWaYlNeBUvDE1z6]","timestamp":"2023-03-08 01:23:26"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [beOUN4BiC9gsLxny]","timestamp":"2023-03-08 01:23:47"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [Le9PHootMl82pysE]","timestamp":"2023-03-08 01:23:50"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [fJjm2teFGkbbL0Nj]","timestamp":"2023-03-08 01:23:53"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [EPPqVT1gYu8xZxvD]","timestamp":"2023-03-08 01:23:55"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [ux5QeACKudkZ8wjs]","timestamp":"2023-03-08 01:24:28"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [6K2fmaG1nf3gIJW2]","timestamp":"2023-03-08 01:24:31"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [6K2fmaG1nf3gIJW2]","timestamp":"2023-03-08 01:26:57"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [ux5QeACKudkZ8wjs]","timestamp":"2023-03-08 01:26:58"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [EPPqVT1gYu8xZxvD]","timestamp":"2023-03-08 01:27:00"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [fJjm2teFGkbbL0Nj]","timestamp":"2023-03-08 01:27:01"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [Le9PHootMl82pysE]","timestamp":"2023-03-08 01:27:02"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [beOUN4BiC9gsLxny]","timestamp":"2023-03-08 01:27:03"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [ztWaYlNeBUvDE1z6]","timestamp":"2023-03-08 01:27:05"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [vzaJraBtmZmNTyXe]","timestamp":"2023-03-08 01:27:06"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [9ywbIxxr6i8EFXsM]","timestamp":"2023-03-08 01:27:07"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [cq0Zc4EJFgfb66Ha]","timestamp":"2023-03-08 01:27:08"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [SHBHNr1HfiOeAbS5]","timestamp":"2023-03-08 01:27:10"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [FjMdKkTUbl0u2xKj]","timestamp":"2023-03-08 01:27:11"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [eOWZQzjwUB6Bmjbe]","timestamp":"2023-03-08 01:27:12"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [BtdlfUlO8KoeA75C]","timestamp":"2023-03-08 01:27:13"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [p2JoaqLpgVjCqE43]","timestamp":"2023-03-08 01:27:14"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [tunL7sGRSV13oys5]","timestamp":"2023-03-08 01:27:15"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [fTmZXfa0CVuvWLB2]","timestamp":"2023-03-08 01:27:16"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [DGZdxvDWK3MeFzFr]","timestamp":"2023-03-08 01:27:17"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [HhRtAhDHT80NiMua]","timestamp":"2023-03-08 01:27:18"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [jPQ7hauFkhmjjxTY]","timestamp":"2023-03-08 01:27:19"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [u7YKuCXs3z5uWg6F]","timestamp":"2023-03-08 01:27:20"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [lLvTI9ZFLmlasfgA]","timestamp":"2023-03-08 01:27:21"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [fO6jvqzIIHhHguJu]","timestamp":"2023-03-08 01:27:22"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [FiFQrf8M1BZPtOLR]","timestamp":"2023-03-08 01:27:24"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [0VO5JL0CEB4KIirg]","timestamp":"2023-03-08 01:27:25"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [7TDjaKVxqLatQ72k]","timestamp":"2023-03-08 01:27:25"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [IIciYtJQnklDQLed]","timestamp":"2023-03-08 01:27:26"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [jDmecoq6ejGseeEG]","timestamp":"2023-03-08 01:27:28"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [WKTUbO4vgKOdFB2N]","timestamp":"2023-03-08 01:27:29"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [3qWV8zXc6gjsMf0N]","timestamp":"2023-03-08 01:27:31"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [PhxBBOsl2QUh8g3q]","timestamp":"2023-03-08 01:27:32"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [kni4tDFUeCbiiBqx]","timestamp":"2023-03-08 01:27:34"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [GjjjZmd9mRADiVut]","timestamp":"2023-03-08 01:27:35"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [ssxDYbRb1UCdSOwg]","timestamp":"2023-03-08 01:27:36"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [DEQ4hCwwHmIv2DfJ]","timestamp":"2023-03-08 01:27:37"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [wo2jRphh7zlOPRjl]","timestamp":"2023-03-08 01:27:38"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [YThZofi3I8uyINGW]","timestamp":"2023-03-08 01:27:39"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [ihhIKDvBNI511CT3]","timestamp":"2023-03-08 01:27:41"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [qPW6E1fQa19c4YlL]","timestamp":"2023-03-08 01:27:42"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [6rDMt6u2n3PtRJyJ]","timestamp":"2023-03-08 01:27:42"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [Ml7eLOhLf7V3qh9T]","timestamp":"2023-03-08 01:27:43"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [pFT6E1JldiGJBzLm]","timestamp":"2023-03-08 01:27:43"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [MfGjvTV9KznGuXzV]","timestamp":"2023-03-08 01:27:44"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [2v1w22odalFVmrji]","timestamp":"2023-03-08 01:27:45"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [R0eegOgtK9ZRCYOL]","timestamp":"2023-03-08 01:27:47"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [GoeNkKS3Y2ncUrsZ]","timestamp":"2023-03-08 01:27:48"}
+{"level":"info","message":"Compacted database file for messages","timestamp":"2023-03-08 01:27:50"}
+{"level":"info","message":"Compacted database file for world.oruzhie","timestamp":"2023-03-08 01:47:00"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [LmMfgv4otf3A8lS4]","timestamp":"2023-03-08 01:56:27"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [vG1QDs99ON3ukpL4]","timestamp":"2023-03-08 01:56:29"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [566Gj0T2NgkLpchJ]","timestamp":"2023-03-08 01:56:33"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [Yt1tvyrjJgn1IjPb]","timestamp":"2023-03-08 01:56:56"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [NLni5xZLJRLxHhXt]","timestamp":"2023-03-08 01:56:58"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [uBMunub5Kmz8vJxa]","timestamp":"2023-03-08 01:57:00"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [KiolPTory0938slG]","timestamp":"2023-03-08 01:57:04"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [QfBSMC3bVQojFbrF]","timestamp":"2023-03-08 01:57:09"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [QfBSMC3bVQojFbrF]","timestamp":"2023-03-08 01:57:38"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [KiolPTory0938slG]","timestamp":"2023-03-08 01:57:39"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [uBMunub5Kmz8vJxa]","timestamp":"2023-03-08 01:57:41"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [NLni5xZLJRLxHhXt]","timestamp":"2023-03-08 01:57:42"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [Yt1tvyrjJgn1IjPb]","timestamp":"2023-03-08 01:57:43"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [566Gj0T2NgkLpchJ]","timestamp":"2023-03-08 01:57:44"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [vG1QDs99ON3ukpL4]","timestamp":"2023-03-08 01:57:45"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [LmMfgv4otf3A8lS4]","timestamp":"2023-03-08 01:57:46"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [IYJAUh4nSMkmZUzY]","timestamp":"2023-03-08 01:58:03"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [1HOu5bgFz2JX66PW]","timestamp":"2023-03-08 01:58:20"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [eFSXy8GwcCYanwyk]","timestamp":"2023-03-08 01:58:21"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [ZTFG9hji6K8XF4pa]","timestamp":"2023-03-08 01:58:29"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [QMBkPrAp5r86NnHT]","timestamp":"2023-03-08 01:58:31"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [O1ECIRSkiOok8iYQ]","timestamp":"2023-03-08 01:58:32"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [Sy9B1OMyYESZXntw]","timestamp":"2023-03-08 01:58:34"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [7BYTBngtTp5sMBOq]","timestamp":"2023-03-08 01:58:36"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [xGbR7T4kko1ET7uo]","timestamp":"2023-03-08 01:58:37"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [kkGZ2uPtVA65oJXC]","timestamp":"2023-03-08 01:58:39"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [GvJKDbKoMxjxr3eg]","timestamp":"2023-03-08 01:58:40"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [do8yMwSqNaf2VqhL]","timestamp":"2023-03-08 01:58:42"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [2mw0sGoIbMqlXT1f]","timestamp":"2023-03-08 01:58:44"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [nmISJQRhgjUoOXr3]","timestamp":"2023-03-08 01:58:47"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [FyONNWNaQobsk9gh]","timestamp":"2023-03-08 01:58:49"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [luAJ4999fjye8ilF]","timestamp":"2023-03-08 01:58:51"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [sRmYoDE1q8rFd4SI]","timestamp":"2023-03-08 01:58:52"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [TI7YGDj8OVKPqMH1]","timestamp":"2023-03-08 01:58:57"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [jyrbslRWgnMMqGhM]","timestamp":"2023-03-08 01:59:01"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [JTwkuskGr4PrFp8S]","timestamp":"2023-03-08 01:59:05"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [JTwkuskGr4PrFp8S]","timestamp":"2023-03-08 01:59:26"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [jyrbslRWgnMMqGhM]","timestamp":"2023-03-08 01:59:29"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [TI7YGDj8OVKPqMH1]","timestamp":"2023-03-08 01:59:30"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [luAJ4999fjye8ilF]","timestamp":"2023-03-08 01:59:31"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [sRmYoDE1q8rFd4SI]","timestamp":"2023-03-08 01:59:32"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [FyONNWNaQobsk9gh]","timestamp":"2023-03-08 01:59:32"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [nmISJQRhgjUoOXr3]","timestamp":"2023-03-08 01:59:33"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [2mw0sGoIbMqlXT1f]","timestamp":"2023-03-08 01:59:33"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [do8yMwSqNaf2VqhL]","timestamp":"2023-03-08 01:59:34"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [GvJKDbKoMxjxr3eg]","timestamp":"2023-03-08 01:59:34"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [kkGZ2uPtVA65oJXC]","timestamp":"2023-03-08 01:59:35"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [xGbR7T4kko1ET7uo]","timestamp":"2023-03-08 01:59:35"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [7BYTBngtTp5sMBOq]","timestamp":"2023-03-08 01:59:36"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [Sy9B1OMyYESZXntw]","timestamp":"2023-03-08 01:59:36"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [O1ECIRSkiOok8iYQ]","timestamp":"2023-03-08 01:59:37"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [QMBkPrAp5r86NnHT]","timestamp":"2023-03-08 01:59:37"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [ZTFG9hji6K8XF4pa]","timestamp":"2023-03-08 01:59:38"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [eFSXy8GwcCYanwyk]","timestamp":"2023-03-08 01:59:38"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [1HOu5bgFz2JX66PW]","timestamp":"2023-03-08 01:59:38"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [IYJAUh4nSMkmZUzY]","timestamp":"2023-03-08 01:59:39"}
+{"level":"info","message":"Compacted database file for messages","timestamp":"2023-03-08 01:59:41"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [LO6n0O4eCGxKvfMn]","timestamp":"2023-03-08 01:59:42"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [OSbyjowaSfJGDYir]","timestamp":"2023-03-08 01:59:44"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [SCUTl8x0uRzkDA3x]","timestamp":"2023-03-08 01:59:46"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [SCUTl8x0uRzkDA3x]","timestamp":"2023-03-08 01:59:58"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [OSbyjowaSfJGDYir]","timestamp":"2023-03-08 01:59:59"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [LO6n0O4eCGxKvfMn]","timestamp":"2023-03-08 02:00:00"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [CqtOXpT2iddRncDN]","timestamp":"2023-03-08 02:00:04"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [4VELl6QYkOs8Yto5]","timestamp":"2023-03-08 02:13:17"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 02:14:10"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 02:14:14"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 02:14:14"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 02:14:14"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 02:14:14"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 02:14:14"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 02:14:14"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 02:14:14"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 02:14:16"}
+{"level":"info","message":"Created client session f6b2318761d2ec61f4bfee32","timestamp":"2023-03-08 02:14:18"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"f6b2318761d2ec61f4bfee32","timestamp":"2023-03-08 02:14:21"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:14:23"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:14:23"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 02:14:23"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 02:14:24"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1639ms","timestamp":"2023-03-08 02:14:24"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [rPajppx5WrHqFolP]","timestamp":"2023-03-08 02:14:42"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [smrlDslavQon3Wmz]","timestamp":"2023-03-08 02:14:45"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [7BTLA0P60GDRi2Fp]","timestamp":"2023-03-08 02:15:15"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [QT3RULzGuFoPdq7q]","timestamp":"2023-03-08 02:15:17"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 02:16:00"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 02:16:04"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 02:16:04"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 02:16:04"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 02:16:04"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 02:16:04"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 02:16:04"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 02:16:04"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 02:16:06"}
+{"level":"info","message":"Created client session fea2537dafb044d57f13c3c9","timestamp":"2023-03-08 02:16:08"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"fea2537dafb044d57f13c3c9","timestamp":"2023-03-08 02:16:17"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:16:19"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:16:19"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 02:16:19"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 02:16:19"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1581ms","timestamp":"2023-03-08 02:16:20"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [WA5IdCjxSCAmso7X]","timestamp":"2023-03-08 02:16:26"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 02:19:07"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 02:19:07"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 02:19:10"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 02:19:10"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 02:19:10"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 02:19:10"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 02:19:10"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 02:19:10"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 02:19:10"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 02:19:12"}
+{"level":"info","message":"Created client session 030a48f3f54845f0a86550d1","timestamp":"2023-03-08 02:19:14"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"030a48f3f54845f0a86550d1","timestamp":"2023-03-08 02:19:17"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:19:18"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:19:18"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 02:19:18"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 02:19:19"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1525ms","timestamp":"2023-03-08 02:19:19"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [7zaP6Q97NHiGARkk]","timestamp":"2023-03-08 02:19:26"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [O9oLZ1P2xi0uGkP9]","timestamp":"2023-03-08 02:19:28"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 02:21:27"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 02:21:27"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 02:21:30"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 02:21:30"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 02:21:30"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 02:21:30"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 02:21:30"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 02:21:30"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 02:21:30"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 02:21:32"}
+{"level":"info","message":"Created client session d19c41f86b209fcab6ed53fe","timestamp":"2023-03-08 02:21:34"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"d19c41f86b209fcab6ed53fe","timestamp":"2023-03-08 02:21:38"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:21:40"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:21:40"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 02:21:40"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 02:21:41"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1695ms","timestamp":"2023-03-08 02:21:41"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [nAy7gv10B4wtkyI5]","timestamp":"2023-03-08 02:21:59"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [nAy7gv10B4wtkyI5]","timestamp":"2023-03-08 02:22:05"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [O9oLZ1P2xi0uGkP9]","timestamp":"2023-03-08 02:22:06"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [7zaP6Q97NHiGARkk]","timestamp":"2023-03-08 02:22:07"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [WA5IdCjxSCAmso7X]","timestamp":"2023-03-08 02:22:07"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [QT3RULzGuFoPdq7q]","timestamp":"2023-03-08 02:22:08"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [7BTLA0P60GDRi2Fp]","timestamp":"2023-03-08 02:22:08"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [smrlDslavQon3Wmz]","timestamp":"2023-03-08 02:22:09"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [rPajppx5WrHqFolP]","timestamp":"2023-03-08 02:22:11"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [4VELl6QYkOs8Yto5]","timestamp":"2023-03-08 02:22:12"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [CqtOXpT2iddRncDN]","timestamp":"2023-03-08 02:22:15"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 02:22:16"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 02:22:37"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 02:22:37"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 02:22:37"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 02:22:37"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 02:22:37"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 02:22:37"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 02:22:37"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 02:22:40"}
+{"level":"info","message":"Created client session 15450ea57affc2d666d49421","timestamp":"2023-03-08 02:22:42"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"15450ea57affc2d666d49421","timestamp":"2023-03-08 02:22:46"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:22:47"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:22:47"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 02:22:47"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 02:22:48"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1588ms","timestamp":"2023-03-08 02:22:48"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [0bySCMSVMoJrv3fP]","timestamp":"2023-03-08 02:22:59"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [yvlnzMHqdqgtOoKS]","timestamp":"2023-03-08 02:23:00"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 02:23:14"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 02:23:14"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 02:23:17"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 02:23:17"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 02:23:17"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 02:23:17"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 02:23:17"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 02:23:17"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 02:23:17"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 02:23:18"}
+{"level":"info","message":"Created client session e9bf0346e7afd2e6fe098225","timestamp":"2023-03-08 02:23:21"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"e9bf0346e7afd2e6fe098225","timestamp":"2023-03-08 02:23:23"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:23:25"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:23:25"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 02:23:25"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 02:23:26"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1540ms","timestamp":"2023-03-08 02:23:26"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [FelPYi9JHfzwFID3]","timestamp":"2023-03-08 02:23:33"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 02:28:39"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 02:28:39"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-08 02:29:16"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-08 02:29:16"}
+{"level":"info","message":"User Data Directory - \"D:/Eeone/Programms/Foundry VTT/WorldData\"","timestamp":"2023-03-08 02:29:16"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-08 02:29:16"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-08 02:29:16"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-08 02:29:16"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-08 02:29:16"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-08 02:29:18"}
+{"level":"info","message":"Created client session f4e76c14486f1a373141b9b1","timestamp":"2023-03-08 02:29:21"}
+{"level":"info","message":"Administrator authentication successful for session f4e76c14486f1a373141b9b1","timestamp":"2023-03-08 02:29:28"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-08 02:29:30"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using \"name\" which is deprecated in favor of \"id\"\nDeprecated since Version 10\nBackwards-compatible support will be removed in Version 13","timestamp":"2023-03-08 02:29:40"}
+{"level":"warn","message":"The module \"simple-name-generator\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:29:40"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:29:40"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using the old flat core compatibility fields which are deprecated in favor of the new \"compatibility\" object\nDeprecated since Version 10\nBackwards-compatible support will be removed in Version 13","timestamp":"2023-03-08 02:29:40"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module simple-name-generator","timestamp":"2023-03-08 02:29:40"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module socketlib","timestamp":"2023-03-08 02:29:41"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module stairways","timestamp":"2023-03-08 02:29:41"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module zsync","timestamp":"2023-03-08 02:29:41"}
+{"level":"info","message":"Downloading Package - 3%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 7%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 10%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 14%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 17%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 20%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 24%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 27%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 30%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 34%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 37%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 39%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 42%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 46%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 49%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 52%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 56%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 59%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 62%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 66%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 69%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 73%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 76%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 79%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 82%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 86%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 89%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 93%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 96%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 99%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 100%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 5%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 9%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 14%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 18%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 23%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 27%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 32%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 36%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 41%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 45%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 50%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 55%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 59%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 64%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 68%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 73%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 77%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 82%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 86%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 91%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 95%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Installing package - 100%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"FoundryVTT | Installed module ActiveAuras","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Vending Package - 100%","timestamp":"2023-03-08 02:29:43"}
+{"level":"info","message":"Downloading Package - 8%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Downloading Package - 16%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Downloading Package - 24%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Downloading Package - 31%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Downloading Package - 39%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Downloading Package - 47%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Downloading Package - 55%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Downloading Package - 63%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Downloading Package - 71%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Downloading Package - 79%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Downloading Package - 86%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Downloading Package - 94%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Downloading Package - 99%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Downloading Package - 100%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 1%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 2%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 3%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 5%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 6%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 7%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 8%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 9%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 10%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 11%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 13%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 14%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 15%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 16%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 17%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 18%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 19%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 20%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 22%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 23%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 24%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 25%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 26%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 27%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 28%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 30%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 31%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 32%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 33%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 34%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 35%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 36%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 38%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 39%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 40%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 41%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 42%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 43%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 44%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 45%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 47%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 48%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 49%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 50%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 51%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 52%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 53%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 55%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 56%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 57%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 58%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 59%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 60%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 61%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 63%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 64%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 65%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 66%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 67%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 68%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 69%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 70%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 72%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 73%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 74%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 75%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 76%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 77%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 78%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 80%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 81%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 82%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 83%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 84%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 85%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 86%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 88%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 89%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 90%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 91%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 92%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 93%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 94%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 95%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 97%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 98%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 99%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Installing package - 100%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"FoundryVTT | Installed module tokenvisibility","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Vending Package - 100%","timestamp":"2023-03-08 02:29:45"}
+{"level":"info","message":"Downloading Package - 1%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 2%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 3%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 4%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 5%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 7%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 8%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 10%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 12%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 13%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 15%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 17%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 18%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 20%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 22%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 23%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 25%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 27%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 28%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 30%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 32%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 33%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 35%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 37%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 38%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 40%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 42%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 43%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 45%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 47%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 48%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 50%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 52%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 53%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 55%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 57%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 58%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 60%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 62%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 63%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 65%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 67%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 68%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 70%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 72%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 73%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 75%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 77%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 78%","timestamp":"2023-03-08 02:29:47"}
+{"level":"info","message":"Downloading Package - 80%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Downloading Package - 82%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Downloading Package - 84%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Downloading Package - 85%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Downloading Package - 87%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Downloading Package - 89%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Downloading Package - 90%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Downloading Package - 92%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Downloading Package - 94%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Downloading Package - 95%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Downloading Package - 97%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Downloading Package - 99%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Downloading Package - 100%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 4%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 8%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 12%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 16%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 20%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 24%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 28%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 32%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 36%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 40%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 44%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 48%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 52%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 56%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 60%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 64%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 68%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 72%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 76%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 80%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 84%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 88%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 92%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 96%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Installing package - 100%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"FoundryVTT | Installed module item-piles","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Vending Package - 100%","timestamp":"2023-03-08 02:29:48"}
+{"level":"info","message":"Downloading Package - 4%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 8%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 12%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 16%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 20%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 24%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 28%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 32%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 36%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 40%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 44%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 48%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 52%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 56%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 60%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 64%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 68%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 72%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 76%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 80%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 84%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 87%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 91%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 95%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 99%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 100%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 6%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 12%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 18%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 24%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 29%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 35%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 41%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 47%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 53%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 59%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 65%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 71%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 76%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 82%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 88%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 94%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Installing package - 100%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"FoundryVTT | Installed module lib-wrapper","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Vending Package - 100%","timestamp":"2023-03-08 02:29:49"}
+{"level":"info","message":"Downloading Package - 1%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 2%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 3%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 4%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 5%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 8%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 10%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 12%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 14%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 16%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 19%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 21%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 23%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 26%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 28%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 30%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 33%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 35%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 37%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 40%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 42%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 44%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 47%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 49%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 51%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 54%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 56%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 59%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 61%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 63%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 66%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 68%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 70%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 73%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 75%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 77%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 80%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 82%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 84%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 87%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 89%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 91%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 94%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 96%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 98%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 99%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 100%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Installing package - 7%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Installing package - 14%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Installing package - 21%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Installing package - 29%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Installing package - 36%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Installing package - 43%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Installing package - 50%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Installing package - 57%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Installing package - 64%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Installing package - 71%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Installing package - 79%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Installing package - 86%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Installing package - 93%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Installing package - 100%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"FoundryVTT | Installed module mcc","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Vending Package - 100%","timestamp":"2023-03-08 02:29:51"}
+{"level":"info","message":"Downloading Package - 6%","timestamp":"2023-03-08 02:29:52"}
+{"level":"info","message":"Downloading Package - 11%","timestamp":"2023-03-08 02:29:52"}
+{"level":"info","message":"Downloading Package - 17%","timestamp":"2023-03-08 02:29:52"}
+{"level":"info","message":"Downloading Package - 22%","timestamp":"2023-03-08 02:29:52"}
+{"level":"info","message":"Downloading Package - 28%","timestamp":"2023-03-08 02:29:52"}
+{"level":"info","message":"Downloading Package - 33%","timestamp":"2023-03-08 02:29:52"}
+{"level":"info","message":"Downloading Package - 39%","timestamp":"2023-03-08 02:29:52"}
+{"level":"info","message":"Downloading Package - 45%","timestamp":"2023-03-08 02:29:52"}
+{"level":"info","message":"Downloading Package - 50%","timestamp":"2023-03-08 02:29:52"}
+{"level":"info","message":"Downloading Package - 56%","timestamp":"2023-03-08 02:29:52"}
+{"level":"info","message":"Downloading Package - 61%","timestamp":"2023-03-08 02:29:52"}
+{"level":"info","message":"Downloading Package - 67%","timestamp":"2023-03-08 02:29:52"}
+{"level":"info","message":"Downloading Package - 72%","timestamp":"2023-03-08 02:29:52"}
+{"level":"info","message":"Downloading Package - 78%","timestamp":"2023-03-08 02:29:52"}
+{"level":"info","message":"Downloading Package - 83%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Downloading Package - 89%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Downloading Package - 95%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Downloading Package - 99%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Downloading Package - 100%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 3%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 6%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 9%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 12%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 15%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 18%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 21%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 24%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 27%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 30%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 33%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 36%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 39%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 42%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 45%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 48%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 52%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 55%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 58%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 61%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 64%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 67%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 70%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 73%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 76%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 79%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 82%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 85%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 88%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 91%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 94%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 97%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Installing package - 100%","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"FoundryVTT | Installed module smalltime","timestamp":"2023-03-08 02:29:53"}
+{"level":"info","message":"Vending Package - 100%","timestamp":"2023-03-08 02:29:53"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"f4e76c14486f1a373141b9b1","timestamp":"2023-03-08 02:30:08"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:30:10"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:30:10"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 02:30:10"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 824ms","timestamp":"2023-03-08 02:30:10"}
+{"level":"info","message":"FoundryVTT | Deleted Item with id [wpDpXkONNzUV3F38] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-08 02:30:47"}
+{"level":"info","message":"FoundryVTT | Created Item with id [LwJzXmyGJml0hH0o] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-08 02:31:28"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:32:29"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-08 02:32:29"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-08 02:32:29"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 638ms","timestamp":"2023-03-08 02:32:29"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 02:33:33"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 02:33:33"}

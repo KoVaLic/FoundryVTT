@@ -21,6 +21,7 @@
       "UpdateItemPileSuccess": "Item Pile successfully updated.",
       "UpdateMerchantSuccess": "Merchant successfully updated.",
       "ItemTransferred": "{source_actor_name}'s {item_name} was given to {target_actor_name}.",
+      "ItemAdded": "{item_name} was added to {target_actor_name}.",
       "GiveItemAccepted": "{user_name} accepted your item offer.",
       "ShownToPlayers": "Showing {actor_name} to players",
       "CreatedJournal": "Created the Item Piles Vault Log journal."
@@ -253,6 +254,7 @@
         "Header": "You're dropping: {item_name}",
         "Content": "You're adding this item to the item pile \"{target_name}\".",
         "ContentMultipleQuantity": "You have {quantity} of this item, how many do you want to drop?",
+        "ContentInfiniteQuantity": "How many do you want to drop?",
         "Submit": "Add to pile",
         "SubmitNoTarget": "Create new pile"
       },
@@ -261,6 +263,7 @@
         "Header": "You're giving: {item_name}",
         "Content": "Do you want to give this item to \"{target_name}\"?",
         "ContentMultipleQuantity": "You have {quantity} of this item, how many do you want to give away?",
+        "ContentInfiniteQuantity": "How many do you want to give to \"{target_name}\"?",
         "Submit": "Give"
       },
       "DepositItem": {
@@ -268,6 +271,7 @@
         "Header": "You're depositing: {item_name}",
         "Content": "Do you want to deposit this item into \"{target_name}\"?",
         "ContentMultipleQuantity": "You have {quantity} of this item, how many do you want to deposit?",
+        "ContentInfiniteQuantity": "How many do you want to deposit?",
         "Submit": "Deposit"
       },
       "WithdrawItem": {
@@ -275,14 +279,19 @@
         "Header": "You're withdrawing: {item_name}",
         "Content": "Do you want to withdraw this item from \"{target_name}\"?",
         "ContentMultipleQuantity": "There's {quantity} of this item, how many do you want to withdraw?",
+        "ContentInfiniteQuantity": "",
         "Submit": "Withdraw"
+      },
+      "EditCurrencies": {
+        "Title": "Editing Currencies",
+        "Content": "As a GM, you can update the currencies this on item pile:",
+        "Submit": "Submit"
       },
       "DropCurrencies": {
         "Title": "Dropping Currencies",
-        "Content": "You can drop the following currencies into this item pile:",
-        "ContentNoTarget": "As a GM, you can update the currencies this on item pile:",
+        "Content": "You can add the following currencies into this item pile:",
         "NoCurrency": "{actor_name} has no valid currencies...",
-        "Submit": "Add to pile"
+        "Submit": "Add"
       },
       "DepositCurrencies": {
         "Title": "Deposit Currencies",
@@ -313,6 +322,7 @@
         "Title": "Item Piles Module Configuration",
         "Local": "Local Settings",
         "Module": "Module Settings",
+        "Styles": "Style Settings",
         "System": "System Specific Settings",
         "Donate": "If you like this module, consider donating to keep it running!",
         "MoreToCome": "And with more configuration options to come...",
@@ -351,6 +361,9 @@
         "DisplayQuantityNo": "No, always hide quantity",
         "InfiniteQuantity": "Infinite Quantity",
         "InfiniteQuantityExplanation": "When enabled, this item cannot run out of quantity when sold by a merchant.",
+        "InfiniteQuantityDefault": "Default to merchant setting",
+        "InfiniteQuantityYes": "Yes, infinite quantity",
+        "InfiniteQuantityNo": "No, standard quantity",
         "KeepZero": "Keep Zero Quantity",
         "KeepZeroExplanation": "When fully sold out, the merchant does not remove this item but sets it to not for sale instead.",
         "PriceExplanation": "In this tab, you can configure the price of this item, including whether this item will cost other items to purchase.",
@@ -387,14 +400,32 @@
       },
       "SimilaritiesEditor": {
         "Title": "Item Piles Similarities Editor",
-        "Explanation_P1": "Here you can define multiple types of identifiers that helps Item Piles differentiate between similar items. In almost every system, items can be differentiated with their \"name\" and \"type\".",
-        "Explanation_P2": "But in some cases, such as in Pathfinder 2nd Edition, temporary items may share those with permanent items. So by adding \"system.temporary.value\", your temporary items are considered \"unique\" and separate from permanent ones.",
+        "Explanation": "Here you can define multiple types of identifiers that helps Item Piles differentiate between similar items. In almost every system, items can be differentiated with their \"name\" and \"type\". But in some cases, such as in Pathfinder 2nd Edition, temporary items may share those with permanent items. So by adding \"system.temporary.value\", your temporary items are considered \"unique\" and separate from permanent ones.",
         "Path": "Attribute path"
+      },
+      "CustomItemCategoriesEditor": {
+        "Title": "Custom Item Categories Editor",
+        "Explanation": "Here you can configure which custom item categories are available in your world. They are dynamically added to when you add a new one for an item.",
+        "Category": "Category"
       },
       "UnstackableItemTypesEditor": {
         "Title": "Unstackable Item Types Editor",
         "Explanation": "Here you can define which types items that cannot be stacked.",
         "Type": "Item Type"
+      },
+      "VaultStylesEditor": {
+        "Title": "Item Piles Vault Styles Editor",
+        "Explanation": "Here you can define multiple styles for items in vaults. For example, you can make a style look at \"system.rarity\" to be \"rare\", and apply a style onto to items that matches the setup.",
+        "Path": "Attribute path",
+        "Value": "Matching Value",
+        "Style": "Configure Style",
+        "AddNew": "Add new style rule"
+      },
+      "StylesEditor": {
+        "Title": "Styles Editor",
+        "Style": "Style",
+        "Variable": "Variable",
+        "Value": "Value"
       },
       "ItemTypePriceModifiersEditor": {
         "Title": "Item Type Price Modifiers Editor",
@@ -507,8 +538,10 @@
           "PurchaseOnlyExplanation": "When enabled, characters cannot sell items to this merchant.",
           "HideNewItems": "Hide New Items",
           "HideNewItemsExplanation": "When enabled, any items sold to this merchant will be hidden.",
-          "OnyAcceptBasePrice": "Only Accept Base Price",
-          "OnyAcceptBasePriceExplanation": "When enabled, all items sold to this merchant must use the base price, and not any custom prices.",
+          "HideItemsWithZeroCost": "Hide Items With Zero Cost",
+          "HideItemsWithZeroCostExplanation": "When enabled, this makes it so that customers cannot buy or sell items that have a cost of zero (free).",
+          "OnlyAcceptBasePrice": "Only Accept Base Price",
+          "OnlyAcceptBasePriceExplanation": "When enabled, all items sold to this merchant must use the base price, and not any custom prices.",
           "OpenTimes": "Open Times",
           "OpenTimesExplanation": "When enabled, the merchant is can only be interacted by players at certain times of the day.",
           "OpenStatus": "Open Status",
@@ -516,6 +549,10 @@
           "OpenStatusOpen": "Open",
           "OpenStatusClosed": "Closed",
           "OpenStatusAuto": "Automatic (Simple Calendar)",
+          "ClosedDays": "Closed Days (Simple Calendar)",
+          "ClosedDaysExplanation": "On the days checked, the merchant will be closed (if the merchant open status is set to automatic).",
+          "ClosedHolidays": "Closed Holidays (Simple Calendar)",
+          "ClosedHolidaysExplanation": "On days where there are notes with the given note category, the merchant will be closed (if the merchant open status is set to automatic).",
           "PriceModifierTitle": "Buy and Sell Price Modifiers",
           "PriceModifierExplanation": "This configures the modifiers for the cost of every item in the shop. You can also configure modifiers per item type, and even for specific characters (such as silver-tongued bards). You are not limited to 200%, type into the field to go even higher.",
           "BuyPriceModifier": "Buy Price Modifier (%)",
@@ -630,10 +667,25 @@
         "Label": "Configure Unstackable Types",
         "Hint": "Here you can configure which types of items are considered to be unique, no matter what. The types configured here cannot be stacked and can only ever have a quantity of 1."
       },
+      "CssVariables": {
+        "Title": "CSS Variables Styles",
+        "Label": "Configure CSS Variables",
+        "Hint": "This allows you to configure the various CSS variables that drive the colors and other styles within item piles' interfaces."
+      },
+      "VaultStyles": {
+        "Title": "Vault Styles",
+        "Label": "Configure Vault Styles",
+        "Hint": "This allows you to add rules that will style items based on property paths and values on the items themselves."
+      },
       "PricePresets": {
         "Title": "Price Presets",
         "Label": "Configure Price Presets",
         "Hint": "Here you can configure custom preset prices that you can then easily import onto items."
+      },
+      "CustomItemCategories": {
+        "Title": "Custom Item Categories",
+        "Label": "Configure Item Categories",
+        "Hint": "In this, you can configure the custom item categories, which are shown as suggestions in the item editor."
       },
       "EnableDroppingItems": {
         "Title": "Enable Dropping Items",

@@ -20063,3 +20063,102 @@
 {"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 638ms","timestamp":"2023-03-08 02:32:29"}
 {"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-08 02:33:33"}
 {"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-08 02:33:33"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-09 03:03:12"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-09 03:03:12"}
+{"level":"info","message":"User Data Directory - \"E:/Games/Foundry VTT/WorldData\"","timestamp":"2023-03-09 03:03:12"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-09 03:03:12"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-09 03:03:12"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-09 03:03:12"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-09 03:03:12"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-09 03:03:14"}
+{"level":"info","message":"Created client session 40c6d10b8ef9621efa75589d","timestamp":"2023-03-09 03:03:16"}
+{"level":"info","message":"Administrator authentication successful for session 40c6d10b8ef9621efa75589d","timestamp":"2023-03-09 03:03:27"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-09 03:03:28"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using \"name\" which is deprecated in favor of \"id\"\nDeprecated since Version 10\nBackwards-compatible support will be removed in Version 13","timestamp":"2023-03-09 03:03:41"}
+{"level":"warn","message":"The module \"simple-name-generator\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-09 03:03:41"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-09 03:03:41"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using the old flat core compatibility fields which are deprecated in favor of the new \"compatibility\" object\nDeprecated since Version 10\nBackwards-compatible support will be removed in Version 13","timestamp":"2023-03-09 03:03:41"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module simple-name-generator","timestamp":"2023-03-09 03:03:41"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module lib-wrapper","timestamp":"2023-03-09 03:03:42"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module ActiveAuras","timestamp":"2023-03-09 03:03:42"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module mcc","timestamp":"2023-03-09 03:03:42"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module item-piles","timestamp":"2023-03-09 03:03:42"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module tokenvisibility","timestamp":"2023-03-09 03:03:42"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module socketlib","timestamp":"2023-03-09 03:03:42"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module smalltime","timestamp":"2023-03-09 03:03:43"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module stairways","timestamp":"2023-03-09 03:03:43"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module zsync","timestamp":"2023-03-09 03:03:43"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"40c6d10b8ef9621efa75589d","timestamp":"2023-03-09 03:04:22"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-09 03:04:24"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-09 03:04:24"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-09 03:04:24"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 704ms","timestamp":"2023-03-09 03:04:24"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [FelPYi9JHfzwFID3]","timestamp":"2023-03-09 03:04:28"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [yvlnzMHqdqgtOoKS]","timestamp":"2023-03-09 03:04:29"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [0bySCMSVMoJrv3fP]","timestamp":"2023-03-09 03:04:30"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-09 03:04:36"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-09 03:04:36"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-09 15:45:15"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-09 15:45:15"}
+{"level":"info","message":"User Data Directory - \"D:/Games/Foundry VTT/WorldData\"","timestamp":"2023-03-09 15:45:15"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": null,\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-09 15:45:17"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-09 15:45:18"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-09 15:45:19"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-09 15:45:19"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-09 15:45:31"}
+{"level":"warn","message":"Could not reach IP discovery service","timestamp":"2023-03-09 15:45:36"}
+{"level":"info","message":"Created client session fa920e7e19d26e72db3fc48f","timestamp":"2023-03-09 15:45:48"}
+{"level":"info","message":"Administrator authentication successful for session fa920e7e19d26e72db3fc48f","timestamp":"2023-03-09 15:46:25"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-09 15:46:29"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using \"name\" which is deprecated in favor of \"id\"\nDeprecated since Version 10\nBackwards-compatible support will be removed in Version 13","timestamp":"2023-03-09 15:47:08"}
+{"level":"warn","message":"The module \"simple-name-generator\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-09 15:47:08"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-09 15:47:08"}
+{"level":"warn","message":"The module \"simple-name-generator\" is using the old flat core compatibility fields which are deprecated in favor of the new \"compatibility\" object\nDeprecated since Version 10\nBackwards-compatible support will be removed in Version 13","timestamp":"2023-03-09 15:47:08"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module simple-name-generator","timestamp":"2023-03-09 15:47:36"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module item-piles","timestamp":"2023-03-09 15:47:36"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module mcc","timestamp":"2023-03-09 15:47:36"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module tokenvisibility","timestamp":"2023-03-09 15:47:36"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module lib-wrapper","timestamp":"2023-03-09 15:47:36"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module ActiveAuras","timestamp":"2023-03-09 15:47:36"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module stairways","timestamp":"2023-03-09 15:47:36"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module socketlib","timestamp":"2023-03-09 15:47:36"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module zsync","timestamp":"2023-03-09 15:47:36"}
+{"level":"info","message":"FoundryVTT | Applied sidegrade metadata updates to module smalltime","timestamp":"2023-03-09 15:47:36"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-09 15:47:44"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-09 15:47:44"}
+{"code":"ECOMPROMISED","errno":-4058,"level":"error","message":"ENOENT: no such file or directory, stat 'D:\\Games\\Foundry VTT\\WorldData\\Config\\options.json.lock'","path":"D:\\Games\\Foundry VTT\\WorldData\\Config\\options.json.lock","stack":"Error: ENOENT: no such file or directory, stat 'D:\\Games\\Foundry VTT\\WorldData\\Config\\options.json.lock'","syscall":"stat","timestamp":"2023-03-09 15:47:45"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-09 15:57:23"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-09 15:57:23"}
+{"level":"info","message":"User Data Directory - \"D:/Games/Foundry VTT/WorldData\"","timestamp":"2023-03-09 15:57:23"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": null,\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-09 15:57:23"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-09 15:57:23"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-09 15:57:23"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-09 15:57:23"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-09 15:57:23"}
+{"level":"info","message":"Created client session 2f49655a13f6535a8398ff1e","timestamp":"2023-03-09 15:57:26"}
+{"ip":"::1","level":"warn","message":"Administrator authentication failed for session 2f49655a13f6535a8398ff1e; invalid password","status":403,"timestamp":"2023-03-09 15:57:39"}
+{"level":"info","message":"Administrator authentication successful for session 2f49655a13f6535a8398ff1e","timestamp":"2023-03-09 15:57:44"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-09 15:57:47"}
+{"level":"warn","message":"You are calling DataModel#update which is renamed to DataModel#updateSource","timestamp":"2023-03-09 15:57:58"}
+{"level":"info","message":"Saved application configuration options to D:/Games/Foundry VTT/WorldData/Config/options.json","timestamp":"2023-03-09 15:57:58"}
+{"level":"warn","message":"Application configuration settings updated, server restart required!","timestamp":"2023-03-09 15:57:58"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-09 15:57:58"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-09 15:57:58"}
+{"code":"ECOMPROMISED","errno":-4058,"level":"error","message":"ENOENT: no such file or directory, utime 'D:\\Games\\Foundry VTT\\WorldData\\Config\\options.json.lock'","path":"D:\\Games\\Foundry VTT\\WorldData\\Config\\options.json.lock","stack":"Error: ENOENT: no such file or directory, utime 'D:\\Games\\Foundry VTT\\WorldData\\Config\\options.json.lock'","syscall":"utime","timestamp":"2023-03-09 15:57:58"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-09 20:32:29"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-09 20:32:29"}
+{"level":"info","message":"User Data Directory - \"D:/Games/Foundry VTT/WorldData\"","timestamp":"2023-03-09 20:32:29"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-09 20:32:29"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-09 20:32:29"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-09 20:32:29"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-09 20:32:29"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-09 20:32:32"}
+{"level":"info","message":"Created client session 047c209da2f6bcb38ba78ddf","timestamp":"2023-03-09 20:32:34"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"047c209da2f6bcb38ba78ddf","timestamp":"2023-03-09 20:32:38"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-09 20:32:40"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-09 20:32:40"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-09 20:32:40"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-09 20:32:41"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1461ms","timestamp":"2023-03-09 20:32:41"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-09 20:32:45"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-09 20:32:45"}

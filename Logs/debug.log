@@ -20162,3 +20162,353 @@
 {"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1461ms","timestamp":"2023-03-09 20:32:41"}
 {"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-09 20:32:45"}
 {"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-09 20:32:45"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-11 17:58:11"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-11 17:58:11"}
+{"level":"info","message":"User Data Directory - \"D:/Games/Foundry VTT/WorldData\"","timestamp":"2023-03-11 17:58:11"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-11 17:58:11"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-11 17:58:11"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-11 17:58:11"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-11 17:58:11"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-11 17:58:14"}
+{"level":"info","message":"Created client session 4b04a9a2c10e2b179f42cd70","timestamp":"2023-03-11 17:58:16"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"4b04a9a2c10e2b179f42cd70","timestamp":"2023-03-11 17:58:21"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 17:58:23"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 17:58:23"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-11 17:58:23"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-11 17:58:23"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1492ms","timestamp":"2023-03-11 17:58:23"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [W59HVT5ErJbdQq9T] in parent Scene [wvG1o4drSWkXHx7N]","timestamp":"2023-03-11 17:58:30"}
+{"level":"info","message":"FoundryVTT | Created Folder with id [awwhwt4BgXB7H8xK]","timestamp":"2023-03-11 17:59:48"}
+{"level":"info","message":"FoundryVTT | Created Actor with id [XUkzXPbbjQOLbOZe]","timestamp":"2023-03-11 18:00:44"}
+{"level":"info","message":"FoundryVTT | Created Actor with id [LFVULCrBPnNuZkOV]","timestamp":"2023-03-11 18:00:50"}
+{"level":"info","message":"FoundryVTT | Created Actor with id [VIs9OL0GyXepFfq9]","timestamp":"2023-03-11 18:00:53"}
+{"level":"info","message":"FoundryVTT | Created Actor with id [wlF7AA30ruQr6zpk]","timestamp":"2023-03-11 18:00:55"}
+{"level":"info","message":"FoundryVTT | Created Folder with id [sgsArj3LrC9cP1uh]","timestamp":"2023-03-11 18:01:16"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 18:01:50"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 18:01:50"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-11 18:01:50"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 223ms","timestamp":"2023-03-11 18:01:50"}
+{"level":"info","message":"FoundryVTT | Created Item with id [b2dAhyn58wAebqNT] in parent Actor [XUkzXPbbjQOLbOZe]","timestamp":"2023-03-11 18:05:04"}
+{"level":"info","message":"FoundryVTT | Created Item with id [UxXivjiDGSoZTq3k] in parent Actor [XUkzXPbbjQOLbOZe]","timestamp":"2023-03-11 18:05:45"}
+{"level":"info","message":"FoundryVTT | Created Token with id [vp6mhREqOlscgnJi] in parent Scene [wvG1o4drSWkXHx7N]","timestamp":"2023-03-11 18:07:23"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [vp6mhREqOlscgnJi] in parent Scene [wvG1o4drSWkXHx7N]","timestamp":"2023-03-11 18:08:11"}
+{"level":"info","message":"FoundryVTT | Created Item with id [GtKuxqZZOL7eCZuQ] in parent Actor [LFVULCrBPnNuZkOV]","timestamp":"2023-03-11 18:12:15"}
+{"level":"info","message":"FoundryVTT | Created Item with id [xkXxybErY9MBaYjR] in parent Actor [LFVULCrBPnNuZkOV]","timestamp":"2023-03-11 18:28:06"}
+{"level":"info","message":"FoundryVTT | Created Item with id [9d8csT8NdeiVW5rV] in parent Actor [LFVULCrBPnNuZkOV]","timestamp":"2023-03-11 18:28:14"}
+{"level":"info","message":"FoundryVTT | Created Item with id [wAs0fLdMmewfjTOl] in parent Actor [LFVULCrBPnNuZkOV]","timestamp":"2023-03-11 18:28:19"}
+{"level":"info","message":"FoundryVTT | Created Item with id [7kvCZauZsYPygOPg] in parent Actor [LFVULCrBPnNuZkOV]","timestamp":"2023-03-11 18:28:28"}
+{"level":"info","message":"Compacted database file for actors","timestamp":"2023-03-11 18:28:30"}
+{"level":"info","message":"FoundryVTT | Created Item with id [JFblXOWFUxMLGgUX] in parent Actor [VIs9OL0GyXepFfq9]","timestamp":"2023-03-11 18:34:38"}
+{"level":"info","message":"FoundryVTT | Created Item with id [nlKRIt4L2ebbuSjS] in parent Actor [VIs9OL0GyXepFfq9]","timestamp":"2023-03-11 18:34:49"}
+{"level":"info","message":"FoundryVTT | Deleted Item with id [nlKRIt4L2ebbuSjS] in parent Actor [VIs9OL0GyXepFfq9]","timestamp":"2023-03-11 18:35:28"}
+{"level":"info","message":"FoundryVTT | Created Item with id [cEWYDz3u1e0yctaF] in parent Actor [VIs9OL0GyXepFfq9]","timestamp":"2023-03-11 18:35:30"}
+{"level":"info","message":"FoundryVTT | Created Item with id [njt8Pz6pVSYWZGVr] in parent Actor [VIs9OL0GyXepFfq9]","timestamp":"2023-03-11 18:36:06"}
+{"level":"info","message":"FoundryVTT | Created Item with id [Q8AHFBN6guSp4N6u] in parent Actor [VIs9OL0GyXepFfq9]","timestamp":"2023-03-11 18:39:23"}
+{"level":"info","message":"FoundryVTT | Created Scene with id [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:41:10"}
+{"level":"info","message":"FoundryVTT | Extracted base64 asset: \"D:\\Games\\Foundry VTT\\WorldData\\Data\\worlds\\deep-dark-heresy\\assets\\scenes\\5v7NIiEn5h8FoXeI-thumb.webp\"","timestamp":"2023-03-11 18:42:05"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [kdiHUjBYDH0sjnHW] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:42:31"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [RBO6BHcHNzh0Xn6F] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:42:42"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [wysUd6K6oOqVw1f9] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:42:46"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [1OPRMN8QZsV4dP3X] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:42:47"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [AvWTlwEOEMxFoYTI] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:42:50"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [hch4mnPAF2GBroEz] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:42:51"}
+{"level":"info","message":"FoundryVTT | Deleted Wall with id [hch4mnPAF2GBroEz] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:42:53"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [Hb9k4oejpoTg4vFN] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:42:56"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [x1pXb5BUXwO8vH3x] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:42:57"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [7llQ1F6N4m5n6V6a] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:42:59"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [zFACU4rlSzjnigRJ] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:08"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [lT1J9Oos7cI7Szr3] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:10"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [KHF03sX4DXMLPmxC] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:13"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [IzzMyW7COQqpNeL9] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:14"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [0iz7mVbTzXjzai3K] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:16"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [T4SIzUQ7u8iBU5WP] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:42"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [lQJv8zXWRtlDNNSp] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:43"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [RLUE9f8EnJD3kkAS] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:44"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [kM6G1qtbPgDHTjTf] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:45"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [9WqWPgORRuLrs1ID] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:47"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [Ism53QMnC9eastl4] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:48"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [YpoHJ3PtZmL86U9o] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:50"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [yFD51ZJvSw3Gqldu] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:50"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [1kSfDtfcCpZ1SKqW] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:52"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [j2ZF1lkFWj8gfCpf] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:43:59"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [EkzCUkjF6sy8hNej] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:01"}
+{"level":"info","message":"FoundryVTT | Deleted Wall with id [EkzCUkjF6sy8hNej] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:03"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [qcbD48j6GPlwkSng] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:05"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [3h7qU1kXg8sfSuOT] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:06"}
+{"level":"info","message":"FoundryVTT | Deleted Wall with id [3h7qU1kXg8sfSuOT] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:08"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [ekfv7JUSi60Rex05] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:25"}
+{"level":"info","message":"Compacted database file for scenes","timestamp":"2023-03-11 18:44:27"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [AQP8yDoS9oOECDN7] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:31"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [twpJrdwwdWsV7tYD] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:32"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [pRWh3znRDJAKWqwE] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:33"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [0XD5fJp7mryhb8EK] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:34"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [YccVOjUwEcZ9MFSI] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:37"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [ZGxs9flqz26KGjA7] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:38"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [DwsFZCE5quWMOe6d] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:40"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [WGDECXtTFdAcmvQW] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:41"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [R4apeyH6b5aF8tVc] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:43"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [OBGgfyDbw8dWTWxm] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:45"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [d2e3TkmyxiQ5OaIz] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:46"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [tA6XsRLPlyHljiw2] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:47"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [RATKz63ImHpxbLYr] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:51"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [aTmNnI2pdfFJZ2DV] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:52"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [VQmF9kyRr0TDTZsX] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:54"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [XktXBJ8o5bSoIELG] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:44:59"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [3e48YlpdHTqBrAVZ] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:00"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [p5pM2xoac3p8NBKd] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:01"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [znOpwq5fv4oZtWXe] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:03"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [i1Nfh1RPeoCN4U2s] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:04"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [bTeU3Ws6C2q28Tyu] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:07"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [7FLEjjkk38gGWAzV] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:09"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [NEoMTM1e1l7Vj0Co] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:10"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [rTItuhf58HAPfDCX] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:11"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [pJYfqcDVGsuasNQs] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:15"}
+{"level":"info","message":"FoundryVTT | Deleted Wall with id [pJYfqcDVGsuasNQs] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:17"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [HmHkfZght3KsubVg] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:20"}
+{"level":"info","message":"FoundryVTT | Deleted Wall with id [HmHkfZght3KsubVg] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:22"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [K6OAtfKlqj5E2g5O] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:26"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [yfAx8UhMgQe900bU] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:29"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [5X1E2YmdkrWwmIuG] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:30"}
+{"level":"info","message":"FoundryVTT | Created Wall with id [oJfA9MxGQYWfIMIu] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:32"}
+{"level":"info","message":"FoundryVTT | Deleted Wall with id [ekfv7JUSi60Rex05] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:45:55"}
+{"level":"info","message":"FoundryVTT | Created Token with id [ZBw1oHsqnUxs7nf9] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:46:38"}
+{"level":"info","message":"FoundryVTT | Created Token with id [01q2GdxS6ZveyIcP] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:46:39"}
+{"level":"info","message":"FoundryVTT | Created Token with id [yDd3ZoC5M0GWv9uR] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:46:41"}
+{"level":"info","message":"FoundryVTT | Created FogExploration with id [67Y1NoU9QGNNkK2Z]","timestamp":"2023-03-11 18:47:18"}
+{"level":"info","message":"FoundryVTT | Created Token with id [8xy0okbA5uAGz5ss] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:47:50"}
+{"level":"info","message":"FoundryVTT | Created Token with id [PI3jWQIbdSc9eQm2] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:47:51"}
+{"level":"info","message":"FoundryVTT | Created Token with id [7BxmzjsqRm1MrdX9] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:47:58"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [7BxmzjsqRm1MrdX9] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:48:34"}
+{"level":"info","message":"FoundryVTT | Created Token with id [4DCCtuLRpW36mhij] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:48:36"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [PI3jWQIbdSc9eQm2] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:48:54"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [8xy0okbA5uAGz5ss] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:48:55"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [yDd3ZoC5M0GWv9uR] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:48:55"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [01q2GdxS6ZveyIcP] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:48:56"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [ZBw1oHsqnUxs7nf9] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:48:56"}
+{"level":"info","message":"Compacted database file for scenes","timestamp":"2023-03-11 18:48:58"}
+{"level":"info","message":"FoundryVTT | Created Token with id [C9yq9kWr3CYnKBzE] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:49:06"}
+{"level":"info","message":"FoundryVTT | Created Token with id [TrmIfllXbDcTMAry] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:49:08"}
+{"level":"info","message":"FoundryVTT | Created Token with id [iP1k1bJCevb3JcP4] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:49:09"}
+{"level":"info","message":"FoundryVTT | Created Token with id [OfNRFY07tG0Qgtgq] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:49:11"}
+{"level":"info","message":"FoundryVTT | Created Token with id [2TmTWAzSIY6ZmV7Y] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:49:13"}
+{"level":"info","message":"FoundryVTT | Created Token with id [EBQVeJxx7Fkce9je] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:49:20"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [EBQVeJxx7Fkce9je] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:49:23"}
+{"level":"info","message":"FoundryVTT | Created Token with id [HrZAQF2nd2VEJkgt] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:49:37"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [HrZAQF2nd2VEJkgt] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:50:01"}
+{"level":"info","message":"FoundryVTT | Created Token with id [ultpw81nXWLaTJRn] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:50:04"}
+{"level":"info","message":"FoundryVTT | Created Token with id [T9wScrAnsHVaBDUn] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:51:03"}
+{"level":"info","message":"FoundryVTT | Created Token with id [7K2h0IVlmgxAjzSl] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:51:05"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [7K2h0IVlmgxAjzSl] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:51:07"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [T9wScrAnsHVaBDUn] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:51:08"}
+{"level":"info","message":"FoundryVTT | Created Token with id [iBes5Aqr1LSUHMP2] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:51:26"}
+{"level":"info","message":"FoundryVTT | Created Token with id [EyULS586IcN67XpA] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:51:27"}
+{"level":"info","message":"FoundryVTT | Created Token with id [Kw8sULF2XLQi1tBw] in parent Scene [5v7NIiEn5h8FoXeI]","timestamp":"2023-03-11 18:51:29"}
+{"level":"info","message":"FoundryVTT | Created Item with id [mTIyLWzxGOVoTMRD] in parent Actor [LFVULCrBPnNuZkOV]","timestamp":"2023-03-11 18:53:33"}
+{"ip":"::1","level":"warn","message":"User authentication failed for user DungeonMaster; invalid password","session":"4b04a9a2c10e2b179f42cd70","status":401,"timestamp":"2023-03-11 18:58:35"}
+{"ip":"::1","level":"warn","message":"User authentication failed for user DungeonMaster; invalid password","session":"4b04a9a2c10e2b179f42cd70","status":401,"timestamp":"2023-03-11 18:58:41"}
+{"ip":"::1","level":"warn","message":"User authentication failed for user DungeonMaster; invalid password","session":"4b04a9a2c10e2b179f42cd70","status":401,"timestamp":"2023-03-11 18:58:47"}
+{"ip":"::1","level":"info","message":"User authentication successful for user DungeonMaster","session":"4b04a9a2c10e2b179f42cd70","timestamp":"2023-03-11 18:58:51"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 18:58:52"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 18:58:52"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-11 18:58:52"}
+{"level":"info","message":"Vended World data to User [4VhaeaOV0296fQLc] in 393ms","timestamp":"2023-03-11 18:58:52"}
+{"level":"info","message":"FoundryVTT | Created Actor with id [2Lke5GdCQHo395P8]","timestamp":"2023-03-11 19:01:27"}
+{"level":"info","message":"Created client session 31bbf9dfb242c0b2da6d95bb","timestamp":"2023-03-11 19:01:47"}
+{"ip":"::ffff:172.26.133.7","level":"info","message":"User authentication successful for user Endlane","session":"31bbf9dfb242c0b2da6d95bb","timestamp":"2023-03-11 19:02:01"}
+{"level":"info","message":"Created client session a0b0a77624b9205d004f8f1e","timestamp":"2023-03-11 19:02:01"}
+{"ip":"::ffff:172.26.57.36","level":"info","message":"User authentication successful for user InfiniteGyre","session":"a0b0a77624b9205d004f8f1e","timestamp":"2023-03-11 19:02:11"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 19:02:13"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 19:02:13"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-11 19:02:13"}
+{"level":"info","message":"Vended World data to User [ZmxFdRez0Ld8unxb] in 222ms","timestamp":"2023-03-11 19:02:13"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 19:02:17"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 19:02:17"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-11 19:02:17"}
+{"level":"info","message":"Vended World data to User [AZhOB38yEre8B8Kf] in 228ms","timestamp":"2023-03-11 19:02:17"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 19:02:32"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 19:02:32"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-11 19:02:32"}
+{"level":"info","message":"Vended World data to User [ZmxFdRez0Ld8unxb] in 214ms","timestamp":"2023-03-11 19:02:32"}
+{"ip":"::ffff:172.26.133.7","level":"info","message":"User authentication successful for user Endlane","session":"31bbf9dfb242c0b2da6d95bb","timestamp":"2023-03-11 19:02:57"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 19:03:02"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 19:03:02"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-11 19:03:02"}
+{"level":"info","message":"Vended World data to User [ZmxFdRez0Ld8unxb] in 258ms","timestamp":"2023-03-11 19:03:02"}
+{"level":"info","message":"FoundryVTT | Created Folder with id [nhglmNtceUYvhgV0]","timestamp":"2023-03-11 19:04:28"}
+{"level":"info","message":"Compacted database file for actors","timestamp":"2023-03-11 19:05:07"}
+{"level":"info","message":"FoundryVTT | Created Token with id [h08JOKnLw6vXnqHD] in parent Scene [wvG1o4drSWkXHx7N]","timestamp":"2023-03-11 19:08:35"}
+{"level":"info","message":"FoundryVTT | Deleted Token with id [gqdGyKjRw4VCO2yX] in parent Scene [wvG1o4drSWkXHx7N]","timestamp":"2023-03-11 19:08:42"}
+{"level":"info","message":"FoundryVTT | Created FogExploration with id [Iin6AQpNiRcLN9Uh]","timestamp":"2023-03-11 19:09:48"}
+{"level":"info","message":"Created client session b6f2f9528058d878ff29919f","timestamp":"2023-03-11 19:10:56"}
+{"ip":"::ffff:172.26.196.17","level":"info","message":"User authentication successful for user Delhior","session":"b6f2f9528058d878ff29919f","timestamp":"2023-03-11 19:11:02"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 19:11:05"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 19:11:05"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-11 19:11:05"}
+{"level":"info","message":"Vended World data to User [x5ucr8WgVnspfhAW] in 397ms","timestamp":"2023-03-11 19:11:05"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [QZB6Qqt1e9VqMzCO]","timestamp":"2023-03-11 19:11:49"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [QZB6Qqt1e9VqMzCO]","timestamp":"2023-03-11 19:12:08"}
+{"level":"info","message":"FoundryVTT | Created Item with id [NUB0bVMz0ywPmnsp] in parent Actor [hTC4HxXRl4WOxD2n]","timestamp":"2023-03-11 19:20:00"}
+{"level":"info","message":"FoundryVTT | Created Item with id [dCd7HR3EsXJD4hNm] in parent Actor [4MuGdRgvFGZZkicW]","timestamp":"2023-03-11 19:21:11"}
+{"level":"info","message":"FoundryVTT | Created Item with id [qvyLMvzCHvhAvhC7] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-11 19:23:07"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [otG5yq4eC45YAuBg]","timestamp":"2023-03-11 19:23:36"}
+{"level":"info","message":"FoundryVTT | Created Item with id [z3JdxnkNeajH14xh] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-11 19:24:43"}
+{"level":"info","message":"FoundryVTT | Deleted Item with id [qvyLMvzCHvhAvhC7] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-11 19:26:31"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [Qllo412GzNjmC0GR]","timestamp":"2023-03-11 19:31:17"}
+{"level":"info","message":"FoundryVTT | Deleted Item with id [17BPqzr6kCTch1En] in parent Actor [4MuGdRgvFGZZkicW]","timestamp":"2023-03-11 19:31:25"}
+{"level":"info","message":"FoundryVTT | Created Item with id [Tgv3bVnvyDFaoMNs] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-11 19:31:26"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [Uzy23XOPl1eAD5jl]","timestamp":"2023-03-11 19:31:32"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [vl3Rgo6FlTZvBrUR]","timestamp":"2023-03-11 19:31:41"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [gIbNgj60bFs9yf8x]","timestamp":"2023-03-11 19:31:42"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [aqi8kKrgu7AtxAaG]","timestamp":"2023-03-11 19:31:46"}
+{"level":"info","message":"FoundryVTT | Deleted Item with id [SSlZ2GPwNk11DmRK] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-11 19:32:33"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [aGlTj3pqhlKzvXpS]","timestamp":"2023-03-11 19:33:09"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [yn6KQ3ObnrIIlx98]","timestamp":"2023-03-11 19:34:06"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [aGlTj3pqhlKzvXpS]","timestamp":"2023-03-11 19:34:49"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [yn6KQ3ObnrIIlx98]","timestamp":"2023-03-11 19:34:58"}
+{"level":"info","message":"FoundryVTT | Created Item with id [bYSZ5ww8yUUM79u3] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-11 19:38:47"}
+{"level":"info","message":"Toggling game pause status to false","timestamp":"2023-03-11 19:40:13"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [lvrXonmaYJyITNJl]","timestamp":"2023-03-11 19:48:56"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [EDmkpyswpC1u3K9d]","timestamp":"2023-03-11 19:57:04"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [KzsAsZwBXDRYUz5f]","timestamp":"2023-03-11 19:57:20"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [eDpFhEng7QGII1ok]","timestamp":"2023-03-11 19:58:37"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [r1564Fs4oZ8N2EC8]","timestamp":"2023-03-11 19:58:37"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [rWcgaRLkwNdwz8Af]","timestamp":"2023-03-11 19:58:46"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [gpdgqzwknDzcxjZK]","timestamp":"2023-03-11 20:06:19"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [z0WkHNtcymXfACZD]","timestamp":"2023-03-11 20:14:51"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [ETWdCmqALBT44KWA]","timestamp":"2023-03-11 20:17:10"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [04vcjtzF5cLv2DhB]","timestamp":"2023-03-11 20:18:08"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [i7611QzklOuslLix]","timestamp":"2023-03-11 20:18:33"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [mZzpiySxo5A6B7yI]","timestamp":"2023-03-11 20:18:56"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [dvnq9ACyUFTbN5hx]","timestamp":"2023-03-11 20:18:58"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [WWO8CmsYyOFYIMBI]","timestamp":"2023-03-11 20:19:04"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [oUrxgz2XnE41ItCM]","timestamp":"2023-03-11 20:19:31"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [FqVMnzkWN0uGWTGB]","timestamp":"2023-03-11 20:19:52"}
+{"level":"info","message":"FoundryVTT | Created Item with id [BVjTG9uuAionPOyZ] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-11 20:20:41"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [lNAGytJ8bhvF5V2B]","timestamp":"2023-03-11 20:21:37"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [TMLPqpUQ2DHwJsQe]","timestamp":"2023-03-11 20:27:35"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [Jjr8n7VCYvwb08xW]","timestamp":"2023-03-11 20:29:13"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [0CVkiCdU7WLfkkXx]","timestamp":"2023-03-11 20:29:13"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [eRKF8PaUPRGZju8D]","timestamp":"2023-03-11 20:29:59"}
+{"level":"info","message":"Activating scene Десолеум [aiAv6m7PlEtp3QWs]","timestamp":"2023-03-11 20:41:39"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [fA7GOO1HKfOdFgA9]","timestamp":"2023-03-11 20:45:10"}
+{"level":"info","message":"FoundryVTT | Created Item with id [QRYm9T2FycrPe7TE] in parent Actor [4MuGdRgvFGZZkicW]","timestamp":"2023-03-11 20:50:47"}
+{"level":"info","message":"Compacted database file for actors","timestamp":"2023-03-11 20:52:17"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [AtgFG6VNpv8SzHW9]","timestamp":"2023-03-11 20:53:23"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [4b6GkFGLme2UNehT]","timestamp":"2023-03-11 21:06:02"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [0BAw4NCzzcmaHTzJ]","timestamp":"2023-03-11 21:07:37"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [WKvR6RKjxWrjAT7e]","timestamp":"2023-03-11 21:10:47"}
+{"level":"info","message":"FoundryVTT | Created Item with id [0d3890ijsmYgnRX5] in parent Actor [LNhaUuf2abAhGB9k]","timestamp":"2023-03-11 21:13:40"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [bJ2Qbj3Nes7LRaN8]","timestamp":"2023-03-11 21:13:54"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [c8zkDItwNI4FBEfc]","timestamp":"2023-03-11 21:13:58"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [7V7Em9iLG2M6ShQs]","timestamp":"2023-03-11 21:14:37"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [GqH2INCUYYf4JxaU]","timestamp":"2023-03-11 21:14:54"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [DBzG1lTV5EGg4QPw]","timestamp":"2023-03-11 21:14:54"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [zh2HBGUNLMaW81wx]","timestamp":"2023-03-11 21:16:07"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [Q2I8oI1XNKzpfIsi]","timestamp":"2023-03-11 21:16:29"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [PWj7EuvYrpsbAge2]","timestamp":"2023-03-11 21:16:38"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [K1mxAe6kFasF217v]","timestamp":"2023-03-11 21:16:58"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [rV9z9AIyg2DO1yei]","timestamp":"2023-03-11 21:17:08"}
+{"level":"info","message":"Compacted database file for messages","timestamp":"2023-03-11 21:17:10"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [lNrOvRiXvUuNTWIE]","timestamp":"2023-03-11 21:17:32"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [nmQkkfDUmpgZq4nD]","timestamp":"2023-03-11 21:19:20"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [DYWegJ9jt8BR8fvH]","timestamp":"2023-03-11 21:19:34"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [pMa9Bskd3PTExe4F]","timestamp":"2023-03-11 21:19:46"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [O6SYqSSfUEkVjBbX]","timestamp":"2023-03-11 21:19:49"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [pMa9Bskd3PTExe4F]","timestamp":"2023-03-11 21:19:51"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [MqcR0zCVyOROBypr]","timestamp":"2023-03-11 21:25:45"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [IYjrpbmGhIr7pkoR]","timestamp":"2023-03-11 21:26:24"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [2TfBFmyvuyf7JGBS]","timestamp":"2023-03-11 21:27:41"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [le2ktYddRIlzeoMR]","timestamp":"2023-03-11 21:33:51"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [yB06JePoaCKy6lH0]","timestamp":"2023-03-11 21:34:39"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [K4P4YEMD8HIyWXa5]","timestamp":"2023-03-11 21:34:51"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [s2uH9j4lS1dl6lDa]","timestamp":"2023-03-11 21:37:22"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [3k6bvZ1BbDrZzUIr]","timestamp":"2023-03-11 21:37:40"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [EnbrsSh3v8W1IwAs]","timestamp":"2023-03-11 21:40:56"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [NaPoMH8tTl74DpOA]","timestamp":"2023-03-11 21:46:55"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [fKvsPmTZhaEINX9U]","timestamp":"2023-03-11 21:50:01"}
+{"level":"info","message":"Activating scene Порт Гир [wvG1o4drSWkXHx7N]","timestamp":"2023-03-11 21:50:09"}
+{"level":"info","message":"Compacted database file for settings","timestamp":"2023-03-11 21:51:27"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [dGHfU4393cUiChGa]","timestamp":"2023-03-11 21:54:28"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [pTMq7B9OqEDAHPbP]","timestamp":"2023-03-11 21:54:46"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [SQB0LoV9KkspYmP7]","timestamp":"2023-03-11 22:01:28"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [WeGFaqsfSOA79VLo]","timestamp":"2023-03-11 22:02:17"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [RtOPl9NSjYNWJgPg]","timestamp":"2023-03-11 22:03:33"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [XhEOApz6jA9RzyJ5]","timestamp":"2023-03-11 22:03:54"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [hYopqw67frar0q6e]","timestamp":"2023-03-11 22:11:00"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [dkEIdQPrtg7pu1Sf]","timestamp":"2023-03-11 22:11:17"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [AcEcuFm1HW86Rnhw]","timestamp":"2023-03-11 22:11:18"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [hCleknXBuFlOpgcx]","timestamp":"2023-03-11 22:11:24"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [kHbAVLg8THGNRTlt]","timestamp":"2023-03-11 22:13:56"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [GXWdJ4EYAieCAkI6]","timestamp":"2023-03-11 22:14:04"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [7vjZWnLeEDcXHt1q]","timestamp":"2023-03-11 22:16:12"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [KbLWrnANW6YKLqW3]","timestamp":"2023-03-11 22:16:18"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [45zlfxrucMrB4UmU]","timestamp":"2023-03-11 22:17:31"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [LORSnte0pcZi160m]","timestamp":"2023-03-11 22:17:33"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [9wdIxPz9e0IM85vP]","timestamp":"2023-03-11 22:17:59"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [tsfFk6uO7Fd0zP2A]","timestamp":"2023-03-11 22:18:09"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [D7DWHcQ6TebvZq3q]","timestamp":"2023-03-11 22:18:33"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [FzLCG5DzUZPuUcKH]","timestamp":"2023-03-11 22:20:53"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [p9p0Ef3x5bpJCnnm]","timestamp":"2023-03-11 22:21:01"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [Q5ZVkwZEtBcpBc8V]","timestamp":"2023-03-11 22:21:02"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [YnQRcDsZKganm5x9]","timestamp":"2023-03-11 22:21:03"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [rS5BOsh5qFkwvF2J]","timestamp":"2023-03-11 22:28:05"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [qGNRJYgEAbRDaKJ4]","timestamp":"2023-03-11 22:28:08"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [jcULZZlPU9Ckzdj6]","timestamp":"2023-03-11 22:28:09"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [P4PslY5JS3VA0R2E]","timestamp":"2023-03-11 22:28:19"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [mBtQCIF9mfjeW1jC]","timestamp":"2023-03-11 22:39:26"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [F8coqrI9mTKJnecy]","timestamp":"2023-03-11 22:40:35"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [oSOammjtdKRJ50cU]","timestamp":"2023-03-11 22:44:05"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [B50s0YMElmkJkvpU]","timestamp":"2023-03-11 22:46:39"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [qLy0JZg5cuywVt98]","timestamp":"2023-03-11 23:03:45"}
+{"level":"info","message":"Created client session 853510b1d492b51e6231e809","timestamp":"2023-03-11 23:11:49"}
+{"level":"info","message":"Created client session 78c068e3aa4cecb7a7e394aa","timestamp":"2023-03-11 23:11:49"}
+{"ip":"::ffff:172.26.57.36","level":"info","message":"User authentication successful for user InfiniteGyre","session":"78c068e3aa4cecb7a7e394aa","timestamp":"2023-03-11 23:11:56"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 23:12:02"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 23:12:02"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-11 23:12:02"}
+{"level":"info","message":"Vended World data to User [AZhOB38yEre8B8Kf] in 430ms","timestamp":"2023-03-11 23:12:02"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [YFCMzpxoogNLG3Ac]","timestamp":"2023-03-11 23:13:54"}
+{"level":"info","message":"Compacted database file for messages","timestamp":"2023-03-11 23:13:56"}
+{"level":"info","message":"FoundryVTT | Deleted Item with id [3jmcWqX8l7uXliNI] in parent Actor [hTC4HxXRl4WOxD2n]","timestamp":"2023-03-11 23:15:31"}
+{"level":"info","message":"FoundryVTT | Deleted Item with id [VpKbDFU9AJ2i1liT] in parent Actor [hTC4HxXRl4WOxD2n]","timestamp":"2023-03-11 23:15:32"}
+{"level":"info","message":"FoundryVTT | Deleted Item with id [fZiPTRaVupcxxDfk] in parent Actor [hTC4HxXRl4WOxD2n]","timestamp":"2023-03-11 23:15:32"}
+{"level":"info","message":"FoundryVTT | Created Item with id [Q3SdhvOhexhHzGVA] in parent Actor [FJX1sn2KIPyCfxNa]","timestamp":"2023-03-11 23:16:12"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 23:22:19"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-11 23:22:19"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-11 23:22:19"}
+{"level":"info","message":"Vended World data to User [AZhOB38yEre8B8Kf] in 456ms","timestamp":"2023-03-11 23:22:19"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [aR9aAfHN9dHYAbwo]","timestamp":"2023-03-11 23:30:41"}
+{"level":"info","message":"FoundryVTT | Created Item with id [lmbt2NXk9QKLFenJ] in parent Actor [4MuGdRgvFGZZkicW]","timestamp":"2023-03-11 23:34:34"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [0zQ0iHJoZziAqcEl]","timestamp":"2023-03-11 23:52:50"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [0zQ0iHJoZziAqcEl]","timestamp":"2023-03-11 23:52:54"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [hP2i7uaMGYwAVQF2]","timestamp":"2023-03-12 00:00:38"}
+{"level":"info","message":"FoundryVTT | Created Item with id [V2nOeDswOB9q6vwj] in parent Actor [4MuGdRgvFGZZkicW]","timestamp":"2023-03-12 00:00:41"}
+{"level":"info","message":"FoundryVTT | Deleted Item with id [V2nOeDswOB9q6vwj] in parent Actor [4MuGdRgvFGZZkicW]","timestamp":"2023-03-12 00:00:49"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [yMO7MMOkPum3FBl6]","timestamp":"2023-03-12 00:00:53"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [yMO7MMOkPum3FBl6]","timestamp":"2023-03-12 00:19:43"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [hP2i7uaMGYwAVQF2]","timestamp":"2023-03-12 00:19:44"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [aR9aAfHN9dHYAbwo]","timestamp":"2023-03-12 00:19:48"}
+{"level":"info","message":"FoundryVTT | Deleted ChatMessage with id [qLy0JZg5cuywVt98]","timestamp":"2023-03-12 00:19:49"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [2sNJOVYqizf2gEmj]","timestamp":"2023-03-12 00:24:03"}
+{"level":"info","message":"FoundryVTT | Created ChatMessage with id [5dP89pBVkw94hgZf]","timestamp":"2023-03-12 00:24:16"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-12 00:29:28"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-12 00:29:28"}
+{"level":"info","message":"Running on Node.js - Version 16.15.0","timestamp":"2023-03-14 00:17:25"}
+{"level":"info","message":"Foundry Virtual Tabletop - Version 10 Build 290","timestamp":"2023-03-14 00:17:25"}
+{"level":"info","message":"User Data Directory - \"D:/Games/Foundry VTT/WorldData\"","timestamp":"2023-03-14 00:17:25"}
+{"level":"info","message":"Application Options:\n{\n  \"compressStatic\": true,\n  \"fullscreen\": false,\n  \"hostname\": null,\n  \"language\": \"en.core\",\n  \"localHostname\": null,\n  \"port\": 30000,\n  \"protocol\": null,\n  \"proxyPort\": null,\n  \"proxySSL\": false,\n  \"routePrefix\": null,\n  \"updateChannel\": \"stable\",\n  \"upnp\": true,\n  \"upnpLeaseDuration\": null,\n  \"awsConfig\": null,\n  \"passwordSalt\": null,\n  \"sslCert\": null,\n  \"sslKey\": null,\n  \"world\": \"deep-dark-heresy\",\n  \"serviceConfig\": null,\n  \"adminPassword\": \"••••••••••••••••\"\n}","timestamp":"2023-03-14 00:17:25"}
+{"level":"info","message":"Software license verification succeeded","timestamp":"2023-03-14 00:17:25"}
+{"level":"info","message":"Requesting UPnP port forwarding to destination port 30000","timestamp":"2023-03-14 00:17:25"}
+{"level":"info","message":"Running Electron application with version 20.1.0 using Chromium 104.0.5112.102","timestamp":"2023-03-14 00:17:25"}
+{"level":"info","message":"Server started and listening on port 30000","timestamp":"2023-03-14 00:17:28"}
+{"level":"info","message":"Created client session 4df9b5b90844c7ee798cb209","timestamp":"2023-03-14 00:17:30"}
+{"ip":"::1","level":"info","message":"User authentication successful for user Player7","session":"4df9b5b90844c7ee798cb209","timestamp":"2023-03-14 00:18:43"}
+{"level":"warn","message":"The system \"dark-heresy\" contains compendium pack data which uses the deprecated \"entity\" field which must be migrated to \"type\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-14 00:18:45"}
+{"level":"warn","message":"The system \"dark-heresy\" is using \"author\" which is deprecated in favor of \"authors\"\nDeprecated since Version 9\nBackwards-compatible support will be removed in Version 11","timestamp":"2023-03-14 00:18:45"}
+{"level":"info","message":"Dark Heresy 2E update 4.1.2 is now available!","timestamp":"2023-03-14 00:18:45"}
+{"level":"info","message":"Core software stable update 10.291 is available!","timestamp":"2023-03-14 00:18:46"}
+{"level":"info","message":"Vended World data to User [2bPWSyihumr95KYY] in 1569ms","timestamp":"2023-03-14 00:18:46"}
+{"level":"info","message":"FoundryVTT | Created Scene with id [kRDzh1rowIsQcFvw]","timestamp":"2023-03-14 00:18:56"}
+{"level":"info","message":"FoundryVTT | Deleted Scene with id [kRDzh1rowIsQcFvw]","timestamp":"2023-03-14 00:20:46"}
+{"level":"info","message":"Shutting down Foundry Virtual Tabletop server","timestamp":"2023-03-14 00:20:50"}
+{"level":"info","message":"Shut-down success. Goodbye!","timestamp":"2023-03-14 00:20:50"}

@@ -59,7 +59,7 @@
     },
     "Dialogs": {
       "ResetSettings": {
-        "Title": "Redefinir configurações de módulo Item Piles",
+        "Title": "Redefinir configurações do módulo",
         "Content": "Você tem certeza de que quer redefinir todas as configurações do módulo Item Piles para o padrão do sistema atual? <strong>ISTO NÃO PODE SER DESFEITO!</strong>",
         "Confirm": "Reedefinir configurações do módulo"
       },
@@ -110,6 +110,21 @@
       },
       "TextEditor": {
         "Title": "Editor de texto"
+      },
+      "RemoveMerchantTable": {
+        "Title": "Remover Tabela do Comerciante",
+        "Content": "Tem certeza de que deseja remover a tabela \"{table_name}\" deste comerciante? Isso não pode ser desfeito."
+      },
+      "CantRemoveVaultExpander": {
+        "Title": "Não é possível remover o expansor",
+        "Content": "Você não pode remover este expansor, os itens no cofre não caberiam sem ele. Remova {num_items} itens antes de tentar remover este expansor!"
+      },
+      "UserSelect": {
+        "Title": "Selecionar usuários",
+        "Content": "Mostrar para quais usuários?"
+      },
+      "ClearVaultLog": {
+        "Title": "Limpar registro do cofre?"
       }
     },
     "Currencies": "Moedas",
@@ -125,7 +140,8 @@
       "PileTooFar": "Você está muito distante para interagir com esta pilha de itens.",
       "PileLocked": "Esta pilha de itens está trancada ou não pode ser aberta - você não pode soltar itens nela.",
       "DropNoToken": "Você não tem um token nesta cena, então não pode soltar itens aqui.",
-      "DisallowedItemSell": "Este comerciante não aceita itens \"{type}\""
+      "DisallowedItemSell": "Este comerciante não aceita itens \"{type}\"",
+      "NoTokenFound": "Não foi possível encontrar um token ou personagem para representá-lo."
     },
     "Inspect": {
       "Title": "Inspecionar conteúdo da pilha",
@@ -170,12 +186,19 @@
       "UpdateMerchantSuccess": "Comerciante atualizado com sucesso.",
       "GiveItemAccepted": "{user_name} aceitou sua oferta de item.",
       "ShownToPlayers": "Mostrar {actor_name} para jogadores",
-      "ItemTransferred": "O {item_name} de {source_actor_name} foi dado a {target_actor_name}."
+      "ItemTransferred": "O {item_name} de {source_actor_name} foi dado a {target_actor_name}.",
+      "SystemSupportFound": "Suporte ao sistema encontrado! Aplicando as configurações padrão do sistema para Item Piles...",
+      "ItemAdded": "{item_name} foi adicionado a {target_actor_name}.",
+      "CreatedJournal": "Criou o Diário de Registro de Cofre do Item Piles."
     },
     "Warnings": {
       "GiveItemNoGM": "Não há GM ativo para receber você dando este item.",
       "GiveItemDeclined": "{user_name} recusou sua oferta de item.",
-      "NoPlayersActive": "Nenhum jogador está ativo para fazer esta ação"
+      "NoPlayersActive": "Nenhum jogador está ativo para fazer esta ação",
+      "VaultFull": "Este cofre está cheio!",
+      "NoGMsConnected": "AVISO - Sem GMs conectados - As Pilhas de Itens requerem que um GM esteja conectado para que os jogadores possam utilizar a maioria dos recursos do módulo.",
+      "NoGMsConnectedAction": "AVISO - Não foi possível executar \"{action}\" porque nenhum GM está ativo.",
+      "VaultItemNotExpander": "Esse item não é um expansor de cofre"
     },
     "Merchant": {
       "AllTypes": "Todos tipos",
@@ -213,7 +236,15 @@
       "SellItems": "Vender itens",
       "BuyServices": "Comprar serviços",
       "Service": "Serviço",
-      "NoMatchFound": "Nada corresponde à sua pesquisa"
+      "NoMatchFound": "Nada corresponde à sua pesquisa",
+      "ToolTipRemoveTable": "Remover tabela",
+      "ToolTipRemoveAllRolledItems": "Remover todos os itens rolados",
+      "ShoppingAs": "Comprando como {actorName}",
+      "TooltipRollTable": "Rolar Tabela",
+      "RollableTables": "Tabelas roláveis",
+      "AddTable": "Adicionar tabela",
+      "RollAllTables": "Role Todas as Tabelas",
+      "TooltipConfigureTable": "Configurar tabela"
     },
     "Applications": {
       "DropItem": {
@@ -567,6 +598,30 @@
         "Title": "Dígitos decimais de moeda",
         "Hint": "Essa configuração define o dígito decimal mais baixo para o qual suas moedas arredondam. Por exemplo, em uma configuração moderna com moedas modernas, '0,01' permite dois dígitos decimais. Isso não é usado se você tiver mais de uma moeda."
       }
+    },
+    "Types": {
+      "pile": "Item Pile",
+      "container": "Recipiente",
+      "merchant": "Comerciante",
+      "vault": "Cofre"
+    },
+    "Vault": {
+      "VaultTab": "Cofre",
+      "ExpandersTab": "Expansores",
+      "CapacityFull": "Este cofre atingiu sua capacidade máxima de {total_capacity}",
+      "ExpandsCols": "{cols} colunas",
+      "ExpandsRows": "{rows} linhas",
+      "Withdraw": "Retirar",
+      "LogTab": "Logs",
+      "ViewingAs": "Visualizando como {actor_name}",
+      "NeedsCapacity": "Este cofre tem uma capacidade total de {total_capacity}, mas nada está disponível até que os expansores de cofre sejam adicionados",
+      "CapacityLeft": "Este cofre tem uma capacidade de {capacity}, com um máximo de {total_capacity}, arraste e solte expansores de cofre para aumentar a capacidade",
+      "Deposit": "Depósito",
+      "Deposited": "depositado",
+      "LogUserActor": "{actor_name} ({user_name})",
+      "Withdrew": "Retirar",
+      "LogEntry": "{instigator} {action} {quantity}{item_name}",
+      "LogQuantity": "{quantity} x "
     }
   }
 }

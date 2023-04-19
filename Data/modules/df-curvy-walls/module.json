@@ -1,0 +1,137 @@
+{
+  "id": "df-curvy-walls",
+  "version": "3.4.0",
+  "title": "DF Curvy Walls",
+  "description": "Creates wall segments along a Bezier Cubic or Quadratic curve, an ellipse, or a rectangle",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10.288"
+  },
+  "relationships": {
+    "requires": [
+      {
+        "id": "lib-wrapper",
+        "type": "module",
+        "compatibility": {
+          "verified": "1.12.10.0"
+        }
+      },
+      {
+        "id": "lib-df-buttons",
+        "type": "module",
+        "compatibility": {
+          "minimum": "1.4.0"
+        }
+      }
+    ]
+  },
+  "esmodules": [
+    "src/main.js"
+  ],
+  "styles": [
+    "css/df-curvy-walls.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "path": "lang/en.json",
+      "name": "English",
+      "flags": {}
+    },
+    {
+      "lang": "fr",
+      "path": "lang/fr.json",
+      "name": "French",
+      "flags": {}
+    },
+    {
+      "lang": "es",
+      "path": "lang/es.json",
+      "name": "Español",
+      "flags": {}
+    },
+    {
+      "lang": "ja",
+      "path": "lang/ja.json",
+      "name": "日本語",
+      "flags": {}
+    },
+    {
+      "lang": "pt-BR",
+      "path": "lang/pt-BR.json",
+      "name": "Português (Brasil)",
+      "flags": {}
+    }
+  ],
+  "url": "https://github.com/flamewave000/dragonflagon-fvtt/tree/master/df-curvy-walls",
+  "license": "https://raw.githubusercontent.com/flamewave000/dragonflagon-fvtt/master/LICENSE",
+  "manifest": "https://dragonflagon.cafe/mods/man/df-curvy-walls",
+  "download": "https://dragonflagon.cafe/mods/pak/df-curvy-walls",
+  "readme": "https://github.com/flamewave000/dragonflagon-fvtt/tree/master/df-curvy-walls/README.md",
+  "changelog": "https://github.com/flamewave000/dragonflagon-fvtt/tree/master/df-curvy-walls/CHANGELOG.md",
+  "bugs": "https://github.com/flamewave000/dragonflagon-fvtt/issues/new/choose",
+  "authors": [
+    {
+      "name": "flamewave000",
+      "discord": "flamewave000#0001",
+      "url": "https://github.com/flamewave000",
+      "flags": {}
+    }
+  ],
+  "media": [
+    {
+      "type": "cover",
+      "url": "https://raw.githubusercontent.com/flamewave000/dragonflagon-fvtt/master/.assets/df-curvy-walls/cover.png",
+      "loop": false,
+      "flags": {}
+    },
+    {
+      "type": "icon",
+      "url": "https://raw.githubusercontent.com/flamewave000/dragonflagon-fvtt/master/.assets/logo.png",
+      "loop": false,
+      "flags": {}
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/flamewave000/dragonflagon-fvtt/master/.assets/df-curvy-walls/cubic.gif",
+      "loop": false,
+      "flags": {}
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/flamewave000/dragonflagon-fvtt/master/.assets/df-curvy-walls/quadratic.gif",
+      "loop": false,
+      "flags": {}
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/flamewave000/dragonflagon-fvtt/master/.assets/df-curvy-walls/ellipse.gif",
+      "loop": false,
+      "flags": {}
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/flamewave000/dragonflagon-fvtt/master/.assets/df-curvy-walls/rectangle.gif",
+      "loop": false,
+      "flags": {}
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/flamewave000/dragonflagon-fvtt/master/.assets/df-curvy-walls/tracing.gif",
+      "loop": false,
+      "flags": {}
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/flamewave000/dragonflagon-fvtt/master/.assets/df-curvy-walls/clone-tool.gif",
+      "loop": false,
+      "flags": {}
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/flamewave000/dragonflagon-fvtt/master/.assets/df-curvy-walls/circ-rect-special-placement.gif",
+      "loop": false,
+      "flags": {}
+    }
+  ]
+}

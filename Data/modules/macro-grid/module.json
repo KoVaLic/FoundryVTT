@@ -1,0 +1,23 @@
+{
+  "id": "macro-grid",
+  "title": "Macro Grid",
+  "description": "Grid for managing macro hotbars of all users",
+  "authors": [
+    {
+      "name": "Xaukael",
+      "flags": {}
+    }
+  ],
+  "version": "1.0.2",
+  "socket": true,
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10"
+  },
+  "scripts": [
+    "macro-grid.js"
+  ],
+  "url": "https://github.com/xaukael/macro-grid/",
+  "manifest": "https://github.com/xaukael/macro-grid/raw/main/module.json",
+  "download": "https://github.com/xaukael/macro-grid/raw/main/macro-grid.zip"
+}

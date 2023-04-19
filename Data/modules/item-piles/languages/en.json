@@ -282,6 +282,14 @@
         "ContentInfiniteQuantity": "",
         "Submit": "Withdraw"
       },
+      "SplitItem": {
+        "Title": "Split Item Stack",
+        "Header": "You're splitting a stack of {item_name}",
+        "Content": "Do you want to split this stacked item?",
+        "ContentMultipleQuantity": "There's {quantity} of this item, how many do you want in the new stack?",
+        "ContentInfiniteQuantity": "",
+        "Submit": "Split Stack"
+      },
       "EditCurrencies": {
         "Title": "Editing Currencies",
         "Content": "As a GM, you can update the currencies this on item pile:",
@@ -316,6 +324,8 @@
         "Change": "Change",
         "YouCantAfford": "You cannot afford this price",
         "TheyCantAfford": "They cannot afford this price",
+        "YouLackQuantity": "You do not have enough of this item to sell, you have {quantity}, but require {requiredQuantity}",
+        "TheyLackQuantity": "They do not have enough of this item to sell, they have {quantity}, but require {requiredQuantity}",
         "MaxQuantity": "Max {quantity}"
       },
       "Settings": {
@@ -369,6 +379,8 @@
         "PriceExplanation": "In this tab, you can configure the price of this item, including whether this item will cost other items to purchase.",
         "BasePrice": "Base Price",
         "BasePriceExplanation": "This configures the normal price of this item.",
+        "QuantityForPrice": "Quantity For Price",
+        "QuantityForPriceExplanation": "This configures how many of this item one should get when purchasing this item.",
         "Service": "Item Is Service",
         "ServiceExplanation": "This causes this item to not add any item to the buyer's inventory. The service \"item\" can still have quantity, but if it runs out it will not be deleted from the merchant, but set to not for sale instead.",
         "PurchaseMacro": "Purchase Macro",
@@ -385,6 +397,11 @@
         "DropMeClickMe": "Click to add an attribute or drag & drop an item to add",
         "PricePreset": "Or select an exiting price preset:",
         "SelectPreset": "Select price preset",
+        "CanStack": "Can Stack",
+        "CanStackExplanation": "This configures whether this item will stack with other similar items when added to a vault.",
+        "CanStackDefault": "Default to vault's setting",
+        "CanStackYes": "Yes, can always stack",
+        "CanStackNo": "No, cannot stack",
         "VaultExpander": "Vault Expander",
         "VaultExpanderExplanation": "When this is enabled, this item does not act as a normal item in a vault, it instead increases the number of available slots, as determined below.",
         "ExpandColumnsRows": "Column & Rows Expansion",
@@ -570,6 +587,8 @@
           "LayoutExplanation": "This is how many columns and rows should be visible in the vault.",
           "Columns": "Columns",
           "Rows": "Rows",
+          "CanStackItems": "Can Stack Items",
+          "CanStackItemsExplanation": "With this enabled, items added to the vault will stack with similar items. This can also be controlled per-item in their configuration.",
           "EnableExpansion": "Enable Expansion Items",
           "EnableExpansionExplanation": "With this enabled, items that are configured as vault expanders will expand the vault's available space.",
           "BaseExpansion": "Base Expansion",
@@ -642,6 +661,10 @@
       "Price": {
         "Title": "Item price attribute",
         "Hint": "Here you can configure what the attribute path is for each item's price. For example, in D&D5e system, each item's quantity is stored in the item's \"item.system.price\" attribute, so you'd put \"system.price\" in this setting."
+      },
+      "QuantityForPrice": {
+        "Title": "Quantity of item for price attribute",
+        "Hint": "Here you can configure what the attribute path is for the amount of items you get for the price. For example, in PF2e system, there's a \"per\" property on items, which determines what quantity of items you get for the item's price, which stored in the item's \"item.system.price.per\" attribute, so you'd put \"system.price.per\" in this setting."
       },
       "Currencies": {
         "Title": "Currencies",

@@ -1,0 +1,53 @@
+{
+  "id": "lib-df-buttons",
+  "title": "Library: DF Module Buttons",
+  "version": "1.4.2",
+  "description": "Library that provides a way for modules to register controls outside of the scene layer controls",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10.290"
+  },
+  "esmodules": [
+    "src/main.js"
+  ],
+  "styles": [
+    "css/lib-df-buttons.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    }
+  ],
+  "url": "https://github.com/flamewave000/dragonflagon-fvtt/tree/master/lib-df-buttons",
+  "license": "https://raw.githubusercontent.com/flamewave000/dragonflagon-fvtt/master/LICENSE",
+  "manifest": "https://dragonflagon.cafe/mods/man/lib-df-buttons",
+  "download": "https://dragonflagon.cafe/mods/pak/lib-df-buttons",
+  "readme": "https://github.com/flamewave000/dragonflagon-fvtt/tree/master/lib-df-buttons/README.md",
+  "changelog": "https://github.com/flamewave000/dragonflagon-fvtt/tree/master/lib-df-buttons/CHANGELOG.md",
+  "bugs": "https://github.com/flamewave000/dragonflagon-fvtt/issues/new/choose",
+  "authors": [
+    {
+      "name": "flamewave000",
+      "discord": "flamewave000#0001",
+      "url": "https://github.com/flamewave000",
+      "flags": {}
+    }
+  ],
+  "media": [
+    {
+      "type": "cover",
+      "url": "https://raw.githubusercontent.com/flamewave000/dragonflagon-fvtt/master/.assets/lib-df-buttons/cover.png",
+      "loop": false,
+      "flags": {}
+    },
+    {
+      "type": "icon",
+      "url": "https://raw.githubusercontent.com/flamewave000/dragonflagon-fvtt/master/.assets/logo.png",
+      "loop": false,
+      "flags": {}
+    }
+  ]
+}

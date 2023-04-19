@@ -1,0 +1,76 @@
+{
+	"DataInspector": {
+		"DataButton": "Data",
+		"Instructions": "Click to expand, right click to copy path (copied to clipboard also if browser permissions allow).",
+		"Search": "Search",
+		"Filter": "Filter",
+		"IDValue": "ID: {id}\nClick to copy to clipboard",
+		"Key": "Key",
+		"Value": "Value",
+		"NoData": "No data found.",
+		"Depth": {
+			"Plain": "Plain Data",
+			"Functional": "Include Functions"
+		},
+		"Context": {
+			"OpenInspector": "Open in Data Inspector"
+		},
+		"Settings": {
+			"AllowEditing": "Allow editing",
+			"AllowEditingHint": "Allows simple editing by double clicking the values. This affects all users. Responsibility is on you if you break something with this.",
+			"AllowEditingUnsupported": "Allow editing unsupported",
+			"AllowEditingUnsupportedHint": "Allows editing certain additional data types (e.g. base objects and arrays). Only delete option is provided.",
+			"AllowUsers": "Allow users",
+			"AllowUsersHint": "If enabled, users have access to the module.",
+			"Tooltip": "Display entry tooltip",
+			"TooltipHint": "Display tooltips with more straightforward display of per line information, such as complete path.",
+			"IncludeFunctions": "Include functions",
+			"IncludeFunctionsHint": "Include functions in data tree by default.",
+			"ResultQuality": "Result quality",
+			"ResultQualityHint": "Default search result quality. Higher is stricter matching, lower is less so.",
+			"DefaultMode": "Default mode",
+			"DefaultModeHint": "Default data mode.",
+			"Strictness": "Strictness",
+			"StrictnessHint": "Search strictness. Left is more lax, right is more strict.",
+			"Functions": "Functions",
+			"FunctionsHint": "Include getters and functions."
+		},
+		"Editor": {
+			"TokenWarning": "Altering override data may temporarily break the actor. Re-opening the sheet should be enough to fix it.",
+			"TypeWarning": "You're changing the datatype. Be careful!",
+			"Dangerous": "THIS IS POTENTIALLY VERY DANGEROUS."
+		},
+		"Data": {
+			"Mixed": "Mixed",
+			"Roll": "Roll Data",
+			"Source": "Source",
+			"Derived": "Derived",
+			"Override": "Override",
+			"Flags": "Flags",
+			"Legend": "Roll data – used for formulas.<br>Derived data – as seen by the system, macros, modules, etc.<br>Source data – permanently stored data."
+		},
+		"DataValue": {
+			"Getter": "getter (click to resolve)",
+			"Function": "function",
+			"Value": "Value",
+			"Total": "Total",
+			"Length": "{length} characters",
+			"Null": "Null",
+			"Undefined": "Undefined",
+			"Error": {
+				"Unidentified": "ERROR: Unidentified type"
+			}
+		},
+		"Path": "Path",
+		"PathHint": "Data path",
+		"Mode": "Mode",
+		"Type": "Type",
+		"Document": "Document",
+		"DocumentID": "Document ID",
+		"DataModel": "Data Model",
+		"ChildCount": "Children",
+		"StringLength": "Length",
+		"Update": "Update",
+		"Delete": "Delete"
+	}
+}
